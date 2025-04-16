@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Button from './Button';
 
 const Navbar = () => {
   return (
@@ -11,12 +12,23 @@ const Navbar = () => {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/about">About</Link>
+          <Link href="/about-us">About</Link>
         </li>
         <li>
-          <Link href="/contact">Contact</Link>
+          <Link href="/meet-the-team">Meet The Team</Link>{' '}
+        </li>
+        <li>
+          <Link href="/get-involved">Get Involved</Link>{' '}
         </li>
       </ul>
+      <div className="flex gap-4">
+        <Button variant="secondary" className="mt-4">
+          Login
+        </Button>
+        <Button variant="primary" className="mt-4">
+          Sign Up
+        </Button>
+      </div>
     </nav>
   );
 };
