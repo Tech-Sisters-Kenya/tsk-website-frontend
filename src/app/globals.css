@@ -1,5 +1,28 @@
 @import 'tailwindcss';
 
+
 :root {
+  --tsk-primary-dark: #480a69;
+  --tsk-primary: #6f169e;
+  --tsk-secondary: #a848c7;
+  --tsk-light-1: #efd5f8;
+  --tsk-light-2: #f8ebfc;
   --foreground: #ffffff;
+
+  --font-heading: 'League Spartan', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
+  --font-other: 'DM Sans', sans-serif;
+  --font-decorative: 'Square Peg', 'cursive';
+}
+
+body {
+  font-family: var(--font-body);
+  color: #000000;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  color: var(--tsk-primary-dark);
 }
