@@ -2,8 +2,8 @@ import Image from 'next/image';
 
 const WhatWeDo = () => {
   return (
-    <div className="w-full md:h-full  md:relative">
-      <div className="bg-white font-body text-center mx-auto pt-8 pb-20 md:max-w-4xl px-3">
+    <div className="w-full md:relative mb-12">
+      <div className="bg-white font-body text-center mx-auto pt-8 lg:pb-20 md:max-w-4xl px-3">
         <p className="font-bold text-[30px] md:text-[48px] text-[#45084a]">WHAT WE DO</p>
         <p className="font-medium text-[18px] md:text-[20px] text-[#45084a] mb-10">
           At Tech Sisters, we elevate women in technology. We create safe spaces for learning,
@@ -94,7 +94,7 @@ const WhatWeDo = () => {
         width={64}
         height={76}
         alt="Tech sisters logo"
-        className="hidden lg:block md:absolute md:right-0 md:mr-20"
+        className="hidden lg:block lg:absolute lg:right-0 lg:mr-20"
       />
     </div>
   );
