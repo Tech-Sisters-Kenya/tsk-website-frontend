@@ -1,33 +1,83 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
+import clsx from 'clsx';
+
+import Logo from '@/assets/tsk-icon-only-logo.svg';
 import Button from './Button';
 
-const Navbar = () => {
+interface NavLinkProps {
+  href: string;
+  children: React.ReactNode;
+}
+
+const NavLink = ({ href, children }: NavLinkProps) => {
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
+  const linkStyles = clsx(
+    'transition-all relative',
+    'after:absolute after:left-0 after:bottom-[-4px]',
+    'after:h-[2px] after:w-0 after:bg-[var(--tsk-primary-dark)]',
+    'after:transition-all after:duration-300',
+    {
+      'after:w-full': isActive,
+      'hover:after:w-full': !isActive,
+    },
+  );
+
   return (
-    <nav className="w-full flex justify-between items-center px-6 py-4 shadow-md bg-white">
-      <div className="text-xl font-bold">TSK</div>
-      <ul className="flex gap-6 text-sm font-medium">
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/about-us">About</Link>
-        </li>
-        <li>
-          <Link href="/meet-the-team">Meet The Team</Link>{' '}
-        </li>
-        <li>
-          <Link href="/get-involved">Get Involved</Link>{' '}
-        </li>
+    <Link href={href} className={linkStyles} style={{ color: 'var(--tsk-primary-dark)' }}>
+      {children}
+    </Link>
+  );
+};
+
+const Navbar = () => {
+  const navStyles = {
+    backgroundColor: 'var(--tsk-light-1)',
+  };
+
+  const navItems = [
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
+    { href: '/events', label: 'Events' },
+    { href: '/get-involved', label: 'Get Involved' },
+    { href: '/blogs', label: 'Blogs' },
+    { href: '/jobs', label: 'Jobs' },
+  ];
+
+  return (
+    <nav className="flex items-center justify-between px-4 py-1 m-8 rounded-3xl" style={navStyles}>
+      <div className="flex items-center">
+        <Link href="/" className="flex items-center">
+          <Image src={Logo} alt="Tech Sisters Kenya logo" width={50} height={25} className="mr-2" />
+          <div
+            className="transition-opacity hover:opacity-80"
+            style={{ color: 'var(--tsk-primary-dark)' }}
+          >
+            {['TECH', 'SISTERS', 'KENYA'].map((text) => (
+              <p key={text} className="text-xs font-bold uppercase">
+                {text}
+              </p>
+            ))}
+          </div>
+        </Link>
+      </div>
+
+      <ul className="flex gap-8 font-semibold">
+        {navItems.map(({ href, label }) => (
+          <li key={href}>
+            <NavLink href={href}>{label}</NavLink>
+          </li>
+        ))}
       </ul>
+
       <div className="flex gap-4">
-        <Button variant="secondary" className="mt-4">
-          Login
-        </Button>
-        <Button variant="primary" className="mt-4">
-          Sign Up
-        </Button>
+        <Button variant="secondary">Login</Button>
+        <Button variant="primary">Sign Up</Button>
       </div>
     </nav>
   );
