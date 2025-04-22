@@ -11,12 +11,12 @@ const Button = ({ variant = 'primary', className, ...props }: ButtonProps) => {
   // Using style attribute to apply CSS variables
   const variantStyles = {
     primary: {
-      backgroundColor: '#45084A',
-      color: '#ffffff',
+      backgroundColor: 'var(--tsk-primary-dark)',
+      color: 'var(--tsk-light-1)',
     },
     secondary: {
-      backgroundColor: '#efd5f8',
-      color: '#45084A',
+      backgroundColor: 'var(--tsk-light-1)',
+      color: 'var(--tsk-primary-dark)',
     },
   };
 
