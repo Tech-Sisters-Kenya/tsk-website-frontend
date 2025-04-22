@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import CallToAction from '@/components/CallToAction';
 import WhatWeDo from '@/components/WhatWeDo';
 import Gallery from '@/components/Gallery';
+import ExploreBlogs from '@/components/ExploreBlogs';
 
 export default function LandingPage() {
   return (
@@ -14,6 +15,7 @@ export default function LandingPage() {
       </main>
       <WhatWeDo />
       <Gallery />
+      <ExploreBlogs />
       <CallToAction />
       <Footer />
     </div>
