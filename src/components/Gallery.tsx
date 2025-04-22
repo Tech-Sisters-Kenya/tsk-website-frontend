@@ -28,7 +28,7 @@ const Gallery = () => {
     <div className="bg-tsk-light-2 lg:mt-32 ">
       <div className="md:max-w-5xl mx-auto p-4 font-semibold">
         <h3 className=" text-3xl md:text-5xl text-center pb-2 ">Gallery</h3>
-        <p className="text-[#45084a] pb-10 md:px-20 text-center">
+        <p className="text-[#45084a] px-10 pb-10 md:px-20 text-center">
           Every picture tells a story — of women finding their voice, building skills, and lifting
           each other higher. These moments are a glimpse into the heart of Tech Sisters Kenya — a
           place where growth meets belonging.
