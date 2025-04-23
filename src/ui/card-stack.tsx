@@ -36,7 +36,7 @@ export const CardStack = ({ items, className }: CardStackProps) => {
   }, [activeIndex, items.length]);
 
   return (
-    <div className={cn('relative h-[500px] w-[90%] lg:w-full mx-auto', className)}>
+    <div className={cn('relative h-[450px]  w-[90%] lg:w-full mx-auto ', className)}>
       {items.map((item, index) => {
         const isActive = index === activeIndex;
         const isPrevActive = index === prevIndex && isAnimating;
@@ -57,7 +57,7 @@ export const CardStack = ({ items, className }: CardStackProps) => {
           // Exiting card (sliding left)
           if (isPrevActive) {
             return {
-              x: 200, // Slide far to the left
+              x: 100, // Slide far to the left
               y: 0,
               scale: 0.9,
               opacity: 0.5,
@@ -115,7 +115,7 @@ export const CardStack = ({ items, className }: CardStackProps) => {
             />
             <div className="p-6 rounded-t-2xl">
               <h3 className="text-lg font-semibold text-[#45084a] mb-2">{item.title}</h3>
-              <p className="text-sm text-gray-600 mb-4">{item.description}</p>
+              <p className="text-sm mb-4">{item.description}</p>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">{item.date}</span>
                 <Button className="bg-[#45084a] hover:bg-[#5a0a61] text-white rounded-md px-4 py-2">

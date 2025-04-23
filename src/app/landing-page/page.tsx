@@ -5,6 +5,8 @@ import CallToAction from '@/components/CallToAction';
 import WhatWeDo from '@/components/WhatWeDo';
 import Gallery from '@/components/Gallery';
 import ExploreBlogs from '@/components/ExploreBlogs';
+import Testimonials from '@/components/Testimonials';
+import testimonialShared from '@/data/testimonialShared.json';
 
 export default function LandingPage() {
   return (
@@ -16,6 +18,7 @@ export default function LandingPage() {
       <WhatWeDo />
       <Gallery />
       <ExploreBlogs />
+      <Testimonials slides={testimonialShared} />
       <CallToAction />
       <Footer />
     </div>

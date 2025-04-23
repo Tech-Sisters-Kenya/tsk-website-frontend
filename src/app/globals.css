@@ -95,3 +95,10 @@ h3 {
 .font-decorative {
   font-family: var(--font-decorative);
 }
+
+/* this is a class for very small screens to adjust bottom-padding for the TSK Blogs overlapping cardstack section */
+@media (max-width: 320px) {
+  .pb-small-screen {
+    padding-bottom: 7rem; /* You can change this value */
+  }
+}

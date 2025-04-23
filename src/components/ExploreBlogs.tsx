@@ -47,7 +47,7 @@ const ExploreBlogs = () => {
   const cardsBlogArray = blogsArray.slice(0, 3);
 
   return (
-    <div className="w-full lg:max-w-6xl lg:mx-auto p-6 md:p-24 text-[#45084a]">
+    <div className="w-full lg:max-w-6xl lg:mx-auto px-6 pt-6 pb-small-screen md:px-24 md:pt-24 text-[#45084a] ">
       <div className=" text-center">
         <h1 className="font-semibold  text-3xl pb-2 md:text-5xl">EXPLORE OUR BLOGS</h1>
         <p className="italic text-base pb-1">Stories, Lessons & Resources for Tech Sisters Kenya</p>
@@ -66,7 +66,7 @@ const ExploreBlogs = () => {
             </div>
           ))}
           <div className="flex justify-center mt-8 md:my-10">
-            <Button className="font-black px-4 py-4 text-[16px] md:text-[20px]">
+            <Button className="font-black px-4 py-4 text-[16px] md:text-[17x]">
               <a
                 href="http://www.instagram.com/techsisterskenya"
                 target="_blank"
@@ -80,10 +80,10 @@ const ExploreBlogs = () => {
         <hr></hr>
         <div className="hidden lg:block mt-10 mb-12 w-px bg-[#45084a]"></div>
         {/* overlapping images */}
-        <div className="w-full md:mt-5 lg:w-1/2 pl-10 relative">
+        <div className="w-full md:mt-5 lg:w-1/2 pl-10 relative ">
           <h2 className="text-2xl font-bold mt-5">TSK Blogs</h2>
           <div className="w-16 h-1 bg-[#45084a]"></div>
-          <div className="relative w-full h-[550px] mt-10 lg:pl-10">
+          <div className="relative w-full h-[500px]  mt-10 lg:pl-10">
             <CardStack items={cardsBlogArray} />
           </div>
           <Image
