@@ -1,0 +1,10 @@
+
+# Some module is quite complex, and shouldn't be touched without an expert chiming in
+*                     @bridgitkanini
+
+
+# Devsec
+*.yaml                       @nellynakhero
+
+# Devsec
+Dockerfile                       @nellynakhero
