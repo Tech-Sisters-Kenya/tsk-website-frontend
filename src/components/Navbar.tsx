@@ -5,7 +5,7 @@ import Button from './Button';
 
 const Navbar = () => {
   return (
-    <nav className="w-full flex justify-between items-center px-6 py-4 shadow-md bg-white">
+    <nav className="w-full flex justify-between items-center px-6 py-4 rounded-md bg-tsk-light-2">
       <div className="text-xl font-bold">TSK</div>
       <ul className="flex gap-6 text-sm font-medium">
         <li>
