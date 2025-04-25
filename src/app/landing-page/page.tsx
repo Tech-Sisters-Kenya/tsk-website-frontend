@@ -2,9 +2,6 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CallToAction from '@/components/CallToAction';
-import WhatWeDo from '@/components/WhatWeDo';
-import Gallery from '@/components/Gallery';
-import ExploreBlogs from '@/components/ExploreBlogs';
 import Hero from '@/components/Hero';
 import WhoWeAre from '@/components/WhoWeAre';
 import OurReach from '@/components/OurReach';
@@ -28,9 +25,6 @@ export default function LandingPage() {
           stats={reachStats}
         />
       </main>
-      <WhatWeDo />
-      <Gallery />
-      <ExploreBlogs />
       <CallToAction />
       <Footer />
     </div>
