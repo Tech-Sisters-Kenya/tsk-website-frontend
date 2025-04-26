@@ -15,7 +15,7 @@ function GICardSection() {
     <section className="w-full mx-auto text-tsk-primary-dark mt-12 p-12 flex justify-center">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
         {/* first col cards */}
-        <div className="flex flex-col gap-6 md:gap-16 items-center">
+        <div className="flex flex-col gap-6 md:gap-16 items-center order-1">
           <GICard
             cardTitle="LinkedIn"
             bgColor="#7BA2C7"
@@ -41,7 +41,7 @@ function GICardSection() {
         <ConnectorLines left="50%" top="18%" style="h-px w-[60%] -translate-x-1/2" />
 
         {/* image */}
-        <div className="relative flex flex-col gap-6 justify-center items-center">
+        <div className="relative flex flex-col gap-6 justify-center items-center order-3 md:order-2">
           <div>
             <Image src={GICardImg} alt="Card Image" />
           </div>
@@ -57,7 +57,7 @@ function GICardSection() {
         <ConnectorLines left="50%" bottom="18%" style="w-[60%] h-px -translate-x-1/2" />
 
         {/* second col cards */}
-        <div className="flex flex-col gap-6 md:gap-16 items-center">
+        <div className="flex flex-col gap-6 md:gap-16 items-center order-2 md:order-3">
           <GICard
             cardTitle="TSK Slack Channel"
             bgColor="#0A891B8F"

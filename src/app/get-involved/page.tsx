@@ -3,13 +3,14 @@ import Link from 'next/link';
 
 import GIHeroSection from '@/components/GIHeroSection';
 import GICardSection from '@/components/GICardSection';
+import GIPartnershipSection from '@/components/GIPartnershipSection';
 
 export default function GetInvolved() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-12">
+    <main className="flex min-h-screen w-full flex-col items-center">
       <GIHeroSection />
 
-      <div className="w-full mt-12">
+      <div className="w-full  px-12 text-tsk-primary-dark">
         <p className="ml-4 font-body">
           <span className="pr-4">&#62; Home</span>
           <span>&#62; Get Involved</span>
@@ -44,6 +45,8 @@ export default function GetInvolved() {
       </div>
 
       <GICardSection />
+
+      <GIPartnershipSection />
     </main>
   );
 }
