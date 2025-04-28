@@ -54,7 +54,7 @@ const Navbar = () => {
   };
 
   const navStyles = {
-    backgroundColor: 'var(--tsk-light-1)',
+    backgroundColor: 'var(--tsk-light-2)',
   };
 
   const navItems = [
@@ -67,7 +67,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="flex items-center justify-between px-4 py-1 m-8 rounded-3xl" style={navStyles}>
+    <nav className="flex items-center justify-between px-4 py-1 rounded-3xl m-8" style={navStyles}>
       <div className="flex items-center">
         <Link href="/" className="flex items-center">
           <Image src={Logo} alt="Tech Sisters Kenya logo" width={50} height={25} className="mr-2" />
