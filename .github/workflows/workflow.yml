@@ -1,0 +1,19 @@
+name: Run Jest Tests
+on:
+  push:
+    branches: [ feature/devops-tests ]
+  pull_request:
+    branches: [ feature/devops-tests ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Jest Tests
+        run: npm test
