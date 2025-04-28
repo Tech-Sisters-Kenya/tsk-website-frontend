@@ -7,7 +7,7 @@ import HeroImg from '@/assets/GetInvolvedHero.svg';
 function GIHeroSection() {
   return (
     <section className="w-full mx-auto text-tsk-primary-dark p-12">
-      <div className=" bg-tsk-light-2 rounded-3xl px-12">
+      <div className=" bg-tsk-light-1 rounded-3xl px-12">
         <Navbar />
         <div className="pt-12 grid grid-cols-1 lg:grid-cols-2 items-center">
           <div>
