@@ -18,13 +18,13 @@ export default function GetInvolved() {
 
         <div className="mt-8 ml-8 flex flex-col md:flex-row gap-4">
           <Link
-            href=""
+            href="#become-a-tech-sister"
             className="border border-tsk-primary-dark px-4 py-2 rounded-full text-center"
           >
             Become a Tech Sister
           </Link>
           <Link
-            href=""
+            href="#partnership"
             className="border border-tsk-primary-dark px-4 py-2 rounded-full text-center"
           >
             Partnership
@@ -44,9 +44,13 @@ export default function GetInvolved() {
         </div>
       </div>
 
-      <GICardSection />
+      <div id="become-a-tech-sister">
+        <GICardSection />
+      </div>
 
-      <GIPartnershipSection />
+      <div id="partnership">
+        <GIPartnershipSection />
+      </div>
     </main>
   );
 }
