@@ -1,3 +1,5 @@
+import Donate from '@/components/donate';
+import Volunteer from '@/components/volunteer';
 import React from 'react';
 import Link from 'next/link';
 
@@ -7,7 +9,7 @@ import GIPartnershipSection from '@/components/GIPartnershipSection';
 
 export default function GetInvolved() {
   return (
-    <main className="flex min-h-screen w-full flex-col items-center">
+    <main className="flex min-h-screen flex-col items-center justify-center">
       <GIHeroSection />
 
       <div className="w-full  px-12 text-tsk-primary-dark">
@@ -51,6 +53,8 @@ export default function GetInvolved() {
       <div id="partnership">
         <GIPartnershipSection />
       </div>
+      <Volunteer />
+      <Donate />
     </main>
   );
 }
