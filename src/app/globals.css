@@ -1,7 +1,13 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
 
 :root {
-  --tsk-primary-dark: #480a69;
+  --tsk-primary-dark: #45084a;
   --tsk-primary: #6f169e;
   --tsk-secondary: #a848c7;
   --tsk-light-1: #efd5f8;
@@ -14,14 +20,20 @@
   --font-decorative: 'Square Peg', 'cursive';
 }
 
-body {
-  font-family: var(--font-body);
-  color: #000000;
+@layer base {
+  body {
+    font-family: var(--font-body);
+    color: #000000;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+    color: var(--tsk-primary-dark);
+  }
 }
 
-h1,
-h2,
-h3 {
-  font-family: var(--font-heading);
-  color: var(--tsk-primary-dark);
-}
+/* Custom utility classes can be moved to @layer utilities if needed */

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Square_Peg, Montserrat, League_Spartan } from 'next/font/google';
 import './globals.css';
 
 const geistSans = Geist({
@@ -9,6 +9,22 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
+  subsets: ['latin'],
+});
+
+const squarePeg = Square_Peg({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-decorative',
+});
+
+const montserrat = Montserrat({
+  variable: '--font-body',
+  subsets: ['latin'],
+});
+
+const leagueSpartan = League_Spartan({
+  variable: '--font-heading',
   subsets: ['latin'],
 });
 
@@ -24,7 +40,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${squarePeg.variable} ${montserrat.variable} ${leagueSpartan.variable} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
