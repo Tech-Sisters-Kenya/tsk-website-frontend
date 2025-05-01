@@ -6,17 +6,17 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button = ({ variant = 'primary', className, ...props }: ButtonProps) => {
-  const baseStyles = 'px-8 py-2 rounded-2xl text-sm font-medium transition-all';
+  const baseStyles = 'px-8 py-2 border border-1 rounded-2xl text-sm font-medium transition-all';
 
   // Using style attribute to apply CSS variables
   const variantStyles = {
     primary: {
-      backgroundColor: 'var(--tsk-primary-dark)',
-      color: 'var(--tsk-light-1)',
+      backgroundColor: '#45084A',
+      color: '#ffffff',
     },
     secondary: {
-      backgroundColor: 'var(--tsk-light-1)',
-      color: 'var(--tsk-primary-dark)',
+      backgroundColor: '#efd5f8',
+      color: '#45084A',
     },
   };
 
