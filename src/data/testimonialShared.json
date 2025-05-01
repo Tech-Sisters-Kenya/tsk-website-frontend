@@ -1,0 +1,24 @@
+[
+  {
+    "testimonial": "\"Being part of Tech Sisters Kenya has been a game-changer for me. The mentorship I've received has given me the confidence to tackle new challenges at work.\"",
+    "avatar": "/testimonial-avatar",
+    "name": "Mary Wanjiku",
+    "role": "-Software Developer-"
+  },
+  {
+    "testimonial": "\"Creating an inclusive space for women in tech has been an incredibly rewarding experience. It is a joy to see their growth and progress - Loud, Proud, Unstoppable!.\"",
+    "avatar": "/testimonial-avatar",
+    "name": "Val Bosibori",
+    "role": "-Tech Lead-"
+  },
+  {
+    "testimonial": "\"I joined Tech Sisters Kenya in my quest for community in the tech space. It has provided invaluable networking opportunities and mentorship.\"",
+    "name": "Bridgit Kithinji",
+    "role": "-Project Manager-"
+  },
+  {
+    "testimonial": "\"One of my favorite things about Tech Sisters Kenya is the inclusivity, and diversity of all things tech - ranging from mental health to career growth and tech culture.\"",
+    "name": "Sally Kahoro",
+    "role": "-Web3 Developer-"
+  }
+]
