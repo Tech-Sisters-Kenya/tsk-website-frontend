@@ -59,7 +59,7 @@ const Navbar = () => {
 
   const navItems = [
     { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
+    { href: '/about-us', label: 'About' },
     { href: '/events', label: 'Events' },
     { href: '/get-involved', label: 'Get Involved' },
     { href: '/blogs', label: 'Blogs' },
