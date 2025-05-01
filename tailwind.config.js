@@ -1,12 +1,9 @@
-//const { keyframes } = require("framer-motion");
-//const { transform } = require("typescript");
-
-// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './app/**/*.{js,ts,jsx,tsx}',
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/app/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
