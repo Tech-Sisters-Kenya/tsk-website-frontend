@@ -32,8 +32,7 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
               </div>
             ))}
           </div>
-
-          <Link href="/GetInvolved">
+          <Link href="/get-involved" className="w-full">
             <Button variant="primary" className="text-foreground font-heading font-bold">
               Get Involved
             </Button>

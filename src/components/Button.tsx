@@ -17,13 +17,14 @@ const Button = ({ variant = 'primary', className, ...props }: ButtonProps) => {
     secondary: {
       backgroundColor: 'var(-tsk-light-1)',
       color: 'var(-tsk-primary)',
+      border: '2px solid var(-tsk-primary-dark)',
     },
   };
 
   // Keep common Tailwind classes for spacing, etc.
   const variants = {
     primary: 'bg-tsk-primary-dark text-foreground  hover:opacity-90',
-    secondary: 'bg-foreground text-tsk-primary-dark  hover:opacity-80',
+    secondary: 'bg-foreground text-tsk-primary-dark  border-tsk-primary-dark hover:opacity-80',
   };
 
   return (
