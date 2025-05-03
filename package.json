@@ -12,15 +12,18 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "framer-motion": "^12.7.4",
-    "motion": "^12.9.2",
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.9.4",
+    "lucide-react": "^0.503.0",
+    "motion": "^12.9.4",
     "next": "15.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4.1.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

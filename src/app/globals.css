@@ -1,4 +1,6 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html {
   scroll-behavior: smooth;
@@ -18,86 +20,20 @@ html {
   --font-decorative: 'Square Peg', 'cursive';
 }
 
-body {
-  font-family: var(--font-body);
-  color: #000000;
-  margin: 0;
-  padding: 0;
+@layer base {
+  body {
+    font-family: var(--font-body);
+    color: #000000;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+    color: var(--tsk-primary-dark);
+  }
 }
 
-h1,
-h2,
-h3 {
-  font-family: var(--font-heading);
-  color: var(--tsk-primary-dark);
-}
-
-/* COLORS */
-.bg-tsk-primary {
-  background-color: var(--tsk-primary);
-}
-
-.bg-tsk-primary-dark {
-  background-color: var(--tsk-primary-dark);
-}
-
-.bg-tsk-secondary {
-  background-color: var(--tsk-secondary);
-}
-
-.bg-tsk-light-1 {
-  background-color: var(--tsk-light-1);
-}
-
-.bg-tsk-light-2 {
-  background-color: var(--tsk-light-2);
-}
-
-.text-tsk-primary {
-  color: var(--tsk-primary);
-}
-
-.text-tsk-primary-dark {
-  color: var(--tsk-primary-dark);
-}
-
-.text-tsk-secondary {
-  color: var(--tsk-secondary);
-}
-
-.text-tsk-light-1 {
-  color: var(--tsk-light-1);
-}
-
-.text-tsk-light-2 {
-  color: var(--tsk-light-2);
-}
-
-.border-tsk-primary {
-  border-color: var(--tsk-primary);
-}
-
-.border-tsk-primary-dark {
-  border-color: var(--tsk-primary-dark);
-}
-
-.border-tsk-secondary {
-  border-color: var(--tsk-secondary);
-}
-
-/* FONTS */
-.font-heading {
-  font-family: var(--font-heading);
-}
-
-.font-body {
-  font-family: var(--font-body);
-}
-
-.font-other {
-  font-family: var(--font-other);
-}
-
-.font-decorative {
-  font-family: var(--font-decorative);
-}
+/* Custom utility classes can be moved to @layer utilities if needed */
