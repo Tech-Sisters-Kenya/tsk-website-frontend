@@ -33,7 +33,7 @@ function GIPartnershipSection() {
         </div>
 
         {/* right section icon */}
-        <div className="bg-white xl:row-start-1 xl:col-span-1 justify-items-center place-content-center mt-8 xl:mt-0 xl:ml-6 xl:mb-12 rounded-t-3xl xl:rounded-l-3xl">
+        <div className="bg-white xl:row-start-1 xl:col-span-1 justify-items-center place-content-center mt-8 xl:mt-0 xl:ml-6 xl:mb-12 rounded-t-3xl xl:rounded-l-3xl xl:rounded-tr-none">
           <Image src={MailIcon} alt="email icon" />
         </div>
 
