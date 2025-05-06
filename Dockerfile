@@ -22,3 +22,4 @@ CMD npm run dev
 
 #HOW TO RUN THE DOCKERFILE
 # docker build -t tsk-website-frontend .
+# docker run -p 3000:3000 tsk-website-frontend
