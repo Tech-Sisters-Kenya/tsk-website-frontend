@@ -5,6 +5,11 @@ import CallToAction from '@/components/CallToAction';
 import Hero from '@/components/Hero';
 import WhoWeAre from '@/components/WhoWeAre';
 import OurReach from '@/components/OurReach';
+import WhatWeDo from '@/components/WhatWeDo';
+import Gallery from '@/components/Gallery';
+import ExploreBlogs from '@/components/ExploreBlogs';
+import Testimonials from '@/components/Testimonials';
+import testimonialShared from '@/data/testimonialShared.json';
 
 export default function LandingPage() {
   const reachStats = [
@@ -25,6 +30,10 @@ export default function LandingPage() {
           stats={reachStats}
         />
       </main>
+      <WhatWeDo />
+      <Gallery />
+      <ExploreBlogs />
+      <Testimonials slides={testimonialShared} />
       <CallToAction />
       <Footer />
     </div>
