@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 type SlideData = {
   testimonial: string;
-  avatar: string;
+  avatar?: string;
   name: string;
   role: string;
 };
