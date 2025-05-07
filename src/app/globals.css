@@ -1,4 +1,13 @@
-@import 'tailwindcss';
+/*@import 'tailwindcss'; There should not be any import 'tailwindcss' line in this file — Tailwind is not a JS import.
+
+
+
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 html {
   scroll-behavior: smooth;
