@@ -6,6 +6,8 @@ import Link from 'next/link';
 import GIHeroSection from '@/components/GIHeroSection';
 import GICardSection from '@/components/GICardSection';
 import GIPartnershipSection from '@/components/GIPartnershipSection';
+import CallToAction from '@/components/CallToAction';
+import Footer from '@/components/Footer';
 
 export default function GetInvolved() {
   return (
@@ -55,6 +57,8 @@ export default function GetInvolved() {
       </div>
       <Volunteer />
       <Donate />
+      <CallToAction />
+      <Footer />
     </main>
   );
 }
