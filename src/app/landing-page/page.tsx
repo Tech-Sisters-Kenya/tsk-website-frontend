@@ -29,11 +29,11 @@ export default function LandingPage() {
           subtitle="A growing community of women building confidence, skills, and careers in tech."
           stats={reachStats}
         />
-        <WhatWeDo />
-        <Gallery />
-        <ExploreBlogs />
-        <Testimonials slides={testimonialShared} />
       </main>
+      <WhatWeDo />
+      <Gallery />
+      <ExploreBlogs />
+      <Testimonials slides={testimonialShared} />
       <CallToAction />
       <Footer />
     </div>
