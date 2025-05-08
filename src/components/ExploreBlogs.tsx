@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Button from './Button';
 import { CardStack } from '@/ui/card-stack';
 import Image from 'next/image';

@@ -1,4 +1,6 @@
 'use client';
+
+import React from 'react';
 import Image from 'next/image';
 import donate from '../../public/donate-svgrepo-com 1.svg';
 import money from '../../public/money-svgrepo-com 1.svg';
