@@ -12,7 +12,7 @@ export default function GetInvolved() {
     <main className="flex min-h-screen flex-col items-center justify-center">
       <GIHeroSection />
 
-      <div className="w-full  px-12 text-tsk-primary-dark">
+      <div className="w-full px-12 text-tsk-primary-dark">
         <p className="ml-4 font-body">
           <span className="pr-4">&#62; Home</span>
           <span>&#62; Get Involved</span>
@@ -46,11 +46,11 @@ export default function GetInvolved() {
         </div>
       </div>
 
-      <div id="become-a-tech-sister">
+      <div id="become-a-tech-sister" className="w-full">
         <GICardSection />
       </div>
 
-      <div id="partnership">
+      <div id="partnership" className="w-full">
         <GIPartnershipSection />
       </div>
       <Volunteer />
