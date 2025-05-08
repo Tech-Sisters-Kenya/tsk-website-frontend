@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
@@ -98,7 +99,7 @@ export const CardStack = ({ items, className }: CardStackProps) => {
           <div
             key={item.id}
             className={cn(
-              'absolute top-0 left-0 w-full bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-500 border border-[#45084a]',
+              'absolute top-0 left-0 w-full bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-500 border border-[#45084a]'
             )}
             style={{
               transform: `translateX(${position.x}px) translateY(${position.y}px) scale(${position.scale})`,

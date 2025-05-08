@@ -1,21 +1,47 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
-import prettierConfig from 'eslint-config-prettier'; // 👈 Import Prettier
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+import reactPlugin from 'eslint-plugin-react';
+import { defineConfig } from 'eslint/config';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  // Existing Next.js + TypeScript config
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
-
-  // Prettier config to turn off conflicting rules
-  prettierConfig,
-];
-
-export default eslintConfig;
+export default defineConfig([
+  js.configs.recommended,
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        project: true,
+        tsconfigRootDir: process.cwd(),
+      },
+      globals: globals.browser,
+    },
+    plugins: {
+      '@typescript-eslint': tseslint,
+    },
+    rules: {
+      ...tseslint.configs.recommended.rules,
+    },
+  },
+  {
+    files: ['**/*.{jsx,tsx}'],
+    plugins: {
+      react: reactPlugin,
+    },
+    rules: {
+      ...reactPlugin.configs.recommended.rules,
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+  },
+  {
+    files: ['*.js'], // 👈 This block fixes the issue
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+]);
