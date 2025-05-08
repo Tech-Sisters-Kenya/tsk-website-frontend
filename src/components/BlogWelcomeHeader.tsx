@@ -1,3 +1,4 @@
+import React from 'react';
 import { Square_Peg } from 'next/font/google';
 import EclipseSvg from './svg_components/Eclipse';
 
