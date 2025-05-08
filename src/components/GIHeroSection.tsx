@@ -1,8 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 
 import Navbar from './Navbar';
-import HeroImg from '@/assets/GetInvolvedHero.svg';
+import { AnimatedGISvg } from './AnimatedGISvg';
 
 function GIHeroSection() {
   return (
@@ -19,8 +18,8 @@ function GIHeroSection() {
               supportive spaces for women in tech.
             </p>
           </div>
-          <div className="justify-self-center mt-10">
-            <Image src={HeroImg} alt="Get Involved Hero Image" width={500} height={500} />
+          <div className="flex justify-center items-center mt-10 w-full">
+            <AnimatedGISvg />
           </div>
         </div>
         <p className="font-decorative text-4xl mt-12">
