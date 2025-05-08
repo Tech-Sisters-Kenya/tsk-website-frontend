@@ -1,12 +1,11 @@
-//const { keyframes } = require("framer-motion");
-//const { transform } = require("typescript");
+/* eslint-env node */
 
-// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './app/**/*.{js,ts,jsx,tsx}',
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/app/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -24,14 +23,35 @@ module.exports = {
         other: ['var(--font-other)'],
         decorative: ['var(--font-decorative)'],
       },
-      screens: {
-        xs: '320px',
-        sm: '480px',
-        md: '768px',
-        lg: '1024px',
-        xl: '1280px',
-        '2xl': '1536px',
+      keyframes: {
+        elasticswing: {
+          '0%, 100%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(5deg)' },
+          '75%': { transform: 'rotate(-5deg)' },
+        },
+        zoom: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.5)' },
+        },
+        squashstretch: {
+          '0%, 100%': { transform: 'scaleY(1) scaleX(1)' },
+          '30%': { transform: 'scaleY(1.2) scaleX(0.95)' },
+          '60%': { transform: 'scaleY(0.8) scaleX(1.05)' },
+        },
       },
+      animation: {
+        elasticswing: 'elasticswing 2s ease-in-out infinite',
+        zoom: 'zoom 3s ease-in-out infinite',
+        squashstretch: 'squashstretch 1.8s ease-in-out infinite',
+      },
+    },
+    screens: {
+      xs: '320px',
+      sm: '480px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
     },
   },
   plugins: [],
