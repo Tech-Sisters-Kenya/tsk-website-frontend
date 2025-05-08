@@ -1,9 +1,6 @@
 'use client';
 
 import React from 'react';
-import Navbar from '@/components/Navbar';
-import CallToAction from '@/components/CallToAction';
-import Footer from '@/components/Footer';
 
 //import { Card } from "@/components/ui/card";
 import TeamMember from '@/components/TeamMember';
@@ -65,39 +62,34 @@ const teamMembers = [
 
 const MeetTheTeam = () => {
   return (
-    <div>
-      <Navbar />
-      <div className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center w- mb-16">
-            <h1 className="text-4xl h3 font-bold  mb-6">Meet The Team</h1>
-            <p className="text-lg text-purple-900 max-w-3xl mx-auto">
-              The hearts and minds behind Tech Sisters.{' '}
-            </p>
+    <div className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center w- mb-16">
+          <h1 className="text-4xl h3 font-bold  mb-6">Meet The Team</h1>
+          <p className="text-lg text-purple-900 max-w-3xl mx-auto">
+            The hearts and minds behind Tech Sisters.{' '}
+          </p>
 
-            <p>
-              We are a passionate group of women dedicated to creating a space where others feel
-              seen, supported, and skilled in tech. From developers to designers, mentors to
-              organizers — we show up, not just for ourselves, but for each other.
-            </p>
-          </div>
+          <p>
+            We are a passionate group of women dedicated to creating a space where others feel seen,
+            supported, and skilled in tech. From developers to designers, mentors to organizers — we
+            show up, not just for ourselves, but for each other.
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <TeamMember
-                key={index}
-                name={member.name}
-                role={member.role}
-                imageUrl={member.imageUrl}
-                bio={member.bio}
-                //componentImage={member.componentImage}
-              />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {teamMembers.map((member, index) => (
+            <TeamMember
+              key={index}
+              name={member.name}
+              role={member.role}
+              imageUrl={member.imageUrl}
+              bio={member.bio}
+              //componentImage={member.componentImage}
+            />
+          ))}
         </div>
       </div>
-      <CallToAction />
-      <Footer />
     </div>
   );
 };
