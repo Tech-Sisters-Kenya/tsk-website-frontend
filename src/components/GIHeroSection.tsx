@@ -1,14 +1,11 @@
 import React from 'react';
-
-import Navbar from './Navbar';
 import { AnimatedGISvg } from './AnimatedGISvg';
 
 function GIHeroSection() {
   return (
-    <section className="w-full mx-auto text-tsk-primary-dark p-12">
-      <div className=" bg-tsk-light-2 rounded-3xl px-12">
-        <Navbar />
-        <div className="pt-12 grid grid-cols-1 lg:grid-cols-2 items-center">
+    <section className="w-full mx-auto text-tsk-primary-dark px-8 -mt-14 -z-10">
+      <div className=" bg-tsk-light-2 rounded-b-3xl px-10">
+        <div className="pt-20 grid grid-cols-1 lg:grid-cols-2 items-center">
           <div>
             <h1 className="font-black font-heading text-5xl leading-[150%]">
               Get Involved With Tech Sisters Kenya?

@@ -6,10 +6,14 @@ import Link from 'next/link';
 import GIHeroSection from '@/components/GIHeroSection';
 import GICardSection from '@/components/GICardSection';
 import GIPartnershipSection from '@/components/GIPartnershipSection';
+import Navbar from '@/components/Navbar';
+import CallToAction from '@/components/CallToAction';
+import Footer from '@/components/Footer';
 
 export default function GetInvolved() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
+    <main className="flex flex-col justify-center">
+      <Navbar />
       <GIHeroSection />
 
       <div className="w-full px-12 text-tsk-primary-dark">
@@ -32,13 +36,13 @@ export default function GetInvolved() {
             Partnership
           </Link>
           <Link
-            href=""
+            href="#volunteer"
             className="border border-tsk-primary-dark px-4 py-2 rounded-full text-center"
           >
             Volunteer
           </Link>
           <Link
-            href=""
+            href="#donate"
             className="border border-tsk-primary-dark px-4 py-2 rounded-full text-center"
           >
             Donate
@@ -53,8 +57,15 @@ export default function GetInvolved() {
       <div id="partnership" className="w-full">
         <GIPartnershipSection />
       </div>
-      <Volunteer />
-      <Donate />
+      <div id="volunteer">
+        <Volunteer />
+      </div>
+      <div id="donate">
+        <Donate />
+      </div>
+
+      <CallToAction />
+      <Footer />
     </main>
   );
 }
