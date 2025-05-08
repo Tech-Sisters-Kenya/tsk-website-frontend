@@ -37,3 +37,31 @@ html {
 }
 
 /* Custom utility classes can be moved to @layer utilities if needed */
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  color: var(--tsk-primary-dark);
+}
+
+.blog-header {
+  font-family: var(--font-decorative);
+
+}
+
+@keyframes EclipseAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pulse-animation {
+  transform-origin: center center;
+  animation: EclipseAnimation 2s ease-in-out infinite;
+}
