@@ -1,3 +1,4 @@
+import React from 'react';
 import { ButtonHTMLAttributes } from 'react';
 import clsx from 'clsx';
 
@@ -11,19 +12,20 @@ const Button = ({ variant = 'primary', className, ...props }: ButtonProps) => {
   // Using style attribute to apply CSS variables
   const variantStyles = {
     primary: {
-      backgroundColor: '#45084A',
-      color: '#ffffff',
+      backgroundColor: 'var(-tsk-primary-dark)',
+      color: 'var(-foreground)',
     },
     secondary: {
-      backgroundColor: '#efd5f8',
-      color: '#45084A',
+      backgroundColor: 'var(-tsk-light-1)',
+      color: 'var(-tsk-primary)',
+      border: '2px solid var(-tsk-primary-dark)',
     },
   };
 
   // Keep common Tailwind classes for spacing, etc.
   const variants = {
-    primary: 'hover:opacity-90',
-    secondary: 'hover:opacity-80',
+    primary: 'bg-tsk-primary-dark text-foreground  hover:opacity-90',
+    secondary: 'bg-foreground text-tsk-primary-dark  border-tsk-primary-dark hover:opacity-80',
   };
 
   return (
