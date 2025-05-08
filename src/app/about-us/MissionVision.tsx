@@ -43,7 +43,7 @@ const MissionVision = () => {
         {/* "Meet The Team" button */}
         <div className="flex justify-center mt-16">
           <Link
-            href="/about-us"
+            href="/meet-the-team"
             className="bg-tsk-primary-dark text-white px-8 py-5 rounded-md hover:bg-tsk-primary transition-colors duration-300 text-xl font-medium"
           >
             Meet The Team
