@@ -107,6 +107,9 @@ const Navbar = () => {
             <NavLink href={href}>{label}</NavLink>
           </li>
         ))}
+        <li>
+          <Link href="/blogs">Blogs</Link>{' '}
+        </li>
       </ul>
 
       {/* Desktop Buttons - hidden on mobile */}
