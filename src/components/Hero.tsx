@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import Logo from '@/assets/header.svg';
 import React from 'react';
 import Button from './Button';
+import AnimatedShapes from './AnimatedShapes';
+import Link from 'next/link';
 
 export default function Hero() {
   return (
@@ -19,23 +19,22 @@ export default function Hero() {
             their professional growth through community initiatives.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-            <Button variant="primary" className="text-foreground font-bold">
-              Join Our Community
-            </Button>
-            <Button variant="secondary" className="bg-foreground font-bold text-tsk-primary-dark">
-              Partner With Us
-            </Button>
+            <Link href="/community" className="w-full">
+              <Button variant="primary" className="text-foreground font-bold">
+                Join Our Community
+              </Button>
+            </Link>
+            <Link href="/partner" className="w-full">
+              <Button
+                variant="secondary"
+                className="bg-foreground border border-tsk-primary-dark font-bold text-tsk-primary-dark"
+              >
+                Partner With Us
+              </Button>
+            </Link>
           </div>
         </div>
-        <div className="relative w-full h-[250px] sm:h[350px] md:h-[450px] lg:h-[500px]">
-          <Image
-            src={Logo}
-            alt="header"
-            width={500}
-            height={400}
-            className="rounded-lg object-contain"
-          />
-        </div>
+        <AnimatedShapes />
       </div>
     </section>
   );

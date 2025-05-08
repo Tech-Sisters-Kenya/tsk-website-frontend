@@ -1,3 +1,6 @@
+'use client';
+import React from 'react';
+
 import Image from 'next/image';
 import Button from './Button';
 import volunteer1 from '../../public/volunteer1.png';

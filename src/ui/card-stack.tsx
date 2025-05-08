@@ -1,9 +1,10 @@
 'use client';
 
+import React from 'react';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
 import Button from '@/components/Button';
+import Link from 'next/link';
 
 interface CardStackProps {
   items: {
@@ -13,11 +14,12 @@ interface CardStackProps {
     description: string;
     date: string;
     image: string;
+    blogLink: string;
   }[];
   className?: string;
 }
 
-export const CardStack = ({ items, className }: CardStackProps) => {
+export const CardStack = ({ items }: CardStackProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(items.length - 1);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -30,13 +32,13 @@ export const CardStack = ({ items, className }: CardStackProps) => {
         setActiveIndex((prev) => (prev + 1) % items.length);
         setIsAnimating(false);
       }, 600); // Animation duration
-    }, 3000); // Rotate every 3 seconds
+    }, 4000); // Rotate every 3 seconds
 
     return () => clearInterval(interval);
   }, [activeIndex, items.length]);
 
   return (
-    <div className={cn('relative h-[450px]  w-[90%] lg:w-full mx-auto ', className)}>
+    <div className="relative h-[450px] w-[90%] lg:w-full mx-auto ">
       {items.map((item, index) => {
         const isActive = index === activeIndex;
         const isPrevActive = index === prevIndex && isAnimating;
@@ -97,9 +99,7 @@ export const CardStack = ({ items, className }: CardStackProps) => {
         return (
           <div
             key={item.id}
-            className={cn(
-              'absolute top-0 left-0 w-full bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-500 border border-[#45084a]',
-            )}
+            className="absolute top-0 left-0 w-full bg-white rounded-2xl overflow-hidden transition-all duration-500 ease-in-out border border-[#45084a] shadow-lg"
             style={{
               transform: `translateX(${position.x}px) translateY(${position.y}px) scale(${position.scale})`,
               opacity: position.opacity,
@@ -109,18 +109,20 @@ export const CardStack = ({ items, className }: CardStackProps) => {
             <Image
               src={item.image}
               alt={item.title}
-              width={400}
-              height={400}
-              className="w-full h-56 lg:h-60 object-cover "
+              width={200}
+              height={300}
+              className="w-full object-cover h-[300px] "
             />
-            <div className="p-6 rounded-t-2xl">
+            <div className="p-6">
               <h3 className="text-lg font-semibold text-[#45084a] mb-2">{item.title}</h3>
               <p className="text-sm mb-4">{item.description}</p>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">{item.date}</span>
-                <Button className="bg-[#45084a] hover:bg-[#5a0a61] text-white rounded-md px-4 py-2">
-                  Continue Reading
-                </Button>
+                <Link href={item.blogLink} passHref>
+                  <Button className="bg-[#45084a] hover:bg-[#5a0a61] text-white rounded-md px-4 py-2">
+                    Continue Reading
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

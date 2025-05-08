@@ -4,6 +4,7 @@ import Button from './Button';
 import imageSrc from '@/assets/Group 633200.svg';
 import bug from '@/assets/Bug.svg';
 import Logo from '@/assets/tsk-icon-logo.svg';
+import Link from 'next/link';
 interface ReachSectionProps {
   title: string;
   subtitle: string;
@@ -31,10 +32,11 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
               </div>
             ))}
           </div>
-
-          <Button variant="primary" className="text-foreground font-heading font-bold">
-            Get Involved
-          </Button>
+          <Link href="/get-involved" className="w-full">
+            <Button variant="primary" className="text-foreground font-heading font-bold">
+              Get Involved
+            </Button>
+          </Link>
         </div>
 
         {/* Right Image */}

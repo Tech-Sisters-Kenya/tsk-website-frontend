@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Button from './Button';
 import { CardStack } from '@/ui/card-stack';
 import Image from 'next/image';
@@ -14,6 +15,7 @@ const ExploreBlogs = () => {
       date: '07 March 2025',
       image: '/data-edition.png',
       id: 1,
+      blogLink: 'https://jsonplaceholder.typicode.com/posts/1',
     },
     {
       title: 'Build Together: Software Edition',
@@ -23,6 +25,7 @@ const ExploreBlogs = () => {
       date: '29 Feb 2025',
       image: '/software-edition.png',
       id: 2,
+      blogLink: 'https://jsonplaceholder.typicode.com/posts/1',
     },
     {
       title: 'Mental Health & Market Day',
@@ -32,6 +35,7 @@ const ExploreBlogs = () => {
       date: '15 Feb 2025',
       image: '/mental-health-market-day.png',
       id: 3,
+      blogLink: 'https://jsonplaceholder.typicode.com/posts/1',
     },
     {
       title: 'CyberQuest 2025 Series',
@@ -41,13 +45,14 @@ const ExploreBlogs = () => {
       date: '19 Feb 2025',
       image: '/mental-health-market-day.png',
       id: 4,
+      blogLink: 'https://jsonplaceholder.typicode.com/posts/1',
     },
   ];
 
   const cardsBlogArray = blogsArray.slice(0, 3);
 
   return (
-    <div className="w-full lg:max-w-6xl lg:mx-auto px-6 pt-6 pb-small-screen md:px-24 md:pt-24 text-[#45084a] ">
+    <div className=" w-full lg:max-w-6xl lg:mx-auto px-6 pt-6  md:px-24 md:pt-24 text-[#45084a] ">
       <div className=" text-center">
         <h1 className="font-semibold  text-3xl pb-2 md:text-5xl">EXPLORE OUR BLOGS</h1>
         <p className="italic text-base pb-1">Stories, Lessons & Resources for Tech Sisters Kenya</p>
@@ -78,12 +83,13 @@ const ExploreBlogs = () => {
           </div>
         </div>
         <hr></hr>
-        <div className="hidden lg:block mt-10 mb-12 w-px bg-[#45084a]"></div>
+        {/* the empty div below is the div for thr vertical line between the blog section on large screens only */}
+        <div className="hidden lg:block mt-10 mb-12 w-px bg-[#45084a] "></div>
         {/* overlapping images */}
-        <div className="w-full md:mt-5 lg:w-1/2 pl-10 relative ">
+        <div className="w-full md:mt-5 lg:w-1/2 pl-10 relative">
           <h2 className="text-2xl font-bold mt-5">TSK Blogs</h2>
           <div className="w-16 h-1 bg-[#45084a]"></div>
-          <div className="relative w-full h-[500px]  mt-10 lg:pl-10">
+          <div className="relative w-full h-[650px] md:h-[600px] mt-10 lg:pl-10">
             <CardStack items={cardsBlogArray} />
           </div>
           <Image

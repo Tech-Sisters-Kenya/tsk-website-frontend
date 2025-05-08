@@ -8,6 +8,7 @@ html {
 
 :root {
   --tsk-primary-dark: #45084a;
+  --tsk-primary-dark: #45084a;
   --tsk-primary: #6f169e;
   --tsk-secondary: #a848c7;
   --tsk-light-1: #efd5f8;
@@ -20,20 +21,84 @@ html {
   --font-decorative: 'Square Peg', 'cursive';
 }
 
-@layer base {
-  body {
-    font-family: var(--font-body);
-    color: #000000;
-    margin: 0;
-    padding: 0;
-  }
+body {
+  font-family: var(--font-body);
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}
 
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-heading);
-    color: var(--tsk-primary-dark);
-  }
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  color: var(--tsk-primary-dark);
+}
+
+/*COLORS*/
+.bg-tsk-primary {
+  background-color: var(--tsk-primary);
+}
+.bg-tsk-primary-dark {
+  background-color: var(--tsk-primary-dark);
+}
+.bg-tsk-secondary {
+  background-color: var(--tsk-secondary);
+}
+.bg-tsk-light-1 {
+  background-color: var(--tsk-light-1);
+}
+.bg-tsk-light-2 {
+  background-color: var(--tsk-light-2);
+}
+.bg-foreground {
+  background-color: var(--foreground);
+}
+.text-tsk-primary {
+  color: var(--tsk-primary);
+}
+.text-tsk-primary-dark {
+  color: var(--tsk-primary-dark);
+}
+.text-tsk-secondary {
+  color: var(--tsk-secondary);
+}
+.text-tsk-light-1 {
+  color: var(--tsk-light-1);
+}
+.text-tsk-light-2 {
+  color: var(--tsk-light-2);
+}
+.text-foreground {
+  color: var(--foreground);
+}
+.border-tsk-primary {
+  border-color: var(--tsk-primary-dark);
+}
+.border-tsk-primary-dark {
+  border-color: var(--tsk-primary-dark);
+}
+.border-tsk-secondary {
+  border-color: var(--tsk-secondary);
+}
+/*FONTS*/
+.font-heading {
+  font-family: var(--font-heading);
+}
+.font-body {
+  font-family: var(--font-body);
+}
+.font-other {
+  font-family: var(--font-other);
+}
+.font-decorative {
+  font-family: var(--font-decorative);
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  color: var(--tsk-primary-dark);
 }
 
 /* Custom utility classes can be moved to @layer utilities if needed */
@@ -46,7 +111,6 @@ h3 {
 
 .blog-header {
   font-family: var(--font-decorative);
-
 }
 
 @keyframes EclipseAnimation {

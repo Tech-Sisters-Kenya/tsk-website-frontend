@@ -1,11 +1,15 @@
 'use client';
 
+import React from 'react';
 import { useEffect, useCallback, useRef } from 'react';
 import { EmblaOptionsType } from 'embla-carousel';
 import { DotButton, useDotButton } from '@/ui/EmblaCarouselDotButton';
 import { PrevButton, NextButton, usePrevNextButtons } from '@/ui/EmblaCarouselArrowButtons';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
+
+// Avoid using NodeJS namespace by creating our own type
+type TimeoutRef = ReturnType<typeof setTimeout> | null;
 
 type SlideData = {
   testimonial: string;
@@ -29,7 +33,7 @@ const Testimonials: React.FC<PropType> = (props) => {
     containScroll: 'trimSnaps',
   });
 
-  const autoplayInterval = useRef<NodeJS.Timeout | null>(null);
+  const autoplayInterval = useRef<TimeoutRef>(null);
 
   // Auto-scroll function
   const autoplay = useCallback(() => {
@@ -61,7 +65,7 @@ const Testimonials: React.FC<PropType> = (props) => {
       <div className="max-w-3xl mx-auto">
         <h3 className="font-bold text-[32px] md:text-[36] ">Testimonials</h3>
         <p className="font-medium text-[20px] px-4 pb-3 md:text-[20px] md:px-20 md:mb-10">
-          From gaining skills to finding belonging — here’s what our community has to say.
+          From gaining skills to finding belonging — here&rsquo;s what our community has to say.
         </p>
 
         {/* actual carousel */}

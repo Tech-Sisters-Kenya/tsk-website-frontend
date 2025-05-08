@@ -16,7 +16,7 @@ export const useDotButton = (emblaApi: EmblaCarouselType | undefined): UseDotBut
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
     },
-    [emblaApi],
+    [emblaApi]
   );
 
   const onInit = useCallback((emblaApi: EmblaCarouselType) => {
