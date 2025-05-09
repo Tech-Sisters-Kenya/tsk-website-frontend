@@ -5,8 +5,16 @@
 html {
   scroll-behavior: smooth;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
 
 :root {
+  --tsk-primary-dark: #45084a;
   --tsk-primary-dark: #45084a;
   --tsk-primary: #6f169e;
   --tsk-secondary: #a848c7;
