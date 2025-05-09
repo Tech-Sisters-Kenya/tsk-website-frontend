@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
@@ -27,7 +28,7 @@ const NavLink = ({ href, children, onClick }: NavLinkProps) => {
     {
       'after:w-full': isActive,
       'hover:after:w-full': !isActive,
-    },
+    }
   );
 
   return (
@@ -106,6 +107,9 @@ const Navbar = () => {
             <NavLink href={href}>{label}</NavLink>
           </li>
         ))}
+        <li>
+          <Link href="/blogs">Blogs</Link>{' '}
+        </li>
       </ul>
 
       {/* Desktop Buttons - hidden on mobile */}

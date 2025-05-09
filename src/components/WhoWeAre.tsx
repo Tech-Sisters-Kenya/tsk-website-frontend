@@ -7,8 +7,8 @@ import Image from 'next/image';
 import BrandsSection from './BrandsSection';
 export default function WhoWeAre() {
   return (
-    <section className="w-full mt-16 sm:mt-24 lg:mt-32 bg-foreground py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+    <section className="w-full mt-12 sm:mt-20 md:mt-24 lg:mt-32 bg-foreground py-10 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         {/*Images section */}
         <div className="relative w-full lg:w-2/5 max-w-4xl flex h-[500px] lg:mx-0 mt-32 mb-1">
           <div className="absolute top-0 left-0 z-10 w-[70%] rounded-lg overflow-hidden shadow-lg sm:block">
@@ -40,15 +40,16 @@ export default function WhoWeAre() {
             />
           </div>
         </div>
-        <div className="max-w-7xl  mx-auto">
-          <div className="flex justify-end">
-            <div className="max-w-3xl">
-              <h2 className="text-3xl md:text-4xl font-bold text-tsk-primary-dark mb-8 text-center font-heading">
+        <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-6">
+          <div className="flex flex-col md:flex-row justify-center md:justify-end">
+            <div className="w-full md:max-w-3xl">
+              <h2 className="text-2xl md:text-4xl sm:text-3xl font-bold text-tsk-primary-dark mb-6 sm:mb-8 text-center md:text-left font-heading">
                 WHO WE ARE
               </h2>
-              {/* Mission Section */}
-              <div className="space-y-4 max-w-lg ml-auto bg-foreground rounded-lg p-4 mb-6 ">
-                <div className="flex overflow-hidden rounded-lg border border-tsk-primary-dark shadow-sm">
+
+              <div className="space-y-4 bg-foreground rounded-lg p-4 sm:p-6 md:p-8 mb-6 max-w-full md:max-w-lg mx-auto md:ml-auto">
+                {/* Mission Section */}
+                <div className="flex sm:flex-row overflow-hidden rounded-lg border border-tsk-primary-dark shadow-sm">
                   <div className="bg-tsk-primary-dark rounded-lg px-4 py-6 flex items-center justify-center w-28">
                     <h3 className="text-xl font-bold text-foreground text-center font-heading">
                       Our Mission
