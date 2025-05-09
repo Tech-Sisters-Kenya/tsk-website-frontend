@@ -4,9 +4,10 @@
   "description": "Frontend for TSK website",
   "main": "index.js",
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}":
+    "*.{js,jsx,ts,tsx}":[
     "prettier --write",
      "eslint --fix"
+    ]
   },
   "scripts": {
     "dev": "next dev",
