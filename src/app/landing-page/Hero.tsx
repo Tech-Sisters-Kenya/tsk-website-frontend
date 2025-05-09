@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './Button';
+import Button from '../../components/Button';
 import AnimatedShapes from './AnimatedShapes';
 import Link from 'next/link';
 
