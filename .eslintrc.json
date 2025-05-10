@@ -5,10 +5,15 @@
     "es2021": true
   },
   "extends": ["eslint:recommended", "next", "prettier", "plugin:react/recommended"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 12,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
+  "plugins": ["react", "@typescript-eslint"],
   "settings": {
     "react": {
       "version": "detect"
@@ -16,13 +21,17 @@
   },
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "no-undef": "error"
   },
   "overrides": [
     {
       "files": ["postcss.config.js", "tailwind.config.js"],
       "env": {
         "node": true
+      },
+      "rules": {
+        "no-undef": "off" // Temporarily disable no-undef for config files if needed
       }
     }
   ]
