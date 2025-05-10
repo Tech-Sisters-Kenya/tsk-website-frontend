@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import HeroImage from '@/assets/header.svg';
+import HeroImageAnimation from './HeroImageAnimation';
 
 const HeroSection = () => {
   return (
@@ -24,13 +23,7 @@ const HeroSection = () => {
 
         {/* Right column - illustration with floating elements */}
         <div className="md:w-1/2 relative">
-          <Image
-            src={HeroImage}
-            alt="Hero illustration"
-            width={300}
-            height={300}
-            className="w-full h-auto object-cover"
-          />
+          <HeroImageAnimation />
         </div>
       </div>
     </section>
