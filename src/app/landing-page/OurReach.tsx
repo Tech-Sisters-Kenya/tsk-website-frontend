@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import CountUp from 'react-countup';
 import React from 'react';
-import Button from './Button';
+import Button from '../../components/Button';
 import imageSrc from '@/assets/Group 633200.svg';
 import bug from '@/assets/Bug.svg';
 import Logo from '@/assets/tsk-icon-logo.svg';
