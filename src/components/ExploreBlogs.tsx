@@ -50,6 +50,7 @@ const ExploreBlogs = () => {
   ];
 
   const cardsBlogArray = blogsArray.slice(0, 3);
+  //slice content to get first  100 characters, button to link to blogs, fix overlapping cards
 
   return (
     <div className=" w-full lg:max-w-6xl lg:mx-auto px-6 pt-6  md:px-24 md:pt-24 text-[#45084a] ">
