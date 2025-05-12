@@ -76,7 +76,7 @@ const MeetTheTeam = () => {
             The hearts and minds behind Tech Sisters.{' '}
           </p>
 
-          <p>
+          <p className="h3 ">
             We are a passionate group of women dedicated to creating a space where others feel seen,
             supported, and skilled in tech. From developers to designers, mentors to organizers — we
             show up, not just for ourselves, but for each other.
