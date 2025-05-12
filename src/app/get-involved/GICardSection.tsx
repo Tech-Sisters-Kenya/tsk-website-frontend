@@ -7,7 +7,7 @@ import SlackLogo from '@/assets/slack-logo.svg';
 import InstagramLogo from '@/assets/instagram-logo.svg';
 import XLogo from '@/assets/x-logo.svg';
 import GICardImg from '@/assets/GICardImg.svg';
-import Button from './Button';
+import Button from '@/components/Button';
 import ConnectorLines from './ConnectorLines';
 
 function GICardSection() {

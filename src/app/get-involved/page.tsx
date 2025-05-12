@@ -3,9 +3,9 @@ import Volunteer from '@/components/volunteer';
 import React from 'react';
 import Link from 'next/link';
 
-import GIHeroSection from '@/components/GIHeroSection';
-import GICardSection from '@/components/GICardSection';
-import GIPartnershipSection from '@/components/GIPartnershipSection';
+import GIHeroSection from '@/app/get-involved/GIHeroSection';
+import GICardSection from '@/app/get-involved/GICardSection';
+import GIPartnershipSection from '@/app/get-involved/GIPartnershipSection';
 
 export default function GetInvolved() {
   return (
