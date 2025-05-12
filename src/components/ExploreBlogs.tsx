@@ -4,12 +4,12 @@ import React from 'react';
 import Button from './Button';
 import { CardStack } from '@/ui/card-stack';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const ExploreBlogs = () => {
   const blogsArray = [
     {
       title: 'Why Join A Tech Community',
-      excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ...',
       date: '07 March 2025',
@@ -19,7 +19,6 @@ const ExploreBlogs = () => {
     },
     {
       title: 'Build Together: Software Edition',
-      excerpt: 'Dolore magna aliqua ut enim ad minim adipiscing elit...',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ...',
       date: '29 Feb 2025',
@@ -29,7 +28,6 @@ const ExploreBlogs = () => {
     },
     {
       title: 'Mental Health & Market Day',
-      excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ...',
       date: '15 Feb 2025',
@@ -39,7 +37,6 @@ const ExploreBlogs = () => {
     },
     {
       title: 'CyberQuest 2025 Series',
-      excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ...',
       date: '19 Feb 2025',
@@ -50,7 +47,6 @@ const ExploreBlogs = () => {
   ];
 
   const cardsBlogArray = blogsArray.slice(0, 3);
-  //slice content to get first  100 characters, button to link to blogs, fix overlapping cards
 
   return (
     <div className=" w-full lg:max-w-6xl lg:mx-auto px-6 pt-6  md:px-24 md:pt-24 text-[#45084a] ">
@@ -66,20 +62,18 @@ const ExploreBlogs = () => {
 
           {blogsArray.map((blog) => (
             <div key={blog.id} className="flex flex-col gap-3 ">
-              <h3 className="font-semibold text-[18px] md:text-[20px] pt-3">{blog.title}</h3>
-              <p className="italic text-[18px]">{blog.excerpt}</p>
+              <Link href="/blogs">
+                <h3 className="font-semibold text-[18px] md:text-[20px] pt-3 hover:underline cursor-pointer">
+                  {blog.title}
+                </h3>
+              </Link>
+              <p className="italic text-[18px]">{blog.description.slice(0, 55)}...</p>
               <hr className="w-[20%]"></hr>
             </div>
           ))}
           <div className="flex justify-center mt-8 md:my-10">
             <Button className="font-black px-4 py-4 text-[16px] md:text-[17x]">
-              <a
-                href="http://www.instagram.com/techsisterskenya"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Read More
-              </a>
+              <Link href="/blogs">Read More</Link>
             </Button>
           </div>
         </div>
