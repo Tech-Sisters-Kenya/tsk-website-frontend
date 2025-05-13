@@ -158,8 +158,13 @@ export default function LoginPage() {
             )}
           </div>
 
-          <div className="flex items-center justify-center">
-            <Button type="submit" variant="primary" className="w-full" disabled={isLoading}>
+          <div className="flex items-center justify-center py-4">
+            <Button
+              type="submit"
+              variant="primary"
+              className="w-full py-4 text-md"
+              disabled={isLoading}
+            >
               {isLoading ? 'Signing in...' : 'Sign In'}
             </Button>
           </div>
