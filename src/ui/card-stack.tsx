@@ -10,10 +10,10 @@ interface CardStackProps {
   items: {
     id: number;
     title: string;
-    excerpt: string;
     description: string;
     date: string;
     image: string;
+    headerImage: string;
     blogLink: string;
   }[];
   className?: string;
@@ -38,7 +38,7 @@ export const CardStack = ({ items }: CardStackProps) => {
   }, [activeIndex, items.length]);
 
   return (
-    <div className="relative h-[450px] w-[90%] lg:w-full mx-auto ">
+    <div className="reatove h-64 w-full overflow-hidden">
       {items.map((item, index) => {
         const isActive = index === activeIndex;
         const isPrevActive = index === prevIndex && isAnimating;
@@ -80,7 +80,7 @@ export const CardStack = ({ items }: CardStackProps) => {
 
           // Calculate horizontal offset for stacked cards (more to the left)
           const xOffset = -30 * relativePos; // Negative for leftward stacking
-          const yOffset = 20 * relativePos; // Small vertical offset
+          const yOffset = 15 * relativePos; // Small vertical offset
 
           // Deeper cards are more opaque
           const cardOpacity = Math.min(0.9, 0.7 + relativePos * 0.1);
@@ -99,7 +99,7 @@ export const CardStack = ({ items }: CardStackProps) => {
         return (
           <div
             key={item.id}
-            className="absolute top-0 left-0 w-full bg-white rounded-2xl overflow-hidden transition-all duration-500 ease-in-out border border-[#45084a] shadow-lg"
+            className="absolute top-0 left-0 w-full bg-white rounded-2xl overflow-hidden transition-all duration-500 ease-in-out border border-[#45084a] shadow-lg "
             style={{
               transform: `translateX(${position.x}px) translateY(${position.y}px) scale(${position.scale})`,
               opacity: position.opacity,
@@ -107,12 +107,13 @@ export const CardStack = ({ items }: CardStackProps) => {
             }}
           >
             <Image
-              src={item.image}
+              src={item.headerImage}
               alt={item.title}
               width={200}
               height={300}
-              className="w-full object-cover h-[300px] "
+              className="object-cover w-full h-[150px]"
             />
+
             <div className="p-6">
               <h3 className="text-lg font-semibold text-[#45084a] mb-2">{item.title}</h3>
               <p className="text-sm mb-4">{item.description}</p>

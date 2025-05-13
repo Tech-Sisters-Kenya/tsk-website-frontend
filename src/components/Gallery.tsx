@@ -29,7 +29,7 @@ const Gallery = () => {
   ];
 
   return (
-    <div className="bg-tsk-light-2 lg:mt-32 ">
+    <div className="bg-tsk-light-2 lg:mt-32 w-screen">
       <div className="md:max-w-5xl mx-auto p-4 font-semibold">
         <h3 className=" text-3xl md:text-5xl text-center pb-2 ">Gallery</h3>
         <p className="text-[#45084a] px-10 pb-10 md:px-20 text-center">

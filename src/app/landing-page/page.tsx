@@ -16,7 +16,7 @@ export default function LandingPage() {
     { value: '550+', label: 'Other Tech Fields' },
   ];
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <main className="flex min-h-screen flex-col items-center justify-center lg:p-24">
       <Hero />
       <WhoWeAre />
       <OurReach
