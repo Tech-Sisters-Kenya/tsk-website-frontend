@@ -2,10 +2,10 @@ import React from 'react';
 import Hero from '@/app/landing-page/Hero';
 import WhoWeAre from '@/app/landing-page/WhoWeAre';
 import OurReach from '@/app/landing-page/OurReach';
-import WhatWeDo from '@/components/WhatWeDo';
+import WhatWeDo from '@/app/landing-page/WhatWeDo';
 import Gallery from '@/components/Gallery';
-import ExploreBlogs from '@/components/ExploreBlogs';
-import Testimonials from '@/components/Testimonials';
+import ExploreBlogs from '@/app/landing-page/ExploreBlogs';
+import Testimonials from '@/app/landing-page/Testimonials';
 import testimonialShared from '@/data/testimonialShared.json';
 
 export default function LandingPage() {
