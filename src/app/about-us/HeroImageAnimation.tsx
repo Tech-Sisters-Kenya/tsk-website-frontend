@@ -7,20 +7,7 @@ export default function HeroImageAnimation() {
   return (
     <div>
       {/* TSK Logo */}
-      <motion.div
-        className="absolute left-4 top-20"
-        animate={{
-          x: [0, -5, 0],
-          y: [0, 5, 0],
-          rotate: [0, -3, 0],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          repeatType: 'reverse',
-        }}
-      >
+      <motion.div className="absolute left-4 -top-40">
         <svg
           width="105"
           height="130"
@@ -52,21 +39,7 @@ export default function HeroImageAnimation() {
       </motion.div>
 
       {/* Purple semi-circle */}
-      <motion.div
-        className="absolute left-20 top-32"
-        initial={{ rotate: 0 }}
-        animate={{
-          x: [0, 10, 0],
-          y: [0, -5, 0],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          repeatType: 'reverse',
-        }}
-      >
+      <motion.div className="absolute left-40 -top-12">
         <svg
           width="109"
           height="113"
@@ -82,19 +55,7 @@ export default function HeroImageAnimation() {
       </motion.div>
 
       {/* Question mark */}
-      <motion.div
-        className="absolute left-40 top-28"
-        animate={{
-          y: [0, -8, 0],
-          rotate: [-5, 5, -5],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          repeatType: 'reverse',
-        }}
-      >
+      <motion.div className="absolute left-80 top-6">
         <svg
           width="23"
           height="32"
@@ -127,19 +88,7 @@ export default function HeroImageAnimation() {
       </motion.div>
 
       {/* Pink circle */}
-      <motion.div
-        className="absolute right-20 top-40"
-        animate={{
-          x: [0, -10, 0],
-          y: [0, 10, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          repeatType: 'reverse',
-        }}
-      >
+      <motion.div className="absolute right-20 top-10">
         <svg
           width="120"
           height="120"
@@ -152,20 +101,7 @@ export default function HeroImageAnimation() {
       </motion.div>
 
       {/* Who Are We? text */}
-      <motion.div
-        className="absolute left-28 top-0"
-        animate={{
-          x: [0, 10, 0],
-          y: [0, 5, 0],
-          rotate: [-3, 3, -3],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          repeatType: 'reverse',
-        }}
-      >
+      <motion.div className="absolute left-40 -top-40">
         <svg
           width="211"
           height="74"
@@ -189,20 +125,7 @@ export default function HeroImageAnimation() {
       </motion.div>
 
       {/* What We Do text */}
-      <motion.div
-        className="absolute right-10 top-20"
-        animate={{
-          x: [0, -5, 0],
-          y: [0, -8, 0],
-          rotate: [3, -3, 3],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          repeatType: 'reverse',
-        }}
-      >
+      <motion.div className="absolute -right-2 -top-20">
         <svg
           width="217"
           height="98"
@@ -226,20 +149,7 @@ export default function HeroImageAnimation() {
       </motion.div>
 
       {/* Our Mission text */}
-      <motion.div
-        className="absolute left-10 bottom-20"
-        animate={{
-          x: [0, 8, 0],
-          y: [0, -5, 0],
-          rotate: [-2, 2, -2],
-        }}
-        transition={{
-          duration: 7,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          repeatType: 'reverse',
-        }}
-      >
+      <motion.div className="absolute left-10 -bottom-40">
         <svg
           width="189"
           height="92"
@@ -264,20 +174,7 @@ export default function HeroImageAnimation() {
       </motion.div>
 
       {/* Our Vision text */}
-      <motion.div
-        className="absolute right-24 bottom-10"
-        animate={{
-          x: [0, -8, 0],
-          y: [0, 5, 0],
-          rotate: [2, -2, 2],
-        }}
-        transition={{
-          duration: 5.5,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          repeatType: 'reverse',
-        }}
-      >
+      <motion.div className="absolute left-60 -bottom-60">
         <svg
           width="193"
           height="71"
