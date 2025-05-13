@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -107,15 +106,16 @@ const Navbar = () => {
             <NavLink href={href}>{label}</NavLink>
           </li>
         ))}
-        <li>
-          <Link href="/blogs">Blogs</Link>{' '}
-        </li>
       </ul>
 
       {/* Desktop Buttons - hidden on mobile */}
       <div className="hidden md:flex gap-4">
-        <Button variant="secondary">Login</Button>
-        <Button variant="primary">Sign Up</Button>
+        <Link href="/login">
+          <Button variant="secondary">Login</Button>
+        </Link>
+        <Link href="/sign-up">
+          <Button variant="primary">Sign Up</Button>
+        </Link>
       </div>
 
       {/* Mobile Menu - conditionally rendered */}
@@ -130,12 +130,16 @@ const Navbar = () => {
               </li>
             ))}
             <li className="w-full mt-4">
-              <Button variant="secondary" className="w-full mb-3">
-                Login
-              </Button>
-              <Button variant="primary" className="w-full">
-                Sign Up
-              </Button>
+              <Link href="/login">
+                <Button variant="secondary" className="w-full mb-3">
+                  Login
+                </Button>
+              </Link>
+              <Link href="/sign-up">
+                <Button variant="primary" className="w-full">
+                  Sign Up
+                </Button>
+              </Link>
             </li>
           </ul>
         </div>
