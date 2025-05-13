@@ -50,7 +50,7 @@ const Footer = () => {
   // About Us section links
   const aboutLinks: FooterLink[] = [
     { href: '/contact', label: 'Contact Us' },
-    { href: '/team', label: 'The Team' },
+    { href: '/meet-the-team', label: 'The Team' },
     { href: '/faq', label: 'FAQ' },
     { href: '/code-of-conduct', label: 'Code Of Conduct' },
     { href: '/terms', label: 'Terms & Condition' },
@@ -59,10 +59,10 @@ const Footer = () => {
 
   // Get Involved section links
   const involvedLinks: FooterLink[] = [
-    { href: '/become-a-tech-sister', label: 'Become A Tech Sister' },
-    { href: '/volunteer', label: 'Volunteer' },
-    { href: '/partner', label: 'Partner With Us' },
-    { href: '/donate', label: 'Make A Donation' },
+    { href: '/get-involved', label: 'Become A Tech Sister' },
+    { href: '/get-involved', label: 'Volunteer' },
+    { href: '/get-involved', label: 'Partner With Us' },
+    { href: '/get-involved', label: 'Make A Donation' },
   ];
 
   return (
