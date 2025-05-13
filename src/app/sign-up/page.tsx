@@ -74,7 +74,7 @@ export default function SignupPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full md:max-w-4xl space-y-8 bg-tsk-light-2 py-8 px-24 rounded-lg">
+      <div className="w-full md:max-w-4xl space-y-8 bg-[#F8EBFC] bg-opacity-40 py-8 px-24 rounded-lg">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-tsk-primary-dark">Create New Account!</h1>
         </div>
@@ -126,7 +126,7 @@ export default function SignupPage() {
                   id="firstName"
                   type="text"
                   placeholder="Enter your first name"
-                  className={`w-full py-4 px-3 border ${errors.firstName ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                  className={`w-full py-4 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.firstName ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                   {...register('firstName', { required: 'First name is required' })}
                 />
               </div>
@@ -147,7 +147,7 @@ export default function SignupPage() {
                   id="lastName"
                   type="text"
                   placeholder="Enter your last name"
-                  className={`w-full py-4 px-3 border ${errors.lastName ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                  className={`w-full py-4 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.lastName ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                   {...register('lastName', { required: 'Last name is required' })}
                 />
               </div>
@@ -170,7 +170,7 @@ export default function SignupPage() {
                 type="email"
                 autoComplete="email"
                 placeholder="Enter your email"
-                className={`pl-10 w-full py-4 px-3 border ${errors.email ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.email ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('email', {
                   required: 'Email is required',
                   pattern: {
@@ -196,7 +196,7 @@ export default function SignupPage() {
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="new-password"
                 placeholder="Enter your password"
-                className={`pl-10 w-full py-4 px-3 border ${errors.password ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.password ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('password', {
                   required: 'Password is required',
                   minLength: { value: 8, message: 'Password must be at least 8 characters' },

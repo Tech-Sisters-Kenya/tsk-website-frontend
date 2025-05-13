@@ -65,9 +65,9 @@ export default function LoginPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full md:max-w-4xl space-y-8 bg-tsk-light-2 py-8 px-24 rounded-lg">
+      <div className="w-full md:max-w-4xl space-y-8 bg-[#F8EBFC] bg-opacity-40 py-8 px-24 rounded-lg">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-tsk-primary-dark">Welcome Back!</h1>
+          <h1 className="text-5xl font-bold text-tsk-primary-dark">Welcome Back!</h1>
         </div>
 
         {/* Google Sign In Button */}
@@ -107,7 +107,7 @@ export default function LoginPage() {
                 type="text"
                 autoComplete="email"
                 placeholder="Enter your email or username"
-                className={`pl-10 w-full py-2 px-3 border ${errors.email ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary-dark`}
+                className={`pl-10 w-full py-2 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.email ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary-dark`}
                 {...register('email', {
                   required: 'Email is required',
                   pattern: {
@@ -133,7 +133,7 @@ export default function LoginPage() {
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
                 placeholder="Enter your password"
-                className={`pl-10 w-full py-2 px-3 border ${errors.password ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                className={`pl-10 w-full py-2 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.password ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('password', {
                   required: 'Password is required',
                   minLength: { value: 6, message: 'Password must be at least 6 characters' },
