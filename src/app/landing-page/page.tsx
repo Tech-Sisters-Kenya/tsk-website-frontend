@@ -1,11 +1,11 @@
 import React from 'react';
-import Hero from '@/components/Hero';
-import WhoWeAre from '@/components/WhoWeAre';
-import OurReach from '@/components/OurReach';
-import WhatWeDo from '@/components/WhatWeDo';
+import Hero from '@/app/landing-page/Hero';
+import WhoWeAre from '@/app/landing-page/WhoWeAre';
+import OurReach from '@/app/landing-page/OurReach';
+import WhatWeDo from '@/app/landing-page/WhatWeDo';
 import Gallery from '@/components/Gallery';
-import ExploreBlogs from '@/components/ExploreBlogs';
-import Testimonials from '@/components/Testimonials';
+import ExploreBlogs from '@/app/landing-page/ExploreBlogs';
+import Testimonials from '@/app/landing-page/Testimonials';
 import testimonialShared from '@/data/testimonialShared.json';
 
 export default function LandingPage() {
@@ -16,7 +16,7 @@ export default function LandingPage() {
     { value: '550+', label: 'Other Tech Fields' },
   ];
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <main className="flex min-h-screen flex-col items-center justify-center lg:p-24">
       <Hero />
       <WhoWeAre />
       <OurReach

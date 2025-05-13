@@ -61,7 +61,7 @@ const Testimonials: React.FC<PropType> = (props) => {
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
     usePrevNextButtons(emblaApi);
   return (
-    <div className=" px-4 py-8 bg-tsk-light-2 text-center text-[#45084a] ">
+    <div className=" px-4 py-8 bg-tsk-light-2 text-center text-[#45084a] w-screen">
       <div className="max-w-3xl mx-auto">
         <h3 className="font-bold text-[32px] md:text-[36] ">Testimonials</h3>
         <p className="font-medium text-[20px] px-4 pb-3 md:text-[20px] md:px-20 md:mb-10">

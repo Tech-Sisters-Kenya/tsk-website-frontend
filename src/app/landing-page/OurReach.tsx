@@ -1,6 +1,8 @@
+'use client';
 import Image from 'next/image';
+import CountUp from 'react-countup';
 import React from 'react';
-import Button from './Button';
+import Button from '../../components/Button';
 import imageSrc from '@/assets/Group 633200.svg';
 import bug from '@/assets/Bug.svg';
 import Logo from '@/assets/tsk-icon-logo.svg';
@@ -27,7 +29,14 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
           <div className="flex flex-row sm:flex-row gap-6 mb-6">
             {stats.map((stat, index) => (
               <div key={index}>
-                <h3 className="text-2xl font-bold font-body text-tsk-primary-dark">{stat.value}</h3>
+                <h3 className="text-2xl font-bold font-body text-tsk-primary-dark">
+                  <CountUp
+                    end={parseInt(stat.value.replace('+', ''))}
+                    duration={2}
+                    enableScrollSpy
+                  />
+                  +
+                </h3>
                 <p className="text-sm font-bold text-tsk-primary-dark">{stat.label}</p>
               </div>
             ))}

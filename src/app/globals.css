@@ -8,7 +8,6 @@ html {
 
 :root {
   --tsk-primary-dark: #45084a;
-  --tsk-primary-dark: #45084a;
   --tsk-primary: #6f169e;
   --tsk-secondary: #a848c7;
   --tsk-light-1: #efd5f8;
@@ -73,7 +72,7 @@ h3 {
   color: var(--foreground);
 }
 .border-tsk-primary {
-  border-color: var(--tsk-primary-dark);
+  border-color: var(--tsk-primary);
 }
 .border-tsk-primary-dark {
   border-color: var(--tsk-primary-dark);
@@ -93,20 +92,6 @@ h3 {
 }
 .font-decorative {
   font-family: var(--font-decorative);
-}
-h1,
-h2,
-h3 {
-  font-family: var(--font-heading);
-  color: var(--tsk-primary-dark);
-}
-
-/* Custom utility classes can be moved to @layer utilities if needed */
-h1,
-h2,
-h3 {
-  font-family: var(--font-heading);
-  color: var(--tsk-primary-dark);
 }
 
 .blog-header {
