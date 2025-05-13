@@ -106,15 +106,16 @@ const Navbar = () => {
             <NavLink href={href}>{label}</NavLink>
           </li>
         ))}
-        <li>
-          <Link href="/blogs">Blogs</Link>{' '}
-        </li>
       </ul>
 
       {/* Desktop Buttons - hidden on mobile */}
       <div className="hidden md:flex gap-4">
-        <Button variant="secondary">Login</Button>
-        <Button variant="primary">Sign Up</Button>
+        <Link href="/login">
+          <Button variant="secondary">Login</Button>
+        </Link>
+        <Link href="/sign-up">
+          <Button variant="primary">Sign Up</Button>
+        </Link>
       </div>
 
       {/* Mobile Menu - conditionally rendered */}
@@ -129,41 +130,16 @@ const Navbar = () => {
               </li>
             ))}
             <li className="w-full mt-4">
-              <Button variant="secondary" className="w-full mb-3">
-                Login
-              </Button>
-              <Button variant="primary" className="w-full">
-                Sign Up
-              </Button>
-            </li>
-          </ul>
-        </div>
-      )}
-
-      {/* Desktop Buttons - hidden on mobile */}
-      <div className="hidden md:flex gap-4">
-        <Button variant="secondary">Login</Button>
-        <Button variant="primary">Sign Up</Button>
-      </div>
-
-      {/* Mobile Menu - conditionally rendered */}
-      {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-50 pt-20 bg-white" style={{ top: '5rem' }}>
-          <ul className="flex flex-col items-center gap-6 p-4 font-semibold">
-            {navItems.map(({ href, label }) => (
-              <li key={href} className="w-full text-center py-2">
-                <NavLink href={href} onClick={closeMenu}>
-                  {label}
-                </NavLink>
-              </li>
-            ))}
-            <li className="w-full mt-4">
-              <Button variant="secondary" className="w-full mb-3">
-                Login
-              </Button>
-              <Button variant="primary" className="w-full">
-                Sign Up
-              </Button>
+              <Link href="/login">
+                <Button variant="secondary" className="w-full mb-3">
+                  Login
+                </Button>
+              </Link>
+              <Link href="/sign-up">
+                <Button variant="primary" className="w-full">
+                  Sign Up
+                </Button>
+              </Link>
             </li>
           </ul>
         </div>

@@ -94,20 +94,6 @@ h3 {
 .font-decorative {
   font-family: var(--font-decorative);
 }
-h1,
-h2,
-h3 {
-  font-family: var(--font-heading);
-  color: var(--tsk-primary-dark);
-}
-
-/* Custom utility classes can be moved to @layer utilities if needed */
-h1,
-h2,
-h3 {
-  font-family: var(--font-heading);
-  color: var(--tsk-primary-dark);
-}
 
 .blog-header {
   font-family: var(--font-decorative);
