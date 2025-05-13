@@ -1,16 +1,22 @@
 'use client';
 
 import React from 'react';
-import { Users, Network, TrendingUp, Lightbulb } from 'lucide-react';
+import Image from 'next/image';
+import InclusivityIcon from '@/assets/inclusivity-icon.svg';
+import CommunityIcon from '@/assets/community-icon.svg';
+import GrowthIcon from '@/assets/growth-icon.svg';
+import EmpowermentIcon from '@/assets/empowerment-icon.svg';
 
 interface ValueCardProps {
-  icon: React.ReactNode;
+  icon: string;
   title: string;
 }
 
 const ValueCard: React.FC<ValueCardProps> = ({ icon, title }) => (
   <div className="flex flex-col items-center p-6">
-    <div className="text-white mb-4">{icon}</div>
+    <div className="text-white mb-4">
+      <Image src={icon} alt={`${title} icon`} width={40} height={40} />
+    </div>
     <h3 className="text-white text-lg font-medium font-heading">{title}</h3>
   </div>
 );
@@ -18,19 +24,19 @@ const ValueCard: React.FC<ValueCardProps> = ({ icon, title }) => (
 const CoreValues = () => {
   const values = [
     {
-      icon: <Users size={40} />,
+      icon: InclusivityIcon,
       title: 'Inclusivity',
     },
     {
-      icon: <Network size={40} />,
+      icon: CommunityIcon,
       title: 'Community',
     },
     {
-      icon: <TrendingUp size={40} />,
+      icon: GrowthIcon,
       title: 'Growth',
     },
     {
-      icon: <Lightbulb size={40} />,
+      icon: EmpowermentIcon,
       title: 'Empowerment',
     },
   ];

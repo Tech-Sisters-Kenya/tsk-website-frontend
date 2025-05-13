@@ -5,8 +5,8 @@ import HeroImageAnimation from './HeroImageAnimation';
 
 const HeroSection = () => {
   return (
-    <section className="py-20 px-4 bg-tsk-light-2 rounded-3xl w-full -mt-20 -z-10">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
+    <section className="py-20 px-4 w-full bg-tsk-light-2 rounded-3xl -mt-20 -z-10">
+      <div className=" mx-8 flex flex-col md:flex-row items-center justify-between">
         {/* Left column - text content */}
         <div className="md:w-1/2 mb-8 md:mb-0">
           <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold font-heading mb-6 text-tsk-primary-dark">
