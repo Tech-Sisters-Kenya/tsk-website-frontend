@@ -11,7 +11,7 @@ export default function WhoWeAre() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         {/*Images section */}
         <div className="relative w-full lg:w-2/5 max-w-4xl flex h-[500px] lg:mx-0 mt-32 mb-1">
-          <div className="absolute top-0 left-0 z-10 w-[70%] rounded-lg overflow-hidden shadow-lg sm:block">
+          <div className="absolute top-0 left-0 z-10 w-[70%] rounded-lg overflow-hidden sm:block">
             <Image
               src={Image1}
               alt=""
@@ -20,7 +20,7 @@ export default function WhoWeAre() {
               className="w-[300px] h-auto rounded-lg"
             />
           </div>
-          <div className="absolute top-[35%] right-0 z-0 w-[70%] rounded-lg overflow-hidden shadow-lg">
+          <div className="absolute top-[35%] right-0 z-0 w-[70%] rounded-lg overflow-hidden">
             <Image
               src={Image2}
               alt="group photo"

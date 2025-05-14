@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -44,8 +43,8 @@ const TeamMember = ({ name, role, imageUrl, bio }: TeamMemberProps) => {
           </div>
         ) : (
           <div>
-            <div className=" relative aspect-square flex h-full overflow-hidden  ">
-              <Image src={imageUrl} alt={name} fill className="object-cover   rounded-lg" />
+            <div className="relative aspect-square flex h-fit overflow-hidden  ">
+              <Image src={imageUrl} alt={name} fill className="object-cover rounded-lg" />
             </div>
 
             <div className="p-6 text-center">

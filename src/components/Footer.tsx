@@ -11,6 +11,7 @@ import Logo from '@/assets/tsk-icon-only-logo.svg';
 type FooterLink = {
   href: string;
   label: string;
+  id?: string; // Added optional id for uniqueness
 };
 
 // Footer section component
@@ -29,7 +30,7 @@ const FooterSection = ({
     </h3>
     <ul className="space-y-2 text-sm">
       {links.map((link) => (
-        <li key={link.href}>
+        <li key={link.id || `${link.href}-${link.label}`}>
           <Link href={link.href} className={linkStyles}>
             {link.label}
           </Link>
@@ -57,12 +58,12 @@ const Footer = () => {
     { href: '/privacy', label: 'Privacy Policy' },
   ];
 
-  // Get Involved section links
+  // Get Involved section links with unique ids
   const involvedLinks: FooterLink[] = [
-    { href: '/get-involved', label: 'Become A Tech Sister' },
-    { href: '/get-involved', label: 'Volunteer' },
-    { href: '/get-involved', label: 'Partner With Us' },
-    { href: '/get-involved', label: 'Make A Donation' },
+    { href: '/get-involved', label: 'Become A Tech Sister', id: 'tech-sister' },
+    { href: '/get-involved', label: 'Volunteer', id: 'volunteer' },
+    { href: '/get-involved', label: 'Partner With Us', id: 'partner' },
+    { href: '/get-involved', label: 'Make A Donation', id: 'donation' },
   ];
 
   return (
