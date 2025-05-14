@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Button from './Button';
 import Logo from '@/assets/tsk-icon-only-logo.svg';
@@ -46,7 +47,11 @@ const CallToAction = () => {
           </p>
 
           <div className="flex justify-center">
-            <Button variant="secondary">Read More</Button>
+            <Link href="/get-involved">
+              <Button variant="secondary">
+                <span className="font-extrabold">Join Our Community</span>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import BlogWelcomeHeader from '@/components/BlogWelcomeHeader';
-import TagSelector from '../../components/TagSelector';
+import TagSelector from '@/app/blogs/TagSelector';
+import Pagination from './Pagination';
 
 export default function BlogsPage() {
   return (
@@ -11,6 +12,8 @@ export default function BlogsPage() {
         <h3 className="font-body text-xl font-bold mb-5">Categories</h3>
         <TagSelector />
       </div>
+
+      <Pagination />
     </main>
   );
 }

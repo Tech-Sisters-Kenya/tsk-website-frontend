@@ -12,13 +12,13 @@ export default function GetInvolved() {
     <main className="flex flex-col justify-center">
       <GIHeroSection />
 
-      <div className="w-full px-12 text-tsk-primary-dark">
+      <div className="w-full mt-8 px-12 text-tsk-primary-dark">
         <p className="ml-4 font-body">
           <span className="pr-4">&#62; Home</span>
           <span>&#62; Get Involved</span>
         </p>
 
-        <div className="mt-8 ml-8 flex flex-col md:flex-row gap-4">
+        <div className="mt-5 ml-8 flex flex-col md:flex-row gap-4">
           <Link
             href="#become-a-tech-sister"
             className="border border-tsk-primary-dark px-4 py-2 rounded-full text-center"

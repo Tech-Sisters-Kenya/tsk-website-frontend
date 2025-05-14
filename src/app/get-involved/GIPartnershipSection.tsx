@@ -46,6 +46,8 @@ function GIPartnershipSection() {
               details below, and we&apos;ll be in touch to explore opportunities.
             </p>
           </div>
+
+          {/* form section */}
           <form className="flex flex-col gap-4 mt-12">
             <input
               type="email"

@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -44,27 +43,10 @@ const TeamMember = ({ name, role, imageUrl, bio }: TeamMemberProps) => {
           </div>
         ) : (
           <div>
-            {imageUrl.includes('unsplash') ? (
-              <div className="relative aspect-square overflow-hidden">
-                <Image
-                  src={imageUrl}
-                  alt={name}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg"
-                />
-              </div>
-            ) : (
-              <div className="bg-pink-100 p-6 flex justify-center items-center">
-                <Image
-                  src={imageUrl}
-                  alt={name}
-                  width={200}
-                  height={200}
-                  className="rounded-full mx-auto"
-                />
-              </div>
-            )}
+            <div className="relative aspect-square flex h-fit overflow-hidden  ">
+              <Image src={imageUrl} alt={name} fill className="object-cover rounded-lg" />
+            </div>
+
             <div className="p-6 text-center">
               <h3 className="text-3xl font-medium text-purple-900 mb-1">{name}</h3>
               <p className="text-gray-600 text-lg font-medium">{role}</p>
