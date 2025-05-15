@@ -18,7 +18,7 @@ const BlogWelcomeHeader = () => {
             <AnimatedBlogPage />
           </div>
         </div>
-        <p className="font-decorative text-4xl mt-12">
+        <p className="font-decorative text-4xl">
           Stories shape us. Knowledge elevates us. Community carries us.
         </p>
       </div>
