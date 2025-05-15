@@ -20,21 +20,22 @@ export default function BlogPost() {
     <section className="w-full h-full">
       <div className="flex flex-col justify-center items-center md:px-20 px-10">
         {/* Main Blog Content */}
-        <div className="lg:my-20 my-10 flex flex-col gap-4">
+        <div className="lg:my-24 my-10 flex flex-col gap-4">
           <h1 className="md:text-5xl text-3xl font-heading font-extrabold">{blog.title}</h1>
-          <p className="text-gray-600 mb-4">{blog.date}</p>
+          {/* <p className="text-gray-600 mb-4">{blog.date}</p> */}
           {blog.image && (
-            <div className="my-6 w-auto h-auto overflow-hidden rounded-2xl">
+            <div className="sm:h-[400px] h-[200px] md:my-14 my-6 w-auto overflow-hidden rounded-2xl">
               <Image
                 src={blog.image}
                 alt={blog.name}
-                className=" object-cover sm:h-[350px] rounded-2xl place-self-center"
                 width={1200}
-                height={350}
+                height={400}
+                className="object-cover h-full rounded-2xl place-self-center"
               />
             </div>
           )}
-          <div className="font-body md:text-lg sm:text-base text-sm font-medium text-tsk-primary-dark space-y-4 lg:mx-20">
+          <div className="font-body md:text-lg sm:text-base text-sm font-medium text-tsk-primary-dark lg:space-y-10 space-y-8 lg:mx-20">
+            <h2 className="font-extrabold text-xl font-body">{blog.subtitle}</h2>
             {blog.content.map((paragraph, id) => (
               <p key={id} className="">
                 {paragraph}
@@ -44,8 +45,8 @@ export default function BlogPost() {
         </div>
 
         {/* More Blogs Section */}
-        <div className="w-full flex flex-col justify-center items-center">
-          <h1 className="font-body text-3xl font-semibold mb-8">More Blogs</h1>
+        <div className="w-full flex flex-col justify-center items-center mt-20">
+          <h1 className="font-body text-3xl font-semibold mb-16">More Blogs</h1>
           <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 gap-10">
             {moreBlogs.map((blog) => (
               <div key={blog.id} className="col-span-1 flex flex-col space-y-2">
