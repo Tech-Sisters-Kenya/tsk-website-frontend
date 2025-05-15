@@ -1,5 +1,5 @@
-import Donate from '@/components/donate';
-import Volunteer from '@/components/volunteer';
+import Donate from '@/app/get-involved/donate';
+import Volunteer from '@/app/get-involved/volunteer';
 import React from 'react';
 import Link from 'next/link';
 
