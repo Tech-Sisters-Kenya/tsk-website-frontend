@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate';
 
 import BlogsLayout from './BlogsLayout';
 
+// NB: TO BE REMOVED
 // fetch data instead of using dummy data
 const sampleItems = [
   {
@@ -116,38 +117,58 @@ function Pagination() {
   const currentItems = sampleItems.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(sampleItems.length / itemsPerPage);
 
-  const handlePageChange = ({ selected: pageNumber }: { selected: number }): void => {
-    const newOffset = pageNumber * itemsPerPage;
+  const handlePageChange = ({ selected }: { selected: number }): void => {
+    if (selected !== itemOffset) {
+      setItemOffset(selected);
+    }
+    console.log('selected', selected);
+    const newOffset = selected * itemsPerPage;
     setItemOffset(newOffset);
   };
 
   return (
     <>
       <BlogsLayout items={currentItems} />
-      <ReactPaginate
-        breakLabel="..."
-        breakClassName="text-xl font-bold text-tsk-primary-dark"
-        nextLabel="next"
-        previousLabel="previous"
-        onPageChange={handlePageChange}
-        pageRangeDisplayed={3}
-        marginPagesDisplayed={1}
-        pageCount={pageCount}
-        renderOnZeroPageCount={null}
-        containerClassName="flex items-center gap-4 "
-        pageClassName="border-2 border-tsk-primary-dark py-2 px-4 rounded-xl text-tsk-primary-dark"
-        activeClassName="bg-tsk-primary text-tsk-light-2 py-2 px-4 rounded-xl"
-        previousClassName={
-          itemOffset === 0
-            ? 'hidden'
-            : 'border-2 border-tsk-primary-dark py-2 px-4 rounded-xl text-tsk-primary-dark'
-        }
-        nextClassName={
-          itemOffset + itemsPerPage >= sampleItems.length
-            ? 'hidden'
-            : 'border-2 border-tsk-primary-dark py-2 px-4 rounded-xl text-tsk-primary-dark'
-        }
-      />
+      <div className="flex gap-4 justify-center">
+        <button
+          onClick={() => setItemOffset(0)}
+          className={
+            itemOffset === 0
+              ? 'hidden'
+              : 'border-2 border-tsk-primary-dark py-2 px-4 rounded-xl text-tsk-primary-dark'
+          }
+        >
+          First
+        </button>
+
+        <ReactPaginate
+          breakLabel="..."
+          breakClassName="text-xl font-bold text-tsk-primary-dark"
+          onPageChange={handlePageChange}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={1}
+          pageCount={pageCount}
+          forcePage={itemOffset / itemsPerPage}
+          renderOnZeroPageCount={null}
+          containerClassName="flex items-center gap-4 "
+          pageClassName="border-2 border-tsk-primary-dark rounded-xl text-tsk-primary-dark"
+          pageLinkClassName="block w-full h-full py-2 px-4"
+          activeClassName="bg-tsk-primary text-tsk-light-2 rounded-xl"
+          previousClassName="hidden"
+          nextClassName="hidden"
+        />
+
+        <button
+          onClick={() => setItemOffset(itemsPerPage * (pageCount - 1))}
+          className={
+            itemOffset + itemsPerPage >= sampleItems.length
+              ? 'hidden'
+              : 'border-2 border-tsk-primary-dark py-2 px-4 rounded-xl text-tsk-primary-dark'
+          }
+        >
+          Last
+        </button>
+      </div>
     </>
   );
 }
