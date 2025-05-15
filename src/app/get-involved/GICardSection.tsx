@@ -7,8 +7,8 @@ import SlackLogo from '@/assets/slack-logo.svg';
 import InstagramLogo from '@/assets/instagram-logo.svg';
 import XLogo from '@/assets/x-logo.svg';
 import GICardImg from '@/assets/GICardImg.svg';
-import Button from './Button';
 import ConnectorLines from './ConnectorLines';
+import Link from 'next/link';
 
 function GICardSection() {
   return (
@@ -45,9 +45,12 @@ function GICardSection() {
           <div>
             <Image src={GICardImg} alt="Card Image" />
           </div>
-          <Button variant="primary" className="rounded-lg cursor-pointer">
+          <Link
+            href="/about-us"
+            className="bg-tsk-primary-dark hover:opacity-80 transition-opacity delay-75 ease-in-out py-2 px-4  text-white rounded-lg cursor-pointer"
+          >
             <span className="font-bold text-xl">Learn More</span>
-          </Button>
+          </Link>
         </div>
 
         {/* connector lines */}

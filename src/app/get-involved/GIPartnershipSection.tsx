@@ -5,7 +5,7 @@ import PartnerImg1 from '@/assets/partner-img-1.svg';
 import PartnerImg2 from '@/assets/partner-img-2.svg';
 import PartnerImg3 from '@/assets/partner-img-3.svg';
 import MailIcon from '@/assets/mail-icon.svg';
-import Button from './Button';
+import Button from '@/components/Button';
 
 function GIPartnershipSection() {
   return (
@@ -46,6 +46,8 @@ function GIPartnershipSection() {
               details below, and we&apos;ll be in touch to explore opportunities.
             </p>
           </div>
+
+          {/* form section */}
           <form className="flex flex-col gap-4 mt-12">
             <input
               type="email"
