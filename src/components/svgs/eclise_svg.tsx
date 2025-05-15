@@ -1,5 +1,6 @@
 import * as React from 'react';
-const EclipseSvg = (props) => (
+
+const EclipseSvg: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={109} height={113} fill="none" {...props}>
     <path
       fill="#45084A"
@@ -7,4 +8,5 @@ const EclipseSvg = (props) => (
     />
   </svg>
 );
+
 export default EclipseSvg;
