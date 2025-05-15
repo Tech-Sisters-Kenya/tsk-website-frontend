@@ -2,12 +2,12 @@
 import React from 'react';
 
 import Image from 'next/image';
-import Button from './Button';
-import volunteer1 from '../../public/volunteer1.png';
-import volunteer2 from '../../public/volunteer2.png';
-import volunteer3 from '../../public/volunteer3.png';
-import volunteer4 from '../../public/volunteer4.png';
-import Logo from '../../public/TSK Primary Logo 2.svg';
+import Button from '../../components/Button';
+import volunteer1 from '../../../public/volunteer1.png';
+import volunteer2 from '../../../public/volunteer2.png';
+import volunteer3 from '../../../public/volunteer3.png';
+import volunteer4 from '../../../public/volunteer4.png';
+import Logo from '../../../public/TSK Primary Logo 2.svg';
 
 export default function Volunteer() {
   return (

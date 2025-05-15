@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Image from 'next/image';
-import donate from '../../public/donate-svgrepo-com 1.svg';
-import money from '../../public/money-svgrepo-com 1.svg';
-import email from '../../public/Vector.svg';
-import Button from './Button';
+import donate from '../../../public/donate-svgrepo-com 1.svg';
+import money from '../../../public/money-svgrepo-com 1.svg';
+import email from '../../../public/Vector.svg';
+import Button from '../../components/Button';
 import { useState } from 'react';
 
 export default function Donate() {

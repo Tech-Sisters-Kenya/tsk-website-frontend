@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnimatedGISvg } from './AnimatedGISvg';
+import { AnimatedGISvg } from '@/app/get-involved/AnimatedGISvg';
 
 function GIHeroSection() {
   return (
