@@ -9,9 +9,10 @@ interface GICardProps {
   icon: string;
   bgColor: string;
   linkColor: string;
+  link: string;
 }
 
-function GICard({ cardTitle, description, bgColor, icon, handle, linkColor }: GICardProps) {
+function GICard({ cardTitle, description, bgColor, icon, handle, linkColor, link }: GICardProps) {
   return (
     <div className="w-full max-w-xs bg-white z-10 border border-tsk-primary-dark px-4 py-2 rounded-2xl text-center ">
       <div
@@ -29,7 +30,8 @@ function GICard({ cardTitle, description, bgColor, icon, handle, linkColor }: GI
       </div>
       <div className="mt-12 mb-8">
         <Link
-          href=""
+          href={link}
+          target="_blank"
           className="border px-3 py-1 rounded-2xl font-semibold"
           style={{ borderColor: linkColor, color: linkColor }}
         >

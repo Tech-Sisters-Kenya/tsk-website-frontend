@@ -23,6 +23,7 @@ function GICardSection() {
             handle="Conversations"
             description="Vibe with fellow Tech Sisters!"
             linkColor="#007DF2"
+            link="https://www.linkedin.com/company/tech-sisters-kenya/"
           />
           <GICard
             cardTitle="TSK Instagram Handle"
@@ -31,6 +32,7 @@ function GICardSection() {
             handle="Posts"
             description="See our TSK community!"
             linkColor="#900E31"
+            link="https://www.instagram.com/techsisterskenya/"
           />
         </div>
 
@@ -68,6 +70,7 @@ function GICardSection() {
             handle="Ideas"
             description="Deep tech talks happen here!"
             linkColor="#0A891B"
+            link="https://forms.gle/oKQPkaG4QC2vaRUp9"
           />
           <GICard
             cardTitle="TSK X Handle"
@@ -76,6 +79,7 @@ function GICardSection() {
             handle="Tweets"
             description="Check out our community updates!"
             linkColor="#900E31"
+            link="https://x.com/TechSistersKE"
           />
         </div>
       </div>
