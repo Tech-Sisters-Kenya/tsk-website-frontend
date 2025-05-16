@@ -10,8 +10,8 @@ export default function WhoWeAre() {
     <section className="w-full mt-12 sm:mt-20 md:mt-24 lg:mt-32 bg-foreground py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         {/*Images section */}
-        <div className="relative w-full lg:w-2/5 max-w-4xl flex h-[500px] lg:mx-0 mt-32 mb-1">
-          <div className="absolute top-0 left-0 z-10 w-[70%] rounded-lg overflow-hidden shadow-lg sm:block">
+        <div className="relative w-full sm:w-4/5 md:w-3/5 lg:w-2/5 max-w-3xl flex min-h-[300px] h-auto sm:min-h-[400px] lg:min-h-[500px] lg:mx-0 mt-16 sm:mt-24 md:mt-32 mb-1">
+          <div className="absolute top-0 left-0 z-10 w-full sm:w-[80%] md:w-[75%] lg:w-[70%] rounded-lg overflow-hidden shadow-lg">
             <Image
               src={Image1}
               alt=""
@@ -20,17 +20,18 @@ export default function WhoWeAre() {
               className="w-[300px] h-auto rounded-lg"
             />
           </div>
-          <div className="absolute top-[35%] right-0 z-0 w-[70%] rounded-lg overflow-hidden shadow-lg">
+          <div className="absolute top-[35%] sm:top-[25%] md:top-[35%] lg:top-[35%] right-0 z-0 w-[90%] sm:w-[90%] md:w-[70%] lg:w-[80%] xl:w-[50%] rounded-lg overflow-hidden shadow-lg">
             <Image
               src={Image2}
               alt="group photo"
-              width={200}
-              height={100}
-              className="w-[300px] h-auto rounded-lg"
+              width={1200}
+              height={800}
+              className="w-full h-auto object-cover rounded-lg"
             />
           </div>
+
           {/* Logo positioned absolutely over the image  */}
-          <div className="absolute -top-5 right-8 sm:-top-5 sm:right-16 z-20">
+          <div className="absolute -top-5 right-8 sm:-top-5 sm:right-16 md:-top-8 md:right-8 lg:-top-5 lg:right-16 z-20">
             <Image
               src={Logo}
               alt=""

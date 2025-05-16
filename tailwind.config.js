@@ -25,9 +25,13 @@ module.exports = {
       },
       keyframes: {
         elasticswing: {
-          '0%, 100%': { transform: 'rotate(0deg)' },
-          '25%': { transform: 'rotate(5deg)' },
-          '75%': { transform: 'rotate(-5deg)' },
+          '0%': { transform: 'rotate(0deg)' },
+          '25%': { transform: 'rotate(25deg)' },
+          '35%': { transform: 'rotate(25deg)' }, // hold on one side
+          '50%': { transform: 'rotate(0deg)' },
+          '75%': { transform: 'rotate(-15deg)' },
+          '85%': { transform: 'rotate(-15deg)' }, // hold on other side
+          '100%': { transform: 'rotate(0deg)' },
         },
         zoom: {
           '0%, 100%': { transform: 'scale(1)' },
@@ -40,7 +44,7 @@ module.exports = {
         },
       },
       animation: {
-        elasticswing: 'elasticswing 2s ease-in-out infinite',
+        elasticswing: 'elasticswing 5s ease-in-out infinite',
         zoom: 'zoom 3s ease-in-out infinite',
         squashstretch: 'squashstretch 1.8s ease-in-out infinite',
       },
