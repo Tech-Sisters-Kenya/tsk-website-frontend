@@ -10,30 +10,77 @@ import GICardImg from '@/assets/GICardImg.svg';
 import ConnectorLines from './ConnectorLines';
 import Link from 'next/link';
 
+const COLOR_MAP = {
+  linkedin: {
+    bgColor: 'bg-[#7BA2C7]',
+    linkColor: 'text-[#007DF2]',
+    borderColor: 'border-[#007DF2]',
+    hoverColor: 'hover:bg-[#007DF2] hover:text-white',
+  },
+  instagram: {
+    bgColor: 'bg-[#900E3187]',
+    linkColor: 'text-[#900E31]',
+    borderColor: 'border-[#900E31]',
+    hoverColor: 'hover:bg-[#900E31] hover:text-white',
+  },
+  slack: {
+    bgColor: 'bg-[#0A891B8F]',
+    linkColor: 'text-[#0A891B]',
+    borderColor: 'border-[#0A891B]',
+    hoverColor: 'hover:bg-[#0A891B] hover:text-white',
+  },
+  x: {
+    bgColor: 'bg-[#000000B2]',
+    linkColor: 'text-[#900E31]',
+    borderColor: 'border-[#900E31]',
+    hoverColor: 'hover:bg-[#900E31] hover:text-white',
+  },
+};
+
+const SOCIAL_MEDIA = [
+  {
+    title: 'LinkedIn',
+    icon: LinkedInLogo,
+    link: 'https://www.linkedin.com/company/tech-sisters-kenya/',
+    handle: 'Conversations',
+    description: 'Vibe with fellow Tech Sisters!',
+    colorKey: COLOR_MAP['linkedin'],
+  },
+  {
+    title: 'TSK Instagram Handle',
+    icon: InstagramLogo,
+    link: 'https://www.instagram.com/techsisterskenya/',
+    handle: 'Posts',
+    description: 'See our TSK community!',
+    colorKey: COLOR_MAP['instagram'],
+  },
+  {
+    title: 'TSK Slack Channel',
+    icon: SlackLogo,
+    link: 'https://forms.gle/oKQPkaG4QC2vaRUp9',
+    handle: 'Ideas',
+    description: 'Deep tech talks happen here!',
+    colorKey: COLOR_MAP['slack'],
+  },
+  {
+    title: 'TSK X Handle',
+    icon: XLogo,
+    link: 'https://x.com/TechSistersKE',
+    handle: 'Tweets',
+    description: 'Check out our community updates!',
+    colorKey: COLOR_MAP['x'],
+  },
+];
+
 function GICardSection() {
   return (
     <section className="w-full mx-auto text-tsk-primary-dark mt-12 p-12 flex justify-center">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
         {/* first col cards */}
         <div className="flex flex-col gap-6 md:gap-16 items-center order-1">
-          <GICard
-            cardTitle="LinkedIn"
-            bgColor="#7BA2C7"
-            icon={LinkedInLogo}
-            handle="Conversations"
-            description="Vibe with fellow Tech Sisters!"
-            linkColor="#007DF2"
-            link="https://www.linkedin.com/company/tech-sisters-kenya/"
-          />
-          <GICard
-            cardTitle="TSK Instagram Handle"
-            bgColor="#900E3187"
-            icon={InstagramLogo}
-            handle="Posts"
-            description="See our TSK community!"
-            linkColor="#900E31"
-            link="https://www.instagram.com/techsisterskenya/"
-          />
+          {SOCIAL_MEDIA.slice(0, 2).map((social, index) => (
+            <GICard key={index} {...social} />
+          ))}
         </div>
 
         {/* connector lines */}
@@ -63,24 +110,9 @@ function GICardSection() {
 
         {/* second col cards */}
         <div className="flex flex-col gap-6 md:gap-16 items-center order-2 md:order-3">
-          <GICard
-            cardTitle="TSK Slack Channel"
-            bgColor="#0A891B8F"
-            icon={SlackLogo}
-            handle="Ideas"
-            description="Deep tech talks happen here!"
-            linkColor="#0A891B"
-            link="https://forms.gle/oKQPkaG4QC2vaRUp9"
-          />
-          <GICard
-            cardTitle="TSK X Handle"
-            bgColor="#000000B2"
-            icon={XLogo}
-            handle="Tweets"
-            description="Check out our community updates!"
-            linkColor="#900E31"
-            link="https://x.com/TechSistersKE"
-          />
+          {SOCIAL_MEDIA.slice(2, 4).map((social, index) => (
+            <GICard key={index} {...social} />
+          ))}
         </div>
       </div>
     </section>
