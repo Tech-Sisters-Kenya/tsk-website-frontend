@@ -46,7 +46,7 @@ module.exports = {
       animation: {
         elasticswing: 'elasticswing 5s ease-in-out infinite',
         zoom: 'zoom 3s ease-in-out infinite',
-        squashstretch: 'squashstretch 1.8s ease-in-out infinite',
+        squashstretch: 'squashstretch 2s ease-in-out infinite',
       },
     },
     screens: {

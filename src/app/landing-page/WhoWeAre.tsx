@@ -11,33 +11,33 @@ export default function WhoWeAre() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         {/*Images section */}
         <div className="relative w-full sm:w-4/5 md:w-3/5 lg:w-2/5 max-w-3xl flex min-h-[300px] h-auto sm:min-h-[400px] lg:min-h-[500px] lg:mx-0 mt-16 sm:mt-24 md:mt-32 mb-1">
-          <div className="absolute top-0 left-0 z-10 w-full sm:w-[80%] md:w-[75%] lg:w-[70%] rounded-lg overflow-hidden shadow-lg">
+          <div className="absolute -top-6 left-0 z-10 w-full rounded-lg lg:-left-[20%] overflow-hidden shadow-lg">
             <Image
               src={Image1}
               alt=""
               width={150}
               height={50}
-              className="w-[300px] h-auto rounded-lg"
+              className="w-[300px] md:w-[400px] lg:w-[800px] h-auto"
             />
           </div>
-          <div className="absolute top-[35%] sm:top-[25%] md:top-[35%] lg:top-[35%] right-0 z-0 w-[90%] sm:w-[90%] md:w-[70%] lg:w-[80%] xl:w-[50%] rounded-lg overflow-hidden shadow-lg">
+          <div className="absolute top-[40%] sm:top-[40%] sm:right-[20%] md:top-[38%] md:-right-[6%] lg:top-[22%] lg:-right-[8%] right-0 z-0 overflow-hidden shadow-lg">
             <Image
               src={Image2}
               alt="group photo"
               width={1200}
               height={800}
-              className="w-full h-auto object-cover rounded-lg"
+              className="w-[300px] md:w-[900px] lg:w-[800px] xl:w-[1100px] h-auto object-cover rounded-lg"
             />
           </div>
 
           {/* Logo positioned absolutely over the image  */}
-          <div className="absolute -top-5 right-8 sm:-top-5 sm:right-16 md:-top-8 md:right-8 lg:-top-5 lg:right-16 z-20">
+          <div className="absolute -top-5 right-8 sm:-top-2 sm:right-16 md:-top-6 md:-right-1 lg:-top-8 lg:right-[8%] z-20">
             <Image
               src={Logo}
               alt=""
               width={60}
               height={60}
-              className="w-14 h-14 sm:w-20 sm:h-20 object-contain"
+              className="w-14 h-14 sm:w-20 sm:h-20 md:h-15 md:w-15 lg:w-18 lg:h-18 object-contain"
             />
           </div>
         </div>
