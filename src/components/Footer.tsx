@@ -105,7 +105,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="mt-12 text-center text-sm">
-          All rights reserved. Tech Sisters Kenya ©2025
+          All rights reserved. Tech Sisters Kenya &copy;{new Date().getFullYear()}
         </div>
       </div>
     </footer>
