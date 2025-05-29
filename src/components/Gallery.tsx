@@ -51,11 +51,13 @@ const Gallery = () => {
                 fill
                 className="object-cover rounded-3xl px-2"
               />
-              <Button
-                variant="secondary"
-                className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-tsk-light-2 text-[#45084a] font-semibold py-3 md:w-[70%] lg:w-[50%]"
-              >
-                <a href={image.link} target="_blank" rel="noopener noreferrer">
+              <Button className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-tsk-light-2  font-semibold py-3 md:w-[70%] lg:w-[50%] h-[60px] border-none">
+                <a
+                  href={image.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#45084a]"
+                >
                   {' '}
                   {image.buttonText}
                 </a>

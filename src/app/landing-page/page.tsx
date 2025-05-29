@@ -6,7 +6,6 @@ import WhatWeDo from '@/app/landing-page/WhatWeDo';
 import Gallery from '@/components/Gallery';
 import ExploreBlogs from '@/app/landing-page/ExploreBlogs';
 import Testimonials from '@/app/landing-page/Testimonials';
-import testimonialShared from '@/data/testimonialShared.json';
 
 export default function LandingPage() {
   const reachStats = [
@@ -27,7 +26,7 @@ export default function LandingPage() {
       <WhatWeDo />
       <Gallery />
       <ExploreBlogs />
-      <Testimonials slides={testimonialShared} />
+      <Testimonials />
     </main>
   );
 }
