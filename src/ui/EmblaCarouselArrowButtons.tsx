@@ -51,7 +51,7 @@ export const PrevButton: React.FC<PropType> = (props) => {
 
   return (
     <button
-      className="embla__button embla__button--prev appearance-none touch-manipulation flex text-decoration-none cursor-pointer border-1 border-[#45084a] p-0 m-0 shadow-[inset_0_0_0_0.2rem_var(--detail-medium-contrast)] w-[1.5rem] h-[1.5rem] z-[1] rounded-full text-[#45084a] items-center justify-center disabled:opacity-50 hover:bg-[#45084a] hover:text-[#f8ebfc]"
+      className="embla__button embla__button--prev appearance-none touch-manipulation flex text-decoration-none cursor-pointer border border-[#45084a] p-2 m-0 w-[10px] h-[10px] z-[1] rounded-full text-[#45084a] items-center justify-center disabled:opacity-50 hover:bg-[#45084a] hover:text-[#f8ebfc]"
       type="button"
       {...restProps}
     >
@@ -71,11 +71,11 @@ export const NextButton: React.FC<PropType> = (props) => {
 
   return (
     <button
-      className="embla__button embla__button--next appearance-none touch-manipulation flex text-decoration-none cursor-pointer border-1 p-0 m-0 shadow-[inset_0_0_0_0.2rem_var(--detail-medium-contrast)] w-[1.5rem] h-[1.5rem] border-[#45084a] z-[1] rounded-full text-[#45084a] items-center justify-center disabled:opacity-50 hover:bg-[#45084a] hover:text-[#f8ebfc]"
+      className="embla__button embla__button--next appearance-none touch-manipulation flex text-decoration-none cursor-pointer border p-2 m-0 w-[3.6rem] h-[3.6rem] border-[#45084a] z-[1] rounded-full text-[#45084a] items-center justify-center disabled:opacity-50 hover:bg-[#45084a] hover:text-[#f8ebfc]"
       type="button"
       {...restProps}
     >
-      <svg className="embla__button__svg  w-[35%] h-[35%]" viewBox="0 0 532 532">
+      <svg className="embla__button__svg w-[35%] h-[35%]" viewBox="0 0 532 532">
         <path
           fill="currentColor"
           d="M176.34 520.646c-13.793 13.805-36.208 13.805-50.001 0-13.785-13.804-13.785-36.238 0-50.034L330.78 266 126.34 61.391c-13.785-13.805-13.785-36.239 0-50.044 13.793-13.796 36.208-13.796 50.002 0 22.928 22.947 206.395 206.507 229.332 229.454a35.065 35.065 0 0 1 10.326 25.126c0 9.2-3.393 18.26-10.326 25.2-45.865 45.901-206.404 206.564-229.332 229.52Z"
