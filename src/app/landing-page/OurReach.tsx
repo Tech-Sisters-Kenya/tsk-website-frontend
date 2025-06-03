@@ -3,7 +3,7 @@ import Image from 'next/image';
 import CountUp from 'react-countup';
 import React from 'react';
 import Button from '../../components/Button';
-import imageSrc from '@/assets/Group 633200.svg';
+import imageSrc from '@/assets/Rectangle 99.svg';
 import bug from '@/assets/Bug.svg';
 import Logo from '@/assets/tsk-icon-logo.svg';
 import Link from 'next/link';
@@ -22,11 +22,13 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
           <h2 className="text-3xl md:text-4xl font-bold text-tsk-primary-dark font-heading mb-4">
             {title}
           </h2>
-          <p className="text-tsk-primary-dark font-bold font-body max-w-md mb-6">{subtitle}</p>
+          <p className="text-tsk-primary-dark text-lg font-bold font-body max-w-md mb-6">
+            {subtitle}
+          </p>
           {/*horizontal line */}
           <div className="border-t border-tsk-primary-dark w-full max-wsm mx-auto lg:mx-0 mb-6"></div>
           {/* Statistics Section */}
-          <div className="flex flex-row sm:flex-row gap-6 mb-6">
+          <div className="flex flex-row text-center sm:flex-row gap-4 mb-6 -mr-2">
             {stats.map((stat, index) => (
               <div key={index}>
                 <h3 className="text-2xl font-bold font-body text-tsk-primary-dark">
@@ -37,7 +39,7 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
                   />
                   +
                 </h3>
-                <p className="text-sm font-bold text-tsk-primary-dark">{stat.label}</p>
+                <p className="text-sm text-center font-bold text-tsk-primary-dark">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -51,13 +53,17 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
         {/* Right Image */}
         <div className="w-full md:w-1/2 flex justify-start items-center">
           <div className="relative w-full max-w-2xl gap-8">
-            <Image src={Logo} alt="logo-left" className="absolute -top-4 -left-2 w-20 h-20 z-1" />
+            <Image
+              src={Logo}
+              alt="logo-left"
+              className="absolute -top-6 -left-8 w-22 h-22 sm:w-24 sm:h-24 md:w-26 md:h-26 lg:w-28 lg:h-28 z-1"
+            />
             <Image
               src={bug}
               alt=""
               width={80}
               height={50}
-              className="absolute -bottom-6 left--2 w-15 h-15 z-10"
+              className="absolute -bottom-6 -left-6 w-15 h-15 z-10"
             />
             <Image
               src={imageSrc}
