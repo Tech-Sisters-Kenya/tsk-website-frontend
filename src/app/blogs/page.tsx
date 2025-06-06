@@ -1,5 +1,5 @@
 import React from 'react';
-import BlogWelcomeHeader from '@/components/BlogWelcomeHeader';
+import BlogWelcomeHeader from '@/app/blogs/BlogWelcomeHeader';
 import TagSelector from '@/app/blogs/TagSelector';
 import Pagination from './Pagination';
 
