@@ -7,14 +7,14 @@ import techSister2 from '@/assets/IMG_4912 1.svg';
 
 const AnimatedShapes: React.FC = () => {
   return (
-    <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden -mt-4">
-      <div className="relative flex flex-col items-center gap-2 z-10">
+    <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden mb-12 px-4 py-8">
+      <div className="relative flex flex-col items-center gap-2 z-10 py-2">
         <div className="relative w-72 h-72 mb-2 z-0">
           <Image
             src={techSister1}
             alt="Tech Sister 1"
-            width={220}
-            height={220}
+            width={260}
+            height={260}
             className="absolute z-10 -bottom-10 left-10"
           />
         </div>
@@ -22,10 +22,10 @@ const AnimatedShapes: React.FC = () => {
         <div className="relative w-96 h-64">
           <Image
             src={techSister2}
-            width={480}
-            height={480}
+            width={520}
+            height={520}
             alt="Tech Sister 2"
-            className="relative object-contain z-10 -bottom-2 -left-6"
+            className="relative object-contain z-10 top-0 left-0"
           />
         </div>
         <div className="realative w-100 h-54 ">
@@ -41,7 +41,7 @@ const AnimatedShapes: React.FC = () => {
         </div>
       </div>
       {/* semi-circle Shape */}
-      <div className="absolute left-2 top-22 w-28 h-28 sm:top-18 sm:w-30 sm:h-30 md:top-20 md:w-34 md:h-34 lg:top-22 lg:w-38 lg:h-38 animate-elasticswing">
+      <div className="absolute left-4 top-24 w-28 h-28 sm:top-20 sm:w-30 sm:h-30 md:top-26 md:w-34 md:h-34 lg:top-28 lg:w-38 lg:h-38 animate-elasticswing">
         <svg
           width="181"
           height="189"
@@ -58,8 +58,8 @@ const AnimatedShapes: React.FC = () => {
       {/* Circle Shape */}
       <div className="absolute left-6 bottom-25 w-20 h-20  rounded-full opacity-75 animate-zoom">
         <svg
-          width="120"
-          height="120"
+          width="100"
+          height="100"
           viewBox="0 0 120 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@ const AnimatedShapes: React.FC = () => {
         </svg>
       </div>
       {/* Cloud Shape */}
-      <div className="absolute left-6 top-2 w-36 h-24 rounded-[100px] animate-elasticswing">
+      <div className="absolute left-6 -top-8 w-36 h-24 rounded-[100px] animate-elasticswing">
         <svg
           width="126"
           height="116"
@@ -184,7 +184,7 @@ const AnimatedShapes: React.FC = () => {
         </svg>
       </div>
       {/* Logo */}
-      <div className="absolute right-8 bottom-18 w-16 h-16 sm:w-16 sm:h-16 md:w-18 md:h-18 animate-zoom">
+      <div className="absolute right-16 bottom-18 w-16 h-16 sm:w-16 sm:h-16 md:w-18 md:h-18 animate-zoom">
         <svg
           width="63"
           height="84"
