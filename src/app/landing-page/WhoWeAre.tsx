@@ -53,76 +53,84 @@ export default function WhoWeAre() {
           </div>
         </div>
         <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-6 mt-10">
-          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-6 flex flex-col md:flex-row justify-start">
-            <div className="w-full md:max-w-3xl">
-              <h2 className="text-5xl md:text-7xl sm:text-6xl font-semibold text-tsk-primary-dark text-right font-heading pb-6">
+          <div className="ml-16 sm:ml-18 md:ml-20 w-full max-w-7xl mx-auto flex flex-col md:flex-row justify-start">
+            <div className="w-full md:max-w-3xl flex flex-col items-center">
+              <h2 className="text-5xl md:text-7xl sm:text-6xl font-semibold text-tsk-primary-dark text-center font-heading pb-20">
                 WHO WE ARE
               </h2>
 
-              <div className="ml-16 sm:ml-18 md:ml-20 space-y-6 bg-foreground rounded-lg p-4 sm:p-6 md:p-8 lg:p-10 mb-20 max-w-full md:max-w-lg lg:max-w-xl mx-auto">
+              <div className="space-y-6 bg-foreground rounded-lg mb-20 max-w-full md:max-w-2xl lg:max-w-3xl mx-auto">
                 {/* Mission Section */}
                 <div className="flex sm:flex-row overflow-hidden rounded-2xl border border-tsk-primary-dark shadow-sm">
-                  <div className="bg-tsk-primary-dark rounded-2xl px-2 sm:px-4 md:px-5 flex items-center justify-center w-24 sm:28 md:w-32">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground text-center font-heading">
+                  <div className="bg-tsk-primary-dark rounded-2xl px-3 sm:px-4 md:px-6 flex items-center justify-center w-28 sm:w-32 md:w-36 flex-shrink-0">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground text-center font-heading leading-tight">
                       Our Mission
                     </h3>
                   </div>
-                  <div className="bg-foreground px-4 sm:px-5 md:px-7 py-2 sm:py-3 md:py-4">
-                    <p className="text-gray-700 text-[14px] sm:text-xm md:text-sm font-semibold font-body leading-snug">
-                      <p className="ml-0">To create a supportive and inclusive community</p>
-                      <p className="ml-1">where women in tech can grow, network,and</p>
-                      <p className="ml-2">find mentorship at every career stage, while</p>
-                      <p className="ml-3">prioritizing their well-being.</p>
+                  <div className="bg-foreground px-4 sm:px-5 md:px-6 py-4 sm:py-5 md:py-6 flex-1">
+                    <p className="text-gray-700 text-sm sm:text-base md:text-base text-center font-semibold font-body leading-relaxed">
+                      To create a supportive and inclusive community
+                      <br />
+                      where women in tech can grow, network, and
+                      <br />
+                      find mentorship at every career stage, while
+                      <br />
+                      prioritizing their well-being.
                     </p>
                   </div>
                 </div>
 
-                {/* vision section */}
+                {/* Vision Section */}
                 <div className="flex sm:flex-row overflow-hidden rounded-2xl border border-tsk-primary-dark shadow-sm">
-                  <div className="bg-tsk-primary-dark rounded-2xl px-3 sm:px-4 md:px-5  flex items-center justify-center w-24 sm:28 md:w-32">
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground text-center font-heading">
+                  <div className="bg-tsk-primary-dark rounded-2xl px-3 sm:px-4 md:px-6 flex items-center justify-center w-28 sm:w-32 md:w-36 flex-shrink-0">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground text-center font-heading leading-tight">
                       Our Vision
                     </h3>
                   </div>
-                  <div className="bg-foreground px-2 sm:px-3 md:px-4 py-2 sm:py-3 md:py-4">
-                    <p className="text-gray-700 text-[14px] sm:text-xs md:text-sm text-center font-semibold font-body">
-                      A Kenya where women are empowered to excel in technology, lead the way in
-                      innovation, and drive positive change.
+                  <div className="bg-foreground px-4 sm:px-5 md:px-6 py-4 sm:py-5 md:py-6 flex-1">
+                    <p className="text-gray-700 text-sm sm:text-base md:text-base text-center font-semibold font-body leading-relaxed">
+                      A Kenya where women are empowered to excel
+                      <br />
+                      in technology, lead the way in innovation, and
+                      <br />
+                      drive positive change.
                     </p>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          {/* Core Values Section */}
 
-          <div className="flex flex-col items-center -mt-10">
-            <h3 className="text-base sm:text-sm md:text-lg border border-tsk-primary-dark rounded-full text-tsk-primary-dark mb-6 px-6 py-1  font-body font-semibold text-center">
-              Core Values
-            </h3>
-            <div className="flex flex-row justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 mb-14">
-              {coreValues.map((value: { label: string; src: StaticImageData }, index: number) => (
-                <div key={index} className="flex flex-col items-center">
-                  <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 mb-6">
-                    <Image
-                      src={value.src}
-                      alt={value.label}
-                      width={40}
-                      height={40}
-                      className="text-tsk-primary-dark w-full h-full object-contain"
-                    />
-                  </div>
-                  <p className="text-center font-semibold text-tsk-primary-dark text-sm sm:text-base font-body">
-                    {value.label}
-                  </p>
+              {/* Core Values Section */}
+              <div className="flex flex-col items-center -mt-5">
+                <h3 className="text-sm sm:text-base md:text-lg border border-tsk-primary-dark rounded-full text-tsk-primary-dark mb-8 px-4 sm:px-6 md:px-8 lg:px-10 py-2 font-body font-bold text-center">
+                  Core Values
+                </h3>
+                <div className="flex flex-row justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 mb-14">
+                  {coreValues.map(
+                    (value: { label: string; src: StaticImageData }, index: number) => (
+                      <div key={index} className="flex flex-col items-center">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mb-4">
+                          <Image
+                            src={value.src}
+                            alt={value.label}
+                            width={48}
+                            height={48}
+                            className="text-tsk-primary-dark w-full h-full object-contain"
+                          />
+                        </div>
+                        <p className="text-center font-semibold text-tsk-primary-dark text-xs sm:text-sm md:text-base font-body">
+                          {value.label}
+                        </p>
+                      </div>
+                    )
+                  )}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
       {/*horizontal line */}
-      <div className="border-t border-tsk-primary-dark w-full  mx-auto lg:mx-0 mb-6"></div>
+      <div className="border-t border-tsk-primary-dark w-full max-w-4xl mx-auto  mb-6"></div>
       <BrandsSection />
     </section>
   );
