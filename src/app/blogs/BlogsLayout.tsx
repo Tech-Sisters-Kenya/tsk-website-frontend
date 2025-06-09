@@ -2,14 +2,7 @@ import React from 'react';
 import BlogCard from './BlogCard';
 import clsx from 'clsx';
 
-interface BlogItem {
-  id: number;
-  title: string;
-  tags: string[];
-  publishedDate: string;
-  content: string;
-  image: string;
-}
+import { BlogItem } from './interface';
 
 function BlogsLayout({ items }: { items: BlogItem[] }) {
   const rows = [];
@@ -24,7 +17,7 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
           key={`row-${idx}-2col`}
           className={
             row1.length === 2
-              ? 'grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 mb-8'
+              ? 'grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-16 mb-8'
               : 'grid grid-cols-1'
           }
         >
@@ -64,7 +57,7 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
           key={`row-${idx}-2col`}
           className={
             row3.length === 2
-              ? 'grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 mb-8'
+              ? 'grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-16 mb-8'
               : 'grid grid-cols-1'
           }
         >
