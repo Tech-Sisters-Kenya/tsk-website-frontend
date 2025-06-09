@@ -3,7 +3,7 @@ import { AnimatedBlogPage } from './svg_components/AnimatedBlogPage';
 
 const BlogWelcomeHeader = () => {
   return (
-    <section className="w-full  mx-auto text-tsk-primary-dark px-8 -mt-40 -z-10">
+    <section className="w-full  mx-auto text-tsk-primary-dark px-8 -mt-36 -z-10">
       <div className=" bg-tsk-light-2 rounded-b-3xl px-14">
         <div className="pt-20 grid grid-cols-1 lg:grid-cols-2 items-center">
           <div>
@@ -14,7 +14,7 @@ const BlogWelcomeHeader = () => {
               <p className=""> A space created to educate, inspire, and uplift women in tech. </p>
             </div>
           </div>
-          <div className="flex justify-center items-center w-full">
+          <div className="flex w-full">
             <AnimatedBlogPage />
           </div>
         </div>
