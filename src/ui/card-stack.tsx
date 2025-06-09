@@ -59,7 +59,7 @@ export const CardStack = ({ items }: CardStackProps) => {
           // Exiting card (sliding left)
           if (isPrevActive) {
             return {
-              x: 100, // Slide far to the left
+              x: 50, // Slide far to the left
               y: 0,
               scale: 0.9,
               opacity: 0.5,
@@ -79,7 +79,7 @@ export const CardStack = ({ items }: CardStackProps) => {
           }
 
           // Calculate horizontal offset for stacked cards (more to the left)
-          const xOffset = -30 * relativePos; // Negative for leftward stacking
+          const xOffset = -20 * relativePos; // Negative for leftward stacking
           const yOffset = 15 * relativePos; // Small vertical offset
 
           // Deeper cards are more opaque
