@@ -9,10 +9,46 @@ import Testimonials from '@/app/landing-page/Testimonials';
 
 export default function LandingPage() {
   const reachStats = [
-    { value: '700+', label: 'Software Developers' },
-    { value: '450+', label: 'Data Analysts' },
-    { value: '230+', label: 'Cyber Security Enthusiasts' },
-    { value: '550+', label: 'Other Tech Fields' },
+    {
+      value: '700+',
+      label: (
+        <>
+          Software
+          <br />
+          Developers
+        </>
+      ),
+    },
+    {
+      value: '450+',
+      label: (
+        <>
+          Data
+          <br />
+          Analysts
+        </>
+      ),
+    },
+    {
+      value: '230+',
+      label: (
+        <>
+          CyberSecurity
+          <br />
+          Enthusiasts
+        </>
+      ),
+    },
+    {
+      value: '550+',
+      label: (
+        <>
+          Other
+          <br />
+          TechFields
+        </>
+      ),
+    },
   ];
   return (
     <main className="flex min-h-screen flex-col items-center justify-center lg:p-24">
@@ -20,7 +56,12 @@ export default function LandingPage() {
       <WhoWeAre />
       <OurReach
         title="OUR REACH SO FAR"
-        subtitle="A growing community of women building confidence, skills, and careers in tech."
+        subtitle={
+          <>
+            A growing community of women building <br />
+            confidence, skills, and careers in tech.
+          </>
+        }
         stats={reachStats}
       />
       <WhatWeDo />
