@@ -3,12 +3,12 @@ import { AnimatedBlogPage } from './svg_components/AnimatedBlogPage';
 
 const BlogWelcomeHeader = () => {
   return (
-    <section className="w-full  mx-auto text-tsk-primary-dark px-8 -mt-14 -z-10">
-      <div className=" bg-tsk-light-2 rounded-b-3xl px-10">
+    <section className="w-full  mx-auto text-tsk-primary-dark px-8 -mt-40 -z-10">
+      <div className=" bg-tsk-light-2 rounded-b-3xl px-14">
         <div className="pt-20 grid grid-cols-1 lg:grid-cols-2 items-center">
           <div>
             <h1 className="font-black font-heading text-5xl leading-[150%]">Blogs</h1>
-            <div className="font-body text-[32px] mt-8">
+            <div className="font-body text-[30px] font-medium mt-8">
               <p>Welcome to the Tech Sisters Kenya blog </p>
               <p> — </p>
               <p className=""> A space created to educate, inspire, and uplift women in tech. </p>
