@@ -102,7 +102,7 @@ export default function SignupPage() {
 
         {/* Divider */}
         <div className="relative flex items-center justify-center">
-          <div className="px-3 text-tsk-primary-dark font-semibold text-md">
+          <div className="px-3 bg-tsk-light-2 text-tsk-primary-dark font-semibold text-md">
             Or Sign In With Email
           </div>
         </div>
