@@ -14,17 +14,17 @@ const createMarkup = (html: string) => {
 };
 
 const ValueItem: React.FC<ValueItemProps> = ({ title, description, isReversed = false }) => (
-  <div className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} my-12`}>
+  <div className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} my-20`}>
     {/* Title container */}
     <div
       className={`z-10 md:w-1/3 flex items-center ${isReversed ? 'md:justify-end' : 'md:justify-start'}`}
     >
       <div
-        className={`bg-tsk-light-2 pb-5 mt-12 w-full ${isReversed ? 'md:rounded-r-xl' : 'md:rounded-l-xl'}`}
+        className={`bg-tsk-light-2 pb-5 mt-12 w-full ${isReversed ? 'md:rounded-r-3xl' : 'md:rounded-l-3xl'}`}
       >
-        <div className={`bg-white ${isReversed ? 'md:rounded-bl-xl' : 'md:rounded-br-xl'}`}>
+        <div className={`bg-white ${isReversed ? 'md:rounded-bl-3xl' : 'md:rounded-br-3xl'}`}>
           <h3
-            className="text-tsk-primary-dark text-xl md:text-2xl font-semibold font-heading text-center"
+            className="text-tsk-primary-dark text-xl md:text-5xl font-medium font-heading text-center"
             dangerouslySetInnerHTML={createMarkup(title)}
           ></h3>
         </div>
@@ -34,11 +34,11 @@ const ValueItem: React.FC<ValueItemProps> = ({ title, description, isReversed = 
     {/* Background and Description container */}
     <div className={`relative ${isReversed ? 'md:pl-8' : 'md:pr-8'} md:w-2/3`}>
       <div
-        className={`absolute top-0 ${isReversed ? 'left-0 md:rounded-l-xl md:rounded-tr-xl' : 'right-0 md:rounded-r-xl md:rounded-tl-xl'} w-full h-full bg-tsk-light-2  -z-10`}
+        className={`absolute top-0 ${isReversed ? 'left-0 md:rounded-l-3xl md:rounded-tr-3xl' : 'right-0 md:rounded-r-3xl md:rounded-tl-3xl'} w-full h-full bg-tsk-light-2 -z-10`}
       ></div>
       <div className="p-6 flex items-center relative z-10">
         <p
-          className={`text-sm text-tsk-primary-dark md:text-base font-semibold ${isReversed ? 'md:mr-8' : 'md:ml-8'}`}
+          className={`text-sm text-tsk-primary-dark md:text-2xl font-semibold ${isReversed ? 'md:mr-8' : 'md:ml-8'}`}
           dangerouslySetInnerHTML={createMarkup(description)}
         ></p>
       </div>
@@ -71,7 +71,7 @@ const ValueToTechSisters = () => {
   ];
 
   return (
-    <section className="w-full py-16 px-4 md:px-48">
+    <section className="w-full py-16 px-4 md:px-20">
       <div className="container mx-auto">
         <h2 className="text-2xl md:text-5xl font-semibold font-heading text-tsk-primary-dark text-center my-20">
           Our Value To Tech Sisters
