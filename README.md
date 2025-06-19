@@ -14,6 +14,7 @@ You can view the design prototype on Figma:
 ### ⚙️ Prerequisites
 
 Ensure you have the following installed:
+
 - Node.js >= 18
 - pnpm (preferred) / npm / yarn / bun
 - Docker (for optional containerized development)
@@ -21,12 +22,14 @@ Ensure you have the following installed:
 ### 📥 Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/Tech-Sisters-Kenya/tsk-website-frontend.git
 cd tsk-website-frontend
 ```
 
 2. Install dependencies:
+
 ```bash
 pnpm install
 # or
@@ -36,6 +39,7 @@ yarn install
 ```
 
 3. Start the development server:
+
 ```bash
 pnpm dev
 # or
@@ -59,11 +63,11 @@ Currently, no automated frontend test suite is integrated. Unit and integration 
 
 ## 📁 Project Structure
 
-- `app/` – Main application pages and routes  
-- `components/` – Reusable UI components  
-- `public/` – Static assets like images  
-- `styles/` – Global and module styles  
-- `lib/` – Utility functions and constants  
+- `app/` – Main application pages and routes
+- `components/` – Reusable UI components
+- `public/` – Static assets like images
+- `styles/` – Global and module styles
+- `lib/` – Utility functions and constants
 
 ### 📦 Font Optimization
 
@@ -94,11 +98,11 @@ To contribute to this project, reach out to the Tech Sisters Kenya leads. All co
 
 ### 🌿 Branching Strategy
 
-| Type | Branch Prefix | Merge Target |
-|------|---------------|--------------|
-| Feature | `feature/*` | `develop` |
-| Bug Fix | `fix/*` | `develop` |
-| Hotfix | `hotfix/*` | `main` & `develop` |
+| Type    | Branch Prefix | Merge Target       |
+| ------- | ------------- | ------------------ |
+| Feature | `feature/*`   | `develop`          |
+| Bug Fix | `fix/*`       | `develop`          |
+| Hotfix  | `hotfix/*`    | `main` & `develop` |
 
 **⚠️ NEVER PUSH DIRECTLY TO `main`**
 

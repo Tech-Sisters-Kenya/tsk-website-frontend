@@ -1,5 +1,4 @@
-import React from 'react';
-import { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import clsx from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -25,9 +24,10 @@ const Button = ({ variant = 'primary', className, ...props }: ButtonProps) => {
 
   // Keep common Tailwind classes for spacing, etc.
   const variants = {
-    primary: 'bg-tsk-primary-dark text-tsk-light-1 font-bold hover:opacity-90',
+    primary:
+      'bg-tsk-primary-dark text-tsk-light-1 font-bold border border-tsk-primary-dark hover:bg-tsk-light-2 hover:text-tsk-primary-dark hover:border-tsk-primary-dark',
     secondary:
-      'bg-foreground text-tsk-primary-dark font-bold border-tsk-primary-dark hover:opacity-80',
+      'bg-tsk-light-2 text-tsk-primary-dark font-bold border border-tsk-primary-dark hover:bg-tsk-primary-dark hover:text-tsk-light-1',
   };
 
   return (
