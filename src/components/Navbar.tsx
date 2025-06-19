@@ -71,7 +71,7 @@ const Navbar = () => {
     {
       label: 'Get Involved',
       children: [
-        { href: '/about-us', label: 'Partnership' },
+        { href: '/get-involved', label: 'Partnership' },
         { href: '/get-involved', label: 'Become a TSK Member' },
       ],
     },
@@ -91,7 +91,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between px-16 py-2 rounded-3xl m-8" style={navStyles}>
+    <nav
+      className="fixed w-[1360px] z-50 flex items-center justify-between px-16 py-2 rounded-3xl m-8"
+      style={navStyles}
+    >
       <div className="flex items-center">
         <Link href="/" className="flex items-center">
           <Image src={Logo} alt="Tech Sisters Kenya logo" width={50} height={25} className="mr-2" />
