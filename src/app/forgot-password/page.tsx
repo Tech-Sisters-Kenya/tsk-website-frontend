@@ -55,11 +55,11 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center py-8 px-4 sm:px-6 lg:px-8">
+    <main className="flex flex-col items-center justify-center pt-40 pb-8 px-4 sm:px-6 lg:px-8">
       <div className="w-full md:max-w-4xl space-y-6 bg-[#F8EBFC] bg-opacity-40 py-8 px-24 rounded-lg">
         <div className="text-center">
           <h1 className="text-5xl font-bold text-tsk-primary-dark">Forgot your password?</h1>
-          <p className="mt-2 text-md text-tsk-primary-dark">
+          <p className="mt-2 text-md font-medium text-tsk-primary-dark">
             Enter your email address and we will send you a message <br />
             to create a new password.
           </p>
@@ -84,7 +84,7 @@ export default function ForgotPasswordPage() {
                 type="email"
                 autoComplete="email"
                 placeholder="Enter your email"
-                className={`pl-10 w-full py-2 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.email ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.email ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('email', {
                   required: 'Email is required',
                   pattern: {
@@ -99,7 +99,7 @@ export default function ForgotPasswordPage() {
 
           <div className="flex items-center justify-center py-4">
             <Button type="submit" variant="primary" className="w-full py-4" disabled={isLoading}>
-              {isLoading ? 'Sending...' : 'Continue'}
+              <span className="text-lg">{isLoading ? 'Sending...' : 'Continue'}</span>
             </Button>
           </div>
         </form>

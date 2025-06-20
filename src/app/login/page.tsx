@@ -64,7 +64,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <main className="flex min-h-screen flex-col items-center justify-center pt-40 py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full md:max-w-4xl space-y-8 bg-[#F8EBFC] bg-opacity-40 py-8 px-24 rounded-lg">
         <div className="text-center">
           <h1 className="text-5xl font-bold text-tsk-primary-dark">Welcome Back!</h1>
@@ -83,7 +83,7 @@ export default function LoginPage() {
 
         {/* Divider */}
         <div className="relative flex items-center justify-center">
-          <div className="px-3 bg-tsk-light-2 text-tsk-primary-dark font-semibold text-md">
+          <div className="py-3 px-3 text-tsk-primary-dark font-semibold text-md">
             Or Sign In With Email
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function LoginPage() {
                 type="text"
                 autoComplete="email"
                 placeholder="Enter your email or username"
-                className={`pl-10 w-full py-2 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.email ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary-dark`}
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.email ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary-dark`}
                 {...register('email', {
                   required: 'Email is required',
                   pattern: {
@@ -133,7 +133,7 @@ export default function LoginPage() {
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
                 placeholder="Enter your password"
-                className={`pl-10 w-full py-2 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.password ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.password ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('password', {
                   required: 'Password is required',
                   minLength: { value: 6, message: 'Password must be at least 6 characters' },
@@ -159,13 +159,8 @@ export default function LoginPage() {
           </div>
 
           <div className="flex items-center justify-center py-4">
-            <Button
-              type="submit"
-              variant="primary"
-              className="w-full py-4 text-md"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Signing in...' : 'Sign In'}
+            <Button type="submit" variant="primary" className="w-full py-4" disabled={isLoading}>
+              <span className="text-lg">{isLoading ? 'Signing in...' : 'Sign In'}</span>
             </Button>
           </div>
         </form>
@@ -177,9 +172,9 @@ export default function LoginPage() {
         </div>
 
         <div className="text-center mt-4">
-          <p className="text-sm text-tsk-primary-dark">
+          <p className="text-base text-tsk-primary-dark">
             Don&apos;t have an account?{' '}
-            <Link href="/sign-up" className="text-tsk-primary-dark font-medium hover:underline">
+            <Link href="/sign-up" className="text-tsk-primary-dark font-bold hover:underline">
               Create account
             </Link>
           </p>
