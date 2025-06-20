@@ -13,11 +13,12 @@ interface ValueCardProps {
 }
 
 const ValueCard: React.FC<ValueCardProps> = ({ icon, title }) => (
-  <div className="flex flex-col items-center p-6">
-    <div className="text-white mb-4">
-      <Image src={icon} alt={`${title} icon`} width={40} height={40} />
+  <div className="flex flex-col items-center">
+    <div className="text-tsk-light-1 mb-4">
+      <Image src={icon} alt={`${title} icon`} width={70} height={70} />
     </div>
-    <h3 className="text-white text-lg font-medium font-heading">{title}</h3>
+
+    <h3 className="text-tsk-light-1 text-3xl font-medium font-heading">{title}</h3>
   </div>
 );
 
@@ -42,13 +43,13 @@ const CoreValues = () => {
   ];
 
   return (
-    <section className="w-full py-16 px-4 bg-tsk-primary-dark">
+    <section className="w-full py-8 px-10 bg-tsk-primary-dark">
       <div className="container mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold font-heading text-white text-center mb-12">
+        <h2 className="text-2xl md:text-3xl font-semibold font-heading text-tsk-light-1 text-center mb-12">
           OUR CORE VALUES
         </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {values.map((value, index) => (
             <ValueCard key={index} icon={value.icon} title={value.title} />
           ))}

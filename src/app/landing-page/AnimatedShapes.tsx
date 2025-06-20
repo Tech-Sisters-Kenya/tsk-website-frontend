@@ -4,10 +4,19 @@ import React from 'react';
 import Image from 'next/image';
 import techSister1 from '@/assets/Group 633181.svg';
 import techSister2 from '@/assets/IMG_4912 1.svg';
+import { motion, Transition } from 'framer-motion';
+
+const transitionStyle: Transition = {
+  duration: 0.75,
+  repeat: Infinity,
+  repeatDelay: 0.65,
+  repeatType: 'reverse',
+  ease: [0.37, 0, 0.63, 1],
+};
 
 const AnimatedShapes: React.FC = () => {
   return (
-    <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden mb-12 px-4 py-8">
+    <div className="relative w-full h-screen flex flex-col items-center justify-center mb-12 px-4 pt-32 pb-8">
       <div className="relative flex flex-col items-center gap-2 z-10 py-2">
         <div className="relative w-72 h-72 mb-2 z-0">
           <Image
@@ -40,8 +49,15 @@ const AnimatedShapes: React.FC = () => {
           </svg>
         </div>
       </div>
+
       {/* semi-circle Shape */}
-      <div className="absolute left-4 top-24 w-28 h-28 sm:top-20 sm:w-30 sm:h-30 md:top-26 md:w-34 md:h-34 lg:top-28 lg:w-38 lg:h-38 animate-elasticswing">
+      <motion.div
+        className="absolute left-4 top-24 w-28 h-28 sm:top-20 sm:w-30 sm:h-30 md:top-26 md:w-34 md:h-34 lg:top-28 lg:w-38 lg:h-38"
+        style={{ originX: 0.5, originY: 0.75 }}
+        initial={{ rotate: 5, x: 0, y: 0 }}
+        animate={{ rotate: 25, x: 0, y: 0 }}
+        transition={transitionStyle}
+      >
         <svg
           width="181"
           height="189"
@@ -54,9 +70,15 @@ const AnimatedShapes: React.FC = () => {
             fill="#45084A"
           />
         </svg>
-      </div>
+      </motion.div>
+
       {/* Circle Shape */}
-      <div className="absolute left-6 bottom-25 w-20 h-20  rounded-full opacity-75 animate-zoom">
+      <motion.div
+        className="absolute left-6 bottom-25 w-20 h-20  rounded-full opacity-75"
+        initial={{ x: 0, y: 0, scale: 1.2 }}
+        animate={{ x: 20, y: 20, scale: 0.8 }}
+        transition={transitionStyle}
+      >
         <svg
           width="100"
           height="100"
@@ -66,9 +88,15 @@ const AnimatedShapes: React.FC = () => {
         >
           <circle cx="60" cy="60" r="60" fill="#FFBAFF" />
         </svg>
-      </div>
+      </motion.div>
+
       {/* Cloud Shape */}
-      <div className="absolute left-6 -top-8 w-36 h-24 rounded-[100px] animate-elasticswing">
+      <motion.div
+        className="absolute left-6 -top-6 w-36 h-24 rounded-[100px]"
+        initial={{ rotate: -15, x: 0, y: 0 }}
+        animate={{ rotate: 15, x: 0, y: 0 }}
+        transition={transitionStyle}
+      >
         <svg
           width="126"
           height="116"
@@ -94,9 +122,10 @@ const AnimatedShapes: React.FC = () => {
             </clipPath>
           </defs>
         </svg>
-      </div>
+      </motion.div>
+
       {/* Code Bracket */}
-      <div className="absolute right-8 top-15 text-tsk-primary-dark text-6xl z-10">
+      <div className="absolute right-8 top-80 text-tsk-primary-dark text-6xl z-10">
         <svg
           width="54"
           height="44"
@@ -117,8 +146,14 @@ const AnimatedShapes: React.FC = () => {
           </defs>
         </svg>
       </div>
+
       {/* Pill Shape */}
-      <div className="absolute right-[10%] top-[15%] w-12 h-32 rounded-full md:right-[14%] md:top-[10%] animate-squashstretch">
+      <motion.div
+        className="absolute right-[10%] top-[15%] w-12 h-32 rounded-full md:right-[14%] md:top-[10%]"
+        initial={{ scaleY: 1, scaleX: 1 }}
+        animate={{ scaleY: 0.6, scaleX: 1 }}
+        transition={transitionStyle}
+      >
         <svg
           width="70"
           height="144"
@@ -137,9 +172,16 @@ const AnimatedShapes: React.FC = () => {
             strokeWidth="20"
           />
         </svg>
-      </div>
+      </motion.div>
+
       {/* Texts */}
-      <div className="absolute right-24 -top-4 bg-foreground px-4 py-2 rounded-full animate-elasticswing">
+      {/* Hello */}
+      <motion.div
+        className="absolute right-24 top-4 bg-foreground px-4 py-2 rounded-full"
+        initial={{ rotate: -10, x: 0, y: -30 }}
+        animate={{ rotate: 30, x: 0, y: -30 }}
+        transition={transitionStyle}
+      >
         <svg
           width="131"
           height="61"
@@ -160,8 +202,15 @@ const AnimatedShapes: React.FC = () => {
             fill="#45084A"
           />
         </svg>
-      </div>
-      <div className="absolute -right-8 top-30 bg-foreground px-4 py-2 rounded-full animate-elasticswing">
+      </motion.div>
+
+      {/* Tech Sisters Kenya */}
+      <motion.div
+        className="absolute -right-8 top-30 bg-foreground px-4 py-2 rounded-full"
+        initial={{ rotate: 10, x: 0, y: 30 }}
+        animate={{ rotate: -30, x: 0, y: 30 }}
+        transition={transitionStyle}
+      >
         <svg
           width="224"
           height="137"
@@ -182,9 +231,15 @@ const AnimatedShapes: React.FC = () => {
             fill="#45084A"
           />
         </svg>
-      </div>
+      </motion.div>
+
       {/* Logo */}
-      <div className="absolute right-16 bottom-18 w-16 h-16 sm:w-16 sm:h-16 md:w-18 md:h-18 animate-zoom">
+      <motion.div
+        className="absolute right-2 bottom-40 w-16 h-16 sm:w-16 sm:h-16 md:w-18 md:h-18"
+        initial={{ x: 0, y: 0, scale: 1 }}
+        animate={{ x: -20, y: 0, scale: 1.3 }}
+        transition={transitionStyle}
+      >
         <svg
           width="63"
           height="84"
@@ -213,7 +268,7 @@ const AnimatedShapes: React.FC = () => {
             fill="#FFBAFF"
           />
         </svg>
-      </div>
+      </motion.div>
     </div>
   );
 };

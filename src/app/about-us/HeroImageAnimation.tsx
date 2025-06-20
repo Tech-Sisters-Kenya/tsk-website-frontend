@@ -82,7 +82,7 @@ export default function HeroImageAnimation() {
 
       {/* What We Do text */}
       <motion.div
-        className="absolute -right-2 -top-20"
+        className="absolute -right-2 bottom-20"
         initial={{ rotate: 10, x: 0, y: 30 }}
         animate={{ rotate: -30, x: 0, y: 30 }}
         transition={transitionStyle}
@@ -170,7 +170,7 @@ export default function HeroImageAnimation() {
 
       {/* Pink circle */}
       <motion.div
-        className="absolute right-20 top-10"
+        className="absolute right-20 -top-10"
         initial={{ x: 0, y: 0, scale: 1.2 }}
         animate={{ x: 20, y: 20, scale: 0.8 }}
         transition={transitionStyle}
@@ -188,7 +188,7 @@ export default function HeroImageAnimation() {
 
       {/* Our Mission text */}
       <motion.div
-        className="absolute left-10 -bottom-40"
+        className="absolute left-10 -bottom-30"
         initial={{ rotate: 10, x: 0, y: 30 }}
         animate={{ rotate: -30, x: 0, y: 30 }}
         transition={transitionStyle}
@@ -218,7 +218,7 @@ export default function HeroImageAnimation() {
 
       {/* Our Vision text */}
       <motion.div
-        className="absolute left-60 -bottom-80"
+        className="absolute left-60 -bottom-60"
         initial={{ rotate: -10, x: 0, y: -30 }}
         animate={{ rotate: 30, x: 0, y: -30 }}
         transition={transitionStyle}

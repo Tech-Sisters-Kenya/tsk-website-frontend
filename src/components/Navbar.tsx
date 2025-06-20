@@ -22,12 +22,12 @@ const NavLink = ({ href, children, onClick }: NavLinkProps) => {
 
   const linkStyles = clsx(
     'transition-all relative',
-    'after:absolute after:left-0 after:bottom-[-4px]',
-    'after:h-[2px] after:w-0 after:bg-[var(--tsk-primary-dark)]',
+    'after:absolute after:left-1/2 after:bottom-[-4px] after:transform after:-translate-x-1/2',
+    'after:h-[1px] after:w-0 after:bg-[var(--tsk-primary-dark)]',
     'after:transition-all after:duration-300',
     {
-      'after:w-full': isActive,
-      'hover:after:w-full': !isActive,
+      'after:w-[60%]': isActive,
+      'hover:after:w-[60%]': !isActive,
     }
   );
 
@@ -68,10 +68,16 @@ const Navbar = () => {
         { href: '/meet-the-team', label: 'Our Team' },
       ],
     },
-    { href: '/events', label: 'Events' },
-    { href: '/get-involved', label: 'Get Involved' },
+    {
+      label: 'Get Involved',
+      children: [
+        { href: '/get-involved', label: 'Partnership' },
+        { href: '/get-involved', label: 'Become a TSK Member' },
+      ],
+    },
+    // { href: '/events', label: 'Events' },
     { href: '/blogs', label: 'Blogs' },
-    { href: '/jobs', label: 'Jobs' },
+    // { href: '/jobs', label: 'Jobs' },
   ];
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -85,7 +91,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between px-16 py-1 rounded-3xl m-8" style={navStyles}>
+    <nav
+      className="fixed w-[1360px] z-50 flex items-center justify-between px-16 py-2 rounded-3xl m-8"
+      style={navStyles}
+    >
       <div className="flex items-center">
         <Link href="/" className="flex items-center">
           <Image src={Logo} alt="Tech Sisters Kenya logo" width={50} height={25} className="mr-2" />
@@ -118,7 +127,7 @@ const Navbar = () => {
       </div>
 
       {/* Desktop Navigation - hidden on mobile */}
-      <ul className="hidden md:flex gap-8 font-semibold relative">
+      <ul className="hidden md:flex gap-8 font-semibold text-lg relative">
         {navItems.map((item, idx) => (
           <li key={idx} className="relative group">
             {item.children ? (
@@ -127,12 +136,12 @@ const Navbar = () => {
                   onClick={() => toggleDropdown(item.label)}
                   className={clsx(
                     'transition-all relative text-[var(--tsk-primary-dark)] flex items-center gap-1',
-                    'after:absolute after:left-0 after:bottom-[-4px]',
-                    'after:h-[2px] after:w-0 after:bg-[var(--tsk-primary-dark)]',
+                    'after:absolute after:left-1/2 after:bottom-[-4px] after:transform after:-translate-x-1/2',
+                    'after:h-[1px] after:w-0 after:bg-[var(--tsk-primary-dark)]',
                     'after:transition-all after:duration-300',
                     {
-                      'after:w-full': activeDropdown === item.label,
-                      'hover:after:w-full': activeDropdown !== item.label,
+                      'after:w-[60%]': activeDropdown === item.label,
+                      'hover:after:w-[60%]': activeDropdown !== item.label,
                     }
                   )}
                 >
@@ -144,10 +153,15 @@ const Navbar = () => {
                   </span>
                 </button>
                 <ul
-                  className={`absolute top-full left-0 mt-2 ${activeDropdown === item.label ? 'block' : 'hidden'} bg-white shadow-md rounded-md min-w-[150px] z-50`}
+                  className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 ${
+                    activeDropdown === item.label ? 'block' : 'hidden'
+                  } bg-white shadow-lg rounded-2xl py-3 px-6 whitespace-nowrap z-50`}
                 >
-                  {item.children.map((child) => (
-                    <li key={child.href} className="px-4 py-2 hover:bg-gray-100">
+                  {item.children.map((child, childIdx) => (
+                    <li
+                      key={child.href}
+                      className={`text-center ${childIdx !== item.children!.length - 1 ? 'mb-3' : ''}`}
+                    >
                       <NavLink href={child.href}>{child.label}</NavLink>
                     </li>
                   ))}
@@ -161,12 +175,16 @@ const Navbar = () => {
       </ul>
 
       {/* Desktop Buttons - hidden on mobile */}
-      <div className="hidden md:flex gap-4">
+      <div className="hidden md:flex gap-10">
         <Link href="/login">
-          <Button variant="secondary">Login</Button>
+          <Button variant="secondary" className="px-10 py-2">
+            <span className="text-lg font-semibold">Login</span>
+          </Button>
         </Link>
         <Link href="/sign-up">
-          <Button variant="primary">Sign Up</Button>
+          <Button variant="primary" className="px-10 py-2">
+            <span className="text-lg font-semibold">Sign Up</span>
+          </Button>
         </Link>
       </div>
 
@@ -182,12 +200,12 @@ const Navbar = () => {
                       className={clsx(
                         'w-full flex justify-between items-center px-4 py-2 font-semibold text-[var(--tsk-primary-dark)]',
                         'transition-all relative',
-                        'after:absolute after:left-0 after:bottom-[-4px]',
-                        'after:h-[2px] after:w-0 after:bg-[var(--tsk-primary-dark)]',
+                        'after:absolute after:left-1/2 after:bottom-[-4px] after:transform after:-translate-x-1/2',
+                        'after:h-[1px] after:w-0 after:bg-[var(--tsk-primary-dark)]',
                         'after:transition-all after:duration-300',
                         {
-                          'after:w-full': openDropdown === item.label,
-                          'hover:after:w-full': openDropdown !== item.label,
+                          'after:w-[60%]': openDropdown === item.label,
+                          'hover:after:w-[60%]': openDropdown !== item.label,
                         }
                       )}
                       onClick={() => handleDropdownToggle(item.label)}

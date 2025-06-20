@@ -22,7 +22,7 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
           }
         >
           {row1.map((item, id) => (
-            <BlogCard key={item.id || id} item={item} />
+            <BlogCard key={item.id ?? id} item={item} />
           ))}
         </div>
       );
@@ -42,7 +42,7 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
           )}
         >
           {row2.map((item, id) => (
-            <BlogCard key={item.id || id} item={item} />
+            <BlogCard key={item.id ?? id} item={item} />
           ))}
         </div>
       );
@@ -62,7 +62,7 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
           }
         >
           {row3.map((item, id) => (
-            <BlogCard key={item.id || id} item={item} />
+            <BlogCard key={item.id ?? id} item={item} />
           ))}
         </div>
       );
@@ -82,7 +82,7 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
           )}
         >
           {row4.map((item, id) => (
-            <BlogCard key={item.id || id} item={item} />
+            <BlogCard key={item.id ?? id} item={item} />
           ))}
         </div>
       );

@@ -3,7 +3,7 @@ import { AnimatedGISvg } from '@/app/get-involved/AnimatedGISvg';
 
 function GIHeroSection() {
   return (
-    <section className="w-full mx-auto text-tsk-primary-dark px-8 -mt-14 -z-10">
+    <section className="w-full mx-auto text-tsk-primary-dark px-8 mt-16 -z-10">
       <div className="bg-tsk-light-2 rounded-b-3xl px-16">
         <div className="pt-20 grid grid-cols-1 lg:grid-cols-2 items-center">
           <div>

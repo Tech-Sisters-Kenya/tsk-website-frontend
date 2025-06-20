@@ -6,6 +6,7 @@ import WhatWeDo from '@/app/landing-page/WhatWeDo';
 import Gallery from '@/components/Gallery';
 import ExploreBlogs from '@/app/landing-page/ExploreBlogs';
 import Testimonials from '@/app/landing-page/Testimonials';
+import CallToAction from '@/components/CallToAction';
 
 export default function LandingPage() {
   const reachStats = [
@@ -51,7 +52,7 @@ export default function LandingPage() {
     },
   ];
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center lg:p-24">
+    <main className="flex min-h-screen flex-col items-center justify-center">
       <Hero />
       <WhoWeAre />
       <OurReach
@@ -68,6 +69,7 @@ export default function LandingPage() {
       <Gallery />
       <ExploreBlogs />
       <Testimonials />
+      <CallToAction />
     </main>
   );
 }
