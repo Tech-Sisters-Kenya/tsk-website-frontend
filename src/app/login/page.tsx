@@ -47,7 +47,7 @@ export default function LoginPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || 'Failed to login');
+        throw new Error(result.message ?? 'Failed to login');
       }
 
       // Redirect to dashboard or home page after successful login

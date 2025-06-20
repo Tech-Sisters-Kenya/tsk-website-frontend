@@ -30,7 +30,7 @@ const FooterSection = ({
     </h3>
     <ul className="space-y-2 text-sm">
       {links.map((link) => (
-        <li key={link.id || `${link.href}-${link.label}`}>
+        <li key={link.id ?? `${link.href}-${link.label}`}>
           <Link href={link.href} className={linkStyles}>
             {link.label}
           </Link>

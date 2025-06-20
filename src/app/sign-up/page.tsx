@@ -54,7 +54,7 @@ export default function SignupPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || 'Failed to create account');
+        throw new Error(result.message ?? 'Failed to create account');
       }
 
       // Redirect to dashboard or login page after successful signup

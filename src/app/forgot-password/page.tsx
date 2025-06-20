@@ -40,7 +40,7 @@ export default function ForgotPasswordPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || 'Failed to send reset email');
+        throw new Error(result.message ?? 'Failed to send reset email');
       }
 
       // Redirect to confirmation page
