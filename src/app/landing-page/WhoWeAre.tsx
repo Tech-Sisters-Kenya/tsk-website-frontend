@@ -19,7 +19,7 @@ export default function WhoWeAre() {
     { label: 'Empowerment', src: EmpowermentIcon },
   ];
   return (
-    <section className="w-full mt-12 sm:mt-20 md:mt-24 lg:mt-32 bg-foreground py-10 px-4 sm:px-6 lg:px-8">
+    <section className="w-full mt-12 sm:mt-10 md:mt-20 lg:mt-24 bg-foreground py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-10 lg:gap-12">
         {/*Images section */}
         <div className="relative w-full lg:w-2/5 max-w-4xl flex h-[500px] lg:mx-0 mt-32 mb-4">
@@ -55,7 +55,7 @@ export default function WhoWeAre() {
         <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-6 mt-10">
           <div className="ml-16 sm:ml-18 md:ml-20 w-full max-w-7xl mx-auto flex flex-col md:flex-row justify-start">
             <div className="w-full md:max-w-3xl flex flex-col items-center">
-              <h2 className="text-5xl md:text-7xl sm:text-6xl font-semibold text-tsk-primary-dark text-center font-heading pb-20">
+              <h2 className="text-4xl md:text-6xl sm:text-5xl font-semibold text-tsk-primary-dark text-center font-heading pb-20">
                 WHO WE ARE
               </h2>
 
