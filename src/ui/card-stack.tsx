@@ -12,7 +12,7 @@ interface CardStackProps {
     title: string;
     description: string;
     date: string;
-    image: string;
+    image_url: string;
     headerImage: string;
     blogLink: string;
   }[];
