@@ -2,6 +2,7 @@ const blogs = [
   {
     id: 1,
     name: 'benefits-of-tech-community',
+    author_img: '/profile.png',
     title: 'Benefits of Being In a Tech Community',
     subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     date: '19 Feb 2025',

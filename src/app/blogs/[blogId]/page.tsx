@@ -3,6 +3,8 @@ import Button from '@/components/Button';
 import Image from 'next/image';
 import React from 'react';
 import blogs from '@/data/blog-content';
+import x from '../../../../public/x.svg';
+import linkedin from '../../../../public/linkedin.svg';
 import { notFound, useParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -18,29 +20,107 @@ export default function BlogPost() {
   const moreBlogs = blogs.filter((b) => b.id !== blog.id).slice(0, 3);
   return (
     <section className="w-full h-full">
-      <div className="flex flex-col justify-center items-center md:px-20 px-10">
+      <div className="flex flex-col justify-center items-center lg:ps-28 md:ps-20 px-16 w-full">
         {/* Main Blog Content */}
-        <div className="lg:my-24 my-10 flex flex-col gap-4">
+        <div className="lg:my-24 my-10 flex flex-col gap-4 w-full">
           <h1 className="md:text-5xl text-3xl font-heading font-extrabold">{blog.title}</h1>
           {/* <p className="text-gray-600 mb-4">{blog.date}</p> */}
           {blog.image && (
-            <div className="sm:h-[400px] h-[200px] md:my-14 my-6 w-auto overflow-hidden rounded-2xl">
+            <div className="sm:h-[400px] h-[200px] md:mt-8 my-6 overflow-hidden rounded-2xl">
               <Image
                 src={blog.image}
                 alt={blog.name}
                 width={1200}
                 height={400}
-                className="object-cover h-full rounded-2xl place-self-center"
+                className="object-cover h-full w-full rounded-2xl"
               />
             </div>
           )}
-          <div className="font-body md:text-lg sm:text-base text-sm font-medium text-tsk-primary-dark lg:space-y-10 space-y-8 lg:mx-20">
-            <h2 className="font-extrabold text-xl font-body">{blog.subtitle}</h2>
-            {blog.content.map((paragraph, id) => (
-              <p key={id} className="">
-                {paragraph}
-              </p>
-            ))}
+          <div className="md:flex gap-4">
+            <div className="font-body md:text-lg sm:text-base text-sm font-medium text-tsk-primary-dark lg:space-y-10 space-y-8">
+              <h2 className="font-extrabold text-xl font-body">{blog.subtitle}</h2>
+              {blog.content.map((paragraph, id) => (
+                <p key={id} className="">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
+            {/* Author Section */}
+            <div className="flex flex-col gap-8">
+              <div className="bg-tsk-light-2 p-8 rounded-[20px] md:w-[256px] flex flex-col justify-center items-center">
+                <h1 className="text-xl font-semibold">Author</h1>
+                <div className="flex flex-col justify-center items-center w-[74px] h-[74px] my-2">
+                  <Image
+                    src={blog.author_img}
+                    width={74}
+                    height={74}
+                    alt="Article author"
+                    className="object-cover rounded-full overflow-hidden"
+                  />
+                </div>
+                <h2 className="font-medium text-[16px] text-tsk-primary-dark">Name</h2>
+                <p className="italic text-[16px] my-2 text-tsk-primary-dark">
+                  Mental Health Channel Coordinator
+                </p>
+
+                <hr className="h-[1px] w-full bg-black border-none my-4" />
+
+                <div className="flex flex-col gap-2">
+                  <label className="flex items-center gap-2">
+                    <Image src={x} alt="twitter icon" />
+                    <span className="w-4"> - </span>
+                    <span className="text-[12px]"> Username</span>
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <Image src={linkedin} alt="linkedin icon" /> <span className="w-4"> - </span>
+                    <span className="text-[12px]"> Username</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="bg-tsk-light-2 p-4 rounded-[20px] md:w-[256px] text-tsk-primary-dark font-body py-8">
+                <h1 className="text-xl font-semibold text-center">Recent Posts</h1>
+                <p className="text-center">From Author</p>
+                <hr className="h-[0.5px] w-3/4 bg-black border-none my-4 place-self-center" />
+                <span className="flex flex-col gap-5">
+                  {moreBlogs.map((blog) => (
+                    <div key={blog.id} className="flex gap-2">
+                      <Link href={`/blogs/${blog.name}`} className="cursor-pointer">
+                        {blog.image && (
+                          <div className="h-full w-full">
+                            <Image
+                              src={blog.image}
+                              alt={blog.name}
+                              width={70}
+                              height={65}
+                              className="rounded-[15px] w-[70px] h-[65px] overflow-hidden"
+                            />
+                          </div>
+                        )}
+                      </Link>
+                      <div className="flex flex-col justify-center">
+                        <Link href={`/blogs/${blog.name}`} className="cursor-pointer group">
+                          <h2 className="font-body font-semibold text-[12px] group-hover:underline">
+                            {blog.title.substring(0, 24)}...
+                          </h2>
+                        </Link>
+
+                        <Link href={`/blogs/${blog.name}`} className="cursor-pointer group">
+                          <p className="italic font-body text-[11px] font-normal group-hover:underline">
+                            {blog.content[0].substring(0, 40)}...
+                          </p>
+                        </Link>
+
+                        <p className="font-medium text-[10px] text-tsk-primary-dark uppercase">
+                          {blog.date}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
