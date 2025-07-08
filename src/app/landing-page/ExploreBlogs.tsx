@@ -78,8 +78,6 @@ const ExploreBlogs = () => {
 
   const blogs: Blog[] = data?.data || [];
 
-  console.log(`this is the blogs`, blogs);
-
   const cardsBlogArray = blogs?.slice(0, 3).map((blog) => ({
     id: Number(blog.id),
     title: blog.title,
@@ -87,7 +85,7 @@ const ExploreBlogs = () => {
     date: new Date(blog.created_at).toLocaleDateString(),
     image_url: blog.image_url,
     headerImage: '/blog-header-in-cardstack.svg',
-    blogLink: `/blogs/${blog.id}`,
+    blogLink: `/blogs/${blog.slug}`,
   }));
 
   return (
@@ -104,7 +102,7 @@ const ExploreBlogs = () => {
 
           {blogs.map((blog) => (
             <div key={blog.id} className="flex flex-col gap-3 ">
-              <Link href={`/blogs/${blog.id}`}>
+              <Link href={`/blogs/${blog.slug}`}>
                 <h3 className="font-semibold text-[18px] md:text-[20px] pt-3 hover:underline cursor-pointer">
                   {blog.title}
                 </h3>
@@ -120,7 +118,7 @@ const ExploreBlogs = () => {
           </div>
         </div>
         <hr></hr>
-        {/* the empty div below is the div for thr vertical line between the blog section on large screens only */}
+        {/* the empty div below is the div for the vertical line between the blog section on large screens only */}
         <div className="hidden lg:block mt-10 mb-12 w-px bg-[#45084a] "></div>
         {/* overlapping images */}
         <div className="w-full md:mt-5 lg:w-1/2 pl-10 lg:pb-20 relative overflow-hidden z-10 ">

@@ -37,12 +37,12 @@ const formatDate = (dateStr: string) => {
 };
 
 function BlogCard({ item }: { item: BlogItem }) {
-  const { id, title, category, created_at, content, image_url } = item;
+  const { slug, title, category, created_at, content, image_url } = item;
   const { name } = category;
   console.log(`this is the image ${image_url}`);
 
   return (
-    <Link href={`/blogs/${id}`}>
+    <Link href={`/blogs/${slug}`}>
       <div className="w-full relative h-[360px]">
         <Image src={image_url} alt={`${title} image`} fill className="object-cover rounded-3xl" />
       </div>

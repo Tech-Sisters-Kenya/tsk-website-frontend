@@ -107,7 +107,7 @@ export const CardStack = ({ items }: CardStackProps) => {
             }}
           >
             <Image
-              src={item.headerImage}
+              src={item.image_url}
               alt={item.title}
               width={200}
               height={300}

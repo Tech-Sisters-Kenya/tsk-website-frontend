@@ -32,8 +32,10 @@ interface Blog {
 
 export default function BlogPost() {
   const params = useParams();
-  const blogId = params.blogId;
-  const blogIdStr = blogId ? String(blogId) : '';
+
+  const blogSlug = params.blogId;
+
+  const blogIdStr = blogSlug ? String(blogSlug) : '';
   const { data: blogData, isLoading, isError } = useFetchSingleBlog(blogIdStr);
   const blog = blogData?.data;
 
@@ -44,7 +46,7 @@ export default function BlogPost() {
   // Find the current blog post, corrected to match the ids
   // const blog = blogs.find((blog) => String(blog.id) === String(blogId));
 
-  if (!blogId) {
+  if (!blogSlug) {
     return <div>Loading...</div>;
   }
 
@@ -56,11 +58,10 @@ export default function BlogPost() {
     return <div>Something went wrong loading this blog.</div>;
   }
 
-  console.log('blog', blog.data);
   if (!blog) return notFound();
 
   //fetch the blogs and filter to ensure you don't display the already showing blog and slice to display 3 of them for the 'More Blogs' section
-  const moreBlogs = blogs.filter((b) => b.id !== blog.id).slice(0, 3);
+  const moreBlogs = blogs.filter((b) => b.slug !== blog.slug).slice(0, 3);
 
   // format date
   const formatDate = (dateStr: string) => {
@@ -79,8 +80,9 @@ export default function BlogPost() {
         <div className="lg:my-24 my-10 flex flex-col gap-4">
           <h1 className="md:text-5xl text-3xl font-heading font-extrabold">{blog.title}</h1>
           {/* <p className="text-gray-600 mb-4">{blog.date}</p> */}
-          {blog.image && (
+          {blog.image_url && (
             <div className="sm:h-[400px] h-[200px] md:my-14 my-6 w-auto overflow-hidden rounded-2xl">
+              {/* make header images dynamic */}
               <Image
                 src={blog.image_url}
                 alt={blog.title}
@@ -104,13 +106,16 @@ export default function BlogPost() {
               ))}
           </div>
         </div>
+
+        {/* add author, created at, category just after the blogpost before the more blogs section */}
+
         {/* More Blogs Section */}
         <div className="w-full flex flex-col justify-center items-center mt-20">
           <h1 className="font-body text-3xl font-semibold mb-16">More Blogs</h1>
           <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 gap-10">
             {moreBlogs.map((blog) => (
               <div key={blog.id} className="col-span-1 flex flex-col space-y-2">
-                <Link href={`/blogs/${blog.id}`} className="cursor-pointer">
+                <Link href={`/blogs/${blog.slug}`} className="cursor-pointer">
                   {blog.image_url && (
                     <div className="h-auto">
                       <Image
@@ -133,13 +138,13 @@ export default function BlogPost() {
                   </p>
                 </div>
 
-                <Link href={`/blogs/${blog.id}`} className="cursor-pointer group">
+                <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
                   <h2 className="font-body font-extrabold text-xl group-hover:underline">
                     {blog.title}
                   </h2>
                 </Link>
 
-                <Link href={`/blogs/${blog.id}`} className="cursor-pointer group">
+                <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
                   <p className="italic font-body text-[15px] font-normal group-hover:underline">
                     {blog.extract}
                   </p>
