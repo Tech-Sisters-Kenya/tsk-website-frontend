@@ -18,7 +18,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "if [ \"$NODE_ENV\" != 'production' ]; then husky; fi"
   },
   "keywords": [],
   "author": "",
