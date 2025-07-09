@@ -31,10 +31,13 @@ jobs:
             git reset --hard origin/main
 
             echo "Installing dependencies"
-            npm install --production
+            npm install
 
             echo "Building the Next.js app"
             npm run build
+
+            echo "Cleaning up devDependencies"
+            npm prune --production
 
             echo "Restarting app with PM2"
             pm2 reload ecosystem.config.js --only tsk-frontend || pm2 start ecosystem.config.js --only tsk-frontend
