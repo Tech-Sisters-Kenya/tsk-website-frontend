@@ -123,7 +123,7 @@ export default function BlogPost() {
                         alt={blog.title}
                         width={350}
                         height={220}
-                        className="w-full rounded-3xl h-[220px] object-cover overflow-hidden"
+                        className="w-full rounded-3xl h-[300px] object-cover overflow-hidden"
                       />
                     </div>
                   )}
