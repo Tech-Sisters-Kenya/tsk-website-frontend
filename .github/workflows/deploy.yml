@@ -23,24 +23,26 @@ jobs:
             echo "Deploying app to Production..."
             cd /var/www/tsk-website-frontend
             
-            echo "Setting NODE_ENV=production"
-            export NODE_ENV=production
-
             echo "Pulling latest code"
             git fetch origin
             git reset --hard origin/main
-
-            echo "Installing dependencies"
+            
+            echo "Installing ALL dependencies (including devDependencies)"
+            unset NODE_ENV
             npm install
-
+            
+            echo "Setting NODE_ENV=production"
+            export NODE_ENV=production
+            
             echo "Building the Next.js app"
             npm run build
-
+            
             echo "Cleaning up devDependencies"
             npm prune --production
-
+            
             echo "Restarting app with PM2"
             pm2 reload ecosystem.config.js --only tsk-frontend || pm2 start ecosystem.config.js --only tsk-frontend
-
+            
             echo "Deployed commit:"
             git log --oneline -n 1
+
