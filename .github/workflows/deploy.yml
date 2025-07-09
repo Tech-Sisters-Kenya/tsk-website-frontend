@@ -1,0 +1,40 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 167.99.122.210
+          username: root
+          key: ${{ secrets.DO_SSH_KEY }}
+          script: |
+            echo "Deploying app to Production..."
+            cd /var/www/tsk-website-frontend
+
+            echo "Pulling latest code"
+            git fetch origin
+            git reset --hard origin/main
+
+            echo "Installing dependencies"
+            npm install --production
+
+            echo "Building the Next.js app"
+            npm run build
+
+            echo "Restarting app with PM2"
+            pm2 reload ecosystem.config.js --only tsk-frontend || pm2 start ecosystem.config.js --only tsk-frontend
+
+            echo "Deployed commit:"
+            git log --oneline -n 1
