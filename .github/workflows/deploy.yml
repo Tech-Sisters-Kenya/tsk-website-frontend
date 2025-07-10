@@ -3,7 +3,7 @@ name: Deploy to DigitalOcean
 on:
   push:
     branches:
-      - fix/access-blogs-for-explore-blogs-section
+      - main
 
 jobs:
   deploy:
@@ -24,7 +24,7 @@ jobs:
             cd /var/www/tsk-website-frontend
 
             echo "Fetching latest code"
-            git fetch origin
+            git checkout -b fix/access-blogs-for-explore-blogs-section
             git reset --hard origin/fix/access-blogs-for-explore-blogs-section
 
             echo "Removing old build artifacts"
