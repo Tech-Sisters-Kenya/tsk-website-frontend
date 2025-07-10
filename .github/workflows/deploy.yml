@@ -31,7 +31,7 @@ jobs:
             rm -rf .next node_modules
 
             echo "Installing production dependencies"
-            npm ci --omit=dev
+            npm install
 
             echo "Building Next.js app"
             NODE_ENV=production npm run build
