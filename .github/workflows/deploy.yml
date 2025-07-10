@@ -3,7 +3,7 @@ name: Deploy to DigitalOcean
 on:
   push:
     branches:
-      - main
+      - fix/access-blogs-for-explore-blogs-section
 
 jobs:
   deploy:
