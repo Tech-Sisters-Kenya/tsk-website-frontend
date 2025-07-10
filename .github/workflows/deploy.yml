@@ -20,24 +20,23 @@ jobs:
           username: root
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
-            echo "🚀 Deploying app to Production..."
-
+            echo "Deploying app to Production..."
             cd /var/www/tsk-website-frontend
 
-            echo "🔄 Pulling latest code..."
+            echo "Fetching latest code"
             git fetch origin
             git reset --hard origin/main
 
-            echo "🧹 Cleaning old build artifacts..."
+            echo "Removing old build artifacts"
             rm -rf .next node_modules
 
-            echo "📦 Installing production dependencies using npm ci..."
-            npm ci --omit=dev
+            echo "Installing ALL dependencies (including devDependencies)"
+            npm ci
 
-            echo "🏗️ Building Next.js app..."
+            echo "Building Next.js app"
             NODE_ENV=production npm run build
 
-            echo "🔁 Restarting PM2 process..."
+            echo "Restarting PM2 process"
             pm2 reload ecosystem.config.js --only tsk-frontend || pm2 start ecosystem.config.js --only tsk-frontend
 
             echo "✅ Deployment complete. Last commit:"
