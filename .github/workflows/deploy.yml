@@ -24,8 +24,8 @@ jobs:
             cd /var/www/tsk-website-frontend
 
             echo "Fetching latest code"
-            git checkout -b fix/access-blogs-for-explore-blogs-section
-            git reset --hard origin/fix/access-blogs-for-explore-blogs-section
+            git fetch origin
+            git reset --hard origin/main
 
             echo "Removing old build artifacts"
             rm -rf .next node_modules
@@ -39,5 +39,5 @@ jobs:
             echo "Restarting PM2 process"
             pm2 reload ecosystem.config.js --only tsk-frontend || pm2 start ecosystem.config.js --only tsk-frontend
 
-            echo "✅ Deployment complete. Last commit:"
+            echo "Deployment complete. Last commit:"
             git log --oneline -n 1
