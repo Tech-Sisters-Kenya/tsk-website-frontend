@@ -20,24 +20,37 @@ jobs:
           username: root
           key: ${{ secrets.DO_SSH_KEY }}
           script: |
-            echo "Deploying app to Production..."
+            echo "🚀 Deploying app to Production..."
+
             cd /var/www/tsk-website-frontend
 
-            echo "Fetching latest code"
+            echo "🔄 Fetching latest code..."
             git fetch origin
             git reset --hard origin/main
 
-            echo "Removing old build artifacts"
+            echo "🧹 Cleaning old build artifacts..."
             rm -rf .next node_modules
 
-            echo "Installing production dependencies"
+            echo "💾 Enabling swap memory (if not already enabled)..."
+            if [ ! -f /swapfile ]; then
+              fallocate -l 1G /swapfile
+              chmod 600 /swapfile
+              mkswap /swapfile
+              swapon /swapfile
+              echo '/swapfile none swap sw 0 0' >> /etc/fstab
+            fi
+
+            echo "📦 Installing all dependencies..."
             npm install
 
-            echo "Building Next.js app"
+            echo "🏗️ Building Next.js app..."
             NODE_ENV=production npm run build
 
-            echo "Restarting PM2 process"
+            echo "🧼 Removing devDependencies..."
+            npm prune --production
+
+            echo "🔁 Restarting PM2 process..."
             pm2 reload ecosystem.config.js --only tsk-frontend || pm2 start ecosystem.config.js --only tsk-frontend
 
-            echo "Deployment complete. Last commit:"
+            echo "✅ Deployment complete. Last commit:"
             git log --oneline -n 1
