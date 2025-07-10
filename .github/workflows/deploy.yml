@@ -24,30 +24,18 @@ jobs:
 
             cd /var/www/tsk-website-frontend
 
-            echo "🔄 Fetching latest code..."
+            echo "🔄 Pulling latest code..."
             git fetch origin
             git reset --hard origin/main
 
             echo "🧹 Cleaning old build artifacts..."
             rm -rf .next node_modules
 
-            echo "💾 Enabling swap memory (if not already enabled)..."
-            if [ ! -f /swapfile ]; then
-              fallocate -l 1G /swapfile
-              chmod 600 /swapfile
-              mkswap /swapfile
-              swapon /swapfile
-              echo '/swapfile none swap sw 0 0' >> /etc/fstab
-            fi
-
-            echo "📦 Installing all dependencies..."
-            npm install
+            echo "📦 Installing production dependencies using npm ci..."
+            npm ci --omit=dev
 
             echo "🏗️ Building Next.js app..."
             NODE_ENV=production npm run build
-
-            echo "🧼 Removing devDependencies..."
-            npm prune --production
 
             echo "🔁 Restarting PM2 process..."
             pm2 reload ecosystem.config.js --only tsk-frontend || pm2 start ecosystem.config.js --only tsk-frontend
