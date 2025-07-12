@@ -18,6 +18,12 @@ interface LoginFormValues {
   password: string;
 }
 
+interface LoginResponse {
+  token: string;
+  user: string;
+  role: string;
+}
+
 export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -35,23 +41,37 @@ export default function LoginPage() {
     setLoginError('');
 
     try {
-      // Here you would connect to your Laravel backend
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('https://api.techsisterskenya.org/api/auth/login', {
         method: 'POST',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        throw new Error(result.message ?? 'Failed to login');
+        if (response.status === 401) {
+          throw new Error('Invalid email or password');
+        } else if (response.status === 422) {
+          throw new Error('Please check your email and password format');
+        } else {
+          throw new Error('Login failed. Please try again.');
+        }
       }
 
+      const result: LoginResponse = await response.json();
+
+      // Store the authentication token and user info
+      localStorage.setItem('auth_token', result.token);
+      localStorage.setItem('user_role', result.role);
+      localStorage.setItem('user_info', result.user);
+
       // Redirect to dashboard or home page after successful login
-      router.push('/');
+      router.push('/dashboard');
     } catch (error) {
       setLoginError(error instanceof Error ? error.message : 'Login failed. Please try again.');
     } finally {
@@ -96,7 +116,7 @@ export default function LoginPage() {
 
           <div>
             <label htmlFor="email" className="block text-md font-semibold text-tsk-primary-dark">
-              Email or username
+              Email
             </label>
             <div className="mt-1 relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -104,15 +124,19 @@ export default function LoginPage() {
               </div>
               <input
                 id="email"
-                type="text"
+                type="email"
                 autoComplete="email"
-                placeholder="Enter your email or username"
+                placeholder="Enter your email"
                 className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.email ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary-dark`}
                 {...register('email', {
                   required: 'Email is required',
                   pattern: {
                     value: /\S+@\S+\.\S+/,
                     message: 'Please enter a valid email address',
+                  },
+                  maxLength: {
+                    value: 255,
+                    message: 'Email must be less than 255 characters',
                   },
                 })}
               />
@@ -121,7 +145,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="password" className="block text-md font-semibold text-tsk-primary-dark">
               Password
             </label>
             <div className="mt-1 relative">
@@ -136,7 +160,7 @@ export default function LoginPage() {
                 className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.password ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('password', {
                   required: 'Password is required',
-                  minLength: { value: 6, message: 'Password must be at least 6 characters' },
+                  minLength: { value: 8, message: 'Password must be at least 8 characters' },
                 })}
               />
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center">

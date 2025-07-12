@@ -12,12 +12,19 @@ import Email from '@/assets/email-icon.svg';
 import Padlock from '@/assets/padlock-icon.svg';
 import EyeOpen from '@/assets/eye-open-icon.svg';
 import EyeClosed from '@/assets/eye-closed-icon.svg';
+import { User } from '@/lib/auth';
 
 interface SignupFormValues {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
+}
+
+interface SignupResponse {
+  token?: string;
+  user?: User;
+  message?: string;
 }
 
 export default function SignupPage() {
@@ -37,28 +44,53 @@ export default function SignupPage() {
     setSignupError('');
 
     try {
-      // Here you would connect to your Laravel backend
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch('https://api.techsisterskenya.org/api/auth/register', {
         method: 'POST',
         headers: {
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           first_name: data.firstName,
           last_name: data.lastName,
+          name: `${data.firstName} ${data.lastName}`, // Some APIs expect a full name field
           email: data.email,
           password: data.password,
+          password_confirmation: data.password, // Laravel often requires password confirmation
         }),
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        throw new Error(result.message ?? 'Failed to create account');
+        if (response.status === 422) {
+          const errorData = await response.json();
+          // Handle validation errors
+          if (errorData.errors) {
+            const errorMessages = Object.values(errorData.errors).flat();
+            throw new Error(errorMessages.join(', '));
+          } else {
+            throw new Error(errorData.message || 'Validation failed. Please check your input.');
+          }
+        } else if (response.status === 409) {
+          throw new Error('An account with this email already exists.');
+        } else {
+          throw new Error('Registration failed. Please try again.');
+        }
       }
 
-      // Redirect to dashboard or login page after successful signup
-      router.push('/login');
+      const result: SignupResponse = await response.json();
+
+      // If the API returns a token immediately after registration
+      if (result.token) {
+        localStorage.setItem('auth_token', result.token);
+        if (result.user) {
+          localStorage.setItem('user_info', JSON.stringify(result.user));
+        }
+        // Redirect to dashboard
+        router.push('/dashboard');
+      } else {
+        // If no token is returned, redirect to login page
+        router.push('/login?message=Registration successful! Please log in.');
+      }
     } catch (error) {
       setSignupError(
         error instanceof Error ? error.message : 'Registration failed. Please try again.'
@@ -108,7 +140,7 @@ export default function SignupPage() {
         {/* Signup Form */}
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {signupError && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">{signupError}</div>
+            <div className="bg-red-50 text-red-600 p-3 rounded-xl text-sm">{signupError}</div>
           )}
 
           <div className="grid grid-cols-2 gap-4">
@@ -125,7 +157,11 @@ export default function SignupPage() {
                   type="text"
                   placeholder="Enter your first name"
                   className={`w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.firstName ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
-                  {...register('firstName', { required: 'First name is required' })}
+                  {...register('firstName', {
+                    required: 'First name is required',
+                    minLength: { value: 2, message: 'First name must be at least 2 characters' },
+                    maxLength: { value: 50, message: 'First name must be less than 50 characters' },
+                  })}
                 />
               </div>
               {errors.firstName && (
@@ -146,7 +182,11 @@ export default function SignupPage() {
                   type="text"
                   placeholder="Enter your last name"
                   className={`w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.lastName ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
-                  {...register('lastName', { required: 'Last name is required' })}
+                  {...register('lastName', {
+                    required: 'Last name is required',
+                    minLength: { value: 2, message: 'Last name must be at least 2 characters' },
+                    maxLength: { value: 50, message: 'Last name must be less than 50 characters' },
+                  })}
                 />
               </div>
               {errors.lastName && (
@@ -175,6 +215,10 @@ export default function SignupPage() {
                     value: /\S+@\S+\.\S+/,
                     message: 'Please enter a valid email address',
                   },
+                  maxLength: {
+                    value: 255,
+                    message: 'Email must be less than 255 characters',
+                  },
                 })}
               />
             </div>
@@ -198,6 +242,11 @@ export default function SignupPage() {
                 {...register('password', {
                   required: 'Password is required',
                   minLength: { value: 8, message: 'Password must be at least 8 characters' },
+                  pattern: {
+                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+                    message:
+                      'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+                  },
                 })}
               />
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -234,7 +283,7 @@ export default function SignupPage() {
 
           <div className="flex items-center justify-center py-4">
             <Button type="submit" variant="primary" className="w-full py-4" disabled={isLoading}>
-              <span className="text-lg">{isLoading ? 'Signing Up...' : 'Sign Up'}</span>
+              <span className="text-lg">{isLoading ? 'Creating Account...' : 'Sign Up'}</span>
             </Button>
           </div>
         </form>
