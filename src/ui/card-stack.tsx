@@ -59,7 +59,7 @@ export const CardStack = ({ items }: CardStackProps) => {
           // Exiting card (sliding left)
           if (isPrevActive) {
             return {
-              x: 100, // Slide far to the left
+              x: 50, // Slide far to the left
               y: 0,
               scale: 0.9,
               opacity: 0.5,
@@ -79,18 +79,18 @@ export const CardStack = ({ items }: CardStackProps) => {
           }
 
           // Calculate horizontal offset for stacked cards (more to the left)
-          const xOffset = -30 * relativePos; // Negative for leftward stacking
-          const yOffset = 15 * relativePos; // Small vertical offset
+          const xOffset = -20 * (relativePos || 0); // Negative for leftward stacking
+          const yOffset = 15 * (relativePos || 0); // Small vertical offset
 
-          // Deeper cards are more opaque
-          const cardOpacity = Math.min(0.9, 0.7 + relativePos * 0.1);
+          // Deeper cards are more opaque - ensure opacity is a valid number
+          const cardOpacity = Math.min(0.9, Math.max(0.1, 0.7 + (relativePos || 0) * 0.1));
 
           return {
             x: xOffset,
             y: yOffset,
-            scale: 1 - relativePos * 0.03,
+            scale: Math.max(0.8, 1 - (relativePos || 0) * 0.03),
             opacity: cardOpacity,
-            zIndex: 30 - relativePos,
+            zIndex: Math.max(1, 30 - (relativePos || 0)),
           };
         };
 
@@ -98,7 +98,7 @@ export const CardStack = ({ items }: CardStackProps) => {
 
         return (
           <div
-            key={item.id}
+            key={item.id || index}
             className="absolute top-0 left-0 w-full bg-white rounded-2xl overflow-hidden transition-all duration-500 ease-in-out border border-[#45084a] shadow-lg "
             style={{
               transform: `translateX(${position.x}px) translateY(${position.y}px) scale(${position.scale})`,

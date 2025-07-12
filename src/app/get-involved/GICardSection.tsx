@@ -1,14 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import GICard from './GICard';
-import LinkedInLogo from '@/assets/linkedin-logo.svg';
-import SlackLogo from '@/assets/slack-logo.svg';
-import InstagramLogo from '@/assets/instagram-logo.svg';
-import XLogo from '@/assets/x-logo.svg';
-import GICardImg from '@/assets/GICardImg.svg';
+import LinkedInLogo from '/public/get-involved/linkedin-logo.svg';
+import SlackLogo from '/public/get-involved/slack-logo.svg';
+import InstagramLogo from '/public/get-involved/instagram-logo.svg';
+import XLogo from '/public/get-involved/x-logo.svg';
+import GICardImg from '/public/get-involved/GICardImg.svg';
 import ConnectorLines from './ConnectorLines';
-import Link from 'next/link';
 
 const COLOR_MAP = {
   linkedin: {

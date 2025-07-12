@@ -52,7 +52,7 @@ export default function ResetPasswordPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || 'Failed to reset password');
+        throw new Error(result.message ?? 'Failed to reset password');
       }
 
       // Redirect to login page after successful password reset
@@ -75,7 +75,7 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <main className="flex flex-col items-center justify-center pt-40 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full md:max-w-4xl space-y-8 bg-[#F8EBFC] bg-opacity-40 py-8 px-24 rounded-lg">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-tsk-primary-dark">Enter a new password</h1>
@@ -100,7 +100,7 @@ export default function ResetPasswordPage() {
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="new-password"
                 placeholder="Enter your password"
-                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.password ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.password ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('password', {
                   required: 'Password is required',
                   minLength: { value: 8, message: 'Password must be at least 8 characters' },
@@ -141,7 +141,7 @@ export default function ResetPasswordPage() {
                 type={showConfirmPassword ? 'text' : 'password'}
                 autoComplete="new-password"
                 placeholder="Enter your password"
-                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.confirmPassword ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.confirmPassword ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('confirmPassword', {
                   required: 'Please confirm your password',
                   validate: (value) => value === password || 'Passwords do not match',
@@ -168,7 +168,7 @@ export default function ResetPasswordPage() {
 
           <div className="flex items-center justify-center py-4">
             <Button type="submit" variant="primary" className="w-full py-4" disabled={isLoading}>
-              {isLoading ? 'Processing...' : 'Save password'}
+              <span className="text-lg">{isLoading ? 'Processing...' : 'Save password'}</span>
             </Button>
           </div>
         </form>

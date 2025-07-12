@@ -37,8 +37,7 @@ const formatDate = (dateStr: string) => {
 };
 
 function BlogCard({ item }: { item: BlogItem }) {
-  const { slug, title, category, created_at, content, image_url } = item;
-  const { name } = category;
+  const { slug, title, category, created_at, extract, image_url } = item;
   console.log(`this is the image ${image_url}`);
 
   return (
@@ -56,8 +55,11 @@ function BlogCard({ item }: { item: BlogItem }) {
               {tag}
             </span>
           ))} */}
-          <span className="text-black font-body font-medium border border-tsk-primary-dark px-2 py-1 rounded-2xl ">
-            {name}
+          <span
+            key={category.id}
+            className="text-black font-body font-medium border border-tsk-primary-dark px-2 py-1 rounded-2xl "
+          >
+            {category.name}
           </span>
         </div>
         <span className="text-tsk-primary-dark font-medium font-body">
@@ -65,7 +67,7 @@ function BlogCard({ item }: { item: BlogItem }) {
         </span>
       </div>
       <h3 className="font-black font-body text-xl mt-8 text-tsk-primary-dark">{title}</h3>
-      <p className="text-tsk-primary-dark font-body italic my-4">{content.substring(0, 250)}...</p>
+      <p className="text-tsk-primary-dark font-body italic my-4">{extract.substring(0, 250)}...</p>
     </Link>
   );
 }

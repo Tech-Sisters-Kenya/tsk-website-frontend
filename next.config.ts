@@ -3,15 +3,27 @@ import type { NextConfig } from 'next';
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
-  //allow images from link below. to change in prod
   images: {
     domains: ['media.licdn.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '**',
+      },
+    ],
   },
   webpack(config, { isServer }) {
     // config.module.rules.push({
     // test: /\.svg$/,
     //use: ['@svgr/webpack'],
     //});
+
     if (!isServer) {
       config.plugins.push(
         new MiniCssExtractPlugin({
@@ -24,5 +36,6 @@ const nextConfig: NextConfig = {
     return config;
   },
 };
+console.log('✅ next.config.ts loaded!');
 
 export default nextConfig;

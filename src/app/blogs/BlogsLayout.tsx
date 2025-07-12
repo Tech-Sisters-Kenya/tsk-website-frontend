@@ -39,12 +39,12 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
           key={`row-${idx}-2col`}
           className={
             row1.length === 2
-              ? 'grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 mb-8'
+              ? 'grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-16 mb-8'
               : 'grid grid-cols-1'
           }
         >
           {row1.map((item, id) => (
-            <BlogCard key={item.id || id} item={item} />
+            <BlogCard key={item.id ?? id} item={item} />
           ))}
         </div>
       );
@@ -64,7 +64,7 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
           )}
         >
           {row2.map((item, id) => (
-            <BlogCard key={item.id || id} item={item} />
+            <BlogCard key={item.id ?? id} item={item} />
           ))}
         </div>
       );
@@ -79,12 +79,12 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
           key={`row-${idx}-2col`}
           className={
             row3.length === 2
-              ? 'grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-12 mb-8'
+              ? 'grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-16 mb-8'
               : 'grid grid-cols-1'
           }
         >
           {row3.map((item, id) => (
-            <BlogCard key={item.id || id} item={item} />
+            <BlogCard key={item.id ?? id} item={item} />
           ))}
         </div>
       );
@@ -104,7 +104,7 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
           )}
         >
           {row4.map((item, id) => (
-            <BlogCard key={item.id || id} item={item} />
+            <BlogCard key={item.id ?? id} item={item} />
           ))}
         </div>
       );

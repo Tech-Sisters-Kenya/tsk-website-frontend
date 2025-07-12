@@ -54,7 +54,7 @@ export default function SignupPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || 'Failed to create account');
+        throw new Error(result.message ?? 'Failed to create account');
       }
 
       // Redirect to dashboard or login page after successful signup
@@ -73,7 +73,7 @@ export default function SignupPage() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <main className="flex min-h-screen flex-col items-center justify-center pt-40 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full md:max-w-4xl space-y-8 bg-[#F8EBFC] bg-opacity-40 py-8 px-24 rounded-lg">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-tsk-primary-dark">Create New Account!</h1>
@@ -95,9 +95,9 @@ export default function SignupPage() {
 
         {/* Already have an account */}
         <div className="text-center">
-          <p className="text-sm text-tsk-primary-dark">
+          <p className="text-lg font-medium text-tsk-primary-dark">
             Already have an account?{' '}
-            <Link href="/login" className="text-tsk-primary-dark font-medium hover:underline">
+            <Link href="/login" className="text-tsk-primary-dark font-bold hover:underline">
               Log In
             </Link>
           </p>
@@ -105,9 +105,7 @@ export default function SignupPage() {
 
         {/* Divider */}
         <div className="relative flex items-center justify-center">
-          <div className="px-3 text-tsk-primary-dark font-semibold text-md">
-            Or Sign In With Email
-          </div>
+          <div className="px-3 text-tsk-primary-dark font-semibold text-md">Sign Up With Email</div>
         </div>
 
         {/* Signup Form */}
@@ -129,7 +127,7 @@ export default function SignupPage() {
                   id="firstName"
                   type="text"
                   placeholder="Enter your first name"
-                  className={`w-full py-4 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.firstName ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                  className={`w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.firstName ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                   {...register('firstName', { required: 'First name is required' })}
                 />
               </div>
@@ -150,7 +148,7 @@ export default function SignupPage() {
                   id="lastName"
                   type="text"
                   placeholder="Enter your last name"
-                  className={`w-full py-4 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.lastName ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                  className={`w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.lastName ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                   {...register('lastName', { required: 'Last name is required' })}
                 />
               </div>
@@ -173,7 +171,7 @@ export default function SignupPage() {
                 type="email"
                 autoComplete="email"
                 placeholder="Enter your email"
-                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.email ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.email ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('email', {
                   required: 'Email is required',
                   pattern: {
@@ -199,7 +197,7 @@ export default function SignupPage() {
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="new-password"
                 placeholder="Enter your password"
-                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A] placeholder:text-opacity-49 ${errors.password ? 'border-red-300' : 'border-tsk-primary-dark'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.password ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('password', {
                   required: 'Password is required',
                   minLength: { value: 8, message: 'Password must be at least 8 characters' },
@@ -224,8 +222,8 @@ export default function SignupPage() {
             )}
           </div>
 
-          <div className="flex items-center">
-            <label htmlFor="accept-terms" className="ml-2 block text-tsk-primary-dark text-md">
+          <div className="flex items-center justify-center py-4">
+            <label htmlFor="accept-terms" className="block text-tsk-primary-dark text-base">
               By continuing, you accept our{' '}
               <Link href="/terms" className="text-[#DA4BDA] underline">
                 Terms and Conditions
@@ -239,7 +237,7 @@ export default function SignupPage() {
 
           <div className="flex items-center justify-center py-4">
             <Button type="submit" variant="primary" className="w-full py-4" disabled={isLoading}>
-              {isLoading ? 'Creating account...' : 'Sign Up'}
+              <span className="text-lg">{isLoading ? 'Signing Up...' : 'Sign Up'}</span>
             </Button>
           </div>
         </form>

@@ -133,11 +133,12 @@ interface Blog {
 // ];
 
 function Pagination() {
-  const { data } = useFetchBlogs();
+  const { data, isLoading, error } = useFetchBlogs();
   const blogs: Blog[] = data?.data || [];
 
   const itemsPerPage = 10;
   const [itemOffset, setItemOffset] = useState(0);
+
   const endOffset = itemOffset + itemsPerPage;
   // fetch data from API instead of using dummy data
   const currentItems = blogs.slice(itemOffset, endOffset);
@@ -151,6 +152,10 @@ function Pagination() {
     const newOffset = selected * itemsPerPage;
     setItemOffset(newOffset);
   };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+  if (!blogs) return <div>No Blogs Found</div>;
 
   return (
     <>

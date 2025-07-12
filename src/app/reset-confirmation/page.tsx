@@ -8,7 +8,7 @@ export default function ResetConfirmationPage() {
   const router = useRouter();
 
   return (
-    <main className="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <main className="flex flex-col items-center justify-center pt-40 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full md:max-w-4xl space-y-6 bg-[#F8EBFC] bg-opacity-40 py-32 px-24 rounded-lg">
         <div className="text-center">
           <h2 className="text-xl font-medium text-tsk-primary-dark">
@@ -24,7 +24,7 @@ export default function ResetConfirmationPage() {
             className="w-full py-4"
             onClick={() => router.push('/login')}
           >
-            Ok
+            <span className="text-lg">Ok</span>
           </Button>
         </div>
       </div>
