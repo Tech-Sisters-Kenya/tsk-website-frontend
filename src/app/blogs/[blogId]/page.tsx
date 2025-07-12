@@ -75,7 +75,7 @@ export default function BlogPost() {
 
   return (
     <section className="w-full h-full">
-      <div className="flex flex-col justify-center items-center md:px-20 px-10">
+      <div className="flex flex-col justify-center items-center md:px-20 px-10 md:py-32">
         {/* Main Blog Content */}
         <div className="lg:my-24 my-10 flex flex-col gap-4">
           <h1 className="md:text-5xl text-3xl font-heading font-extrabold">{blog.title}</h1>
