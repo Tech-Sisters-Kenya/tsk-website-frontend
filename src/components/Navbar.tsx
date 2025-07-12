@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import Logo from '@/assets/tsk-icon-only-logo.svg';
 import Button from './Button';
 import DownArrow from '@/assets/down-arrow-icon.svg';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 interface NavLinkProps {
   href: string;
@@ -46,6 +47,8 @@ const NavLink = ({ href, children, onClick }: NavLinkProps) => {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const { isAuthenticated } = useAuthStore();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -75,12 +78,8 @@ const Navbar = () => {
         { href: '/get-involved', label: 'Become a TSK Member' },
       ],
     },
-    // { href: '/events', label: 'Events' },
     { href: '/blogs', label: 'Blogs' },
-    // { href: '/jobs', label: 'Jobs' },
   ];
-
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const handleDropdownToggle = (label: string) => {
     setOpenDropdown((prev) => (prev === label ? null : label));
@@ -175,18 +174,20 @@ const Navbar = () => {
       </ul>
 
       {/* Desktop Buttons - hidden on mobile */}
-      <div className="hidden md:flex gap-10">
-        <Link href="/login">
-          <Button variant="secondary" className="px-10 py-2">
-            <span className="text-lg font-semibold">Login</span>
-          </Button>
-        </Link>
-        <Link href="/sign-up">
-          <Button variant="primary" className="px-10 py-2">
-            <span className="text-lg font-semibold">Sign Up</span>
-          </Button>
-        </Link>
-      </div>
+      {!isAuthenticated && (
+        <div className="hidden md:flex gap-10">
+          <Link href="/login">
+            <Button variant="secondary" className="px-10 py-2">
+              <span className="text-lg font-semibold">Login</span>
+            </Button>
+          </Link>
+          <Link href="/sign-up">
+            <Button variant="primary" className="px-10 py-2">
+              <span className="text-lg font-semibold">Sign Up</span>
+            </Button>
+          </Link>
+        </div>
+      )}
 
       {/* Mobile Menu - conditionally rendered */}
       {isMenuOpen && (
@@ -233,18 +234,20 @@ const Navbar = () => {
               </li>
             ))}
 
-            <li className="w-full mt-4">
-              <Link href="/login">
-                <Button variant="secondary" className="w-full mb-3">
-                  Login
-                </Button>
-              </Link>
-              <Link href="/sign-up">
-                <Button variant="primary" className="w-full">
-                  Sign Up
-                </Button>
-              </Link>
-            </li>
+            {!isAuthenticated && (
+              <li className="w-full mt-4">
+                <Link href="/login">
+                  <Button variant="secondary" className="w-full mb-3">
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/sign-up">
+                  <Button variant="primary" className="w-full">
+                    Sign Up
+                  </Button>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       )}
