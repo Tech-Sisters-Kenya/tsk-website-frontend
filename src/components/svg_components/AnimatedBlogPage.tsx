@@ -114,7 +114,7 @@ export function AnimatedBlogPage() {
         fill="#45084A"
       />
 
-      <motion.g
+      <motion.svg
         initial={{ rotate: 0, x: 40, y: -15 }}
         animate={{ rotate: 25, x: 40, y: -50 }}
         transition={transitionStyle}
@@ -139,7 +139,7 @@ export function AnimatedBlogPage() {
           d="M451.658 404.265L451.092 403.596L452.675 400.824L452.99 401.199L449.999 402.307L449.436 401.641L452.79 400.447L453.377 401.14L451.658 404.265Z"
           fill="#FFBAFF"
         />
-      </motion.g>
+      </motion.svg>
 
       {/* book-looking */}
       <motion.path

@@ -3,7 +3,7 @@ import { AnimatedBlogPage } from '../../components/svg_components/AnimatedBlogPa
 
 const BlogWelcomeHeader = () => {
   return (
-    <section className="w-full  mx-auto text-tsk-primary-dark px-8 mt-20 -z-10">
+    <section className="w-full  mx-auto text-tsk-primary-dark px-8 mt-8 -z-10">
       <div className=" bg-tsk-light-2 rounded-b-3xl px-14">
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           <div>

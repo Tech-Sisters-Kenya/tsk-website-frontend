@@ -32,7 +32,7 @@ export function AnimatedGISvg() {
         transition={transitionStyle}
       />
       {/* cash icon */}
-      <motion.g
+      <motion.svg
         clipPath="url(#clip0_74_893)"
         initial={{ x: 0, y: 0, scale: 1 }}
         animate={{ x: -40, y: 10, scale: 1.5 }}
@@ -106,7 +106,7 @@ export function AnimatedGISvg() {
           d="M367.127 152.182C365.576 152.182 364.275 150.931 364.275 149.33C364.275 147.728 365.526 146.478 367.127 146.478C368.678 146.478 369.979 147.728 369.979 149.33C369.979 150.931 368.678 152.182 367.127 152.182ZM367.127 148.529C366.677 148.529 366.277 148.879 366.277 149.38C366.277 149.88 366.627 150.23 367.127 150.23C367.628 150.23 367.978 149.88 367.978 149.38C367.978 148.879 367.578 148.529 367.127 148.529Z"
           fill="#131313"
         />
-      </motion.g>
+      </motion.svg>
       {/* volunteer label */}
       <motion.rect
         x="241"
@@ -190,7 +190,7 @@ export function AnimatedGISvg() {
       />
 
       {/* tech sister logo */}
-      <motion.g
+      <motion.svg
         initial={{ rotate: 0, x: 0, y: 0 }}
         animate={{ rotate: 10, x: 70, y: -30 }}
         transition={transitionStyle}
@@ -220,7 +220,7 @@ export function AnimatedGISvg() {
             <rect width="64" height="64" fill="white" transform="translate(328 111)" />
           </clipPath>
         </defs>
-      </motion.g>
+      </motion.svg>
 
       {/* become a tech sister label */}
       <motion.rect

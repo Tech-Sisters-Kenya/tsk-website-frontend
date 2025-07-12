@@ -5,52 +5,44 @@ import Button from '../../components/Button';
 import { CardStack } from '@/ui/card-stack';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
+
+interface Blog {
+  id: string;
+  slug: string;
+  title: string;
+  content: string;
+  image_url: string;
+  extract: string;
+  status: string;
+  is_featured: boolean;
+  author: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  category: {
+    id: string;
+    name: string;
+  };
+  created_at: string;
+  updated_at: string;
+}
 
 const ExploreBlogs = () => {
-  const blogsArray = [
-    {
-      title: 'Why Join A Tech Community',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ...',
-      date: '07 Mar 2025',
-      image: '/data-edition.png',
-      headerImage: '/blog-header-in-cardstack.svg',
-      id: 1,
-      blogLink: 'https://jsonplaceholder.typicode.com/posts/1',
-    },
-    {
-      title: 'Build:The Software Edition',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ...',
-      date: '29 Feb 2025',
-      image: '/software-edition.png',
-      headerImage: '/blog-header-in-cardstack.svg',
-      id: 2,
-      blogLink: 'https://jsonplaceholder.typicode.com/posts/1',
-    },
-    {
-      title: 'Mental Health & Market Day',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ...',
-      date: '15 Feb 2025',
-      image: '/mental-health-market-day.png',
-      headerImage: '/blog-header-in-cardstack.svg',
-      id: 3,
-      blogLink: 'https://jsonplaceholder.typicode.com/posts/1',
-    },
-    {
-      title: 'CyberQuest 2025 Series',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam ...',
-      date: '19 Feb 2025',
-      image: '/mental-health-market-day.png',
-      headerImage: '/blog-header-in-cardstack.svg',
-      id: 4,
-      blogLink: 'https://jsonplaceholder.typicode.com/posts/1',
-    },
-  ];
+  const { data } = useFetchBlogs();
 
-  const cardsBlogArray = blogsArray.slice(0, 3);
+  const blogs: Blog[] = data?.data || [];
+
+  const cardsBlogArray = blogs?.slice(0, 3).map((blog, index) => ({
+    id: Number(blog.id) || index, // Fallback to index if conversion fails
+    title: blog.title,
+    description: blog.extract,
+    date: new Date(blog.created_at).toLocaleDateString(),
+    image_url: blog.image_url,
+    headerImage: '/blog-header-in-cardstack.svg',
+    blogLink: `/blogs/${blog.slug}`,
+  }));
 
   return (
     <div className=" w-full lg:max-w-7xl lg:mx-auto px-6 pt-6  md:px-24 md:pt-24  text-[#45084a] ">
@@ -64,26 +56,26 @@ const ExploreBlogs = () => {
         <div className="lg:w-1/2 mb-12 md:mb-0 pt-8 ">
           <h3 className="font-bold text-left lg:text-left text-[20px]">Latest blogs</h3>
 
-          {blogsArray.map((blog) => (
-            <div key={blog.id} className="flex flex-col gap-3 pl-6">
-              <Link href="/blogs">
+          {blogs.map((blog) => (
+            <div key={blog.id} className="flex flex-col gap-3 ">
+              <Link href={`/blogs/${blog.slug}`}>
                 <h3 className="font-semibold text-[18px] md:text-[20px] pt-3 hover:underline cursor-pointer">
                   {blog.title}
                 </h3>
               </Link>
-              <p className="italic text-[18px]">{blog.description.slice(0, 55)}...</p>
-              <hr className="w-[20%] border-t-2 border-[#45084a]"></hr>
+              <p className="italic text-[18px]">{blog.extract.slice(0, 55)}...</p>
+              <hr className="w-[20%]"></hr>
             </div>
           ))}
-          <div className="flex mt-8 md:mt-10 lg:pl-6">
+          <div className="flex justify-center mt-8 md:mt-10  pb-6">
             <Button className="font-black px-4 py-4 text-[16px] md:text-[17x]">
               <Link href="/blogs">Read More</Link>
             </Button>
           </div>
         </div>
         <hr></hr>
-        {/* the empty div below is the div for thr vertical line between the blog section on large screens only */}
-        <div className="hidden lg:block my-10 mb-12 w-px bg-[#45084a] h-[500px]"></div>
+        {/* the empty div below is the div for the vertical line between the blog section on large screens only */}
+        <div className="hidden lg:block mt-10 mb-12 w-px bg-[#45084a] "></div>
         {/* overlapping images */}
         <div className="w-full md:mt-5 lg:w-1/2 pl-10 lg:pb-20 relative overflow-hidden z-10 ">
           <div className="relative w-full h-[550px] mt-10 lg:mt-20 lg:pl-10">

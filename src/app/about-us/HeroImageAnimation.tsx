@@ -15,7 +15,7 @@ export default function HeroImageAnimation() {
   return (
     <div>
       {/* TSK Logo */}
-      <motion.g
+      <motion.svg
         className="absolute left-4 -top-40"
         initial={{ x: -40, y: 20, scale: 1 }}
         animate={{ x: 0, y: 0, scale: 1.9 }}
@@ -49,7 +49,7 @@ export default function HeroImageAnimation() {
             fill="#FFBAFF"
           />
         </svg>
-      </motion.g>
+      </motion.svg>
 
       {/* Who Are We? text */}
       <motion.div
@@ -110,7 +110,7 @@ export default function HeroImageAnimation() {
       </motion.div>
 
       {/* Purple semi-circle */}
-      <motion.g
+      <motion.svg
         className="absolute left-40 -top-20"
         initial={{ x: 0, y: 0, scale: 1.2 }}
         animate={{ x: 20, y: -40, scale: 0.8 }}
@@ -128,10 +128,10 @@ export default function HeroImageAnimation() {
             fill="#45084A"
           />
         </svg>
-      </motion.g>
+      </motion.svg>
 
       {/* Question mark */}
-      <motion.g
+      <motion.svg
         className="absolute left-80 top-6"
         initial={{ x: -40, y: 20, scale: 1 }}
         animate={{ x: 0, y: 0, scale: 2 }}
@@ -166,7 +166,7 @@ export default function HeroImageAnimation() {
             mask="url(#path-1-outside-1_1665_1005)"
           />
         </svg>
-      </motion.g>
+      </motion.svg>
 
       {/* Pink circle */}
       <motion.div

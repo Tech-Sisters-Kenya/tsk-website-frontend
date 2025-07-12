@@ -5,6 +5,8 @@ import './globals.css';
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import CallToAction from '@/components/CallToAction';
+import Providers from './providers';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -52,9 +54,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${squarePeg.variable} ${montserrat.variable} ${leagueSpartan.variable} antialiased`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <Providers>
+          <Navbar />
+          {children}
+          <CallToAction />
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

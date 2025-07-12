@@ -4,6 +4,7 @@ import type { NextConfig } from 'next';
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
   images: {
+    domains: ['media.licdn.com'],
     remotePatterns: [
       {
         protocol: 'https',
