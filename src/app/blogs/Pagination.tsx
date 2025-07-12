@@ -1,51 +1,24 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import BlogsLayout from './BlogsLayout';
 import { BlogItem } from './interface';
 
-function Pagination() {
-  const [loading, setLoading] = useState(true);
-  const [blogs, setBlogs] = useState<BlogItem[]>([]);
-  const [error, setError] = useState('');
+type PaginationProps = {
+  blogs: BlogItem[];
+  loading: boolean;
+  error: string;
+};
 
-  useEffect(() => {
-    async function fetchBlogs() {
-      setLoading(true);
-
-      try {
-        const response = await fetch('https://faux-api.com/api/v1/blog_8047236583693721');
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch content. Please try again later.');
-        }
-
-        const data = await response.json();
-        setBlogs(data.result);
-        console.log('data', data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError('An unexpected error occurred.');
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchBlogs();
-  }, []);
+function Pagination({ blogs, loading, error }: PaginationProps) {
+  const [itemOffset, setItemOffset] = useState(0);
 
   const itemsPerPage = 10;
-  const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
-  // fetch data from API instead of using dummy data
-  const currentItems = blogs.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(blogs.length / itemsPerPage);
+  const currentItems = blogs ? blogs.slice(itemOffset, endOffset) : [];
+  const pageCount = blogs ? Math.ceil(blogs.length / itemsPerPage) : 0;
 
   const handlePageChange = ({ selected }: { selected: number }): void => {
     if (selected !== itemOffset) {
@@ -58,6 +31,7 @@ function Pagination() {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
+  if (!blogs) return <div>No Blogs Found</div>;
 
   return (
     <>
