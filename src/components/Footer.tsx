@@ -30,7 +30,7 @@ const FooterSection = ({
     </h3>
     <ul className="space-y-2 text-sm">
       {links.map((link) => (
-        <li key={link.id || `${link.href}-${link.label}`}>
+        <li key={link.id ?? `${link.href}-${link.label}`}>
           <Link href={link.href} className={linkStyles}>
             {link.label}
           </Link>
@@ -105,7 +105,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="mt-12 text-center text-sm">
-          All rights reserved. Tech Sisters Kenya ©2025
+          All rights reserved. Tech Sisters Kenya &copy;{new Date().getFullYear()}
         </div>
       </div>
     </footer>

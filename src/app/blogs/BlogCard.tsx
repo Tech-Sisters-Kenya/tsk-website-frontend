@@ -3,12 +3,27 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface BlogItem {
-  id: number;
+  // tags: string[];
+  // publishedDate: string;
+  id: string;
+  slug: string;
   title: string;
-  tags: string[];
-  publishedDate: string;
   content: string;
-  image: string;
+  image_url: string;
+  extract: string;
+  status: string;
+  is_featured: boolean;
+  author: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  category: {
+    id: string;
+    name: string;
+  };
+  created_at: string;
+  updated_at: string;
 }
 
 // format date
@@ -22,30 +37,37 @@ const formatDate = (dateStr: string) => {
 };
 
 function BlogCard({ item }: { item: BlogItem }) {
-  const { id, title, tags, publishedDate, content, image } = item;
+  const { slug, title, category, created_at, extract, image_url } = item;
+  console.log(`this is the image ${image_url}`);
 
   return (
-    <Link href={`/blogs/${id}`}>
+    <Link href={`/blogs/${slug}`}>
       <div className="w-full relative h-[360px]">
-        <Image src={image} alt={`${title} image`} fill className="object-cover rounded-3xl" />
+        <Image src={image_url} alt={`${title} image`} fill className="object-cover rounded-3xl" />
       </div>
       <div className="mt-8 flex justify-between items-center flex-wrap gap-2">
         <div className="flex gap-2 flex-wrap">
-          {tags.map((tag, index) => (
+          {/* {tags.map((tag, index) => (
             <span
               key={index}
               className="text-black font-body font-medium border border-tsk-primary-dark px-2 py-1 rounded-2xl "
             >
               {tag}
             </span>
-          ))}
+          ))} */}
+          <span
+            key={category.id}
+            className="text-black font-body font-medium border border-tsk-primary-dark px-2 py-1 rounded-2xl "
+          >
+            {category.name}
+          </span>
         </div>
         <span className="text-tsk-primary-dark font-medium font-body">
-          {formatDate(publishedDate)}
+          {formatDate(created_at)}
         </span>
       </div>
       <h3 className="font-black font-body text-xl mt-8 text-tsk-primary-dark">{title}</h3>
-      <p className="text-tsk-primary-dark font-body italic my-4">{content.substring(0, 250)}...</p>
+      <p className="text-tsk-primary-dark font-body italic my-4">{extract.substring(0, 250)}...</p>
     </Link>
   );
 }

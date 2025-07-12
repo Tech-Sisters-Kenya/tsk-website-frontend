@@ -6,28 +6,70 @@ import WhatWeDo from '@/app/landing-page/WhatWeDo';
 import Gallery from '@/components/Gallery';
 import ExploreBlogs from '@/app/landing-page/ExploreBlogs';
 import Testimonials from '@/app/landing-page/Testimonials';
-import testimonialShared from '@/data/testimonialShared.json';
+import CallToAction from '@/components/CallToAction';
 
 export default function LandingPage() {
   const reachStats = [
-    { value: '700+', label: 'Software Developers' },
-    { value: '450+', label: 'Data Analysts' },
-    { value: '230+', label: 'Cyber Security Enthusiasts' },
-    { value: '550+', label: 'Other Tech Fields' },
+    {
+      value: '700+',
+      label: (
+        <>
+          Software
+          <br />
+          Developers
+        </>
+      ),
+    },
+    {
+      value: '450+',
+      label: (
+        <>
+          Data
+          <br />
+          Analysts
+        </>
+      ),
+    },
+    {
+      value: '230+',
+      label: (
+        <>
+          CyberSecurity
+          <br />
+          Enthusiasts
+        </>
+      ),
+    },
+    {
+      value: '550+',
+      label: (
+        <>
+          Other
+          <br />
+          TechFields
+        </>
+      ),
+    },
   ];
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center lg:p-24">
+    <main className="flex min-h-screen flex-col items-center justify-center">
       <Hero />
       <WhoWeAre />
       <OurReach
         title="OUR REACH SO FAR"
-        subtitle="A growing community of women building confidence, skills, and careers in tech."
+        subtitle={
+          <>
+            A growing community of women building <br />
+            confidence, skills, and careers in tech.
+          </>
+        }
         stats={reachStats}
       />
       <WhatWeDo />
       <Gallery />
       <ExploreBlogs />
-      <Testimonials slides={testimonialShared} />
+      <Testimonials />
+      <CallToAction />
     </main>
   );
 }

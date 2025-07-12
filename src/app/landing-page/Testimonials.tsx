@@ -1,104 +1,113 @@
 'use client';
 
 import React from 'react';
-import { useEffect, useCallback, useRef } from 'react';
-import { EmblaOptionsType } from 'embla-carousel';
-import { DotButton, useDotButton } from '@/ui/EmblaCarouselDotButton';
-import { PrevButton, NextButton, usePrevNextButtons } from '@/ui/EmblaCarouselArrowButtons';
+import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
 
-// Avoid using NodeJS namespace by creating our own type
-type TimeoutRef = ReturnType<typeof setTimeout> | null;
+const testimonials = [
+  {
+    testimonial:
+      "'Being part of Tech Sisters Kenya has been a game-changer for me. The mentorship I've received has given me the confidence to tackle new challenges at work.'",
+    avatar: '/testimonial-avatar-1',
+    name: 'Mary Wanjiku',
+    role: '-Software Developer-',
+  },
+  {
+    testimonial:
+      "'Joining Tech Sisters Kenya opened doors to opportunities and friendships I never imagined. It's a vibrant and empowering space for women in the Kenyan tech industry.'",
+    avatar: '/testimonial-avatar',
+    name: 'Jacinta Muga',
+    role: '-Product Designer-',
+  },
+  {
+    testimonial:
+      "'Tech Sisters Kenya is my go-to for learning and connecting with other women in tech. The workshops are practical, and the community is so encouraging!'",
+    name: 'Mercy Mwende',
+    role: '-Software Engineer-',
+  },
+  {
+    testimonial:
+      "'One of my favorite things about Tech Sisters Kenya is the inclusivity, and diversity of all things tech - ranging from mental health to career growth and tech culture.'",
+    name: 'Sally Kahoro',
+    role: '-Web3 Developer-',
+  },
+];
 
-type SlideData = {
-  testimonial: string;
-  avatar?: string;
-  name: string;
-  role: string;
-};
-
-type PropType = {
-  slides: SlideData[];
-  options?: EmblaOptionsType;
-};
-
-const Testimonials: React.FC<PropType> = (props) => {
-  const { slides, options } = props;
-
+export default function TestimonialsCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    ...options,
-    loop: true, //infinite loop
+    loop: true,
     align: 'center',
-    containScroll: 'trimSnaps',
   });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
-  const autoplayInterval = useRef<TimeoutRef>(null);
-
-  // Auto-scroll function
-  const autoplay = useCallback(() => {
-    if (!emblaApi) return;
-    if (emblaApi.canScrollNext()) {
-      emblaApi.scrollNext();
-    } else {
-      emblaApi.scrollTo(0); // loop back to the start
-    }
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
 
-  // Start autoplay
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const scrollTo = useCallback(
+    (index: number) => {
+      if (emblaApi) emblaApi.scrollTo(index);
+    },
+    [emblaApi]
+  );
+
+  const onInit = useCallback((emblaApi: { scrollSnapList: () => SetStateAction<number[]> }) => {
+    setScrollSnaps(emblaApi.scrollSnapList());
+  }, []);
+
+  const onSelect = useCallback((emblaApi: { selectedScrollSnap: () => SetStateAction<number> }) => {
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, []);
+
   useEffect(() => {
     if (!emblaApi) return;
 
-    autoplayInterval.current = setInterval(autoplay, 5000); // scroll every 5s
-
-    return () => {
-      if (autoplayInterval.current) clearInterval(autoplayInterval.current);
-    };
-  }, [emblaApi, autoplay]);
-
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
-
-  const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
-    usePrevNextButtons(emblaApi);
+    onInit(emblaApi);
+    onSelect(emblaApi);
+    emblaApi.on('reInit', onInit);
+    emblaApi.on('select', onSelect);
+  }, [emblaApi, onInit, onSelect]);
   return (
-    <div className=" px-4 py-8 bg-tsk-light-2 text-center text-[#45084a] w-screen">
-      <div className="max-w-3xl mx-auto">
-        <h3 className="font-bold text-[32px] md:text-[36] ">Testimonials</h3>
-        <p className="font-medium text-[20px] px-4 pb-3 md:text-[20px] md:px-20 md:mb-10">
-          From gaining skills to finding belonging — here&rsquo;s what our community has to say.
-        </p>
+    <>
+      <div className=" px-4 py-8 bg-tsk-light-2 text-center text-[#45084a] w-screen">
+        <div className="max-w-4xl mx-auto">
+          {/* Header */}
+          <h3 className="font-bold text-[32px] md:text-[36] lg:text-[48px]">Testimonials</h3>
+          <p className="font-medium text-[20px] px-4 pb-3 md:text-[20px] lg:text-[24px] md:px-20 md:mb-10">
+            From gaining skills to finding belonging — here&rsquo;s what our community has to say.
+          </p>
 
-        {/* actual carousel */}
-        <div className="mx-auto px-4 py-8 w-[90%] md:w-[75%] bg-white rounded-3xl ">
-          <div className="relative">
-            <div
-              className="overflow-hidden"
-              ref={emblaRef}
-              // stop autoplay when user hovers
-              onMouseEnter={() => clearInterval(autoplayInterval.current!)}
-              onMouseLeave={() => {
-                autoplayInterval.current = setInterval(autoplay, 5000);
-              }}
-            >
+          {/* Carousel */}
+          <div className="mx-auto px-4 py-8 w-[90%] md:w-[75%] lg:w-full bg-white rounded-3xl relative">
+            <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
-                {slides.map((testimonial, index) => (
-                  <div className="flex-[0_0_100%] min-w-0 text-[#45084a]" key={index}>
+                {testimonials.map((testimonial, index) => (
+                  <div key={index} className="flex-[0_0_100%] min-w-0 px-4">
                     <div className="px-4 md:px-8 lg:px-14">
-                      <p className="text-[19px] italic md:text-[20px] text-center mb-8">
+                      <p className="text-[19px] italic md:text-[20px] text-center mb-8 font-">
                         {testimonial.testimonial}
                       </p>
 
-                      <div className="flex flex-col items-center justify-center">
-                        <Image
-                          src="/testimonial-avatar.png"
-                          alt={`avatar of ${testimonial.name}`}
-                          width={100}
-                          height={100}
-                          className="w-15 h-15 rounded-[20px] flex-shrink-0"
-                        />
-                        <p className="text-[18px] font-bold pt-2">{testimonial.name}</p>
-                        <p className="">{testimonial.role}</p>
-                        <div className="ml-4"></div>
+                      <div className="flex flex-col items-center">
+                        <div className="flex flex-col items-center justify-center">
+                          <Image
+                            src="/testimonial-avatar.png"
+                            alt={testimonial.name}
+                            width={100}
+                            height={100}
+                            className="w-15 h-15 rounded-[20px] flex-shrink-0"
+                          />
+                          <p className="text-[18px] font-bold pt-2">{testimonial.name}</p>
+                          <p className="">{testimonial.role}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -106,41 +115,53 @@ const Testimonials: React.FC<PropType> = (props) => {
               </div>
             </div>
           </div>
+
+          {/* Navigation */}
+          <div className="flex items-center justify-center gap-16 mt-12">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={scrollPrev}
+              className="hidden lg:flex w-8 h-8 rounded-full border-2 border-[#45084a] text-[#45084a] hover:bg-[#a848c7] hover:text-white hover:border-none transition-all duration-200 hover:scale-110"
+            >
+              <ChevronLeft className="w-5 h-5" />
+              <span className="sr-only">Previous testimonial</span>
+            </Button>
+
+            {/* Dots */}
+            <div className="flex gap-2 lg:hidden">
+              {scrollSnaps.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => scrollTo(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-200 hover:scale-125 ${
+                    index === selectedIndex ? 'bg-[#6f169e]' : 'bg-[#efd5f8] hover:bg-[#a848c7]'
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={scrollNext}
+              className="hidden lg:flex w-8 h-8 rounded-full border-2 border-[#45084a] text-[#45084a] hover:bg-[#a848c7] hover:text-white hover:border-none transition-all duration-200 hover:scale-110"
+            >
+              <ChevronRight className="w-5 h-5" />
+              <span className="sr-only">Next testimonial</span>
+            </Button>
+          </div>
+
+          <Image
+            src="/tsk-logo.png"
+            width={64}
+            height={76}
+            alt="Tech sisters logo"
+            className=" mx-auto my-10"
+          />
         </div>
-
-        {/* Buttons */}
-
-        <div className="lg:flex gap-8 hidden justify-center pt-5">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-        </div>
-
-        {/* Dots */}
-        <div className="embla__dots flex gap-2 justify-center mt-[1.5rem] lg:hidden">
-          {scrollSnaps.map((_, index) => (
-            <DotButton
-              key={index}
-              onClick={() => onDotButtonClick(index)}
-              className={`embla__dot ${
-                index === selectedIndex
-                  ? 'shadow-[inset_0_0_0_0.2rem_var(--text-body)] bg-[#18132c]'
-                  : 'bg-[#bababa] '
-              } 
-							appearance-none touch-manipulation text-decoration-none 
-							cursor-pointer p-0 m-0 w-[8px] h-[8px] flex items-center justify-center rounded-full after:content-[''] after:absolute after:shadow-[inset_0_0_0_0.2rem_var(--detail-medium-contrast)] after:w-[1.4rem] after:h-[1.4rem] after:rounded-full after:flex after:items-center`}
-            />
-          ))}
-        </div>
-
-        <Image
-          src="/tsk-logo.png"
-          width={64}
-          height={76}
-          alt="Tech sisters logo"
-          className=" mx-auto mt-10"
-        />
       </div>
-    </div>
+    </>
   );
-};
-export default Testimonials;
+}

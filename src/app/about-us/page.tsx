@@ -5,6 +5,7 @@ import HeroSection from './HeroSection';
 import MissionVision from './MissionVision';
 import CoreValues from './CoreValues';
 import ValueToTechSisters from './ValueToTechSisters';
+import CallToAction from '@/components/CallToAction';
 
 export default function AboutUs() {
   return (
@@ -13,6 +14,7 @@ export default function AboutUs() {
       <MissionVision />
       <CoreValues />
       <ValueToTechSisters />
+      <CallToAction />
     </main>
   );
 }
