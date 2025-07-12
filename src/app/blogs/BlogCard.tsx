@@ -1,30 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-interface BlogItem {
-  // tags: string[];
-  // publishedDate: string;
-  id: string;
-  slug: string;
-  title: string;
-  content: string;
-  image_url: string;
-  extract: string;
-  status: string;
-  is_featured: boolean;
-  author: {
-    id: string;
-    name: string;
-    email: string;
-  };
-  category: {
-    id: string;
-    name: string;
-  };
-  created_at: string;
-  updated_at: string;
-}
+import { BlogItem } from './interface';
 
 // format date
 const formatDate = (dateStr: string) => {

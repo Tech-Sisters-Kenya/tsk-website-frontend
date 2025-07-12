@@ -2,160 +2,31 @@
 
 import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
-
 import BlogsLayout from './BlogsLayout';
-import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
+import { BlogItem } from './interface';
 
-interface Blog {
-  id: string;
-  slug: string;
-  title: string;
-  content: string;
-  image_url: string;
-  extract: string;
-  status: string;
-  is_featured: boolean;
-  author: {
-    id: string;
-    name: string;
-    email: string;
-  };
-  category: {
-    id: string;
-    name: string;
-  };
-  created_at: string;
-  updated_at: string;
+interface PaginationProps {
+  blogs: BlogItem[];
+  loading: boolean;
+  error: string;
 }
 
-// NB: TO BE REMOVED
-// fetch data instead of using dummy data
-// const sampleItems = [
-//   {
-//     id: 1,
-//     image: '/blog-img1.svg',
-//     title: 'Blog Title',
-//     tags: ['Opportunities & Resources', 'Sisterhood & Lifestyle'],
-//     publishedDate: '2023-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-//   {
-//     id: 2,
-//     image: '/blog-img2.svg',
-//     title: 'Blog Title',
-//     tags: ['Career & Growth', 'Event Highlights'],
-//     publishedDate: '2024-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-//   {
-//     id: 3,
-//     image: '/blog-img3.svg',
-//     title: 'Blog Title',
-//     tags: ['Tech Tips & Tutorials', 'Community Stories'],
-//     publishedDate: '2025-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-//   {
-//     id: 4,
-//     image: '/blog-img4.svg',
-//     title: 'Blog Title',
-//     tags: ['Tech Tips & Tutorials', 'Community Stories'],
-//     publishedDate: '2025-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-//   {
-//     id: 5,
-//     image: '/blog-img5.svg',
-//     title: 'Blog Title',
-//     tags: ['Tech Tips & Tutorials', 'Community Stories'],
-//     publishedDate: '2025-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-//   {
-//     id: 6,
-//     image: '/blog-img2.svg',
-//     title: 'Blog Title',
-//     tags: ['Tech Tips & Tutorials', 'Community Stories'],
-//     publishedDate: '2025-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-//   {
-//     id: 7,
-//     image: '/blog-img1.svg',
-//     title: 'Blog Title',
-//     tags: ['Tech Tips & Tutorials', 'Community Stories'],
-//     publishedDate: '2025-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-//   {
-//     id: 8,
-//     image: '/blog-img3.svg',
-//     title: 'Blog Title',
-//     tags: ['Tech Tips & Tutorials', 'Community Stories'],
-//     publishedDate: '2025-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-//   {
-//     id: 9,
-//     image: '/blog-img4.svg',
-//     title: 'Blog Title',
-//     tags: ['Tech Tips & Tutorials', 'Community Stories'],
-//     publishedDate: '2025-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-//   {
-//     id: 10,
-//     image: '/blog-img5.svg',
-//     title: 'Blog Title',
-//     tags: ['Tech Tips & Tutorials', 'Community Stories'],
-//     publishedDate: '2025-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-//   {
-//     id: 11,
-//     image: '/blog-img5.svg',
-//     title: 'Blog Title',
-//     tags: ['Tech Tips & Tutorials', 'Community Stories'],
-//     publishedDate: '2025-01-01',
-//     content:
-//       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, sed! Optio maiores debitis, rem adipisci, soluta reiciendis nostrum dolore quibusdam iure aliquid beatae quae natus!',
-//   },
-// ];
-
-function Pagination() {
-  const { data, isLoading, error } = useFetchBlogs();
-  const blogs: Blog[] = data?.data || [];
-
+function Pagination({ blogs, loading, error }: PaginationProps) {
   const itemsPerPage = 10;
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsPerPage;
-  // fetch data from API instead of using dummy data
   const currentItems = blogs.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(blogs.length / itemsPerPage);
 
   const handlePageChange = ({ selected }: { selected: number }): void => {
-    if (selected !== itemOffset) {
-      setItemOffset(selected);
-    }
-    console.log('selected', selected);
     const newOffset = selected * itemsPerPage;
     setItemOffset(newOffset);
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
-  if (!blogs) return <div>No Blogs Found</div>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+  if (!blogs.length) return <div>No Blogs Found</div>;
 
   return (
     <>

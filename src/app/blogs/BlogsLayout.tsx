@@ -1,30 +1,7 @@
 import React from 'react';
 import BlogCard from './BlogCard';
+import { BlogItem } from './interface';
 import clsx from 'clsx';
-
-interface BlogItem {
-  id: string;
-  slug: string;
-  title: string;
-  content: string;
-  image_url: string;
-  extract: string;
-  status: string;
-  is_featured: boolean;
-  author: {
-    id: string;
-    name: string;
-    email: string;
-  };
-  category: {
-    id: string;
-    name: string;
-  };
-  //replaced array of tags with the category since tags dont come from the BE
-  // tags: string[];
-  created_at: string;
-  updated_at: string;
-}
 
 function BlogsLayout({ items }: { items: BlogItem[] }) {
   const rows = [];
