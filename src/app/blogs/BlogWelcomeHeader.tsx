@@ -27,7 +27,7 @@ const BlogWelcomeHeader = () => {
             {isAdmin && (
               <div className="mt-8">
                 <Link
-                  href="/blogs/create"
+                  href="/blogs"
                   className="inline-block bg-tsk-primary text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition"
                 >
                   + Write a Blog
