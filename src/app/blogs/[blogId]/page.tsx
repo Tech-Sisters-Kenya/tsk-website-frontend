@@ -92,19 +92,11 @@ export default function BlogPost() {
               />
             </div>
           )}
-          <div className="font-body md:text-lg sm:text-base text-sm font-medium text-tsk-primary-dark lg:space-y-10 space-y-8 lg:mx-20">
-            {/* 
-            there needs to be a well-defined subtitle from the backend as there's only the excerpt and the content */}
-            {/* <h2 className="font-extrabold text-xl font-body">
-							{blog.subtitle}
-						</h2> */}
-            {blog.content &&
-              blog.content.split('\n\n').map((paragraph: string, id: number) => (
-                <p key={id} className="">
-                  {paragraph}
-                </p>
-              ))}
-          </div>
+          <div
+            className="prose prose-lg font-body max-w-none text-gray-800 lg:mx-20"
+            dangerouslySetInnerHTML={{ __html: blog.content }}
+          />
+
         </div>
 
         {/* add author, created at, category just after the blogpost before the more blogs section */}
