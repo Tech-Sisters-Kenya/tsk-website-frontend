@@ -48,7 +48,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, logout } = useAuthStore();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -110,22 +110,16 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Hamburger menu button - visible on mobile */}
+      {/* Hamburger menu button */}
       <div className="md:hidden">
         <button onClick={toggleMenu} className="p-2 focus:outline-none" aria-label="Toggle menu">
-          <div
-            className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] mb-1.5 transition-all ${isMenuOpen ? 'transform rotate-45 translate-y-2' : ''}`}
-          ></div>
-          <div
-            className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] mb-1.5 transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}
-          ></div>
-          <div
-            className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] transition-all ${isMenuOpen ? 'transform -rotate-45 -translate-y-2' : ''}`}
-          ></div>
+          <div className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] mb-1.5 transition-all ${isMenuOpen ? 'transform rotate-45 translate-y-2' : ''}`} />
+          <div className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] mb-1.5 transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`} />
+          <div className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] transition-all ${isMenuOpen ? 'transform -rotate-45 -translate-y-2' : ''}`} />
         </button>
       </div>
 
-      {/* Desktop Navigation - hidden on mobile */}
+      {/* Desktop Navigation */}
       <ul className="hidden md:flex gap-8 font-semibold text-lg relative">
         {navItems.map((item, idx) => (
           <li key={idx} className="relative group">
@@ -145,22 +139,13 @@ const Navbar = () => {
                   )}
                 >
                   {item.label}
-                  <span
-                    className={`transform transition-transform ${activeDropdown === item.label ? 'rotate-180' : ''}`}
-                  >
-                    <Image src={DownArrow} alt="Down Arrow Icon" width="10" height="10" />
+                  <span className={`transform transition-transform ${activeDropdown === item.label ? 'rotate-180' : ''}`}>
+                    <Image src={DownArrow} alt="Down Arrow Icon" width={10} height={10} />
                   </span>
                 </button>
-                <ul
-                  className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 ${
-                    activeDropdown === item.label ? 'block' : 'hidden'
-                  } bg-white shadow-lg rounded-2xl py-3 px-6 whitespace-nowrap z-50`}
-                >
+                <ul className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 ${activeDropdown === item.label ? 'block' : 'hidden'} bg-white shadow-lg rounded-2xl py-3 px-6 whitespace-nowrap z-50`}>
                   {item.children.map((child, childIdx) => (
-                    <li
-                      key={child.href}
-                      className={`text-center ${childIdx !== item.children!.length - 1 ? 'mb-3' : ''}`}
-                    >
+                    <li key={`${child.href}-${child.label}`} className={`text-center ${childIdx !== item.children!.length - 1 ? 'mb-3' : ''}`}>
                       <NavLink href={child.href}>{child.label}</NavLink>
                     </li>
                   ))}
@@ -173,23 +158,29 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Desktop Buttons - hidden on mobile */}
-      {!isAuthenticated && (
-        <div className="hidden md:flex gap-10">
-          <Link href="/login">
-            <Button variant="secondary" className="px-10 py-2">
-              <span className="text-lg font-semibold">Login</span>
-            </Button>
-          </Link>
-          <Link href="/sign-up">
-            <Button variant="primary" className="px-10 py-2">
-              <span className="text-lg font-semibold">Sign Up</span>
-            </Button>
-          </Link>
-        </div>
-      )}
+      {/* Desktop Buttons */}
+      <div className="hidden md:flex gap-10">
+        {!isAuthenticated ? (
+          <>
+            <Link href="/login">
+              <Button variant="secondary" className="px-10 py-2">
+                <span className="text-lg font-semibold">Login</span>
+              </Button>
+            </Link>
+            <Link href="/sign-up">
+              <Button variant="primary" className="px-10 py-2">
+                <span className="text-lg font-semibold">Sign Up</span>
+              </Button>
+            </Link>
+          </>
+        ) : (
+          <Button variant="secondary" className="px-10 py-2" onClick={logout}>
+            <span className="text-lg font-semibold">Logout</span>
+          </Button>
+        )}
+      </div>
 
-      {/* Mobile Menu - conditionally rendered */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 z-50 pt-20 bg-white" style={{ top: '5rem' }}>
           <ul className="flex flex-col items-center gap-6 p-4 font-semibold">
@@ -217,7 +208,7 @@ const Navbar = () => {
                     {openDropdown === item.label && (
                       <ul className="pl-8">
                         {item.children.map((child) => (
-                          <li key={child.href} className="py-1">
+                          <li key={`${child.href}-${child.label}`} className="py-1">
                             <NavLink href={child.href} onClick={closeMenu}>
                               {child.label}
                             </NavLink>
@@ -234,7 +225,7 @@ const Navbar = () => {
               </li>
             ))}
 
-            {!isAuthenticated && (
+            {!isAuthenticated ? (
               <li className="w-full mt-4">
                 <Link href="/login">
                   <Button variant="secondary" className="w-full mb-3">
@@ -246,6 +237,12 @@ const Navbar = () => {
                     Sign Up
                   </Button>
                 </Link>
+              </li>
+            ) : (
+              <li className="w-full mt-4">
+                <Button variant="secondary" className="w-full" onClick={() => { logout(); closeMenu(); }}>
+                  Logout
+                </Button>
               </li>
             )}
           </ul>
