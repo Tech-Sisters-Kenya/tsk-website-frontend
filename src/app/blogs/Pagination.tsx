@@ -3,15 +3,12 @@
 import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import BlogsLayout from './BlogsLayout';
+import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 import { BlogItem } from './interface';
 
-interface PaginationProps {
-  blogs: BlogItem[];
-  loading: boolean;
-  error: string;
-}
+function Pagination({ blogs }: { blogs: BlogItem[] }) {
+  const { isLoading, error } = useFetchBlogs();
 
-function Pagination({ blogs, loading, error }: PaginationProps) {
   const itemsPerPage = 10;
   const [itemOffset, setItemOffset] = useState(0);
 
@@ -20,12 +17,15 @@ function Pagination({ blogs, loading, error }: PaginationProps) {
   const pageCount = Math.ceil(blogs.length / itemsPerPage);
 
   const handlePageChange = ({ selected }: { selected: number }): void => {
+    if (selected !== itemOffset) {
+      setItemOffset(selected);
+    }
     const newOffset = selected * itemsPerPage;
     setItemOffset(newOffset);
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
   if (!blogs.length) return <div>No Blogs Found</div>;
 
   return (
