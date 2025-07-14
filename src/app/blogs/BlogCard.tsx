@@ -2,29 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface BlogItem {
-  // tags: string[];
-  // publishedDate: string;
-  id: string;
-  slug: string;
-  title: string;
-  content: string;
-  image_url: string;
-  extract: string;
-  status: string;
-  is_featured: boolean;
-  author: {
-    id: string;
-    name: string;
-    email: string;
-  };
-  category: {
-    id: string;
-    name: string;
-  };
-  created_at: string;
-  updated_at: string;
-}
+import { BlogItem } from './interface';
 
 // format date
 const formatDate = (dateStr: string) => {
@@ -43,7 +21,13 @@ function BlogCard({ item }: { item: BlogItem }) {
   return (
     <Link href={`/blogs/${slug}`}>
       <div className="w-full relative h-[360px]">
-        <Image src={image_url} alt={`${title} image`} fill className="object-cover rounded-3xl" />
+        <Image
+          src={image_url}
+          alt={`${title} image`}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover rounded-3xl"
+        />
       </div>
       <div className="mt-8 flex justify-between items-center flex-wrap gap-2">
         <div className="flex gap-2 flex-wrap">
