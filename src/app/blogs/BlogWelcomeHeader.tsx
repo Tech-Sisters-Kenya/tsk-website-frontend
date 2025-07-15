@@ -19,15 +19,13 @@ const BlogWelcomeHeader = () => {
             <div className="font-body text-[30px] font-medium mt-8">
               <p>Welcome to the Tech Sisters Kenya blog</p>
               <p> — </p>
-              <p>
-                A space created to educate, inspire, and uplift women in tech.
-              </p>
+              <p>A space created to educate, inspire, and uplift women in tech.</p>
             </div>
 
             {isAdmin && (
               <div className="mt-8">
                 <Link
-                  href="/blogs"
+                  href="/blogs/create"
                   className="inline-block bg-tsk-primary text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition"
                 >
                   + Write a Blog
