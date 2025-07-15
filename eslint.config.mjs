@@ -31,6 +31,7 @@ export default defineConfig([
     },
     rules: {
       ...reactPlugin.configs.recommended.rules,
+         'react/prop-types': 'off',
     },
     settings: {
       react: {
