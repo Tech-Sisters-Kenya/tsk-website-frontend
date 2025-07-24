@@ -18,7 +18,13 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "prepare": "if [ \"$NODE_ENV\" != 'production' ]; then husky; fi"
+    "prepare": "if [ \"$NODE_ENV\" != 'production' ]; then husky; fi",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report"
   },
   "keywords": [],
   "author": "",
@@ -59,7 +65,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^20",
+    "@types/node": "^20.19.9",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@typescript-eslint/eslint-plugin": "^8.32.0",
