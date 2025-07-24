@@ -57,9 +57,27 @@ docker build -t tsk-website-frontend .
 docker run -p 3000:3000 tsk-website-frontend
 ```
 
-### 🧪 Testing
+## 🧪 Testing
 
-Currently, no automated frontend test suite is integrated. Unit and integration tests will be added in future iterations.
+### Unit Tests
+
+- Location: `src/__tests__/`
+- Run: `pnpm test`
+- Watch mode: `pnpm test:watch`
+- Coverage: `pnpm test:coverage`
+
+### E2E Tests
+
+- Location: `e2e/`
+- Run all tests: `pnpm test:e2e`
+- UI mode: `pnpm test:e2e:ui`
+- View report: `pnpm test:e2e:report`
+
+### CI/CD
+
+- Runs on push to main/develop and PRs
+- Includes linting, unit tests, and E2E tests
+- Coverage reports sent to Codecov
 
 ## 📁 Project Structure
 
