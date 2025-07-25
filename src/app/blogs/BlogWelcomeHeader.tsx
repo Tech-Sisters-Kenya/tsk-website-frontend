@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { AnimatedBlogPage } from '../../components/svg_components/AnimatedBlogPage';
+import { AnimatedBlogPage } from './AnimatedBlogPage';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 const BlogWelcomeHeader = () => {
@@ -19,9 +19,7 @@ const BlogWelcomeHeader = () => {
             <div className="font-body text-[30px] font-medium mt-8">
               <p>Welcome to the Tech Sisters Kenya blog</p>
               <p> — </p>
-              <p>
-                A space created to educate, inspire, and uplift women in tech.
-              </p>
+              <p>A space created to educate, inspire, and uplift women in tech.</p>
             </div>
 
             {isAdmin && (

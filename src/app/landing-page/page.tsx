@@ -3,7 +3,7 @@ import Hero from '@/app/landing-page/Hero';
 import WhoWeAre from '@/app/landing-page/WhoWeAre';
 import OurReach from '@/app/landing-page/OurReach';
 import WhatWeDo from '@/app/landing-page/WhatWeDo';
-import Gallery from '@/components/Gallery';
+import Gallery from '@/app/landing-page/Gallery';
 import ExploreBlogs from '@/app/landing-page/ExploreBlogs';
 import Testimonials from '@/app/landing-page/Testimonials';
 import CallToAction from '@/components/CallToAction';
