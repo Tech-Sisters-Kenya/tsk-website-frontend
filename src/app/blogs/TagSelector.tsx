@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import TagToggleChip from './TagToggleChip';
 import { BlogItem } from './interface';
 import Pagination from './Pagination';
+
+import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 
 const TAGS = [
   'All',
@@ -17,37 +19,8 @@ const TAGS = [
 
 function TagSelector() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [blogs, setBlogs] = useState<BlogItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    async function fetchBlogs() {
-      setLoading(true);
-
-      try {
-        const response = await fetch('https://api.techsisterskenya.org/api/blogs');
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch content. Please try again later.');
-        }
-
-        const data = await response.json();
-        setBlogs(data.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        if (error instanceof Error) {
-          setError(error.message);
-        } else {
-          setError('An unexpected error occurred.');
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchBlogs();
-  }, []);
+  const { data, isLoading, error } = useFetchBlogs();
+  const blogs: BlogItem[] = data?.data || [];
 
   // add or remove a tag based on selection
   const handleToggle = useCallback((tag: string, value: boolean) => {
@@ -58,6 +31,10 @@ function TagSelector() {
     !selectedTags.length || selectedTags.includes('All')
       ? blogs
       : blogs.filter((blog) => selectedTags.includes(blog.category.name));
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+  if (!blogs) return <div>No Blogs Found</div>;
 
   return (
     <div>
@@ -70,7 +47,7 @@ function TagSelector() {
         />
       ))}
 
-      <Pagination blogs={filteredBlogs} loading={loading} error={error} />
+      <Pagination blogs={filteredBlogs} />
     </div>
   );
 }

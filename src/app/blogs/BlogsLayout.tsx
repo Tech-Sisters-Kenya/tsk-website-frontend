@@ -1,7 +1,8 @@
 import React from 'react';
 import BlogCard from './BlogCard';
-import { BlogItem } from './interface';
 import clsx from 'clsx';
+
+import { BlogItem } from './interface';
 
 function BlogsLayout({ items }: { items: BlogItem[] }) {
   const rows = [];

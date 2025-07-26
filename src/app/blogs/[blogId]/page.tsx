@@ -96,7 +96,6 @@ export default function BlogPost() {
             className="prose prose-lg font-body max-w-none text-gray-800 lg:mx-20"
             dangerouslySetInnerHTML={{ __html: blog.content }}
           />
-
         </div>
 
         {/* add author, created at, category just after the blogpost before the more blogs section */}
