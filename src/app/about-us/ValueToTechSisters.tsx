@@ -8,9 +8,11 @@ interface ValueItemProps {
   isReversed?: boolean;
 }
 
-// Helper function to safely render HTML content
+// Helper function to safely render HTML content with consistent line breaks
 const createMarkup = (html: string) => {
-  return { __html: html };
+  // Ensure all <br> tags are self-closing <br />
+  const normalizedHtml = html.replace(/<br\s*\/?>/g, '<br />');
+  return { __html: normalizedHtml };
 };
 
 const ValueItem: React.FC<ValueItemProps> = ({ title, description, isReversed = false }) => (

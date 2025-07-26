@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
-
 import BlogsLayout from './BlogsLayout';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 import { BlogItem } from './interface';
@@ -27,7 +26,7 @@ function Pagination({ blogs }: { blogs: BlogItem[] }) {
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
-  if (!blogs) return <div>No Blogs Found</div>;
+  if (!blogs.length) return <div>No Blogs Found</div>;
 
   return (
     <>

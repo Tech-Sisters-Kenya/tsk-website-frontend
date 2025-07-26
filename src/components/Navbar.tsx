@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import Logo from '@/assets/tsk-icon-only-logo.svg';
 import Button from './Button';
 import DownArrow from '@/assets/down-arrow-icon.svg';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 interface NavLinkProps {
   href: string;
@@ -46,6 +47,8 @@ const NavLink = ({ href, children, onClick }: NavLinkProps) => {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const { isAuthenticated, logout } = useAuthStore();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -75,12 +78,8 @@ const Navbar = () => {
         { href: '/get-involved', label: 'Become a TSK Member' },
       ],
     },
-    // { href: '/events', label: 'Events' },
     { href: '/blogs', label: 'Blogs' },
-    // { href: '/jobs', label: 'Jobs' },
   ];
-
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const handleDropdownToggle = (label: string) => {
     setOpenDropdown((prev) => (prev === label ? null : label));
@@ -111,22 +110,22 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* Hamburger menu button - visible on mobile */}
+      {/* Hamburger menu button */}
       <div className="md:hidden">
         <button onClick={toggleMenu} className="p-2 focus:outline-none" aria-label="Toggle menu">
           <div
             className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] mb-1.5 transition-all ${isMenuOpen ? 'transform rotate-45 translate-y-2' : ''}`}
-          ></div>
+          />
           <div
             className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] mb-1.5 transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}
-          ></div>
+          />
           <div
             className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] transition-all ${isMenuOpen ? 'transform -rotate-45 -translate-y-2' : ''}`}
-          ></div>
+          />
         </button>
       </div>
 
-      {/* Desktop Navigation - hidden on mobile */}
+      {/* Desktop Navigation */}
       <ul className="hidden md:flex gap-8 font-semibold text-lg relative">
         {navItems.map((item, idx) => (
           <li key={idx} className="relative group">
@@ -149,23 +148,21 @@ const Navbar = () => {
                   <span
                     className={`transform transition-transform ${activeDropdown === item.label ? 'rotate-180' : ''}`}
                   >
-                    <Image src={DownArrow} alt="Down Arrow Icon" width="10" height="10" />
+                    <Image src={DownArrow} alt="Down Arrow Icon" width={10} height={10} />
                   </span>
                 </button>
-                <ul
-                  className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 ${
-                    activeDropdown === item.label ? 'block' : 'hidden'
-                  } bg-white shadow-lg rounded-2xl py-3 px-6 whitespace-nowrap z-50`}
-                >
-                  {item.children.map((child, childIdx) => (
-                    <li
-                      key={child.href}
-                      className={`text-center ${childIdx !== item.children!.length - 1 ? 'mb-3' : ''}`}
-                    >
-                      <NavLink href={child.href}>{child.label}</NavLink>
-                    </li>
-                  ))}
-                </ul>
+                {activeDropdown === item.label && (
+                  <ul className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white shadow-lg rounded-2xl py-3 px-6 whitespace-nowrap z-50">
+                    {item.children.map((child, childIdx) => (
+                      <li
+                        key={`${child.href}-${child.label}`}
+                        className={`text-center ${childIdx !== item.children!.length - 1 ? 'mb-3' : ''}`}
+                      >
+                        <NavLink href={child.href}>{child.label}</NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </>
             ) : (
               <NavLink href={item.href}>{item.label}</NavLink>
@@ -174,21 +171,29 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Desktop Buttons - hidden on mobile */}
+      {/* Desktop Buttons */}
       <div className="hidden md:flex gap-10">
-        <Link href="/login">
-          <Button variant="secondary" className="px-10 py-2">
-            <span className="text-lg font-semibold">Login</span>
+        {!isAuthenticated ? (
+          <>
+            <Link href="/login">
+              <Button variant="secondary" className="px-10 py-2">
+                <span className="text-lg font-semibold">Login</span>
+              </Button>
+            </Link>
+            <Link href="/sign-up">
+              <Button variant="primary" className="px-10 py-2">
+                <span className="text-lg font-semibold">Sign Up</span>
+              </Button>
+            </Link>
+          </>
+        ) : (
+          <Button variant="secondary" className="px-10 py-2" onClick={logout}>
+            <span className="text-lg font-semibold">Logout</span>
           </Button>
-        </Link>
-        <Link href="/sign-up">
-          <Button variant="primary" className="px-10 py-2">
-            <span className="text-lg font-semibold">Sign Up</span>
-          </Button>
-        </Link>
+        )}
       </div>
 
-      {/* Mobile Menu - conditionally rendered */}
+      {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 z-50 pt-20 bg-white" style={{ top: '5rem' }}>
           <ul className="flex flex-col items-center gap-6 p-4 font-semibold">
@@ -216,7 +221,7 @@ const Navbar = () => {
                     {openDropdown === item.label && (
                       <ul className="pl-8">
                         {item.children.map((child) => (
-                          <li key={child.href} className="py-1">
+                          <li key={`${child.href}-${child.label}`} className="py-1">
                             <NavLink href={child.href} onClick={closeMenu}>
                               {child.label}
                             </NavLink>
@@ -233,18 +238,33 @@ const Navbar = () => {
               </li>
             ))}
 
-            <li className="w-full mt-4">
-              <Link href="/login">
-                <Button variant="secondary" className="w-full mb-3">
-                  Login
+            {!isAuthenticated ? (
+              <li className="w-full mt-4">
+                <Link href="/login">
+                  <Button variant="secondary" className="w-full mb-3">
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/sign-up">
+                  <Button variant="primary" className="w-full">
+                    Sign Up
+                  </Button>
+                </Link>
+              </li>
+            ) : (
+              <li className="w-full mt-4">
+                <Button
+                  variant="secondary"
+                  className="w-full"
+                  onClick={() => {
+                    logout();
+                    closeMenu();
+                  }}
+                >
+                  Logout
                 </Button>
-              </Link>
-              <Link href="/sign-up">
-                <Button variant="primary" className="w-full">
-                  Sign Up
-                </Button>
-              </Link>
-            </li>
+              </li>
+            )}
           </ul>
         </div>
       )}

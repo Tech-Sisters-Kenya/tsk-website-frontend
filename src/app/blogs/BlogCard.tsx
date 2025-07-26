@@ -16,7 +16,6 @@ const formatDate = (dateStr: string) => {
 
 function BlogCard({ item }: { item: BlogItem }) {
   const { slug, title, category, created_at, extract, image_url } = item;
-  console.log(`this is the image ${image_url}`);
 
   return (
     <Link href={`/blogs/${slug}`}>

@@ -12,6 +12,7 @@ import Person from '@/assets/person-icon.svg';
 import Padlock from '@/assets/padlock-icon.svg';
 import EyeOpen from '@/assets/eye-open-icon.svg';
 import EyeClosed from '@/assets/eye-closed-icon.svg';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 interface LoginFormValues {
   email: string;
@@ -23,6 +24,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const { setAuthData } = useAuthStore();
 
   const {
     register,
@@ -36,7 +38,7 @@ export default function LoginPage() {
 
     try {
       // Here you would connect to your Laravel backend
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('https://api.techsisterskenya.org/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,6 +48,16 @@ export default function LoginPage() {
 
       const result = await response.json();
 
+      if (result.token) {
+        setAuthData(result.token, {
+          id: result.user.id,
+          name: result.user.name,
+          email: result.user.email,
+          role: result.role,
+        });
+
+        localStorage.setItem('authToken', result.token);
+      }
       if (!response.ok) {
         throw new Error(result.message ?? 'Failed to login');
       }

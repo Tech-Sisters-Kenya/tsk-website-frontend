@@ -38,14 +38,13 @@ export default function SignupPage() {
 
     try {
       // Here you would connect to your Laravel backend
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch('https://api.techsisterskenya.org/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          first_name: data.firstName,
-          last_name: data.lastName,
+          name: data.firstName + ' ' + data.lastName,
           email: data.email,
           password: data.password,
         }),
