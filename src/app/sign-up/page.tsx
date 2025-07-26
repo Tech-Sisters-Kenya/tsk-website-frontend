@@ -37,7 +37,7 @@ export default function SignupPage() {
     setSignupError('');
 
     try {
-      // Here you would connect to your Laravel backend
+      // Here you would connect to your backend
       const response = await fetch('https://api.techsisterskenya.org/api/auth/register', {
         method: 'POST',
         headers: {
