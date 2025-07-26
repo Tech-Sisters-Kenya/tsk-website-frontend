@@ -77,6 +77,8 @@ pnpm test
 
 - Location: `tests/e2e/`
 - Run all e2e tests: `pnpm test:e2e`
+- Run specific test file: `pnpm exec playwright test about-us.spec.ts`
+  (Replace `about-us.spec.ts` with the test file you want to run)
 - Interactive UI mode: `pnpm test:e2e:ui`
 - View HTML report: `pnpm test:e2e:report`
 
