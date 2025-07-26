@@ -2,33 +2,91 @@ name: Tests
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, development]
   pull_request:
-    branches: [main, develop]
+    branches: [main, development]
 
 jobs:
-  test:
+  unit-tests:
+    name: Unit Tests
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'pnpm'
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false
+
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Run linting
         run: pnpm lint
 
       - name: Run unit tests
-        run: pnpm test
-
-      - name: Run E2E tests
-        run: pnpm test:e2e
+        run: pnpm test:unit --ci --coverage
         env:
           CI: true
+
+  e2e-tests:
+    name: E2E Tests (${{ matrix.browser }})
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Run Playwright tests
+        run: pnpm exec playwright test --project=${{ matrix.browser }} --reporter=junit,html --workers=2
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+          if-no-files-found: error
+
+      - name: Upload test results to GitHub
+        if: always()
+        uses: mikepenz/action-junit-report@v4
+        with:
+          report_paths: '**/test-results/*.xml'
+          fail_on_failure: false
+          require_tests: false
