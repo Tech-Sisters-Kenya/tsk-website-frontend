@@ -113,9 +113,15 @@ const Navbar = () => {
       {/* Hamburger menu button */}
       <div className="md:hidden">
         <button onClick={toggleMenu} className="p-2 focus:outline-none" aria-label="Toggle menu">
-          <div className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] mb-1.5 transition-all ${isMenuOpen ? 'transform rotate-45 translate-y-2' : ''}`} />
-          <div className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] mb-1.5 transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`} />
-          <div className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] transition-all ${isMenuOpen ? 'transform -rotate-45 -translate-y-2' : ''}`} />
+          <div
+            className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] mb-1.5 transition-all ${isMenuOpen ? 'transform rotate-45 translate-y-2' : ''}`}
+          />
+          <div
+            className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] mb-1.5 transition-opacity ${isMenuOpen ? 'opacity-0' : ''}`}
+          />
+          <div
+            className={`w-6 h-0.5 bg-[var(--tsk-primary-dark)] transition-all ${isMenuOpen ? 'transform -rotate-45 -translate-y-2' : ''}`}
+          />
         </button>
       </div>
 
@@ -139,17 +145,24 @@ const Navbar = () => {
                   )}
                 >
                   {item.label}
-                  <span className={`transform transition-transform ${activeDropdown === item.label ? 'rotate-180' : ''}`}>
+                  <span
+                    className={`transform transition-transform ${activeDropdown === item.label ? 'rotate-180' : ''}`}
+                  >
                     <Image src={DownArrow} alt="Down Arrow Icon" width={10} height={10} />
                   </span>
                 </button>
-                <ul className={`absolute top-full left-1/2 transform -translate-x-1/2 mt-2 ${activeDropdown === item.label ? 'block' : 'hidden'} bg-white shadow-lg rounded-2xl py-3 px-6 whitespace-nowrap z-50`}>
-                  {item.children.map((child, childIdx) => (
-                    <li key={`${child.href}-${child.label}`} className={`text-center ${childIdx !== item.children!.length - 1 ? 'mb-3' : ''}`}>
-                      <NavLink href={child.href}>{child.label}</NavLink>
-                    </li>
-                  ))}
-                </ul>
+                {activeDropdown === item.label && (
+                  <ul className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white shadow-lg rounded-2xl py-3 px-6 whitespace-nowrap z-50">
+                    {item.children.map((child, childIdx) => (
+                      <li
+                        key={`${child.href}-${child.label}`}
+                        className={`text-center ${childIdx !== item.children!.length - 1 ? 'mb-3' : ''}`}
+                      >
+                        <NavLink href={child.href}>{child.label}</NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </>
             ) : (
               <NavLink href={item.href}>{item.label}</NavLink>
@@ -240,7 +253,14 @@ const Navbar = () => {
               </li>
             ) : (
               <li className="w-full mt-4">
-                <Button variant="secondary" className="w-full" onClick={() => { logout(); closeMenu(); }}>
+                <Button
+                  variant="secondary"
+                  className="w-full"
+                  onClick={() => {
+                    logout();
+                    closeMenu();
+                  }}
+                >
                   Logout
                 </Button>
               </li>
