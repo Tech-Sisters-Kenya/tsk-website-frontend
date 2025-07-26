@@ -59,19 +59,26 @@ docker run -p 3000:3000 tsk-website-frontend
 
 ## 🧪 Testing
 
+### Running All Tests
+
+```bash
+# Run all tests (unit + e2e)
+pnpm test
+```
+
 ### Unit Tests
 
-- Location: `src/__tests__/`
-- Run: `pnpm test`
-- Watch mode: `pnpm test:watch`
-- Coverage: `pnpm test:coverage`
+- Location: `tests/unit/`
+- Run all unit tests: `pnpm test:unit`
+- Watch mode: `pnpm test:unit:watch`
+- Coverage report: `pnpm test:unit:coverage`
 
-### E2E Tests
+### End-to-End Tests
 
-- Location: `e2e/`
-- Run all tests: `pnpm test:e2e`
-- UI mode: `pnpm test:e2e:ui`
-- View report: `pnpm test:e2e:report`
+- Location: `tests/e2e/`
+- Run all e2e tests: `pnpm test:e2e`
+- Interactive UI mode: `pnpm test:e2e:ui`
+- View HTML report: `pnpm test:e2e:report`
 
 ### CI/CD
 
