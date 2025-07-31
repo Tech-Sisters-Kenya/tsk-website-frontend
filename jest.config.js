@@ -7,7 +7,10 @@ module.exports = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+    '^.+\\.(js|jsx|ts|tsx)$': [
+      'babel-jest',
+      { presets: [['next/babel', { 'preset-react': { runtime: 'automatic' } }]] },
+    ],
   },
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   collectCoverage: true,
