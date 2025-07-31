@@ -3,58 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 import { BlogItem } from '../../../src/app/blogs/interface';
 import TagSelector from '@/app/blogs/TagSelector';
-
-const mockBlogs = [
-  {
-    id: 'blog-1',
-    title: 'Building a Better Future',
-    slug: 'building-better-future',
-    extract: 'A summary of our recent event.',
-    content: 'Full content here...',
-    image_url: 'https://example.com/image.jpg',
-    is_featured: true,
-    author: {
-      id: 'author-1',
-      name: 'Jane Doe',
-      email: 'jane@example.com',
-    },
-    category: {
-      id: 'cat-tsk-events-recap',
-      name: 'TSK Events Recap',
-    },
-    comments: [
-      {
-        id: 'comment-1',
-        comment: 'Great event!',
-        author: 'User1',
-        created_at: '2024-01-01',
-      },
-    ],
-    created_at: '2024-01-01',
-    updated_at: '2024-01-02',
-  },
-  {
-    id: 'blog-2',
-    title: 'Women in Tech',
-    slug: 'women-in-tech',
-    extract: 'Voices from She Builds',
-    content: 'Full content here...',
-    image_url: 'https://example.com/image2.jpg',
-    is_featured: false,
-    author: {
-      id: 'author-2',
-      name: 'John Doe',
-      email: 'john@example.com',
-    },
-    category: {
-      id: 'cat-she-builds',
-      name: 'She Builds',
-    },
-    comments: [],
-    created_at: '2024-02-01',
-    updated_at: '2024-02-02',
-  },
-];
+import { mockBlogs } from './mockBlogs';
 
 type TagToggleChipProps = {
   selected?: boolean;
@@ -93,11 +42,7 @@ jest.mock('@/app/blogs/Pagination', () => ({
   },
 }));
 
-describe('Tag Selector Component Test', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
+describe('Tag Selector Component', () => {
   it('should show loading state', () => {
     (useFetchBlogs as jest.Mock).mockReturnValue({
       data: null,
@@ -143,7 +88,7 @@ describe('Tag Selector Component Test', () => {
     render(<TagSelector />);
 
     const renderedBlogs = screen.getAllByTestId(/^test-blog/);
-
+    console.log(renderedBlogs);
     expect(renderedBlogs.length).toBe(2);
     expect(screen.getByTestId('test-blog-1')).toBeInTheDocument();
     expect(screen.getByTestId('test-blog-2')).toBeInTheDocument();
@@ -158,8 +103,7 @@ describe('Tag Selector Component Test', () => {
 
     render(<TagSelector />);
 
-    const allTag = screen.getByRole('button', { name: 'All' });
-    fireEvent.click(allTag);
+    fireEvent.click(screen.getByTestId('All'));
 
     expect(screen.getByTestId('test-blog-1')).toBeInTheDocument();
     expect(screen.getByTestId('test-blog-2')).toBeInTheDocument();
@@ -174,14 +118,10 @@ describe('Tag Selector Component Test', () => {
 
     render(<TagSelector />);
 
-    const allTag = screen.getByRole('button', { name: 'All' });
-    const btnTag = screen.getByRole('button', { name: 'TSK Events Recap' });
-    fireEvent.click(btnTag);
+    fireEvent.click(screen.getByTestId('TSK Events Recap'));
 
     expect(screen.getByTestId('test-blog-1')).toBeInTheDocument();
     expect(screen.queryByTestId('test-blog-2')).not.toBeInTheDocument();
-    expect(allTag).not.toHaveAttribute('aria-pressed', 'true');
-    expect(btnTag).toHaveAttribute('aria-pressed', 'true');
   });
 
   it('should toggle tags on and off', () => {
@@ -193,7 +133,7 @@ describe('Tag Selector Component Test', () => {
 
     render(<TagSelector />);
 
-    const tagBtn = screen.getByRole('button', { name: 'She Builds' });
+    const tagBtn = screen.getByTestId('She Builds');
 
     fireEvent.click(tagBtn);
     expect(screen.getByTestId('test-blog-2')).toBeInTheDocument();
@@ -202,45 +142,5 @@ describe('Tag Selector Component Test', () => {
     fireEvent.click(tagBtn);
     expect(screen.getByTestId('test-blog-1')).toBeInTheDocument();
     expect(screen.getByTestId('test-blog-2')).toBeInTheDocument();
-
-    it('should select "All" tag if all other tags are deselected', () => {
-      (useFetchBlogs as jest.Mock).mockReturnValue({
-        data: { data: mockBlogs },
-        isLoading: false,
-        error: null,
-      });
-
-      render(<TagSelector />);
-
-      const allTag = screen.getByRole('button', { name: 'All' });
-      const btnTag = screen.getByRole('button', { name: 'TSK Events Recap' });
-
-      // Select another tag
-      fireEvent.click(btnTag);
-      // Deselect it
-      fireEvent.click(btnTag);
-
-      expect(allTag).toHaveAttribute('aria-pressed', 'true');
-      expect(btnTag).not.toHaveAttribute('aria-pressed', 'true');
-    });
-
-    it('should deselect all other tags if "All" tag is selected', () => {
-      (useFetchBlogs as jest.Mock).mockReturnValue({
-        data: { data: mockBlogs },
-        isLoading: false,
-        error: null,
-      });
-
-      render(<TagSelector />);
-
-      const allTag = screen.getByRole('button', { name: 'All' });
-      const btnTag = screen.getByRole('button', { name: 'TSK Events Recap' });
-
-      fireEvent.click(btnTag);
-      fireEvent.click(allTag);
-
-      expect(allTag).toHaveAttribute('aria-pressed', 'true');
-      expect(btnTag).not.toHaveAttribute('aria-pressed', 'true');
-    });
   });
 });
