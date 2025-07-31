@@ -1,148 +1,303 @@
-# 💻 Tech Sisters Kenya Website Frontend
+# Tech Sisters Kenya Website Frontend
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Tech-Sisters-Kenya/tsk-website-frontend/pulls)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-## 🖌️ UI/UX Design
+The official website for Tech Sisters Kenya, built with Next.js. This platform showcases our mission, programs, and provides resources for women in tech across Kenya.
 
-You can view the design prototype on Figma:  
-🔗 [TSK Website UI – Figma](https://www.figma.com/design/PCywTXwNGbjDGFh2TAJk0w/TSK-Website-UI?node-id=0-1&p=f&t=nqnfbXnunkdgC6ur-0)
+## Table of Contents
 
----
+- [Quick Start](#quick-start)
+- [Project Overview](#project-overview)
+- [Project Structure](#project-structure)
+- [Development](#development)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [Deployment](#deployment)
+- [Resources](#resources)
+- [License](#license)
 
-## 🚀 Getting Started
+## Quick Start
 
-### ⚙️ Prerequisites
-
-Ensure you have the following installed:
+### Prerequisites
 
 - Node.js >= 18
-- pnpm (preferred) / npm / yarn / bun
-- Docker (for optional containerized development)
+- pnpm (recommended) or npm/yarn
+- Docker (optional, for containerized development)
 
-### 📥 Installation
+### Installation
 
-1. Clone the repository:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Tech-Sisters-Kenya/tsk-website-frontend.git
+   cd tsk-website-frontend
+   ```
 
-```bash
-git clone https://github.com/Tech-Sisters-Kenya/tsk-website-frontend.git
-cd tsk-website-frontend
-```
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
 
-2. Install dependencies:
+3. **Start development server**
+   ```bash
+   pnpm dev
+   ```
 
-```bash
-pnpm install
-# or
-npm install
-# or
-yarn install
-```
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-3. Start the development server:
-
-```bash
-pnpm dev
-# or
-npm run dev
-# or
-yarn dev
-```
-
-Open http://localhost:3000 to see the app in your browser.
-
-### 🐳 Running with Docker
+### Docker Setup (Optional)
 
 ```bash
+# Build the Docker image
 docker build -t tsk-website-frontend .
+
+# Run the container
 docker run -p 3000:3000 tsk-website-frontend
 ```
 
-## 🧪 Testing
+## Project Overview
 
-### Running All Tests
+### About
 
-```bash
-# Run all tests (unit + e2e)
-pnpm test
+Tech Sisters Kenya is a community-driven platform empowering women in technology across Kenya. Our website serves as a hub for resources, programs, and networking opportunities.
+
+### Key Features
+
+- 🎨 **Modern, Responsive Design** - Optimized for all devices
+- ⚡ **Performance Optimized** - Fast loading with Next.js optimizations
+- 🔒 **Type Safety** - Built with TypeScript for better developer experience
+- 🧪 **Comprehensive Testing** - Unit and E2E tests with Jest and Playwright
+- 🚀 **CI/CD Pipeline** - Automated testing and deployment
+- ♿ **Accessibility** - WCAG 2.1 compliant components
+
+### Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| **Framework** | Next.js 15 with React 19 |
+| **Language** | TypeScript |
+| **Styling** | Tailwind CSS |
+| **State Management** | Zustand (global), React Query (server) |
+| **Forms** | React Hook Form |
+| **Animation** | Framer Motion |
+| **Testing** | Jest + React Testing Library, Playwright |
+| **Build Tool** | Next.js (Vite-powered) |
+
+## Project Structure
+```
+.
+# Core Application
+├── src/
+│   ├── app/                 # App router pages and API routes
+│   │   ├── about-us/        # About Us page and components
+│   │   ├── blogs/           # Blog listing and detail pages
+│   │   ├── get-involved/    # Get involved section
+│   │   ├── landing-page/    # Homepage components
+│   │   ├── meet-the-team/   # Team member pages
+│   │   └── (auth)/          # Authentication pages (login, signup, password reset)
+│   │
+│   ├── assets/              # Static assets (images, icons, fonts)
+│   ├── components/          # Reusable UI components
+│   ├── data/                # Static data and content
+│   ├── hooks/               # Custom React hooks
+│   ├── lib/                 # Utility functions and configurations
+│   ├── stores/              # State management (Zustand stores)
+│   ├── types/               # TypeScript type definitions
+│   └── utils/               # Helper utilities
+│
+# Testing
+├── tests/
+│   ├── unit/                # Unit tests
+│   │   ├── about-us-page/   # Tests for about us page
+│   │   └── components/      # Component tests
+│   └── e2e/                 # End-to-end tests
+│       ├── about-us.spec.ts
+│       ├── demo-todo-app.spec.ts
+│       └── example.spec.ts
+│
+# Configuration
+├── public/                  # Publicly accessible files
+├── .eslintrc.js             # ESLint configuration
+├── .prettierrc              # Prettier configuration
+├── jest.config.js           # Jest test configuration
+├── next.config.js           # Next.js configuration
+└── tailwind.config.js       # Tailwind CSS configuration
 ```
 
-### Unit Tests
+## Development
 
-- Location: `tests/unit/`
-- Run all unit tests: `pnpm test:unit`
-- Watch mode: `pnpm test:unit:watch`
-- Coverage report: `pnpm test:unit:coverage`
+### Available Scripts
 
-### End-to-End Tests
+```bash
+# Development
+pnpm dev              # Start development server
+pnpm build            # Build for production
+pnpm start            # Start production server
+pnpm lint             # Run ESLint
+pnpm format           # Format code with Prettier
 
-- Location: `tests/e2e/`
-- Run all e2e tests: `pnpm test:e2e`
-- Run specific test file: `pnpm exec playwright test about-us.spec.ts`
-  (Replace `about-us.spec.ts` with the test file you want to run)
-- Interactive UI mode: `pnpm test:e2e:ui`
-- View HTML report: `pnpm test:e2e:report`
+# Testing
+pnpm test             # Run all tests
+pnpm test:unit        # Run unit tests
+pnpm test:e2e         # Run E2E tests
+```
 
-### CI/CD
+### Code Organization
 
-- Runs on push to main/develop and PRs
-- Includes linting, unit tests, and E2E tests
-- Coverage reports sent to Codecov
+Our codebase follows these principles:
 
-## 📁 Project Structure
+- **Feature-based Structure** - Code organized by feature/module
+- **Component Library** - Reusable components in `src/components`
+- **Custom Hooks** - Shared logic in `src/hooks`
+- **Type Safety** - Centralized types in `src/types`
+- **Utility Functions** - Helpers in `src/utils` and `src/lib`
 
-- `app/` – Main application pages and routes
-- `components/` – Reusable UI components
-- `public/` – Static assets like images
-- `styles/` – Global and module styles
-- `lib/` – Utility functions and constants
+### Development Guidelines
 
-### 📦 Font Optimization
+- Use TypeScript for all new code
+- Follow the existing code style (Prettier + ESLint)
+- Write tests for new features
+- Ensure accessibility compliance
+- Optimize for performance
 
-This project uses next/font to optimize and load Geist, a modern font by Vercel.
+## Testing
 
-## 📚 Learn More
+### Running Tests
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# All tests
+pnpm test
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Unit tests
+pnpm test:unit
+pnpm test:unit:watch    # Watch mode
+pnpm test:unit:coverage # Coverage report
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# E2E tests
+pnpm test:e2e
+pnpm test:e2e:ui       # Interactive UI mode
+pnpm test:e2e:report   # View HTML report
 
-## ☁️ Deployment
+# Specific test file
+pnpm exec playwright test tests/e2e/specific-test.spec.ts
+```
 
-### 🚀 Deploy on Vercel
+### Testing Strategy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Unit Tests** - Test individual components and utilities
+- **Integration Tests** - Test component interactions
+- **E2E Tests** - Test critical user flows
+- **Visual Regression** - Ensure UI consistency
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Writing Tests
 
-## 🤝 Contributing
+#### Unit Tests
+- Place tests next to components with `.test.tsx` extension
+- Follow "Arrange-Act-Assert" pattern
+- Use descriptive test names
+- Test one behavior per test case
 
-### 📝 Getting Started with Contributions
+#### E2E Tests
+- Use Page Object Model pattern
+- Keep tests independent and isolated
+- Focus on critical user flows
+- Use `test.only` for debugging
 
-To contribute to this project, reach out to the Tech Sisters Kenya leads. All contributions should follow GitHub flow, with feature branches created from develop.
+## Contributing
 
-### 🌿 Branching Strategy
+We welcome contributions! Here's how to get started:
 
-| Type    | Branch Prefix | Merge Target       |
-| ------- | ------------- | ------------------ |
-| Feature | `feature/*`   | `develop`          |
-| Bug Fix | `fix/*`       | `develop`          |
-| Hotfix  | `hotfix/*`    | `main` & `develop` |
+### Getting Started
 
-**⚠️ NEVER PUSH DIRECTLY TO `main`**
+1. **Fork the repository**
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Make your changes**
+4. **Commit with descriptive messages**
+   ```bash
+   git commit -m 'Add amazing feature'
+   ```
+5. **Push to your fork**
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+6. **Open a Pull Request**
 
-### 🧹 Pull Request Guidelines
+### Branching Strategy
 
-Before requesting a PR review:
+| Branch Type | Prefix | Target | Description |
+|-------------|--------|--------|-------------|
+| Feature | `feature/` | `development` | New features |
+| Bug Fix | `fix/` | `development` | Bug fixes |
+| Hotfix | `hotfix/` | `main` & `development` | Critical fixes |
 
-- ✅ Ensure code is formatted
-- ✅ Ensure your PR title and description are clear
-- ✅ Add appropriate documentation for components/pages you've created
-- ✅ Make sure your UI matches the Figma
-- ✅ Screenshots or screen recordings are encouraged
+> **⚠️ Important:** Never push directly to `main`
 
-## 📜 License
+### Pull Request Guidelines
+
+Before submitting a PR, ensure:
+
+- ✅ Code is properly formatted
+- ✅ All tests pass
+- ✅ PR title and description are clear
+- ✅ Documentation is updated if needed
+- ✅ UI matches the Figma design
+- ✅ Screenshots or recordings included for UI changes
+
+### Code Style
+
+- Follow existing code patterns
+- Use meaningful variable and function names
+- Add comments for complex logic
+- Ensure TypeScript types are properly defined
+
+## Deployment
+
+### Production Build
+
+```bash
+# Build the application
+pnpm build
+
+# Start production server locally
+pnpm start
+```
+
+### Environment Variables
+
+Create a `.env.local` file for local development:
+
+```bash
+# Add your environment variables here
+NEXT_PUBLIC_API_URL=your_api_url
+```
+
+## Resources
+
+### Design
+
+🎨 **Figma Design**: [TSK Website UI](https://www.figma.com/design/PCywTXwNGbjDGFh2TAJk0w/TSK-Website-UI?node-id=0-1&p=f&t=nqnfbXnunkdgC6ur-0)
+
+### Documentation
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://react.dev/)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Playwright Documentation](https://playwright.dev/docs/intro)
+
+### Getting Help
+
+- 💬 **Discussions**: Use GitHub Discussions for questions
+- 🐛 **Issues**: Report bugs using GitHub Issues
+- 📧 **Contact**: Reach out to the Tech Sisters Kenya team
+
+## License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
