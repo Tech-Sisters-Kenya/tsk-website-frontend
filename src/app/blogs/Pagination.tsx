@@ -16,10 +16,10 @@ function Pagination({ blogs }: { blogs: BlogItem[] }) {
   const currentItems = blogs.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(blogs.length / itemsPerPage);
 
-  const handlePageChange = ({ selected }: { selected: number }): void => {
-    if (selected !== itemOffset) {
-      setItemOffset(selected);
-    }
+  const handlePageChange = ({ selected }: { selected: number }) => {
+    // if (selected !== itemOffset) {
+    //   setItemOffset(selected);
+    // }
     const newOffset = selected * itemsPerPage;
     setItemOffset(newOffset);
   };
