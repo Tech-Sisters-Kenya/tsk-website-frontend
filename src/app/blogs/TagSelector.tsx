@@ -9,12 +9,10 @@ import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 
 const TAGS = [
   'All',
-  'Career & Growth',
-  'Community Stories',
-  'Event Highlights',
-  'Opportunities & Resources',
-  'Sisterhood & Lifestyle',
-  'Tech Tips & Tutorials',
+  'TSK Events Recap',
+  'She Builds',
+  'Voices of Change',
+  'PMs, Designers & Beyond',
 ];
 
 function TagSelector() {
@@ -30,11 +28,11 @@ function TagSelector() {
   const filteredBlogs =
     !selectedTags.length || selectedTags.includes('All')
       ? blogs
-      : blogs.filter((blog) => selectedTags.includes(blog.category.name));
+      : blogs.filter((blog) => selectedTags.includes(blog?.category?.name));
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
-  if (!blogs) return <div>No Blogs Found</div>;
+  if (!blogs.length) return <div>No Blogs Found</div>;
 
   return (
     <div>

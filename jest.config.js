@@ -8,7 +8,10 @@ module.exports = {
     '\\.(svg|png|jpg|jpeg|gif|webp)$': '<rootDir>/__mocks__/fileMock.js',
   },
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
+    '^.+\\.(js|jsx|ts|tsx)$': [
+      'babel-jest',
+      { presets: [['next/babel', { 'preset-react': { runtime: 'automatic' } }]] },
+    ],
   },
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   transformIgnorePatterns: ['/node_modules/', '\\.pnp\\.[^\\/]+$'],
