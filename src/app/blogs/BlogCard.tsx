@@ -30,14 +30,6 @@ function BlogCard({ item }: { item: BlogItem }) {
       </div>
       <div className="mt-8 flex justify-between items-center flex-wrap gap-2">
         <div className="flex gap-2 flex-wrap">
-          {/* {tags.map((tag, index) => (
-            <span
-              key={index}
-              className="text-black font-body font-medium border border-tsk-primary-dark px-2 py-1 rounded-2xl "
-            >
-              {tag}
-            </span>
-          ))} */}
           <span
             key={category.id}
             className="text-black font-body font-medium border border-tsk-primary-dark px-2 py-1 rounded-2xl "
