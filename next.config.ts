@@ -32,6 +32,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  sassOptions: {
+    includePaths: ['./src/styles'],
+  },
   webpack(config, { isServer }) {
     if (!isServer) {
       config.plugins.push(
