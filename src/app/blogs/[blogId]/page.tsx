@@ -7,28 +7,7 @@ import { notFound, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useFetchSingleBlog } from '@/hooks/blog/fetch-single-blog';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
-
-interface Blog {
-  id: string;
-  slug: string;
-  title: string;
-  content: string;
-  image_url: string;
-  extract: string;
-  status: string;
-  is_featured: boolean;
-  author: {
-    id: string;
-    name: string;
-    email: string;
-  };
-  category: {
-    id: string;
-    name: string;
-  };
-  created_at: string;
-  updated_at: string;
-}
+import { Blog } from '@/types/blog';
 
 export default function BlogPost() {
   const params = useParams();

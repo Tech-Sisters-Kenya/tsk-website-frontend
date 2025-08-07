@@ -7,6 +7,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Providers from './providers';
 
+//import Toaster so that it mounts at the root level
+import { Toaster } from '@/components/ui/sonner';
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -58,6 +61,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </Providers>
+        <Toaster richColors />
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor';
 import Button from '@/components/Button';
 import { useEditor } from '@tiptap/react';
@@ -33,7 +33,42 @@ import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils';
 // --- Styles ---
 import '@/components/tiptap-templates/simple/simple-editor.scss';
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+
+import { useCreateBlog } from '@/hooks/blog/create-blog';
+import { toast } from 'sonner';
+
+const blogCategories = [
+  {
+    id: '1',
+    name: 'Technology',
+  },
+  {
+    id: '2',
+    name: 'Community',
+  },
+  {
+    id: '3',
+    name: 'Events',
+  },
+  {
+    id: '4',
+    name: 'Mentorship',
+  },
+];
+
 const NewBlogpost = () => {
+  const { mutate: createBlog } = useCreateBlog();
+  const [categoryId, setCategoryId] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+
   // instantiate the editor and pass it as a prop to SimpleEditor
   const editor = useEditor({
     // disable immediate rendering to avoid hydration mismatch
@@ -75,15 +110,34 @@ const NewBlogpost = () => {
         onError: (error) => console.error('Upload failed:', error),
       }),
     ],
+    content: `
+      <h1>Post Title</h1>
+      <p>Write your introduction here...</p>
+      <h2>Main Content</h2>
+      <p>Write the main content here...</p>
+    `,
   });
 
   const handleBlogSubmit = () => {
     if (!editor) return;
 
     console.log('submit before content');
-    const content = editor?.getHTML();
 
-    // to be able to show the content from the editor i need pass useEditor() from this component to the SimpleEditor component
+    const content = editor?.getHTML();
+    if (!content || content.trim() === '') {
+      toast.error('Content cannot be empty.');
+      return;
+    }
+
+    createBlog({
+      title: 'Post Title',
+      content: content,
+      image_url: imageUrl,
+      status: 'published',
+      category_id: Number(categoryId),
+      user_id: 1, // Replace with actual user ID,
+      isFeatured: true,
+    });
 
     console.log(`this is the content: ${content}`);
   };
@@ -93,6 +147,29 @@ const NewBlogpost = () => {
       <div className="flex flex-col justify-center items-center md:px-20 px-10  md:pt-32 md:pb-10">
         <div className="my-10 flex flex-col gap-4 border border-tsk-primary-dark p-4 rounded-lg">
           <h1 className="md:text-5xl text-3xl font-heading font-extrabold ">Add a new blogpost</h1>
+
+          {/* To capture the category id and the header image url */}
+          <Select onValueChange={setCategoryId} value={categoryId}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select blog category" />
+            </SelectTrigger>
+            <SelectContent className="bg-white text-tsk-primary-dark">
+              {blogCategories.map((cat) => (
+                <SelectItem key={cat.id} value={cat.id}>
+                  {cat.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* enter the header image url: */}
+
+          <Input
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="Image URL"
+          />
+
           <SimpleEditor editor={editor} />
         </div>
         <Button
