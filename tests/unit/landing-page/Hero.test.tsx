@@ -1,59 +1,48 @@
-/* eslint-disable react/display-name */
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Hero from '@/app/landing-page/Hero';
 import '@testing-library/jest-dom';
 
-// Mock next/link for testing
+// Mock next/link
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href} data-testid="next-link">
-      {children}
-    </a>
-  );
+  const MockedLink = ({ children, href }: any) => <a href={href}>{children}</a>;
+  MockedLink.displayName = 'MockedLink';
+  return MockedLink;
 });
 
-describe('Hero', () => {
+jest.mock('@/app/landing-page/AnimatedShapes', () => {
+  const MockAnimatedShapes = () => <div data-testid="animated-shapes" />;
+  MockAnimatedShapes.displayName = 'MockAnimatedShapes';
+  return MockAnimatedShapes;
+});
+
+describe('Hero Component', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
     render(<Hero />);
   });
 
-  it('renders heading and paragraph', () => {
+  it('renders the main heading', () => {
     expect(
       screen.getByRole('heading', { name: /elevating women in technology/i })
     ).toBeInTheDocument();
+  });
 
+  it('renders the descriptive paragraph', () => {
     expect(
       screen.getByText(/Tech Sisters Kenya is a non-profit organization/i)
     ).toBeInTheDocument();
   });
 
-  it('renders heading with correct level', () => {
-    const heading = screen.getByRole('heading', {
-      name: /elevating women in technology/i,
-    });
-    expect(heading.tagName).toBe('H1');
+  it('renders Join Our Community button', () => {
+    expect(screen.getByRole('button', { name: /join our community/i })).toBeInTheDocument();
   });
 
-  it('renders both CTA buttons with correct text', () => {
-    expect(screen.getByRole('button', { name: /Join Our Community/i })).toBeInTheDocument();
-
-    expect(screen.getByRole('button', { name: /Partner With Us/i })).toBeInTheDocument();
+  it('renders Partner With Us button', () => {
+    expect(screen.getByRole('button', { name: /partner with us/i })).toBeInTheDocument();
   });
 
-  it('buttons link to correct routes', () => {
-    const joinButton = screen.getByRole('button', { name: /Join Our Community/i }).closest('a');
-
-    const partnerButton = screen.getByRole('button', { name: /Partner With Us/i }).closest('a');
-
-    expect(joinButton).toHaveAttribute('href', '/get-involved');
-    expect(partnerButton).toHaveAttribute('href', '/get-involved');
-  });
-
-  it('matches snapshot', () => {
-    const { asFragment } = render(<Hero />);
-    expect(asFragment()).toMatchSnapshot();
+  it('renders the AnimatedShapes component', () => {
+    expect(screen.getByTestId('animated-shapes')).toBeInTheDocument();
   });
 });

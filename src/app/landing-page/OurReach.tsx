@@ -98,7 +98,7 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
 
             <Image
               src={bug}
-              alt=""
+              alt="image"
               width={60}
               height={40}
               className="absolute -bottom-4 -left-6 w-18 h-18 z-10"

@@ -75,6 +75,9 @@ importers:
         specifier: ^5.0.6
         version: 5.0.7(@types/react@19.1.8)(react@19.1.0)
     devDependencies:
+      '@babel/runtime':
+        specifier: ^7.28.2
+        version: 7.28.2
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.3.1
