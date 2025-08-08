@@ -73,6 +73,7 @@ const NewBlogpost = () => {
 
     const formData = new FormData();
     formData.append('title', title);
+    //Set the content to be updated to be the value of editor once the form is submitted. No other pre-processing is needed. The data it gives is already formatted to html
     formData.append('content', content);
     formData.append('category_id', categoryId);
     formData.append('user_id', user?.id || '');
