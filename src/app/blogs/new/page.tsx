@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor';
 import Button from '@/components/Button';
 import { useEditor } from '@tiptap/react';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from '@tiptap/starter-kit';
@@ -33,41 +35,113 @@ import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils';
 // --- Styles ---
 import '@/components/tiptap-templates/simple/simple-editor.scss';
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-
-import { useCreateBlog } from '@/hooks/blog/create-blog';
-import { toast } from 'sonner';
-
-const blogCategories = [
-  {
-    id: '1',
-    name: 'Technology',
-  },
-  {
-    id: '2',
-    name: 'Community',
-  },
-  {
-    id: '3',
-    name: 'Events',
-  },
-  {
-    id: '4',
-    name: 'Mentorship',
-  },
-];
-
 const NewBlogpost = () => {
-  const { mutate: createBlog } = useCreateBlog();
+  const router = useRouter();
+  const [title, setTitle] = useState('');
+  const [file, setFile] = useState<File | null>(null);
   const [categoryId, setCategoryId] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
+  const [content] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { user, token, isAuthenticated } = useAuthStore();
+
+  useEffect(() => {
+    if (!user || !isAuthenticated) return;
+
+    if (!user?.role?.includes('admin')) {
+      console.log('Current user token:', token);
+      return;
+    }
+
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch('https://api.techsisterskenya.org/api/blog-categories');
+        const result = await res.json();
+        setCategories(result.data || []);
+      } catch (err) {
+        console.error('Failed to fetch categories:', err);
+      }
+    };
+
+    fetchCategories();
+  }, [user, isAuthenticated, token]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('category_id', categoryId);
+    formData.append('user_id', user?.id || '');
+    formData.append('status', 'published');
+    formData.append('is_featured', '0'); // 0 = false, 1 = true
+
+    if (file) {
+      formData.append('image_url', file);
+    }
+
+    try {
+      //Have a look at the submitted data before you send it to the backend
+      console.log('Submitting blog with data:', {
+        title,
+        content,
+        categoryId,
+        userId: user?.id,
+        file,
+      });
+      /**
+       * A sample console log output should look lie this in order for the request to be successful
+       * Submitting blog with data: 
+            {title: 'Dolore sit ipsum ab', content: '<p class="paragraph">Start typing here...</p>', categoryId: '0197f0cb-d060-737f-b7e4-e976af9da905', userId: '0197f0ca-e8a4-73fa-9d1a-c62dac3bf844', file: File}
+            categoryId
+            : 
+            "0197f0cb-d060-737f-b7e4-e976af9da905"
+            content
+            : 
+            "<p class=\"paragraph\">Start typing here...</p>"
+            file
+            : 
+            File {name: 'Logo.png', lastModified: 1723116813000, lastModifiedDate: Thu Aug 08 2024 14:33:33 GMT+0300 (East Africa Time), webkitRelativePath: '', size: 141207, …}
+            title
+            : 
+            "Dolore sit ipsum ab"
+            userId
+            : 
+            "0197f0ca-e8a4-73fa-9d1a-c62dac3bf844"
+            [[Prototype]]
+            : 
+            Object
+       */
+
+      const res = await fetch('https://api.techsisterskenya.org/api/blogs', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      console.log('Response status:', res.status);
+      console.log('Response headers:', res.headers);
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log('Success response:', data);
+        alert('Blog created!');
+        router.push('/blogs');
+      } else {
+        const err = await res.json();
+        console.error('Server error:', err);
+        alert('Failed to create blog.');
+      }
+    } catch (err) {
+      console.error('Fetch error:', err);
+      alert('Error submitting blog.');
+    }
+  };
 
   // instantiate the editor and pass it as a prop to SimpleEditor
   const editor = useEditor({
@@ -111,63 +185,51 @@ const NewBlogpost = () => {
       }),
     ],
     content: `
-      <h1>Post Title</h1>
-      <p>Write your introduction here...</p>
-      <h2>Main Content</h2>
-      <p>Write the main content here...</p>
+      <p>Write the content of your post here...</p>
     `,
   });
-
-  const handleBlogSubmit = () => {
-    if (!editor) return;
-
-    console.log('submit before content');
-
-    const content = editor?.getHTML();
-    if (!content || content.trim() === '') {
-      toast.error('Content cannot be empty.');
-      return;
-    }
-
-    createBlog({
-      title: 'Post Title',
-      content: content,
-      image_url: imageUrl,
-      status: 'published',
-      category_id: Number(categoryId),
-      user_id: 1, // Replace with actual user ID,
-      isFeatured: true,
-    });
-
-    console.log(`this is the content: ${content}`);
-  };
 
   return (
     <section className="w-full pt-24 md:pt-2">
       <div className="flex flex-col justify-center items-center md:px-20 px-10  md:pt-32 md:pb-10">
+        <h1 className="md:text-5xl text-3xl font-heading font-extrabold ">Add a new Blog Post</h1>
         <div className="my-10 flex flex-col gap-4 border border-tsk-primary-dark p-4 rounded-lg">
-          <h1 className="md:text-5xl text-3xl font-heading font-extrabold ">Add a new blogpost</h1>
+          <input
+            type="text"
+            placeholder="Blog Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            style={{ borderColor: 'var(--tsk-primary)' }}
+            className="border p-4 rounded-xl font-body focus:outline-none focus:ring-[var(--tsk-primary)]"
+          />
 
-          {/* To capture the category id and the header image url */}
-          <Select onValueChange={setCategoryId} value={categoryId}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select blog category" />
-            </SelectTrigger>
-            <SelectContent className="bg-white text-tsk-primary-dark">
-              {blogCategories.map((cat) => (
-                <SelectItem key={cat.id} value={cat.id}>
-                  {cat.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <select
+            value={categoryId}
+            onChange={(e) => setCategoryId(e.target.value)}
+            required
+            style={{ borderColor: 'var(--tsk-primary)' }}
+            className="border p-4 rounded-xl font-body focus:outline-none focus:ring-[var(--tsk-primary)]"
+          >
+            <option value="">-- Select Category --</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
 
-          {/* enter the header image url: */}
-
-          <Input
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            placeholder="Image URL"
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const selectedFile = e.target.files?.[0];
+              if (selectedFile) {
+                setFile(selectedFile);
+              }
+            }}
+            style={{ borderColor: 'var(--tsk-primary)' }}
+            className="border p-4 rounded-xl font-body focus:outline-none focus:ring-[var(--tsk-primary)]"
           />
 
           <SimpleEditor editor={editor} />
@@ -175,9 +237,10 @@ const NewBlogpost = () => {
         <Button
           variant="primary"
           className="text-tsk-light-1 font-extrabold text-base sm:text-lg w-full sm:w-auto px-4 sm:px-6 md:px-8 lg:px-10 mb-10 md:mb-0"
-          onClick={handleBlogSubmit}
+          onClick={handleSubmit}
+          disabled={isSubmitting}
         >
-          Submit Blogpost
+          {isSubmitting ? 'Publishing...' : 'Publish Blog'}
         </Button>
       </div>
     </section>
