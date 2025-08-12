@@ -4,7 +4,6 @@ test.describe('Gallery section', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/landing-page', { waitUntil: 'networkidle' });
   });
-
   test('renders the gallery header and description', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Gallery' })).toBeVisible();
     await expect(page.getByText(/Every picture tells a story/i)).toBeVisible();
