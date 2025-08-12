@@ -17,7 +17,10 @@ const transitionStyle: Transition = {
 const AnimatedShapes: React.FC = () => {
   return (
     <div className="relative w-full h-screen flex flex-col items-center justify-center mb-12 px-4 pt-32 pb-8">
-      <div className="relative flex flex-col items-center gap-2 z-10 py-2">
+      <div
+        data-testid="animated-shapes"
+        className="relative flex flex-col items-center gap-2 z-10 py-2"
+      >
         <div className="relative w-72 h-72 mb-2 z-0">
           <Image
             src={techSister1}

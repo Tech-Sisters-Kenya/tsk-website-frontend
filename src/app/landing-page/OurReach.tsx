@@ -15,7 +15,11 @@ interface ReachSectionProps {
 
 export default function ReachSection({ title, subtitle, stats }: ReachSectionProps) {
   return (
-    <section className="bg-tsk-light-2 w-screen py-30 sm:py-32 md:py-34 lg:py-36 px-6 sm:px-8 lg:px-10 overflow-hidden">
+    <section
+      data-testid="reach-section"
+      aria-label="Our Reach so Far"
+      className="bg-tsk-light-2 w-screen py-30 sm:py-32 md:py-34 lg:py-36 px-6 sm:px-8 lg:px-10 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center py-14 gap-8 lg:gap-12">
         {/*left text section */}
         <div className="flex-1 text-left max-w-lg">
@@ -31,7 +35,7 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
           {/* Statistics Section */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center mr-4">
+              <div key={index} data-testid={`reach-stat-${index}`} className="text-center mr-4">
                 <h3 className="text-2xl md:text-3xl font-bold font-body text-tsk-primary-dark mb-4">
                   <CountUp
                     end={parseInt(stat.value.replace('+', ''))}
@@ -47,7 +51,7 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
             ))}
           </div>
 
-          <Link href="/get-involved" className="inline-block">
+          <Link href="/get-involved" data-testid="reach-cta" className="inline-block">
             <Button
               variant="primary"
               className="font-heading text-tsk-light-1 font-extrabold text-base sm:text-lg mt-14"
@@ -99,6 +103,7 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
             <Image
               src={bug}
               alt="image"
+              data-testid="reach-image-bug"
               width={60}
               height={40}
               className="absolute -bottom-4 -left-6 w-18 h-18 z-10"

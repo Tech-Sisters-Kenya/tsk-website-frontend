@@ -11,7 +11,7 @@ jest.mock('next/image', () => ({
   },
 }));
 
-// Mock SVG assetss
+// Mock SVG assets
 jest.mock('@/assets/moringa.svg', () => 'moringa.svg');
 jest.mock('@/assets/logos_google.svg', () => 'logos_google.svg');
 jest.mock('@/assets/image 1.svg', () => 'image1.svg');

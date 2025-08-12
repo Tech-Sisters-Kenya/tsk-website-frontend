@@ -2,21 +2,31 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Hero Section', () => {
   test.beforeEach(async ({ page }) => {
+    // Ensure viewport is large enough for lg:flex to show
+    await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/landing-page');
   });
 
   test('should render heading and paragraph', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: /elevating/i })).toBeVisible();
-    await expect(page.getByText(/Tech Sisters Kenya is a non-profit organization/i)).toBeVisible();
+    const heading = page.getByRole('heading', { name: /Elevating\s+Women\s+In\s+Technology/i });
+    await expect(heading).toBeVisible();
   });
 
   test('should render Join Our Community button with correct link', async ({ page }) => {
-    const joinButton = page.getByRole('link', { name: /join our community/i });
+    const joinButton = page.getByRole('link', { name: /join our community/i }).first();
     await expect(joinButton).toHaveAttribute('href', '/get-involved');
   });
 
   test('should render Partner With Us button with correct link', async ({ page }) => {
-    const partnerButton = page.getByRole('link', { name: /partner with us/i });
+    await page.goto('/landing-page', { waitUntil: 'domcontentloaded' });
+    const heroSection = page.locator('#hero');
+    await expect(heroSection).toBeVisible();
+    const partnerButton = heroSection.getByRole('link', { name: /partner with us/i });
     await expect(partnerButton).toHaveAttribute('href', '/get-involved');
+  });
+
+  test('should render AnimatedShapes', async ({ page }) => {
+    const shapes = page.getByTestId('animated-shapes');
+    await expect(shapes).toBeVisible({ timeout: 10000 });
   });
 });

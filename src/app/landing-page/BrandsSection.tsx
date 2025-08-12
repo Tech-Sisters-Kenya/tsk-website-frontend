@@ -8,16 +8,16 @@ import eMobilis from '@/assets/emobilis.svg';
 import payd from '@/assets/payd.svg';
 
 const brands = [
-  { name: '', src: Moringa },
-  { name: '', src: Google },
-  { name: '', src: PlugWork },
-  { name: '', src: eMobilis },
-  { name: '', src: payd },
+  { name: 'Moringa', src: Moringa },
+  { name: 'Google', src: Google },
+  { name: 'PlugWork', src: PlugWork },
+  { name: 'eMobilis', src: eMobilis },
+  { name: 'Payd', src: payd },
 ];
 
 export default function BrandsSection() {
   return (
-    <section className="px-4 sm:px-6 md:px-8 lg:px-10 text-foreground">
+    <section id="brands" className="px-4 sm:px-6 md:px-8 lg:px-10 text-foreground">
       <h4 className="text-lg text-center font-bold font-body text-tsk-primary-dark mb-12">
         Brands That Believe In Us
       </h4>

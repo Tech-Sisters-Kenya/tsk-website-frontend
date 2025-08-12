@@ -22,18 +22,23 @@ test.describe('WhoWeAre Section on Homepage', () => {
   test('should render all 4 core value icons and labels', async ({ page }) => {
     const values = ['Inclusivity', 'Community', 'Growth', 'Empowerment'];
     for (const value of values) {
-      await expect(page.getByText(value)).toBeVisible();
+      await expect(page.getByText(value, { exact: true })).toBeVisible();
       await expect(page.locator(`img[alt="${value}"]`)).toBeVisible();
     }
   });
 
   test('should render top image, bottom image, and logo', async ({ page }) => {
-    await expect(page.locator('img[alt="image"]')).toBeVisible();
+    // Target the first "image" alt occurrence for the top image
+    const topImage = page.locator('img[alt="image"]').first();
+    await expect(topImage).toBeVisible();
+
     await expect(page.locator('img[alt="group photo"]')).toBeVisible();
     await expect(page.locator('img[alt="logo"]')).toBeVisible();
   });
 
-  test('should render BrandsSection (if identifiable)', async ({ page }) => {
-    await expect(page.getByText(/brands/i)).toBeVisible();
+  test('should render BrandsSection with identifiable container', async ({ page }) => {
+    const brandsSection = page.locator('#brands');
+    await expect(brandsSection).toBeVisible();
+    await expect(brandsSection.getByText(/brands/i)).toBeVisible();
   });
 });

@@ -10,7 +10,7 @@ test.describe('ReachSection on Main Page', () => {
   });
 
   test('should render 4 stats', async ({ page }) => {
-    const stats = page.locator('div.grid > div');
+    const stats = page.getByTestId(/reach-stat-/);
     await expect(stats).toHaveCount(4);
   });
 
@@ -21,7 +21,7 @@ test.describe('ReachSection on Main Page', () => {
   });
 
   test('should render the hero image', async ({ page }) => {
-    const image = page.locator('img[alt="image"]');
-    await expect(image).toBeVisible();
+    const heroImage = page.getByTestId('reach-image-bug');
+    await expect(heroImage).toBeVisible();
   });
 });
