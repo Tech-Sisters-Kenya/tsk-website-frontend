@@ -17,6 +17,7 @@ export default function BlogPost() {
   const blogIdStr = blogSlug ? String(blogSlug) : '';
   const { data: blogData, isLoading, isError } = useFetchSingleBlog(blogIdStr);
   const blog = blogData?.data;
+  console.log(blog);
 
   //fetch all the blogs
   const { data } = useFetchBlogs();
@@ -119,9 +120,16 @@ export default function BlogPost() {
                 </Link>
 
                 <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
-                  <p className="italic font-body text-[15px] font-normal group-hover:underline">
-                    {blog.extract}
-                  </p>
+                  <p
+                    className="italic font-body text-[15px] font-normal group-hover:underline"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        blog.content
+                          .substring(0, 250)
+                          .replace(/<pre[\s\S]*?<\/pre>/gi, '')
+                          .replace(/<code[\s\S]*?<\/code>/gi, '') + '...',
+                    }}
+                  />
                 </Link>
               </div>
             ))}

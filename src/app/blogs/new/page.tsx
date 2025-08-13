@@ -59,6 +59,7 @@ const NewBlogpost = () => {
         const res = await fetch('https://api.techsisterskenya.org/api/blog-categories');
         const result = await res.json();
         setCategories(result.data || []);
+        console.log(result.data);
       } catch (err) {
         console.error('Failed to fetch categories:', err);
       }
@@ -72,9 +73,10 @@ const NewBlogpost = () => {
     setIsSubmitting(true);
 
     const formData = new FormData();
+
     formData.append('title', title);
     //Set the content to be updated to be the value of editor once the form is submitted. No other pre-processing is needed. The data it gives is already formatted to html
-    formData.append('content', content);
+    formData.append('content', editor?.getHTML() || '');
     formData.append('category_id', categoryId);
     formData.append('user_id', user?.id || '');
     formData.append('status', 'published');
