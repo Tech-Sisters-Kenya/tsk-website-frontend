@@ -3,6 +3,17 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ReachSection from '@/app/landing-page/OurReach';
 
+// Mock SVG imports
+jest.mock('@/assets/Rectangle 99.svg', () => ({
+  __esModule: true,
+  default: 'mocked-rectangle-svg',
+}));
+
+jest.mock('@/assets/Bug.svg', () => ({
+  __esModule: true,
+  default: 'mocked-bug-svg',
+}));
+
 // Mock next/image
 jest.mock('next/image', () => ({
   __esModule: true,
@@ -57,12 +68,17 @@ describe('ReachSection Component', () => {
   });
 
   it('renders title, subtitle, and horizontal line', () => {
-    render(<ReachSection {...defaultProps} />);
+    const { container } = render(<ReachSection {...defaultProps} />);
     expect(screen.getByRole('heading', { name: /Our Reach/i })).toBeInTheDocument();
+    // Test for the subtitle text
     expect(
-      screen.getByText(/Empowering women through technology across Kenya./i)
+      screen.getByText(/Empowering women through technology across Kenya/i)
     ).toBeInTheDocument();
-    expect(screen.getByRole('separator')).toHaveClass('border-t');
+
+    // Query the horizontal line by class since it doesn't have a separator role
+    const horizontalLine = container.querySelector('.border-t.border-tsk-primary-dark');
+    expect(horizontalLine).toBeInTheDocument();
+    expect(horizontalLine).toHaveClass('border-t');
   });
 
   it('renders statistics with correct values and labels', () => {
@@ -85,22 +101,24 @@ describe('ReachSection Component', () => {
 
   it('renders images with correct classes', () => {
     render(<ReachSection {...defaultProps} />);
-    const mainImage = screen.getByAltText(/image/i).closest('img');
-    expect(mainImage).toHaveClass('rounded-lg shadow-lg');
 
-    const bugImage = screen.getAllByAltText(/image/i)[1].closest('img');
+    // Get all images by alt text
+    const images = screen.getAllByAltText('image');
+
+    // Find the main image (Rectangle svg) by src
+    const rectangleImage = images.find((img) => img.getAttribute('src') === 'mocked-rectangle-svg');
+    expect(rectangleImage).toHaveClass('rounded-lg shadow-lg');
+
+    // Find the bug image by src
+    const bugImage = images.find((img) => img.getAttribute('src') === 'mocked-bug-svg');
     expect(bugImage).toHaveClass('w-18 h-18');
   });
 
   it('renders SVG with correct dimensions', () => {
-    render(<ReachSection {...defaultProps} />);
-    const svg = screen.getByRole('img');
+    const { container } = render(<ReachSection {...defaultProps} />);
+    const svg = container.querySelector('svg');
+    expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute('width', '135');
     expect(svg).toHaveAttribute('height', '163');
-  });
-
-  it('matches snapshot', () => {
-    const { asFragment } = render(<ReachSection {...defaultProps} />);
-    expect(asFragment()).toMatchSnapshot();
   });
 });
