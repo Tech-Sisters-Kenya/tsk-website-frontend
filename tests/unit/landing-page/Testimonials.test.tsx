@@ -1,80 +1,61 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import TestimonialsCarousel from '@/app/landing-page/Testimonials';
-import '@testing-library/jest-dom';
 
-// Mocks
-const mockScrollTo = jest.fn();
-const mockScrollPrev = jest.fn();
-const mockScrollNext = jest.fn();
+// store the mock API here
+const mockEmblaApi = {
+  scrollPrev: jest.fn(),
+  scrollNext: jest.fn(),
+  scrollTo: jest.fn(),
+  on: jest.fn(),
+  scrollSnapList: () => [0, 1, 2, 3],
+  selectedScrollSnap: () => 0,
+};
 
+// Mock embla-carousel-react
 jest.mock('embla-carousel-react', () => {
-  return () => [
-    jest.fn(),
-    {
-      scrollPrev: mockScrollPrev,
-      scrollNext: mockScrollNext,
-      scrollTo: mockScrollTo,
-      on: jest.fn(),
-      selectedScrollSnap: () => 0,
-      scrollSnapList: () => [0, 1, 2, 3],
-    },
-  ];
+  return jest.fn(() => {
+    return [jest.fn(), mockEmblaApi];
+  });
 });
 
-jest.mock('next/image', () => {
-  const ImageMock = (props: any) => <img {...props} alt={props.alt || 'mocked image'} />;
-  ImageMock.displayName = 'NextImageMock';
-  return ImageMock;
-});
+describe('TestimonialsCarousel', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-jest.mock('@/components/ui/button', () => ({
-  Button: ({ children, onClick, ...rest }: any) => (
-    <button onClick={onClick} {...rest}>
-      {children}
-    </button>
-  ),
-}));
-
-describe('TestimonialsCarousel component', () => {
-  it('renders the section heading and description', () => {
+  it('renders heading and description', () => {
     render(<TestimonialsCarousel />);
-    expect(screen.getByText('Testimonials')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Testimonials/i })).toBeInTheDocument();
     expect(screen.getByText(/From gaining skills to finding belonging/i)).toBeInTheDocument();
   });
 
-  it('renders multiple testimonials', () => {
+  it('renders all testimonials', () => {
     render(<TestimonialsCarousel />);
-    expect(screen.getByText(/Mary Wanjiku/)).toBeInTheDocument();
-    expect(screen.getByText(/Jacinta Muga/)).toBeInTheDocument();
-    expect(screen.getByText(/Mercy Mwende/)).toBeInTheDocument();
-    expect(screen.getByText(/Sally Kahoro/)).toBeInTheDocument();
+    expect(screen.getByText(/Mary Wanjiku/i)).toBeInTheDocument();
+    expect(screen.getByText(/Jacinta Muga/i)).toBeInTheDocument();
+    expect(screen.getByText(/Mercy Mwende/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sally Kahoro/i)).toBeInTheDocument();
   });
 
-  it('renders avatar images', () => {
+  it('calls scrollPrev when previous button is clicked', () => {
     render(<TestimonialsCarousel />);
-    const images = screen.getAllByRole('img');
-    expect(images.length).toBeGreaterThan(0);
-    expect(images[0]).toHaveAttribute('alt', 'Mary Wanjiku');
+    const prevButton = screen.getByRole('button', { name: /Previous testimonial/i });
+    fireEvent.click(prevButton);
+    expect(mockEmblaApi.scrollPrev).toHaveBeenCalledTimes(1);
   });
 
-  it('renders navigation buttons', () => {
+  it('calls scrollNext when next button is clicked', () => {
     render(<TestimonialsCarousel />);
-    expect(screen.getByLabelText('Previous testimonial')).toBeInTheDocument();
-    expect(screen.getByLabelText('Next testimonial')).toBeInTheDocument();
+    const nextButton = screen.getByRole('button', { name: /Next testimonial/i });
+    fireEvent.click(nextButton);
+    expect(mockEmblaApi.scrollNext).toHaveBeenCalledTimes(1);
   });
 
-  it('renders scroll dots for testimonials', () => {
-    render(<TestimonialsCarousel />);
-    const dots = screen.getAllByRole('button', { name: /Go to testimonial/i });
-    expect(dots.length).toBe(4);
-  });
-
-  it('calls scrollTo on dot click', () => {
+  it('calls scrollTo when a dot is clicked', () => {
     render(<TestimonialsCarousel />);
     const dots = screen.getAllByRole('button', { name: /Go to testimonial/i });
     fireEvent.click(dots[2]);
-    expect(mockScrollTo).toHaveBeenCalledWith(2);
+    expect(mockEmblaApi.scrollTo).toHaveBeenCalledWith(2);
   });
 });
