@@ -40,7 +40,7 @@ const AnimatedShapes: React.FC = () => {
             className="relative object-contain z-10 top-0 left-0"
           />
         </div>
-        <div className="realative w-100 h-54 ">
+        <div className="relative w-100 h-54 ">
           <svg
             width="539"
             height="166"
