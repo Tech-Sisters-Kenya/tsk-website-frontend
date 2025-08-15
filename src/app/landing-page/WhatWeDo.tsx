@@ -86,6 +86,7 @@ const WhatWeDo = () => {
 
             {/* show the title vertically if the card isnt active */}
             <p
+              data-testid="tab-events"
               className={clsx(
                 'font-semibold text-[20px] left-1/2 bottom-8  md:text-[30px] md:rotate-90 md:whitespace-nowrap absolute md:bottom-20 md:left-1/2 md:transform -translate-x-1/2 ',
                 active === 'events' ? 'opacity-0' : 'opacity-100'

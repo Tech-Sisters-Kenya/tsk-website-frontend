@@ -57,7 +57,7 @@ const ExploreBlogs = () => {
           <h3 className="font-bold text-left lg:text-left text-[20px]">Latest blogs</h3>
 
           {blogs.map((blog) => (
-            <div key={blog.id} className="flex flex-col gap-3 ">
+            <div key={blog.id} data-testid="blog-card" className="flex flex-col gap-3 ">
               <Link href={`/blogs/${blog.slug}`}>
                 <h3 className="font-semibold text-[18px] md:text-[20px] pt-3 hover:underline cursor-pointer">
                   {blog.title}
