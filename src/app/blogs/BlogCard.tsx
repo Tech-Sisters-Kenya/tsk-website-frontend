@@ -6,7 +6,9 @@ import { BlogItem } from './interface';
 
 // format date
 const formatDate = (dateStr: string) => {
+  if (!dateStr) return 'Unknown date';
   const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return 'Invalid date';
   return new Intl.DateTimeFormat('en-GB', {
     day: '2-digit',
     month: 'long',
@@ -18,15 +20,17 @@ function BlogCard({ item }: { item: BlogItem }) {
   const { slug, title, category, created_at, extract, image_url } = item;
 
   return (
-    <Link href={`/blogs/${slug}`}>
+    <Link href={`/blogs/${slug}`} data-testid="blog-card">
       <div className="w-full relative h-[360px]">
-        <Image
-          src={image_url}
-          alt={`${title} image`}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover rounded-3xl"
-        />
+        {image_url && (
+          <Image
+            src={image_url}
+            alt={`${title} image`}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover rounded-3xl"
+          />
+        )}
       </div>
       <div className="mt-8 flex justify-between items-center flex-wrap gap-2">
         <div className="flex gap-2 flex-wrap">

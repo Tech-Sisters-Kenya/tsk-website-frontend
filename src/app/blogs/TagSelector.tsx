@@ -16,13 +16,25 @@ const TAGS = [
 ];
 
 function TagSelector() {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>(['All']);
   const { data, isLoading, error } = useFetchBlogs();
   const blogs: BlogItem[] = data?.data || [];
 
   // add or remove a tag based on selection
   const handleToggle = useCallback((tag: string, value: boolean) => {
-    setSelectedTags((prev) => (value ? [...prev, tag] : prev.filter((t) => t !== tag)));
+    setSelectedTags((prev) => {
+      if (tag === 'All' && value) {
+        // select all and clear all tags
+        return ['All'];
+      } else if (tag !== 'All' && value) {
+        // on selecting a tag, deselect 'All'
+        return [...prev.filter((t) => t !== 'All'), tag];
+      } else {
+        // on deselecting a tag, revert to 'All'
+        const filtered = prev.filter((t) => t !== tag);
+        return filtered.length === 0 ? ['All'] : filtered;
+      }
+    });
   }, []);
 
   const filteredBlogs =
@@ -35,7 +47,7 @@ function TagSelector() {
   if (!blogs.length) return <div>No Blogs Found</div>;
 
   return (
-    <div>
+    <div data-testid="tag-selector">
       {TAGS.map((tag) => (
         <TagToggleChip
           key={tag}
