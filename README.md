@@ -31,17 +31,20 @@ The official website for Tech Sisters Kenya, built with Next.js. This platform s
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/Tech-Sisters-Kenya/tsk-website-frontend.git
    cd tsk-website-frontend
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Start development server**
+
    ```bash
    pnpm dev
    ```
@@ -76,18 +79,19 @@ Tech Sisters Kenya is a community-driven platform empowering women in technology
 
 ### Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| **Framework** | Next.js 15 with React 19 |
-| **Language** | TypeScript |
-| **Styling** | Tailwind CSS |
-| **State Management** | Zustand (global), React Query (server) |
-| **Forms** | React Hook Form |
-| **Animation** | Framer Motion |
-| **Testing** | Jest + React Testing Library, Playwright |
-| **Build Tool** | Next.js (Vite-powered) |
+| Category             | Technology                               |
+| -------------------- | ---------------------------------------- |
+| **Framework**        | Next.js 15 with React 19                 |
+| **Language**         | TypeScript                               |
+| **Styling**          | Tailwind CSS                             |
+| **State Management** | Zustand (global), React Query (server)   |
+| **Forms**            | React Hook Form                          |
+| **Animation**        | Framer Motion                            |
+| **Testing**          | Jest + React Testing Library, Playwright |
+| **Build Tool**       | Next.js (Vite-powered)                   |
 
 ## Project Structure
+
 ```
 .
 # Core Application
@@ -196,12 +200,14 @@ pnpm exec playwright test tests/e2e/specific-test.spec.ts
 ### Writing Tests
 
 #### Unit Tests
+
 - Place tests next to components with `.test.tsx` extension
 - Follow "Arrange-Act-Assert" pattern
 - Use descriptive test names
 - Test one behavior per test case
 
 #### E2E Tests
+
 - Use Page Object Model pattern
 - Keep tests independent and isolated
 - Focus on critical user flows
@@ -231,11 +237,11 @@ We welcome contributions! Here's how to get started:
 
 ### Branching Strategy
 
-| Branch Type | Prefix | Target | Description |
-|-------------|--------|--------|-------------|
-| Feature | `feature/` | `development` | New features |
-| Bug Fix | `fix/` | `development` | Bug fixes |
-| Hotfix | `hotfix/` | `main` & `development` | Critical fixes |
+| Branch Type | Prefix     | Target                 | Description    |
+| ----------- | ---------- | ---------------------- | -------------- |
+| Feature     | `feature/` | `development`          | New features   |
+| Bug Fix     | `fix/`     | `development`          | Bug fixes      |
+| Hotfix      | `hotfix/`  | `main` & `development` | Critical fixes |
 
 > **⚠️ Important:** Never push directly to `main`
 

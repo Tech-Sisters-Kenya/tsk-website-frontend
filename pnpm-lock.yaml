@@ -73,7 +73,7 @@ importers:
         version: 3.4.17
       zustand:
         specifier: ^5.0.6
-        version: 5.0.6(@types/react@19.1.8)(react@19.1.0)
+        version: 5.0.7(@types/react@19.1.8)(react@19.1.0)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -2024,8 +2024,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.4.0 || ^8.0.0-0 <8.0.0
 
-  babel-preset-current-node-syntax@1.1.1:
-    resolution: {integrity: sha512-23fWKohMTvS5s0wwJKycOe0dBdCwQ6+iiLaNR9zy8P13mtFRFM9qLLX6HJX5DL2pi/FNDf3fCQHM4FIMoHH/7w==}
+  babel-preset-current-node-syntax@1.2.0:
+    resolution: {integrity: sha512-E/VlAEzRrsLEb2+dv8yp3bo4scof3l9nR4lrld+Iy5NyVqgVYUJnDAmunkhPMisRI32Qc4iRiz425d8vM++2fg==}
     peerDependencies:
       '@babel/core': ^7.0.0 || ^8.0.0-0
 
@@ -4584,8 +4584,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zustand@5.0.6:
-    resolution: {integrity: sha512-ihAqNeUVhe0MAD+X8M5UzqyZ9k3FFZLBTtqo6JLPwV53cbRB/mJwBI0PxcIgqhBBHlEs8G45OTDTMq3gNcLq3A==}
+  zustand@5.0.7:
+    resolution: {integrity: sha512-Ot6uqHDW/O2VdYsKLLU8GQu8sCOM1LcoE8RwvLv9uuRT9s6SOHCKs0ZEOhxg+I1Ld+A1Q5lwx+UlKXXUoCZITg==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=18.0.0'
@@ -6747,7 +6747,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  babel-preset-current-node-syntax@1.1.1(@babel/core@7.27.4):
+  babel-preset-current-node-syntax@1.2.0(@babel/core@7.27.4):
     dependencies:
       '@babel/core': 7.27.4
       '@babel/plugin-syntax-async-generators': 7.8.4(@babel/core@7.27.4)
@@ -6770,7 +6770,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.27.4
       babel-plugin-jest-hoist: 30.0.1
-      babel-preset-current-node-syntax: 1.1.1(@babel/core@7.27.4)
+      babel-preset-current-node-syntax: 1.2.0(@babel/core@7.27.4)
 
   balanced-match@1.0.2: {}
 
@@ -8265,7 +8265,7 @@ snapshots:
       '@jest/snapshot-utils': 30.0.5
       '@jest/transform': 30.0.5
       '@jest/types': 30.0.5
-      babel-preset-current-node-syntax: 1.1.1(@babel/core@7.27.4)
+      babel-preset-current-node-syntax: 1.2.0(@babel/core@7.27.4)
       chalk: 4.1.2
       expect: 30.0.5
       graceful-fs: 4.2.11
@@ -9747,7 +9747,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zustand@5.0.6(@types/react@19.1.8)(react@19.1.0):
+  zustand@5.0.7(@types/react@19.1.8)(react@19.1.0):
     optionalDependencies:
       '@types/react': 19.1.8
       react: 19.1.0
