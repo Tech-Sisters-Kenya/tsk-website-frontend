@@ -6,7 +6,6 @@ export interface BlogItem {
   content: string;
   image_url: string;
   is_featured: boolean;
-  status: string;
   author: {
     id: string;
     name: string;

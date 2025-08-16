@@ -20,6 +20,7 @@ export function AnimatedBlogPage() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className="w-full h-full sm:w-fit sm:h-fit"
+      data-testid="animated-blog-svg"
     >
       {/* pink circle */}
       <motion.circle
@@ -87,7 +88,7 @@ export function AnimatedBlogPage() {
 
       <motion.svg
         initial={{ rotate: 0, x: 40, y: -15 }}
-        animate={{ rotate: 25, x: 40, y: -50 }}
+        animate={{ rotate: 5, x: 80, y: -90 }}
         transition={transitionStyle}
       >
         <path
