@@ -1,4 +1,5 @@
 // components/WhoWeAre.tsx
+'use client';
 import React from 'react';
 import Image1 from '@/assets/whoweare1.svg';
 import Image2 from '@/assets/whoweare2.svg';
