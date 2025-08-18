@@ -5,7 +5,6 @@ import Image1 from '@/assets/whoweare1.svg';
 import Image2 from '@/assets/whoweare2.svg';
 import Logo from '@/assets/tsk-icon-logo.svg';
 import Image from 'next/image';
-import BrandsSection from './BrandsSection';
 import InclusivityIcon from '@/assets/inclusivity.svg';
 import CommunityIcon from '@/assets/community.svg';
 import GrowthIcon from '@/assets/growth.svg';
@@ -39,7 +38,7 @@ export default function WhoWeAre() {
               alt="group photo"
               width={200}
               height={100}
-              className="absolute bottom-14 left-16 w-[472px] sm:w-[320px] md:w-[400px] lg:w-[472px] h-[227px] sm:h-[150px] md:h-[180px] lg:h-[227px] rounded-lg"
+              className="absolute bottom-14 left-48 w-[472px] sm:w-[320px] md:w-[400px] lg:w-[472px] h-[227px] sm:h-[150px] md:h-[180px] lg:h-[227px] rounded-lg"
             />
           </div>
           {/* Logo positioned absolutely over the image  */}
@@ -69,7 +68,7 @@ export default function WhoWeAre() {
                     </h3>
                   </div>
                   <div className="bg-foreground px-4 sm:px-5 md:px-6 py-4 sm:py-5 md:py-6 flex-1">
-                    <p className="text-gray-700 text-sm sm:text-base md:text-base text-center font-semibold font-body leading-relaxed">
+                    <p className="text-gray-700 text-sm sm:text-xs md:text-sm text-center font-semibold font-body leading-relaxed">
                       To create a supportive and inclusive community
                       <br />
                       where women in tech can grow, network, and
@@ -89,7 +88,7 @@ export default function WhoWeAre() {
                     </h3>
                   </div>
                   <div className="bg-foreground px-4 sm:px-5 md:px-6 py-4 sm:py-5 md:py-6 flex-1">
-                    <p className="text-gray-700 text-sm sm:text-base md:text-base text-center font-semibold font-body leading-relaxed">
+                    <p className="text-gray-700 text-sm sm:text-xs md:text-sm text-center font-semibold font-body leading-relaxed">
                       A Kenya where women are empowered to excel
                       <br />
                       in technology, lead the way in innovation, and
@@ -99,40 +98,35 @@ export default function WhoWeAre() {
                   </div>
                 </div>
               </div>
-
-              {/* Core Values Section */}
-              <div className="flex flex-col items-center -mt-5">
-                <h3 className="text-sm sm:text-base md:text-lg border border-tsk-primary-dark rounded-full text-tsk-primary-dark mb-8 px-4 sm:px-6 md:px-8 lg:px-10 py-2 font-body font-bold text-center">
-                  Core Values
-                </h3>
-                <div className="flex flex-row justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 mb-14">
-                  {coreValues.map(
-                    (value: { label: string; src: StaticImageData }, index: number) => (
-                      <div key={index} className="flex flex-col items-center">
-                        <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mb-4">
-                          <Image
-                            src={value.src}
-                            alt={value.label}
-                            width={48}
-                            height={48}
-                            className="text-tsk-primary-dark w-full h-full object-contain"
-                          />
-                        </div>
-                        <p className="text-center font-semibold text-tsk-primary-dark text-xs sm:text-sm md:text-base font-body">
-                          {value.label}
-                        </p>
-                      </div>
-                    )
-                  )}
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
-      {/*horizontal line */}
-      <div className="border-t border-tsk-primary-dark w-full max-w-4xl mx-auto  mb-6"></div>
-      <BrandsSection />
+
+      {/* Core Values Section */}
+      <div className="flex flex-col items-center -mt-5">
+        <h3 className="text-sm sm:text-lg md:text-3xl text-tsk-primary-dark mb-8 px-4 sm:px-6 md:px-8 lg:px-10 py-8 font-body font-semibold text-center">
+          OUR CORE VALUES
+        </h3>
+        <div className="flex flex-row justify-center gap-6 sm:gap-12 md:gap-20 lg:gap-32 mb-14">
+          {coreValues.map((value: { label: string; src: StaticImageData }, index: number) => (
+            <div key={index} className="flex flex-col items-center">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 mb-4">
+                <Image
+                  src={value.src}
+                  alt={value.label}
+                  width={80}
+                  height={80}
+                  className="text-tsk-primary-dark w-full h-full object-contain"
+                />
+              </div>
+              <p className="text-center font-semibold text-tsk-primary-dark text-xs sm:text-base md:text-2xl font-body">
+                {value.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
