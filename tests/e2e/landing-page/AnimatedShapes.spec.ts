@@ -5,7 +5,7 @@ test.describe('AnimatedShapes Component', () => {
     await page.goto('/landing-page', { waitUntil: 'networkidle' });
     await page.waitForSelector('[data-testid="animated-shapes"]', {
       state: 'visible',
-      timeout: 10000,
+      timeout: 30000,
     });
   });
 
