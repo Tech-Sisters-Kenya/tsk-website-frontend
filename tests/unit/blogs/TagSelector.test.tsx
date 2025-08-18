@@ -174,10 +174,14 @@ describe('Tag Selector Component Test', () => {
 
     render(<TagSelector />);
 
-    fireEvent.click(screen.getByTestId('TSK Events Recap'));
+    const allTag = screen.getByRole('button', { name: 'All' });
+    const btnTag = screen.getByRole('button', { name: 'TSK Events Recap' });
+    fireEvent.click(btnTag);
 
     expect(screen.getByTestId('test-blog-1')).toBeInTheDocument();
     expect(screen.queryByTestId('test-blog-2')).not.toBeInTheDocument();
+    expect(allTag).not.toHaveAttribute('aria-pressed', 'true');
+    expect(btnTag).toHaveAttribute('aria-pressed', 'true');
   });
 
   it('should toggle tags on and off', () => {
@@ -189,7 +193,7 @@ describe('Tag Selector Component Test', () => {
 
     render(<TagSelector />);
 
-    const tagBtn = screen.getByTestId('She Builds');
+    const tagBtn = screen.getByRole('button', { name: 'She Builds' });
 
     fireEvent.click(tagBtn);
     expect(screen.getByTestId('test-blog-2')).toBeInTheDocument();
