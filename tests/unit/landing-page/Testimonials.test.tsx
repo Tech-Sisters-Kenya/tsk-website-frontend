@@ -19,6 +19,13 @@ jest.mock('embla-carousel-react', () => {
   });
 });
 
+// Mock SVG imports
+jest.mock('@/assets/moringa.svg', () => 'moringa.svg');
+jest.mock('@/assets/logos_google.svg', () => 'google.svg');
+jest.mock('@/assets/image 1.svg', () => 'plugwork.svg');
+jest.mock('@/assets/emobilis.svg', () => 'emobilis.svg');
+jest.mock('@/assets/payd.svg', () => 'payd.svg');
+
 describe('TestimonialsCarousel', () => {
   beforeEach(() => {
     jest.clearAllMocks();

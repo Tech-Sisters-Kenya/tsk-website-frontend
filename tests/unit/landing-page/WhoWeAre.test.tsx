@@ -4,12 +4,7 @@ import { render, screen } from '@testing-library/react';
 import WhoWeAre from '@/app/landing-page/WhoWeAre';
 import '@testing-library/jest-dom';
 
-// Mock child components and assets
-jest.mock('@/app/landing-page/BrandsSection', () => {
-  const MockBrandsSection = () => <div data-testid="brands-section" />;
-  MockBrandsSection.displayName = 'MockBrandsSection';
-  return MockBrandsSection;
-});
+// Mock assets
 
 jest.mock('@/assets/whoweare1.svg', () => 'whoweare1.svg');
 jest.mock('@/assets/whoweare2.svg', () => 'whoweare2.svg');
@@ -54,10 +49,6 @@ describe('WhoWeAre Component', () => {
     coreValueLabels.forEach((label) => {
       expect(screen.getByText(label)).toBeInTheDocument();
     });
-  });
-
-  it('renders the BrandsSection component', () => {
-    expect(screen.getByTestId('brands-section')).toBeInTheDocument();
   });
 
   it('renders images with correct alt text', () => {

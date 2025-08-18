@@ -91,7 +91,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="fixed w-[1360px] z-50 flex items-center justify-between px-16 py-2 rounded-3xl m-8"
+      className="fixed w-[calc(100%-4rem)] z-50 flex items-center justify-between px-4 md:px-8 lg:px-16 py-2 rounded-3xl mt-8 mx-auto left-0 right-0"
       style={navStyles}
     >
       <div className="flex items-center">

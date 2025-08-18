@@ -17,7 +17,11 @@ const brands = [
 
 export default function BrandsSection() {
   return (
-    <section id="brands" className="px-4 sm:px-6 md:px-8 lg:px-10 text-foreground">
+    <section
+      id="brands"
+      data-testid="brands-section"
+      className="px-4 sm:px-6 md:px-8 lg:px-10 text-foreground py-10"
+    >
       <h4 className="text-lg text-center font-bold font-body text-tsk-primary-dark mb-12">
         Brands That Believe In Us
       </h4>
