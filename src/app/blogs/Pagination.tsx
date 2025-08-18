@@ -17,9 +17,6 @@ function Pagination({ blogs }: { blogs: BlogItem[] }) {
   const pageCount = Math.ceil(blogs.length / itemsPerPage);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
-    // if (selected !== itemOffset) {
-    //   setItemOffset(selected);
-    // }
     const newOffset = selected * itemsPerPage;
     setItemOffset(newOffset);
   };

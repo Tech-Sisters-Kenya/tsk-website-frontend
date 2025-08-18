@@ -158,7 +158,8 @@ describe('Tag Selector Component Test', () => {
 
     render(<TagSelector />);
 
-    fireEvent.click(screen.getByTestId('All'));
+    const allTag = screen.getByRole('button', { name: 'All' });
+    fireEvent.click(allTag);
 
     expect(screen.getByTestId('test-blog-1')).toBeInTheDocument();
     expect(screen.getByTestId('test-blog-2')).toBeInTheDocument();
