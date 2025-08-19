@@ -30,6 +30,7 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<LoginFormValues>();
 
   const onSubmit = async (data: LoginFormValues) => {
@@ -37,35 +38,62 @@ export default function LoginPage() {
     setLoginError('');
 
     try {
-      // Here you would connect to your Laravel backend
       const response = await fetch('https://api.techsisterskenya.org/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          email: data.email.trim(),
+          password: data.password,
+        }),
       });
 
       const result = await response.json();
 
-      if (result.token) {
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error('Invalid email or password');
+        }
+
+        if (response.status === 422 && result.errors) {
+          // Handle validation errors
+          Object.entries(result.errors).forEach(([field, messages]) => {
+            setError(field as keyof LoginFormValues, {
+              type: 'manual',
+              message: Array.isArray(messages) ? messages[0] : String(messages),
+            });
+          });
+          return;
+        }
+
+        throw new Error(result.message || 'Login failed. Please try again.');
+      }
+
+      if (result.token && result.user) {
         setAuthData(result.token, {
           id: result.user.id,
           name: result.user.name,
           email: result.user.email,
           role: result.role,
+          profilePhoto: result.user.profile_photo_url,
+          emailVerified: !!result.user.email_verified_at,
         });
 
+        // Store token in localStorage
         localStorage.setItem('authToken', result.token);
-      }
-      if (!response.ok) {
-        throw new Error(result.message ?? 'Failed to login');
-      }
 
-      // Redirect to dashboard or home page after successful login
-      router.push('/');
+        // Redirect to dashboard or home page after successful login
+        router.push('/dashboard');
+      } else {
+        throw new Error('Invalid response from server');
+      }
     } catch (error) {
-      setLoginError(error instanceof Error ? error.message : 'Login failed. Please try again.');
+      const errorMessage =
+        error instanceof Error ? error.message : 'Login failed. Please try again.';
+      setLoginError(errorMessage);
+      console.error('Login error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -151,7 +179,10 @@ export default function LoginPage() {
                 className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.password ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('password', {
                   required: 'Password is required',
-                  minLength: { value: 6, message: 'Password must be at least 6 characters' },
+                  minLength: {
+                    value: 8,
+                    message: 'Password must be at least 8 characters',
+                  },
                 })}
               />
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
