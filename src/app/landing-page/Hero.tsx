@@ -23,7 +23,7 @@ export default function Hero() {
             their professional growth through community initiatives.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-            <Link href="/get-involved" className="w-full sm:w-auto sm:flex sm:flex-col">
+            <Link href="/join-our-community" className="w-full sm:w-auto sm:flex sm:flex-col">
               <Button
                 variant="primary"
                 className="text-tsk-light-1 font-extrabold text-base sm:text-lg w-full sm:w-auto px-4 sm:px-6 md:px-8 lg:px-10"
