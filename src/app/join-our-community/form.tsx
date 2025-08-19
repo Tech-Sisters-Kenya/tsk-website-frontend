@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { ChevronDown } from 'lucide-react';
+
+import Button from '@/components/Button';
+import Email from '@/assets/email-icon.svg';
+import KenyaFlag from '@/assets/kenya-flag-icon.svg';
 
 // Types for the CustomSelect component
 interface OptionType {
@@ -26,12 +32,31 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   options,
   value,
   onChange,
-  placeholder,
   error,
   name,
   className = '',
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    // Add event listener when dropdown is open
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Clean up
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   const handleSelect = (optionValue: string) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -46,13 +71,12 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   };
 
   const getDisplayValue = () => {
-    if (!value) return placeholder;
     const option = options.find((opt) => opt.value === value);
     return option ? option.label : value;
   };
 
   return (
-    <div className={`relative ${className}`}>
+    <div ref={dropdownRef} className={`relative ${className}`}>
       <button
         type="button"
         className={`w-full py-4 px-3 border ${
@@ -67,13 +91,13 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute z-10 w-full mt-1 bg-white border border-[#45084A]/50 rounded-xl shadow-lg max-h-60 overflow-y-auto">
+        <div className="absolute z-10 w-full mt-1 bg-white border border-[#45084A]/50 rounded-xl shadow-lg">
           {options.map((option) => (
             <button
               key={option.value}
               type="button"
               onClick={handleSelect(option.value)}
-              className="w-full px-3 py-3 text-left hover:bg-gray-50 text-[#45084A] border-b border-[#45084A]/10 last:border-b-0 first:rounded-t-xl last:rounded-b-xl"
+              className="w-full px-3 py-4 text-left hover:bg-gray-50 text-[#45084A] border-b border-[#45084A]/10 last:border-b-0 first:rounded-t-xl last:rounded-b-xl"
             >
               {option.label}
             </button>
@@ -98,30 +122,12 @@ interface FormData {
   expertiseAreas: string;
 }
 
-// Success Message Component
-const SuccessMessage: React.FC = () => (
-  <div className="max-w-4xl mx-auto p-6 bg-white">
-    <div className="text-center p-8 bg-green-50 rounded-xl border border-green-200">
-      <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-        <svg
-          className="w-8 h-8 text-green-600"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
-      <h3 className="text-lg font-medium text-gray-900">Thank you for joining!</h3>
-      <p className="mt-2 text-sm text-gray-500">
-        We&apos;ve received your application and will get back to you soon.
-      </p>
-    </div>
-  </div>
-);
+interface FormProps {
+  setActiveTab: (tab: 'guidelines' | 'personal-details') => void;
+}
 
 // Main Form Component
-const Form: React.FC = () => {
+const Form: React.FC<FormProps> = ({ setActiveTab }) => {
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
@@ -137,41 +143,59 @@ const Form: React.FC = () => {
 
   const [errors, setErrors] = useState<Record<string, { message: string }>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const router = useRouter();
 
-  // Validate form fields
-  const validateForm = (): boolean => {
-    const newErrors: Record<string, { message: string }> = {};
+  // Add required validation for all fields except customOccupation
+  const validateForm = (data: FormData) => {
+    const errors: Partial<Record<keyof FormData, { message: string }>> = {};
 
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = { message: 'First name is required' };
+    // Check all required fields except customOccupation
+    const requiredFields: (keyof Omit<FormData, 'customOccupation'>)[] = [
+      'firstName',
+      'lastName',
+      'email',
+      'phone',
+      'gender',
+      'occupation',
+      'experienceLevel',
+      'role',
+      'expertiseAreas',
+    ];
+
+    requiredFields.forEach((field) => {
+      if (!data[field]) {
+        errors[field] = { message: 'This field is required' };
+      }
+    });
+
+    if (!data.firstName.trim()) {
+      errors.firstName = { message: 'First name is required' };
     }
 
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = { message: 'Last name is required' };
+    if (!data.lastName.trim()) {
+      errors.lastName = { message: 'Last name is required' };
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email) {
-      newErrors.email = { message: 'Email is required' };
-    } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = { message: 'Please enter a valid email address' };
+    if (!data.email) {
+      errors.email = { message: 'Email is required' };
+    } else if (!emailRegex.test(data.email)) {
+      errors.email = { message: 'Please enter a valid email address' };
     }
 
-    if (!formData.occupation) {
-      newErrors.occupation = { message: 'Occupation is required' };
+    if (!data.occupation) {
+      errors.occupation = { message: 'Occupation is required' };
     }
 
-    if (formData.occupation === 'other' && !formData.customOccupation.trim()) {
-      newErrors.customOccupation = { message: 'Please specify your occupation' };
+    if (data.occupation === 'other' && !data.customOccupation.trim()) {
+      errors.customOccupation = { message: 'Please specify your occupation' };
     }
 
-    if (!formData.expertiseAreas.trim()) {
-      newErrors.expertiseAreas = { message: 'Please specify areas of expertise' };
+    if (!data.expertiseAreas.trim()) {
+      errors.expertiseAreas = { message: 'Please specify areas of expertise' };
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return errors;
   };
 
   // Handle input changes
@@ -190,24 +214,20 @@ const Form: React.FC = () => {
   };
 
   // Handle form submission
-  const handleSubmit = async () => {
-    if (!validateForm()) {
-      return;
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const validationErrors = validateForm(formData);
+    setErrors(validationErrors);
 
-    setIsSubmitting(true);
-
-    try {
+    if (Object.keys(validationErrors).length === 0) {
+      setIsSubmitting(true);
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setSubmitSuccess(true);
-    } catch (error) {
-      console.error('Submission error:', error);
-      setErrors({
-        form: { message: 'Failed to submit form. Please try again.' },
-      });
-    } finally {
-      setIsSubmitting(false);
+      setTimeout(() => {
+        console.log('Form submitted:', formData);
+        setIsSubmitting(false);
+        // Redirect to join-slack page after successful submission
+        router.push('/join-slack');
+      }, 1500);
     }
   };
 
@@ -215,6 +235,7 @@ const Form: React.FC = () => {
   const occupationOptions: OptionType[] = [
     { value: '', label: 'Choose your occupation' },
     { value: 'Back End Software Engineer', label: 'Back End Software Engineer' },
+    { value: 'Front End Software Engineer', label: 'Front End Software Engineer' },
     { value: 'Full Stack Software Engineer', label: 'Full Stack Software Engineer' },
     { value: 'Data Scientist', label: 'Data Scientist' },
     { value: 'Data Analyst', label: 'Data Analyst' },
@@ -240,11 +261,6 @@ const Form: React.FC = () => {
     { value: 'Mentee', label: 'Mentee' },
     { value: 'Both', label: 'Both' },
   ];
-
-  // Show success message if form was submitted successfully
-  if (submitSuccess) {
-    return <SuccessMessage />;
-  }
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white">
@@ -302,19 +318,7 @@ const Form: React.FC = () => {
           <label className="block text-[#45084A] font-semibold text-md">Email Address*</label>
           <div className="mt-1 relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg
-                className="w-5 h-5 text-[#45084A]/70"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                />
-              </svg>
+              <Image src={Email} alt="Email icon" width={20} height={20} className="mr-2" />
             </div>
             <input
               name="email"
@@ -332,12 +336,18 @@ const Form: React.FC = () => {
 
         <div className="mb-4">
           <label className="block text-[#45084A] font-semibold text-md">
-            Phone Number (provide +254xxxxxxx) No spaces
+            Phone Number (provide +254xxxxxxx) No spaces*
           </label>
           <div className="mt-1 flex">
             <div className="flex items-center px-4 py-4 border border-r-0 rounded-l-xl bg-purple-50 border-[#45084A]/50">
               <span className="font-semibold text-[#45084A] flex flex-row items-center">
-                <span className="mr-2 text-2xl">🇰🇪</span>
+                <Image
+                  src={KenyaFlag}
+                  alt="Kenyan flag icon"
+                  width={20}
+                  height={20}
+                  className="mr-2"
+                />
                 +254
               </span>
             </div>
@@ -392,7 +402,7 @@ const Form: React.FC = () => {
             onChange={handleInputChange}
             type="text"
             placeholder="Type your role"
-            className={`w-full py-4 px-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#45084A] focus:border-transparent ${
+            className={`w-full py-4 px-3 border rounded-xl placeholder:text-[#45084A]/50 text-tsk-primary-dark focus:outline-none focus:ring-2 focus:ring-[#45084A] focus:border-transparent ${
               errors.customOccupation ? 'border-red-500' : 'border-[#45084A]/50'
             }`}
           />
@@ -437,13 +447,12 @@ const Form: React.FC = () => {
           <label className="block text-[#45084A] font-semibold text-md mb-1">
             What specific areas of your technical expertise would you like to develop further?*
           </label>
-          <textarea
+          <input
             name="expertiseAreas"
             value={formData.expertiseAreas}
             onChange={handleInputChange}
             placeholder="Type your answer"
-            rows={4}
-            className={`w-full py-4 px-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#45084A] focus:border-transparent ${
+            className={`w-full py-4 px-3 border rounded-xl placeholder:text-[#45084A]/50 text-tsk-primary-dark focus:outline-none focus:ring-2 focus:ring-[#45084A] focus:border-transparent ${
               errors.expertiseAreas ? 'border-red-500' : 'border-[#45084A]/50'
             }`}
           />
@@ -453,20 +462,23 @@ const Form: React.FC = () => {
         </div>
 
         <div className="flex justify-between pt-6">
-          <button
+          <Button
+            variant="secondary"
             type="button"
-            className="px-8 py-3 border border-[#45084A] rounded-xl text-[#45084A] font-semibold hover:bg-gray-50 transition-colors"
+            onClick={() => setActiveTab('guidelines')}
+            className="px-8 py-3"
           >
             Back
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="primary"
             type="button"
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="px-8 py-3 bg-[#45084A] text-white rounded-xl font-semibold hover:bg-[#45084A]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-3"
           >
             {isSubmitting ? 'Submitting...' : 'Submit'}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

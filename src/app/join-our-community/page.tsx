@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Form from '@/app/join-our-community/form';
+import Button from '@/components/Button';
 
 export default function JoinOurCommunity() {
   const [activeTab, setActiveTab] = useState<'guidelines' | 'personal-details'>('guidelines');
@@ -165,23 +166,20 @@ export default function JoinOurCommunity() {
                   </div>
 
                   <div className="pt-4">
-                    <button
+                    <Button
                       type="button"
                       onClick={handleContinue}
                       disabled={!agreed}
-                      className={`w-full md:w-auto rounded-lg px-8 py-2 ${
-                        agreed
-                          ? 'bg-tsk-primary-dark hover:bg-tsk-primary text-white'
-                          : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                      }`}
+                      className={`w-full md:w-auto ${!agreed ? 'bg-gray-300 text-gray-500' : ''}`}
+                      variant={agreed ? 'primary' : 'secondary'}
                     >
                       Continue
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </div>
             ) : (
-              <Form />
+              <Form setActiveTab={setActiveTab} />
             )}
           </div>
         </div>
