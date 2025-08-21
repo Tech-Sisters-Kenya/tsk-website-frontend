@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useFetchSingleBlog } from '@/hooks/blog/fetch-single-blog';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 import { Blog } from '@/types/blog';
+import DOMPurify from 'dompurify';
 
 export default function BlogPost() {
   const params = useParams();
@@ -75,10 +76,10 @@ export default function BlogPost() {
             </div>
           )}
 
-          {/* find a way to style using tailwindcss */}
+          {/* added DOMPurify to sanitize the injected HTML */}
           <div
             className="prose prose-lg font-body max-w-none text-gray-800 lg:mx-20"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.content) }}
           />
         </div>
 
@@ -124,10 +125,12 @@ export default function BlogPost() {
                     className="italic font-body text-[15px] font-normal group-hover:underline"
                     dangerouslySetInnerHTML={{
                       __html:
-                        blog.content
-                          .substring(0, 250)
-                          .replace(/<pre[\s\S]*?<\/pre>/gi, '')
-                          .replace(/<code[\s\S]*?<\/code>/gi, '') + '...',
+                        DOMPurify.sanitize(
+                          blog.content
+                            .substring(0, 250)
+                            .replace(/<pre[\s\S]*?<\/pre>/gi, '')
+                            .replace(/<code[\s\S]*?<\/code>/gi, '')
+                        ) + '...',
                     }}
                   />
                 </Link>
