@@ -28,27 +28,29 @@ export default function ForgotPasswordPage() {
     setFormError('');
 
     try {
-      // Here you would connect to your Laravel backend
       const response = await fetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          email: data.email.trim(),
+        }),
       });
 
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message ?? 'Failed to send reset email');
+        throw new Error(result.error || 'Failed to send reset link. Please try again.');
       }
 
       // Redirect to confirmation page
       router.push('/reset-confirmation');
     } catch (error) {
-      setFormError(
-        error instanceof Error ? error.message : 'Failed to send reset email. Please try again.'
-      );
+      const errorMessage =
+        error instanceof Error ? error.message : 'Failed to send reset link. Please try again.';
+      setFormError(errorMessage);
+      console.error('Forgot password error:', error);
     } finally {
       setIsLoading(false);
     }
