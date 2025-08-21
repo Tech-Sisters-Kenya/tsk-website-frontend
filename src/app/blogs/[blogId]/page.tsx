@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { useFetchSingleBlog } from '@/hooks/blog/fetch-single-blog';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 import { useFetchBlogAuthor } from '@/hooks/blog/fetch-blogAuthor';
+import x from 'public/x.svg';
+import linkedin from '../../../../public/linkedin.svg';
 
 interface Blog {
   id: string;
@@ -107,27 +109,81 @@ export default function BlogPost() {
             />
 
             {/* side panel with author content & recent posts */}
-            <div className="grid grid-cols-1 lg:grid-cols-2">
-              {/* Author */}
-              <div className="bg-tsk-light-2 rounded-[20px] p-6 text-center flex flex-col items-center gap-2">
-                <p className="font-semibold text-[20px] text-tsk-primary-dark"> Author</p>
-                <Image
-                  src={blog.image_url}
-                  alt={blog.author.name}
-                  width={86}
-                  height={81}
-                  className="object-cover w-[86px] h-[81px] rounded-full place-self-center"
-                />
-                {/* author bio */}
-                <div className="text-tsk-primary-dark flex flex-col items-center"></div>
-                <p className="font-medium text-[16px]">{blog.author.name}</p>
-                <p className="font-light text-[16px] italic">
-                  Mental Health <br></br>Channel Coordinator
+            <div className="flex flex-col gap-8">
+              <div className="bg-tsk-light-2 p-8 rounded-[20px] md:w-[256px] flex flex-col justify-center items-center">
+                <h1 className="text-xl font-semibold">Author</h1>
+                <div className="flex flex-col justify-center items-center w-[74px] h-[74px] my-2">
+                  <Image
+                    src={blog.author_img}
+                    width={74}
+                    height={74}
+                    alt="Article author"
+                    className="object-cover rounded-full overflow-hidden"
+                  />
+                </div>
+                <h2 className="font-medium text-[16px] text-tsk-primary-dark">
+                  {blog.author.name}
+                </h2>
+                <p className="italic text-[16px] my-2 text-tsk-primary-dark">
+                  Mental Health Channel Coordinator
                 </p>
+
+                <hr className="h-[1px] w-full bg-black border-none my-4" />
+
+                <div className="flex flex-col gap-2">
+                  <label className="flex items-center gap-2">
+                    <Image src={x} alt="twitter icon" />
+                    <span className="w-4"> - </span>
+                    <span className="text-[12px]"> Username</span>
+                  </label>
+                  <label className="flex items-center gap-2">
+                    <Image src={linkedin} alt="linkedin icon" /> <span className="w-4"> - </span>
+                    <span className="text-[12px]"> Username</span>
+                  </label>
+                </div>
               </div>
 
-              {/* recent posts */}
-              <div></div>
+              <div className="bg-tsk-light-2 p-4 rounded-[20px] md:w-[256px] text-tsk-primary-dark font-body py-8">
+                <h1 className="text-xl font-semibold text-center">Recent Posts</h1>
+                <p className="text-center">From Author</p>
+                <hr className="h-[0.5px] w-3/4 bg-black border-none my-4 place-self-center" />
+                <span className="flex flex-col gap-5">
+                  {moreBlogs.map((blog) => (
+                    <div key={blog.id} className="flex gap-2">
+                      <Link href={`/blogs/${blog.slug}`} className="cursor-pointer">
+                        {blog.image_url && (
+                          <div className="h-full w-full">
+                            <Image
+                              src={blog.image_url}
+                              alt={blog.title}
+                              width={70}
+                              height={65}
+                              className="rounded-[15px] w-[70px] h-[65px] overflow-hidden"
+                            />
+                          </div>
+                        )}
+                      </Link>
+                      <div className="flex flex-col justify-center">
+                        <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
+                          <h2 className="font-body font-semibold text-[12px] group-hover:underline">
+                            {blog.title.substring(0, 24)}...
+                          </h2>
+                        </Link>
+
+                        <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
+                          <p className="italic font-body text-[11px] font-normal group-hover:underline">
+                            {blog.content[0].substring(0, 40)}...
+                          </p>
+                        </Link>
+
+                        <p className="font-medium text-[10px] text-tsk-primary-dark uppercase">
+                          {blog.created_at}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </span>
+              </div>
             </div>
           </div>
         </div>
