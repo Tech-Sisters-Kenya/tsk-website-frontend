@@ -85,7 +85,7 @@ export default function LoginPage() {
         localStorage.setItem('authToken', result.token);
 
         // Redirect to dashboard or home page after successful login
-        router.push('/dashboard');
+        router.push('/');
       } else {
         throw new Error('Invalid response from server');
       }

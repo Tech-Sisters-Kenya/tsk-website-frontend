@@ -287,10 +287,12 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
 
       try {
         const payload = {
-          name: `${formData.firstName} ${formData.lastName}`,
-          email: formData.email,
-          phone: formData.phone || null,
+          name: `${formData.firstName} ${formData.lastName}`.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone ? formData.phone.trim() : null,
           gender: formData.gender,
+          password: formData.password, // This should be the plain text password
+          password_confirmation: formData.confirmPassword, // Add password confirmation
           occupation_category_id:
             formData.occupation === 'other' ? formData.customOccupation : formData.occupation,
           years_of_experience_in_tech:
@@ -298,29 +300,20 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
               ? 0
               : formData.experienceLevel === '1 year'
                 ? 1
-                : 2, // Default to 2+ years for other options
+                : 2,
           is_interested_in_being_a_mentor: formData.role === 'Mentor' || formData.role === 'Both',
-          linked_in_url: formData.linkedInUrl,
+          linked_in_url: formData.linkedInUrl || null,
           github_account_url: formData.githubUrl || null,
           about: formData.about || null,
           status: 'pending',
           technical_event_preferences: formData.expertiseAreas,
-          social_event_preferences: null,
-          mental_health_event_preferences: null,
-          available_for_virtual_mornings: true, // Default values as per form design
-          available_for_virtual_evenings: true,
-          available_for_physical_saturdays: true,
-          available_for_physical_sundays: true,
-          is_person_with_disability: false, // Default as not specified in form
-          disability_description: null,
-          past_tech_communities: null,
-          additional_comments: null,
-          password: formData.password,
           areas_of_expertise_to_develop: formData.expertiseAreas
             .split(',')
             .map((s) => s.trim())
             .filter(Boolean),
         };
+
+        console.log('Sending registration request with payload:', JSON.stringify(payload, null, 2));
 
         const response = await fetch(endpoints.registerTechSister, {
           method: 'POST',
@@ -332,15 +325,57 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
         });
 
         const data = await response.json();
+        console.log('Registration response:', data);
 
         if (!response.ok) {
           console.error('Server error response:', data);
-          throw new Error(data.message || `Failed to submit form. Status: ${response.status}`);
+
+          // Handle validation errors
+          if (response.status === 422 && data.errors) {
+            const fieldErrors: Record<string, { message: string }> = {};
+            Object.entries(data.errors).forEach(([field, messages]) => {
+              const message = Array.isArray(messages) ? messages[0] : String(messages);
+              fieldErrors[field] = { message };
+            });
+            setErrors(fieldErrors);
+            throw new Error('Please correct the errors in the form');
+          }
+
+          throw new Error(data.message || `Registration failed. Status: ${response.status}`);
         }
 
-        // Redirect to join-slack page after successful submission
-        console.log('Form submitted successfully, redirecting to /join-slack');
-        window.location.href = '/join-slack';
+        // After successful registration, try to log the user in automatically
+        try {
+          console.log('Registration successful, attempting to log in...');
+          const loginResponse = await fetch('https://api.techsisterskenya.org/api/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              email: formData.email.trim(),
+              password: formData.password,
+            }),
+          });
+
+          const loginData = await loginResponse.json();
+
+          if (loginResponse.ok && loginData.token) {
+            // Store the token and user data
+            localStorage.setItem('authToken', loginData.token);
+            // Redirect to join-slack page after successful login
+            window.location.href = '/join-slack';
+          } else {
+            // If auto-login fails, redirect to login page with success message
+            console.log('Auto-login failed, redirecting to login page');
+            window.location.href = '/login?registered=true';
+          }
+        } catch (loginError) {
+          console.error('Auto-login error:', loginError);
+          // If there's an error during auto-login, still redirect to login page
+          window.location.href = '/login?registered=true';
+        }
         return true;
       } catch (error: unknown) {
         console.error('Error submitting form:', error);
@@ -348,10 +383,14 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
           error instanceof Error
             ? error.message
             : 'An error occurred while submitting the form. Please try again.';
-        setErrors((prev) => ({
-          ...prev,
-          form: { message: errorMessage },
-        }));
+
+        // Only set form-level error if there are no field-specific errors
+        if (Object.keys(errors).length === 0) {
+          setErrors((prev) => ({
+            ...prev,
+            form: { message: errorMessage },
+          }));
+        }
       } finally {
         setIsSubmitting(false);
       }
