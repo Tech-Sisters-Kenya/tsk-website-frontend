@@ -14,7 +14,7 @@ test.describe('Hero Section', () => {
 
   test('should render Join Our Community button with correct link', async ({ page }) => {
     const joinButton = page.getByRole('link', { name: /join our community/i }).first();
-    await expect(joinButton).toHaveAttribute('href', '/get-involved');
+    await expect(joinButton).toHaveAttribute('href', '/join-our-community');
   });
 
   test('should render Partner With Us button with correct link', async ({ page }) => {
