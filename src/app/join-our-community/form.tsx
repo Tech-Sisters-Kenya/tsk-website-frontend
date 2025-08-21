@@ -1,11 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { ChevronDown } from 'lucide-react';
+import { endpoints } from '@/api/constants';
 
 import Button from '@/components/Button';
 import Email from '@/assets/email-icon.svg';
+
 import KenyaFlag from '@/assets/kenya-flag-icon.svg';
+import Padlock from '@/assets/padlock-icon.svg';
+import EyeOpen from '@/assets/eye-open-icon.svg';
+import EyeClosed from '@/assets/eye-closed-icon.svg';
 
 // Types for the CustomSelect component
 interface OptionType {
@@ -120,6 +124,12 @@ interface FormData {
   experienceLevel: string;
   role: string;
   expertiseAreas: string;
+  linkedInUrl: string;
+  githubUrl: string;
+  about: string;
+  password: string;
+  confirmPassword: string;
+  isInterestedInMentoring: boolean;
 }
 
 interface FormProps {
@@ -133,33 +143,63 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
     lastName: '',
     email: '',
     phone: '',
-    gender: 'female',
+    gender: 'Female',
     occupation: '',
     customOccupation: '',
     experienceLevel: '2 years and above',
     role: 'Mentor',
     expertiseAreas: '',
+    linkedInUrl: '',
+    githubUrl: '',
+    about: '',
+    password: '',
+    confirmPassword: '',
+    isInterestedInMentoring: true,
   });
 
   const [errors, setErrors] = useState<Record<string, { message: string }>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
-  // Add required validation for all fields except customOccupation
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  // Add validation for all fields
   const validateForm = (data: FormData) => {
+    console.log('Validating form data:', data);
     const errors: Partial<Record<keyof FormData, { message: string }>> = {};
 
-    // Check all required fields except customOccupation
-    const requiredFields: (keyof Omit<FormData, 'customOccupation'>)[] = [
+    // Password validation
+    if (!data.password) {
+      errors.password = { message: 'Password is required' };
+    } else if (data.password.length < 8) {
+      errors.password = { message: 'Password must be at least 8 characters long' };
+    } else if (!/[0-9]/.test(data.password)) {
+      errors.password = { message: 'Password must contain at least one number' };
+    } else if (!/[a-zA-Z]/.test(data.password)) {
+      errors.password = { message: 'Password must contain at least one letter' };
+    }
+
+    // Confirm password validation
+    if (data.password !== data.confirmPassword) {
+      errors.confirmPassword = { message: 'Passwords do not match' };
+    }
+
+    // Check all required fields
+    const requiredFields: (keyof Omit<FormData, 'customOccupation' | 'githubUrl'>)[] = [
       'firstName',
       'lastName',
       'email',
-      'phone',
       'gender',
       'occupation',
       'experienceLevel',
       'role',
       'expertiseAreas',
+      'linkedInUrl',
+      'about',
+      'password',
+      'confirmPassword',
     ];
 
     requiredFields.forEach((field) => {
@@ -195,6 +235,24 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
       errors.expertiseAreas = { message: 'Please specify areas of expertise' };
     }
 
+    if (!data.password) {
+      errors.password = { message: 'Password is required' };
+    } else if (data.password.length < 8) {
+      errors.password = { message: 'Password must be at least 8 characters long' };
+    } else if (!/[0-9]/.test(data.password)) {
+      errors.password = { message: 'Password must contain at least one number' };
+    } else if (!/[a-zA-Z]/.test(data.password)) {
+      errors.password = { message: 'Password must contain at least one letter' };
+    }
+
+    if (data.linkedInUrl && !data.linkedInUrl.startsWith('http')) {
+      errors.linkedInUrl = { message: 'Please enter a valid LinkedIn URL' };
+    }
+
+    if (data.githubUrl && !data.githubUrl.startsWith('http')) {
+      errors.githubUrl = { message: 'Please enter a valid GitHub URL' };
+    }
+
     return errors;
   };
 
@@ -214,20 +272,90 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
   };
 
   // Handle form submission
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    console.log('handleSubmit called');
+    e?.preventDefault?.();
+
     const validationErrors = validateForm(formData);
     setErrors(validationErrors);
 
+    console.log('Validation errors:', validationErrors);
+
     if (Object.keys(validationErrors).length === 0) {
+      console.log('No validation errors, proceeding with submission');
       setIsSubmitting(true);
-      // Simulate API call
-      setTimeout(() => {
-        console.log('Form submitted:', formData);
-        setIsSubmitting(false);
+
+      try {
+        const payload = {
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone || null,
+          gender: formData.gender,
+          occupation_category_id:
+            formData.occupation === 'other' ? formData.customOccupation : formData.occupation,
+          years_of_experience_in_tech:
+            formData.experienceLevel === 'less than 1 year'
+              ? 0
+              : formData.experienceLevel === '1 year'
+                ? 1
+                : 2, // Default to 2+ years for other options
+          is_interested_in_being_a_mentor: formData.role === 'Mentor' || formData.role === 'Both',
+          linked_in_url: formData.linkedInUrl,
+          github_account_url: formData.githubUrl || null,
+          about: formData.about || null,
+          status: 'pending',
+          technical_event_preferences: formData.expertiseAreas,
+          social_event_preferences: null,
+          mental_health_event_preferences: null,
+          available_for_virtual_mornings: true, // Default values as per form design
+          available_for_virtual_evenings: true,
+          available_for_physical_saturdays: true,
+          available_for_physical_sundays: true,
+          is_person_with_disability: false, // Default as not specified in form
+          disability_description: null,
+          past_tech_communities: null,
+          additional_comments: null,
+          password: formData.password,
+          areas_of_expertise_to_develop: formData.expertiseAreas
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean),
+        };
+
+        const response = await fetch(endpoints.registerTechSister, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          console.error('Server error response:', data);
+          throw new Error(data.message || `Failed to submit form. Status: ${response.status}`);
+        }
+
         // Redirect to join-slack page after successful submission
-        router.push('/join-slack');
-      }, 1500);
+        console.log('Form submitted successfully, redirecting to /join-slack');
+        window.location.href = '/join-slack';
+        return true;
+      } catch (error: unknown) {
+        console.error('Error submitting form:', error);
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : 'An error occurred while submitting the form. Please try again.';
+        setErrors((prev) => ({
+          ...prev,
+          form: { message: errorMessage },
+        }));
+      } finally {
+        setIsSubmitting(false);
+      }
+      return false;
     }
   };
 
@@ -262,9 +390,21 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
     { value: 'Both', label: 'Both' },
   ];
 
+  const onSubmit = async (e: React.FormEvent) => {
+    console.log('Form submission started');
+    e.preventDefault();
+    console.log('Form preventDefault called');
+    try {
+      const result = await handleSubmit(e);
+      console.log('Form submission result:', result);
+    } catch (error) {
+      console.error('Form submission error:', error);
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white">
-      <div className="space-y-6">
+      <form onSubmit={onSubmit} className="space-y-6">
         <h2 className="text-4xl font-bold text-[#45084A]">Tech Sisters Kenya Registration Form</h2>
         <h2 className="text-2xl font-bold text-[#45084A] mb-6">Personal Details</h2>
 
@@ -334,6 +474,80 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
           {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
         </div>
 
+        <div className="w-full gap-4 mb-4">
+          <div>
+            <label className="block text-[#45084A] font-semibold text-md">Create a Password*</label>
+            <div className="mt-1 relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Image src={Padlock} alt="Padlock icon" width={20} height={20} className="mr-2" />
+              </div>
+              <input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                autoComplete="new-password"
+                placeholder="Enter your password"
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.password ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                >
+                  {showPassword ? (
+                    <Image src={EyeClosed} alt="Eye closed icon" width={20} height={20} />
+                  ) : (
+                    <Image src={EyeOpen} alt="Eye open icon" width={20} height={20} />
+                  )}
+                </button>
+              </div>
+              {errors.password && (
+                <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <label className="block text-[#45084A] font-semibold text-md">Confirm Password*</label>
+            <div className="mt-1 relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Image src={Padlock} alt="Padlock icon" width={20} height={20} className="mr-2" />
+              </div>
+              <input
+                id="confirmPassword"
+                type={showPassword ? 'text' : 'password'}
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                autoComplete="new-password"
+                placeholder="Confirm your password"
+                className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${
+                  errors.confirmPassword ? 'border-red-500' : 'border-[#45084A]/50'
+                } rounded-xl focus:outline-none focus:ring-2 focus:ring-[#45084A] focus:border-transparent`}
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                >
+                  {showPassword ? (
+                    <Image src={EyeClosed} alt="Hide password" width={20} height={20} />
+                  ) : (
+                    <Image src={EyeOpen} alt="Show password" width={20} height={20} />
+                  )}
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
         <div className="mb-4">
           <label className="block text-[#45084A] font-semibold text-md">
             Phone Number (provide +254xxxxxxx) No spaces*
@@ -372,6 +586,61 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
           <div className="w-full py-4 px-3 border bg-purple-50 rounded-xl border-[#45084A]/50 text-[#45084A]">
             Female
           </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-[#45084A] font-semibold text-md mb-1">
+            LinkedIn Profile URL*
+          </label>
+          <input
+            name="linkedInUrl"
+            value={formData.linkedInUrl}
+            onChange={handleInputChange}
+            type="url"
+            placeholder="https://linkedin.com/in/yourusername"
+            className={`w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${
+              errors.linkedInUrl ? 'border-red-500' : 'border-[#45084A]/50'
+            } rounded-xl focus:outline-none focus:ring-2 focus:ring-[#45084A] focus:border-transparent`}
+          />
+          {errors.linkedInUrl && (
+            <p className="mt-1 text-sm text-red-600">{errors.linkedInUrl.message}</p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-[#45084A] font-semibold text-md mb-1">
+            GitHub Profile URL (Optional)
+          </label>
+          <input
+            name="githubUrl"
+            value={formData.githubUrl}
+            onChange={handleInputChange}
+            type="url"
+            placeholder="https://github.com/yourusername"
+            className={`w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${
+              errors.githubUrl ? 'border-red-500' : 'border-[#45084A]/50'
+            } rounded-xl focus:outline-none focus:ring-2 focus:ring-[#45084A] focus:border-transparent`}
+          />
+          {errors.githubUrl && (
+            <p className="mt-1 text-sm text-red-600">{errors.githubUrl.message}</p>
+          )}
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-[#45084A] font-semibold text-md mb-1">
+            Tell us about yourself and your tech journey*
+          </label>
+          <textarea
+            name="about"
+            value={formData.about}
+            onChange={handleInputChange}
+            placeholder="Share a bit about your background, experience, and what you hope to achieve in the tech community..."
+            rows={4}
+            className={`w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${
+              errors.about ? 'border-red-500' : 'border-[#45084A]/50'
+            } rounded-xl focus:outline-none focus:ring-2 focus:ring-[#45084A] focus:border-transparent`}
+          />
+          {errors.about && <p className="mt-1 text-sm text-red-600">{errors.about.message}</p>}
         </div>
 
         <div className="mb-4">
@@ -470,17 +739,23 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
           >
             Back
           </Button>
-          <Button
-            variant="primary"
-            type="button"
-            onClick={handleSubmit}
-            disabled={isSubmitting}
-            className="px-8 py-3"
-          >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
-          </Button>
+          <div className="flex justify-center pt-4">
+            <Button
+              variant="primary"
+              type="submit"
+              onClick={(e) => {
+                console.log('Submit button clicked');
+                e.preventDefault();
+                onSubmit(e);
+              }}
+              disabled={isSubmitting}
+              className="px-8 py-3"
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit'}
+            </Button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
