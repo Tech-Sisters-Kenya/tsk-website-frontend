@@ -22,3 +22,7 @@ export const sendBlogs = (blogData: BlogData) => {
     },
   });
 };
+
+export const fetchBlogAuthor = (authorId: string) => {
+  return axiosInstance.get(endpoints.getBlogAuthor(authorId));
+};

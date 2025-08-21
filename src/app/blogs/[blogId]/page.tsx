@@ -7,8 +7,29 @@ import { notFound, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useFetchSingleBlog } from '@/hooks/blog/fetch-single-blog';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
-import { Blog } from '@/types/blog';
-import DOMPurify from 'dompurify';
+import { useFetchBlogAuthor } from '@/hooks/blog/fetch-blogAuthor';
+
+interface Blog {
+  id: string;
+  slug: string;
+  title: string;
+  content: string;
+  image_url: string;
+  extract: string;
+  status: string;
+  is_featured: boolean;
+  author: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  category: {
+    id: string;
+    name: string;
+  };
+  created_at: string;
+  updated_at: string;
+}
 
 export default function BlogPost() {
   const params = useParams();
@@ -18,7 +39,12 @@ export default function BlogPost() {
   const blogIdStr = blogSlug ? String(blogSlug) : '';
   const { data: blogData, isLoading, isError } = useFetchSingleBlog(blogIdStr);
   const blog = blogData?.data;
-  console.log(blog);
+
+  //fetch blog author details using the authorId from the blog - use in the sidepanel
+  const authorId = blog?.author.name;
+  const { data: authorData } = useFetchBlogAuthor(authorId);
+
+  console.log('Author Data:', authorData);
 
   //fetch all the blogs
   const { data } = useFetchBlogs();
@@ -54,13 +80,11 @@ export default function BlogPost() {
     }).format(date);
   };
 
-  console.log('This is the blog', blog.content);
-
   return (
     <section className="w-full h-full">
       <div className="flex flex-col justify-center items-center md:px-20 px-10 md:py-32">
         {/* Main Blog Content */}
-        <div className="lg:my-24 my-10 flex flex-col gap-4">
+        <div className="lg:my-24 my-10 flex flex-col gap-4 ">
           <h1 className="md:text-5xl text-3xl font-heading font-extrabold">{blog.title}</h1>
           {/* <p className="text-gray-600 mb-4">{blog.date}</p> */}
           {blog.image_url && (
@@ -75,12 +99,37 @@ export default function BlogPost() {
               />
             </div>
           )}
+          <div className="flex flex-col">
+            {/* main blog content */}
+            <div
+              className="prose prose-lg font-body max-w-none text-gray-800 lg:mx-20  mb-10"
+              dangerouslySetInnerHTML={{ __html: blog.content }}
+            />
 
-          {/* added DOMPurify to sanitize the injected HTML */}
-          <div
-            className="prose prose-lg font-body max-w-none text-gray-800 lg:mx-20"
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.content) }}
-          />
+            {/* side panel with author content & recent posts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              {/* Author */}
+              <div className="bg-tsk-light-2 rounded-[20px] p-6 text-center flex flex-col items-center gap-2">
+                <p className="font-semibold text-[20px] text-tsk-primary-dark"> Author</p>
+                <Image
+                  src={blog.image_url}
+                  alt={blog.author.name}
+                  width={86}
+                  height={81}
+                  className="object-cover w-[86px] h-[81px] rounded-full place-self-center"
+                />
+                {/* author bio */}
+                <div className="text-tsk-primary-dark flex flex-col items-center"></div>
+                <p className="font-medium text-[16px]">{blog.author.name}</p>
+                <p className="font-light text-[16px] italic">
+                  Mental Health <br></br>Channel Coordinator
+                </p>
+              </div>
+
+              {/* recent posts */}
+              <div></div>
+            </div>
+          </div>
         </div>
 
         {/* add author, created at, category just after the blogpost before the more blogs section */}
@@ -121,18 +170,9 @@ export default function BlogPost() {
                 </Link>
 
                 <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
-                  <p
-                    className="italic font-body text-[15px] font-normal group-hover:underline"
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        DOMPurify.sanitize(
-                          blog.content
-                            .substring(0, 250)
-                            .replace(/<pre[\s\S]*?<\/pre>/gi, '')
-                            .replace(/<code[\s\S]*?<\/code>/gi, '')
-                        ) + '...',
-                    }}
-                  />
+                  <p className="italic font-body text-[15px] font-normal group-hover:underline">
+                    {blog.extract}
+                  </p>
                 </Link>
               </div>
             ))}
