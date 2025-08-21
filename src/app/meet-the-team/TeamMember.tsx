@@ -15,7 +15,7 @@ const TeamMember = ({ name, role, imageUrl, bio }: TeamMemberProps) => {
 
   return (
     <Card
-      className={`overflow-hidden transition-all duration-300 ${
+      className={`overflow-hidden transition-all duration-300 border-tsk-primary-dark ${
         isExpanded ? 'shadow-lg' : 'shadow-md hover:shadow-lg'
       }`}
       onMouseEnter={() => setIsExpanded(true)}
@@ -25,16 +25,18 @@ const TeamMember = ({ name, role, imageUrl, bio }: TeamMemberProps) => {
         {isExpanded ? (
           <div className="p-8 flex flex-col h-full justify-between">
             <div className="text-center mb-4">
-              <h3 className="text-xl font-medium text-purple-900 mb-1">{name}</h3>
-              <p className="text-gray-600 font-medium">{role}</p>
+              <h3 className="text-xl font-body font-medium text-tsk-primary-dark mb-1">{name}</h3>
+              <p className="text-tsk-primary-dark font-medium font-body">{role}</p>
             </div>
             <div className="text-center">
-              <p className="text-sm text-gray-600 mb-4 leading-relaxed">{bio}</p>
+              <p className="text-sm text-tsk-primary-dark mb-4 font-body font-medium leading-relaxed">
+                {bio}
+              </p>
             </div>
             <div className="text-center">
               <Button
                 variant="ghost"
-                className="text-purple-700 hover:text-purple-900 hover:bg-purple-50 font-medium"
+                className="text-tsk-primary-dark hover:text-tsk-light-1 hover:bg-tsk-light-2 font-medium"
                 onClick={() => setIsExpanded(false)}
               >
                 Close
@@ -43,13 +45,15 @@ const TeamMember = ({ name, role, imageUrl, bio }: TeamMemberProps) => {
           </div>
         ) : (
           <div>
-            <div className="relative aspect-square flex h-fit overflow-hidden  ">
-              <Image src={imageUrl} alt={name} fill className="object-cover rounded-lg" />
+            <div className="relative w-full h-64  overflow-hidden rounded-none m-0">
+              <Image src={imageUrl} alt={name} fill className="object-contain rounded-none" />
             </div>
 
             <div className="p-6 text-center">
-              <h3 className="text-3xl font-medium text-purple-900 mb-1">{name}</h3>
-              <p className="text-gray-600 text-lg font-medium">{role}</p>
+              <h3 className="text-3xl font-medium font-heading text-tsk-primary-dark mb-1">
+                {name}
+              </h3>
+              <p className="text-tsk-primary-dark font-body text-lg font-medium">{role}</p>
               <p className="text-sm text-gray-500 mt-2">More...</p>
             </div>
           </div>
