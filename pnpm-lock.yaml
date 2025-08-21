@@ -3017,6 +3017,10 @@ packages:
       }
     deprecated: This is a stub types definition. testing-library__react provides its own type definitions, so you do not need this installed.
 
+  '@types/testing-library__react@10.2.0':
+    resolution: {integrity: sha512-KbU7qVfEwml8G5KFxM+xEfentAAVj/SOQSjW0+HqzjPE0cXpt0IpSamfX4jGYCImznDHgQcfXBPajS7HjLZduw==}
+    deprecated: This is a stub types definition. testing-library__react provides its own type definitions, so you do not need this installed.
+
   '@types/tough-cookie@4.0.5':
     resolution:
       {
