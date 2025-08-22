@@ -30,6 +30,7 @@ export default function SignupPage() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<SignupFormValues>();
 
   const onSubmit = async (data: SignupFormValues) => {
@@ -37,14 +38,14 @@ export default function SignupPage() {
     setSignupError('');
 
     try {
-      // Here you would connect to  backend
       const response = await fetch('https://api.techsisterskenya.org/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify({
-          name: data.firstName + ' ' + data.lastName,
+          name: `${data.firstName} ${data.lastName}`.trim(),
           email: data.email,
           password: data.password,
         }),
@@ -53,15 +54,28 @@ export default function SignupPage() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message ?? 'Failed to create account');
+        if (response.status === 422 && result.errors) {
+          // Handle validation errors
+          Object.entries(result.errors).forEach(([field, messages]) => {
+            const fieldName = field === 'name' ? 'firstName' : field;
+            setError(fieldName as keyof SignupFormValues, {
+              type: 'manual',
+              message: Array.isArray(messages) ? messages[0] : String(messages),
+            });
+          });
+          return;
+        }
+        throw new Error(result.message || 'Failed to create account');
       }
 
-      // Redirect to dashboard or login page after successful signup
-      router.push('/login');
+      // Show success message and redirect to login
+      setSignupError('');
+      router.push('/login?registered=true');
     } catch (error) {
-      setSignupError(
-        error instanceof Error ? error.message : 'Registration failed. Please try again.'
-      );
+      const errorMessage =
+        error instanceof Error ? error.message : 'Registration failed. Please try again.';
+      setSignupError(errorMessage);
+      console.error('Signup error:', error);
     } finally {
       setIsLoading(false);
     }
@@ -199,7 +213,16 @@ export default function SignupPage() {
                 className={`pl-10 w-full py-4 px-3 border placeholder:text-[#45084A]/50 ${errors.password ? 'border-red-300' : 'border-[#45084A]/50'} rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary`}
                 {...register('password', {
                   required: 'Password is required',
-                  minLength: { value: 8, message: 'Password must be at least 8 characters' },
+                  minLength: {
+                    value: 8,
+                    message: 'Password must be at least 8 characters long',
+                  },
+                  validate: {
+                    hasNumber: (value) =>
+                      /[0-9]/.test(value) || 'Password must contain at least one number',
+                    hasLetter: (value) =>
+                      /[a-zA-Z]/.test(value) || 'Password must contain at least one letter',
+                  },
                 })}
               />
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center">

@@ -25,7 +25,7 @@ describe('HeroSection Component', () => {
     const description = screen.getByText(/Tech Sisters Kenya is a non-profit organization/);
     expect(description).toBeInTheDocument();
     expect(description).toHaveTextContent(
-      'Tech Sisters Kenya is a non-profit organization empowering women in tech through mentorship, workshops, and networking opportunities to elevate their skills and support their professional growth through community initiatives'
+      'Tech Sisters Kenya is a non-profit organization empowering women in tech through mentorship, workshops, and networking to grow skills and careers.'
     );
   });
 

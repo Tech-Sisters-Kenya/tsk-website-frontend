@@ -73,6 +73,8 @@ export default function BlogPost() {
     }).format(date);
   };
 
+  console.log('This is the blog', blog.content);
+
   return (
     <section className="w-full h-full">
       <div className="flex flex-col justify-center items-center md:px-20 px-10 md:py-32">
@@ -92,6 +94,8 @@ export default function BlogPost() {
               />
             </div>
           )}
+
+          {/* find a way to style using tailwindcss */}
           <div
             className="prose prose-lg font-body max-w-none text-gray-800 lg:mx-20"
             dangerouslySetInnerHTML={{ __html: blog.content }}

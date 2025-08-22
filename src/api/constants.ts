@@ -15,6 +15,7 @@ export const endpoints = {
   deleteBlog: (id: string) => `${baseURL}/blogs/${id}`,
   publishBlog: (id: string) => `${baseURL}/blogs/${id}/publish`,
   unpublishBlog: (id: string) => `${baseURL}/blogs/${id}/unpublish`,
+  registerTechSister: `${baseURL}/auth/register/tech-sister`,
 };
 
 //these are queryKeys for the query functions

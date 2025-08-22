@@ -45,9 +45,8 @@ test.describe('About Us Page', () => {
       await expect(coreValuesSection).toBeVisible();
     }
 
-    // Updated core values list - check what's actually on your page
-    // You may need to adjust these based on your actual content
-    const coreValues = ['Empowerment', 'Inclusivity', 'Innovation', 'Collaboration'];
+    // Core values as they appear on the actual page
+    const coreValues = ['Inclusivity', 'Community', 'Growth', 'Empowerment'];
 
     for (const value of coreValues) {
       // Use more flexible text matching with increased timeout

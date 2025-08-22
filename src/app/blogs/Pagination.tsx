@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import BlogsLayout from './BlogsLayout';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
@@ -13,13 +13,10 @@ function Pagination({ blogs }: { blogs: BlogItem[] }) {
   const [itemOffset, setItemOffset] = useState(0);
 
   const endOffset = itemOffset + itemsPerPage;
-  const currentItems = blogs.slice(itemOffset, endOffset);
+  const currentItems = useMemo(() => blogs.slice(itemOffset, endOffset), [blogs, itemOffset]);
   const pageCount = Math.ceil(blogs.length / itemsPerPage);
 
-  const handlePageChange = ({ selected }: { selected: number }): void => {
-    if (selected !== itemOffset) {
-      setItemOffset(selected);
-    }
+  const handlePageChange = ({ selected }: { selected: number }) => {
     const newOffset = selected * itemsPerPage;
     setItemOffset(newOffset);
   };

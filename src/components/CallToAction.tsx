@@ -47,7 +47,7 @@ const CallToAction = () => {
           </p>
 
           <div className="flex justify-center">
-            <Link href="/get-involved">
+            <Link href="/join-our-community">
               <Button variant="secondary">
                 <span className="font-extrabold">Join Our Community</span>
               </Button>
