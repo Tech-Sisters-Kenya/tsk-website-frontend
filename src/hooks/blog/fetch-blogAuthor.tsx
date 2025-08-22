@@ -7,9 +7,9 @@ const getBlogAuthor = async (authorId: string) => {
   return response.data;
 };
 
-export const useFetchBlogAuthor = (authorId: string) => {
+export const useFetchBlogAuthor = (authorId: string, currentBlogId: string) => {
   return useQuery({
-    queryKey: queryKeys.blogAuthor,
+    queryKey: [queryKeys.blogAuthor, currentBlogId],
     queryFn: () => getBlogAuthor(authorId),
     // ⬇️ disabled as long as the authorId is empty to prevent a bad API request
     enabled: !!authorId,

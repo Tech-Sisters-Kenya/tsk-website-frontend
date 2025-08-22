@@ -8,8 +8,7 @@ import Link from 'next/link';
 import { useFetchSingleBlog } from '@/hooks/blog/fetch-single-blog';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 import { useFetchBlogAuthor } from '@/hooks/blog/fetch-blogAuthor';
-import x from 'public/x.svg';
-import linkedin from '../../../../public/linkedin.svg';
+import DOMPurify from 'dompurify';
 
 interface Blog {
   id: string;
@@ -41,14 +40,16 @@ export default function BlogPost() {
   const blogIdStr = blogSlug ? String(blogSlug) : '';
   const { data: blogData, isLoading, isError } = useFetchSingleBlog(blogIdStr);
   const blog = blogData?.data;
+  const currentBlogId = blog?.id;
 
-  //fetch blog author details using the authorId from the blog - use in the sidepanel
+  //fetch blog author details using the authorId from the blog - use in the sidepanel. add currentBlogId to the queryKey to avoid cache issues
   const authorId = blog?.author.name;
-  const { data: authorData } = useFetchBlogAuthor(authorId);
+  const { data: authorData } = useFetchBlogAuthor(authorId, currentBlogId);
 
-  console.log('Author Data:', authorData);
+  //this is the array of blogposts written by the author
+  const authorDataArray = authorData?.data || [];
 
-  //fetch all the blogs
+  //fetch all the blogs to loop over and show under 'More blogs' section
   const { data } = useFetchBlogs();
   const blogs: Blog[] = data?.data || [];
 
@@ -71,6 +72,15 @@ export default function BlogPost() {
 
   //fetch the blogs and filter to ensure you don't display the already showing blog and slice to display 3 of them for the 'More Blogs' section
   const moreBlogs = blogs.filter((b) => b.slug !== blog.slug).slice(0, 3);
+
+  //filter this array so that the 'recent posts by this author' do not include the current post
+  const filteredAuthorBlogs = authorDataArray.filter(
+    (excludeBlog: Blog) => excludeBlog.id !== blog.id
+  );
+
+  console.log('this is the current blog id', blog.id);
+  console.log('Looking for the current blog id:', authorDataArray);
+  // console.log('are these two the same?', blog.id === authorDataArray[0].id);
 
   // format date
   const formatDate = (dateStr: string) => {
@@ -101,7 +111,7 @@ export default function BlogPost() {
               />
             </div>
           )}
-          <div className="flex flex-col">
+          <div className="flex flex-col lg:flex-row">
             {/* main blog content */}
             <div
               className="prose prose-lg font-body max-w-none text-gray-800 lg:mx-20  mb-10"
@@ -109,89 +119,108 @@ export default function BlogPost() {
             />
 
             {/* side panel with author content & recent posts */}
-            <div className="flex flex-col gap-8">
-              <div className="bg-tsk-light-2 p-8 rounded-[20px] md:w-[256px] flex flex-col justify-center items-center">
+            <div className="flex flex-col gap-8 md:w-full lg:w-[365px]">
+              <div className="bg-tsk-light-2 p-8 rounded-[20px] md:w-full flex flex-col justify-center items-center">
                 <h1 className="text-xl font-semibold">Author</h1>
                 <div className="flex flex-col justify-center items-center w-[74px] h-[74px] my-2">
                   <Image
-                    src={blog.author_img}
-                    width={74}
-                    height={74}
+                    src={blog.image_url}
+                    width={86}
+                    height={81}
                     alt="Article author"
-                    className="object-cover rounded-full overflow-hidden"
+                    className="object-cover rounded-full"
                   />
                 </div>
                 <h2 className="font-medium text-[16px] text-tsk-primary-dark">
                   {blog.author.name}
                 </h2>
-                <p className="italic text-[16px] my-2 text-tsk-primary-dark">
-                  Mental Health Channel Coordinator
+                <p className="italic text-[16px] my-2 text-tsk-primary-dark text-center">
+                  Mental Health <br></br>Channel Coordinator
                 </p>
 
-                <hr className="h-[1px] w-full bg-black border-none my-4" />
+                <hr className="h-[1px] bg-black border-none my-4 w-[50%]" />
 
                 <div className="flex flex-col gap-2">
                   <label className="flex items-center gap-2">
-                    <Image src={x} alt="twitter icon" />
+                    <Image src="/x.svg" alt="twitter icon" width={18} height={18} />
                     <span className="w-4"> - </span>
-                    <span className="text-[12px]"> Username</span>
+                    <span className="text-[12px]">{blog.author.name.toLowerCase()}</span>
                   </label>
                   <label className="flex items-center gap-2">
-                    <Image src={linkedin} alt="linkedin icon" /> <span className="w-4"> - </span>
-                    <span className="text-[12px]"> Username</span>
+                    <Image src="/linkedin.svg" alt="linkedin icon" width={18} height={18} />{' '}
+                    <span className="w-4"> - </span>
+                    <span className="text-[12px]">{blog.author.name.toLowerCase()}</span>
                   </label>
                 </div>
               </div>
 
-              <div className="bg-tsk-light-2 p-4 rounded-[20px] md:w-[256px] text-tsk-primary-dark font-body py-8">
-                <h1 className="text-xl font-semibold text-center">Recent Posts</h1>
-                <p className="text-center">From Author</p>
-                <hr className="h-[0.5px] w-3/4 bg-black border-none my-4 place-self-center" />
-                <span className="flex flex-col gap-5">
-                  {moreBlogs.map((blog) => (
-                    <div key={blog.id} className="flex gap-2">
-                      <Link href={`/blogs/${blog.slug}`} className="cursor-pointer">
-                        {blog.image_url && (
-                          <div className="h-full w-full">
-                            <Image
-                              src={blog.image_url}
-                              alt={blog.title}
-                              width={70}
-                              height={65}
-                              className="rounded-[15px] w-[70px] h-[65px] overflow-hidden"
+              {filteredAuthorBlogs.length > 0 ? (
+                <div className="bg-tsk-light-2 p-4 rounded-[20px] md:w-full lg:w-[365px] text-tsk-primary-dark font-body py-8">
+                  <h1 className="text-xl font-extrabold text-center">Recent Posts</h1>
+                  <p className="text-center text-[15px] font-light">From Author</p>
+                  <hr className="h-[0.5px] w-[25%] bg-black border-none my-4 place-self-center" />
+                  <span className="flex flex-col gap-5">
+                    {filteredAuthorBlogs.map((blog: Blog) => (
+                      <div key={blog.id} className="flex gap-2 ">
+                        <Link href={`/blogs/${blog.slug}`} className="cursor-pointer">
+                          {blog.image_url && (
+                            <div className="h-full w-full">
+                              <Image
+                                src={blog.image_url}
+                                alt={blog.title}
+                                width={70}
+                                height={65}
+                                className="rounded-[15px] w-[70px] h-[65px] overflow-hidden"
+                              />
+                            </div>
+                          )}
+                        </Link>
+                        <div className="flex flex-col justify-center">
+                          <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
+                            {/* Small screens & large screens: truncated */}
+                            <h2 className="font-body font-semibold text-[12px] group-hover:underline block md:hidden lg:block">
+                              {blog.title.substring(0, 24)}...
+                            </h2>
+
+                            {/* Medium screen only: full text */}
+                            <h2 className="font-body font-semibold text-base group-hover:underline hidden md:block lg:hidden">
+                              {blog.title}
+                            </h2>
+                          </Link>
+
+                          <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
+                            <p
+                              className="italic font-body text-[11px] font-normal group-hover:underline pt-2"
+                              dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(blog.extract.substring(0, 120) + '...'),
+                              }}
                             />
-                          </div>
-                        )}
-                      </Link>
-                      <div className="flex flex-col justify-center">
-                        <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
-                          <h2 className="font-body font-semibold text-[12px] group-hover:underline">
-                            {blog.title.substring(0, 24)}...
-                          </h2>
-                        </Link>
+                          </Link>
 
-                        <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
-                          <p className="italic font-body text-[11px] font-normal group-hover:underline">
-                            {blog.content[0].substring(0, 40)}...
+                          <p className="font-medium text-[10px] text-tsk-primary-dark uppercase">
+                            {formatDate(blog.created_at)}
                           </p>
-                        </Link>
-
-                        <p className="font-medium text-[10px] text-tsk-primary-dark uppercase">
-                          {blog.created_at}
-                        </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </span>
-              </div>
+                    ))}
+                  </span>
+                </div>
+              ) : (
+                <div className="bg-tsk-light-2 p-4 rounded-[20px] md:w-full text-tsk-primary-dark font-body py-8 border border-tsk-primary-dark">
+                  <h1 className="text-xl font-extrabold text-center">Recent Posts</h1>
+                  <p className="text-center text-[15px] font-light">From Author</p>
+                  <hr className="h-[0.5px] w-[25%] bg-black border-none my-4 place-self-center" />
+                  <span className="flex flex-col gap-5">
+                    <p className="text-center">No recent posts available.</p>
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
 
-        {/* add author, created at, category just after the blogpost before the more blogs section */}
-
         {/* More Blogs Section */}
-        <div className="w-full flex flex-col justify-center items-center mt-20">
+        <div className="w-full flex flex-col justify-center items-center mt-8">
           <h1 className="font-body text-3xl font-semibold mb-16">More Blogs</h1>
           <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 gap-10">
             {moreBlogs.map((blog) => (
@@ -226,9 +255,12 @@ export default function BlogPost() {
                 </Link>
 
                 <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
-                  <p className="italic font-body text-[15px] font-normal group-hover:underline">
-                    {blog.extract}
-                  </p>
+                  <p
+                    className="italic font-body text-[15px] font-normal group-hover:underline"
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(blog.extract.substring(0, 250)) + '...',
+                    }}
+                  />
                 </Link>
               </div>
             ))}
