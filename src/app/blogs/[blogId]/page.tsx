@@ -7,28 +7,8 @@ import { notFound, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useFetchSingleBlog } from '@/hooks/blog/fetch-single-blog';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
-
-interface Blog {
-  id: string;
-  slug: string;
-  title: string;
-  content: string;
-  image_url: string;
-  extract: string;
-  status: string;
-  is_featured: boolean;
-  author: {
-    id: string;
-    name: string;
-    email: string;
-  };
-  category: {
-    id: string;
-    name: string;
-  };
-  created_at: string;
-  updated_at: string;
-}
+import { Blog } from '@/types/blog';
+import DOMPurify from 'dompurify';
 
 export default function BlogPost() {
   const params = useParams();
@@ -38,6 +18,7 @@ export default function BlogPost() {
   const blogIdStr = blogSlug ? String(blogSlug) : '';
   const { data: blogData, isLoading, isError } = useFetchSingleBlog(blogIdStr);
   const blog = blogData?.data;
+  console.log(blog);
 
   //fetch all the blogs
   const { data } = useFetchBlogs();
@@ -95,10 +76,10 @@ export default function BlogPost() {
             </div>
           )}
 
-          {/* find a way to style using tailwindcss */}
+          {/* added DOMPurify to sanitize the injected HTML */}
           <div
             className="prose prose-lg font-body max-w-none text-gray-800 lg:mx-20"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(blog.content) }}
           />
         </div>
 
@@ -140,9 +121,18 @@ export default function BlogPost() {
                 </Link>
 
                 <Link href={`/blogs/${blog.slug}`} className="cursor-pointer group">
-                  <p className="italic font-body text-[15px] font-normal group-hover:underline">
-                    {blog.extract}
-                  </p>
+                  <p
+                    className="italic font-body text-[15px] font-normal group-hover:underline"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        DOMPurify.sanitize(
+                          blog.content
+                            .substring(0, 250)
+                            .replace(/<pre[\s\S]*?<\/pre>/gi, '')
+                            .replace(/<code[\s\S]*?<\/code>/gi, '')
+                        ) + '...',
+                    }}
+                  />
                 </Link>
               </div>
             ))}

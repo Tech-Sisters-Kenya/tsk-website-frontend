@@ -5,6 +5,7 @@ import tsParser from '@typescript-eslint/parser';
 import reactPlugin from 'eslint-plugin-react';
 import { defineConfig } from 'eslint/config';
 import process from 'process';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 export default defineConfig([
   js.configs.recommended,
@@ -20,11 +21,13 @@ export default defineConfig([
     },
     plugins: {
       '@typescript-eslint': tseslint,
+      'react-hooks': reactHooks,
     },
     rules: {
       ...tseslint.configs.recommended.rules,
       'no-unused-vars': 'off',
       'no-undef': 'off',
+      'react-hooks/exhaustive-deps': 'warn',
     },
   },
   {
