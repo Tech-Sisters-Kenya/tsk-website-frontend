@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import DOMPurify from 'dompurify';
 import { BlogItem } from './interface';
 
 // format date
@@ -46,7 +46,11 @@ function BlogCard({ item }: { item: BlogItem }) {
         </span>
       </div>
       <h3 className="font-black font-body text-xl mt-8 text-tsk-primary-dark">{title}</h3>
-      <p className="text-tsk-primary-dark font-body italic my-4">{extract.substring(0, 250)}...</p>
+      {/* added DOMPurify to sanitize the injected HTML */}
+      <p
+        className="text-tsk-primary-dark font-body italic my-4"
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(extract) + '...' }}
+      />
     </Link>
   );
 }
