@@ -1,65 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 
 interface TeamMemberProps {
+  id: string;
   name: string;
   role: string;
   imageUrl: string;
-  bio: string;
+  bio?: string;
+  isFounder?: boolean;
+  onClick?: () => void;
+  isSelected?: boolean;
 }
 
-const TeamMember = ({ name, role, imageUrl, bio }: TeamMemberProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
+const TeamMember = ({
+  name,
+  role,
+  imageUrl,
+  isFounder = false,
+  onClick,
+  isSelected = false,
+}: TeamMemberProps) => {
   return (
-    <Card
-      className={`overflow-hidden transition-all duration-300 border-tsk-primary-dark ${
-        isExpanded ? 'shadow-lg' : 'shadow-md hover:shadow-lg'
-      }`}
-      onMouseEnter={() => setIsExpanded(true)}
-      onMouseLeave={() => setIsExpanded(false)}
+    <div
+      className={`transition-all duration-300 ${isFounder ? 'cursor-pointer' : ''}`}
+      onClick={isFounder ? onClick : undefined}
     >
-      <CardContent className="p-0">
-        {isExpanded ? (
-          <div className="p-8 flex flex-col h-full justify-between">
-            <div className="text-center mb-4">
-              <h3 className="text-xl font-body font-medium text-tsk-primary-dark mb-1">{name}</h3>
-              <p className="text-tsk-primary-dark font-medium font-body">{role}</p>
+      <Card className={`border-tsk-primary-dark shadow-md ${isSelected ? 'bg-tsk-light-2' : ''}`}>
+        <CardContent className="p-0">
+          <div className="flex flex-col h-full">
+            <div className="relative w-full h-64 overflow-hidden">
+              <Image src={imageUrl} alt={name} fill className="object-cover rounded-t-2xl" />
             </div>
-            <div className="text-center">
-              <p className="text-sm text-tsk-primary-dark mb-4 font-body font-medium leading-relaxed">
-                {bio}
-              </p>
-            </div>
-            <div className="text-center">
-              <Button
-                variant="ghost"
-                className="text-tsk-primary-dark hover:text-tsk-light-1 hover:bg-tsk-light-2 font-medium"
-                onClick={() => setIsExpanded(false)}
-              >
-                Close
-              </Button>
+            <div className="p-4 text-center">
+              <h3 className="text-xl font-body font-medium text-tsk-primary-dark">{name}</h3>
+              <p className="text-tsk-primary-dark font-body">{role}</p>
             </div>
           </div>
-        ) : (
-          <div>
-            <div className="relative w-full h-64  overflow-hidden rounded-none m-0">
-              <Image src={imageUrl} alt={name} fill className="object-contain rounded-none" />
-            </div>
-
-            <div className="p-6 text-center">
-              <h3 className="text-3xl font-medium font-heading text-tsk-primary-dark mb-1">
-                {name}
-              </h3>
-              <p className="text-tsk-primary-dark font-body text-lg font-medium">{role}</p>
-              <p className="text-sm text-gray-500 mt-2">More...</p>
-            </div>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
