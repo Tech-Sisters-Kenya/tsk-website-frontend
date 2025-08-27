@@ -95,10 +95,6 @@ export default function BlogPost() {
     (excludeBlog: Blog) => excludeBlog.id !== blog.id
   );
 
-  console.log('this is the current blog id', blog.id);
-  console.log('Looking for the current blog id:', authorDataArray);
-  // console.log('are these two the same?', blog.id === authorDataArray[0].id);
-
   // format date
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
