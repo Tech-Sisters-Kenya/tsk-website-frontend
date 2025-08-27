@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('BlogPost Page E2E Testing', () => {
   test('shows loading state initially', async ({ page }) => {
+    //inject a fresh browser context with 'page' and inercept network requesrs that match the glob pattern. ** any origin and * the blogid
     await page.route('**/api/*', async (route) => {
       // Delay API response to trigger loading spinner
       await new Promise((res) => setTimeout(res, 2000));
@@ -26,6 +27,7 @@ test.describe('BlogPost Page E2E Testing', () => {
       });
     });
 
+    //navigate to the browser and assert that the loading state is visible
     await page.goto('/blogs/test-blog-1');
     await expect(page.getByText(/Loading blog/i)).toBeVisible();
   });
@@ -98,7 +100,7 @@ test.describe('BlogPost Page E2E Testing', () => {
 
     await page.goto('/blogs/test-blog-1');
 
-    const viewAllBtn = page.getByRole('button', { name: 'View All' });
+    const viewAllBtn = page.getByRole('link', { name: 'View All' });
     await expect(viewAllBtn).toBeVisible();
     await viewAllBtn.click();
 

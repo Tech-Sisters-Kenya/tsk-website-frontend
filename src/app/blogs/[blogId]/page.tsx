@@ -172,7 +172,7 @@ export default function BlogPost() {
                 </div>
               )}
 
-              {filteredAuthorBlogs.length > 0 ? (
+              {filteredAuthorBlogs.length > 0 && (
                 <div className="bg-tsk-light-2 p-4 rounded-[20px] md:w-full lg:w-[365px] text-tsk-primary-dark font-body py-8">
                   <h1 className="text-xl font-extrabold text-center">Recent Posts</h1>
                   <p className="text-center text-[15px] font-light">From Author</p>
@@ -222,15 +222,6 @@ export default function BlogPost() {
                         </div>
                       </div>
                     ))}
-                  </span>
-                </div>
-              ) : (
-                <div className="bg-tsk-light-2 p-4 rounded-[20px] md:w-full text-tsk-primary-dark font-body py-8  lg:w-[365px]">
-                  <h1 className="text-xl font-extrabold text-center">Recent Posts</h1>
-                  <p className="text-center text-[15px] font-light">From Author</p>
-                  <hr className="h-[0.5px] w-[25%] bg-black border-none my-4 place-self-center" />
-                  <span className="flex flex-col gap-5">
-                    <p className="text-center">No recent posts available.</p>
                   </span>
                 </div>
               )}
