@@ -34,7 +34,7 @@ const BlogWelcomeHeader = () => {
             )}
           </div>
 
-          <div className="flex w-full">
+          <div className="flex justify-center items-center mt-10 w-full">
             <AnimatedBlogPage />
           </div>
         </div>

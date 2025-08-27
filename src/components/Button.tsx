@@ -16,7 +16,17 @@ const Button = ({ variant = 'primary', className, ...props }: ButtonProps) => {
       'bg-tsk-light-2 text-tsk-primary-dark font-bold border-tsk-primary-dark hover:bg-tsk-primary-dark hover:text-tsk-light-1',
   };
 
-  return <button className={clsx(baseStyles, variants[variant], className)} {...props} />;
+  return (
+    <button
+      className={clsx(
+        baseStyles,
+        variants[variant],
+        'disabled:opacity-50 disabled:cursor-not-allowed',
+        className
+      )}
+      {...props}
+    />
+  );
 };
 
 export default Button;

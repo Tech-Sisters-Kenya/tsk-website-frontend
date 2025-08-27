@@ -9,35 +9,45 @@ import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 
 const TAGS = [
   'All',
-  'Career & Growth',
-  'Community Stories',
-  'Event Highlights',
-  'Opportunities & Resources',
-  'Sisterhood & Lifestyle',
-  'Tech Tips & Tutorials',
+  'TSK Events Recap',
+  'She Builds',
+  'Voices of Change',
+  'PMs, Designers & Beyond',
 ];
 
 function TagSelector() {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>(['All']);
   const { data, isLoading, error } = useFetchBlogs();
   const blogs: BlogItem[] = data?.data || [];
 
   // add or remove a tag based on selection
   const handleToggle = useCallback((tag: string, value: boolean) => {
-    setSelectedTags((prev) => (value ? [...prev, tag] : prev.filter((t) => t !== tag)));
+    setSelectedTags((prev) => {
+      if (tag === 'All' && value) {
+        // select all and clear all tags
+        return ['All'];
+      } else if (tag !== 'All' && value) {
+        // on selecting a tag, deselect 'All'
+        return [...prev.filter((t) => t !== 'All'), tag];
+      } else {
+        // on deselecting a tag, revert to 'All'
+        const filtered = prev.filter((t) => t !== tag);
+        return filtered.length === 0 ? ['All'] : filtered;
+      }
+    });
   }, []);
 
   const filteredBlogs =
     !selectedTags.length || selectedTags.includes('All')
       ? blogs
-      : blogs.filter((blog) => selectedTags.includes(blog.category.name));
+      : blogs.filter((blog) => selectedTags.includes(blog?.category?.name));
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
-  if (!blogs) return <div>No Blogs Found</div>;
+  if (!blogs.length) return <div>No Blogs Found</div>;
 
   return (
-    <div>
+    <div data-testid="tag-selector">
       {TAGS.map((tag) => (
         <TagToggleChip
           key={tag}

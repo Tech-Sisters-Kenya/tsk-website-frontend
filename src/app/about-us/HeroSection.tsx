@@ -20,8 +20,7 @@ const HeroSection = () => {
           </h1>
           <p className="text-xl md:text-2xl max-w-lg font-medium tracking-wide text-tsk-primary-dark text-justify">
             Tech Sisters Kenya is a non-profit organization empowering women in tech through
-            mentorship, workshops, and networking opportunities to elevate their skills and support
-            their professional growth through community initiatives
+            mentorship, workshops, and networking to grow skills and careers.
           </p>
         </div>
 
@@ -30,6 +29,9 @@ const HeroSection = () => {
           <HeroImageAnimation />
         </div>
       </div>
+      <p className="font-decorative text-4xl text-tsk-primary-dark mt-10 -mb-10">
+        Empowering Women, Transforming Tech
+      </p>
     </section>
   );
 };

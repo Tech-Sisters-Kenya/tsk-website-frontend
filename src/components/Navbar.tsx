@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -47,8 +47,27 @@ const NavLink = ({ href, children, onClick }: NavLinkProps) => {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const { isAuthenticated, logout } = useAuthStore();
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+
+    // Add event listener when dropdown is active
+    if (activeDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    // Clean up
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [activeDropdown]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -81,17 +100,13 @@ const Navbar = () => {
     { href: '/blogs', label: 'Blogs' },
   ];
 
-  const handleDropdownToggle = (label: string) => {
-    setOpenDropdown((prev) => (prev === label ? null : label));
-  };
-
-  const toggleDropdown = (label: string) => {
+  const handleNavItemClick = (label: string) => {
     setActiveDropdown((prev) => (prev === label ? null : label));
   };
 
   return (
     <nav
-      className="fixed w-[1360px] z-50 flex items-center justify-between px-16 py-2 rounded-3xl m-8"
+      className="fixed w-[calc(100%-4rem)] z-50 flex items-center justify-between px-4 md:px-8 lg:px-16 py-2 rounded-3xl mt-8 mx-auto left-0 right-0"
       style={navStyles}
     >
       <div className="flex items-center">
@@ -132,15 +147,14 @@ const Navbar = () => {
             {item.children ? (
               <>
                 <button
-                  onClick={() => toggleDropdown(item.label)}
+                  onClick={() => handleNavItemClick(item.label)}
                   className={clsx(
                     'transition-all relative text-[var(--tsk-primary-dark)] flex items-center gap-1',
                     'after:absolute after:left-1/2 after:bottom-[-4px] after:transform after:-translate-x-1/2',
                     'after:h-[1px] after:w-0 after:bg-[var(--tsk-primary-dark)]',
-                    'after:transition-all after:duration-300',
+                    'after:transition-all after:duration-300 hover:after:w-[60%]',
                     {
                       'after:w-[60%]': activeDropdown === item.label,
-                      'hover:after:w-[60%]': activeDropdown !== item.label,
                     }
                   )}
                 >
@@ -152,7 +166,10 @@ const Navbar = () => {
                   </span>
                 </button>
                 {activeDropdown === item.label && (
-                  <ul className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white shadow-lg rounded-2xl py-3 px-6 whitespace-nowrap z-50">
+                  <ul
+                    ref={dropdownRef}
+                    className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-white shadow-lg rounded-2xl py-3 px-6 whitespace-nowrap z-50"
+                  >
                     {item.children.map((child, childIdx) => (
                       <li
                         key={`${child.href}-${child.label}`}
@@ -207,18 +224,17 @@ const Navbar = () => {
                         'transition-all relative',
                         'after:absolute after:left-1/2 after:bottom-[-4px] after:transform after:-translate-x-1/2',
                         'after:h-[1px] after:w-0 after:bg-[var(--tsk-primary-dark)]',
-                        'after:transition-all after:duration-300',
+                        'after:transition-all after:duration-300 hover:after:w-[60%]',
                         {
-                          'after:w-[60%]': openDropdown === item.label,
-                          'hover:after:w-[60%]': openDropdown !== item.label,
+                          'after:w-[60%]': activeDropdown === item.label,
                         }
                       )}
-                      onClick={() => handleDropdownToggle(item.label)}
+                      onClick={() => handleNavItemClick(item.label)}
                     >
                       {item.label}
-                      <span>{openDropdown === item.label ? '−' : '+'}</span>
+                      <span>{activeDropdown === item.label ? '−' : '+'}</span>
                     </button>
-                    {openDropdown === item.label && (
+                    {activeDropdown === item.label && (
                       <ul className="pl-8">
                         {item.children.map((child) => (
                           <li key={`${child.href}-${child.label}`} className="py-1">

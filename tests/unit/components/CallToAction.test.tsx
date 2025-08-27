@@ -106,11 +106,11 @@ describe('CallToAction Component', () => {
     expect(buttonText).toHaveClass('font-extrabold');
   });
 
-  it('wraps the button in a link to the correct path', () => {
+  it('wraps the button in a link to the join our community page', () => {
     render(<CallToAction />);
 
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', '/get-involved');
+    expect(link).toHaveAttribute('href', '/join-our-community');
 
     // Check that the button is within the link
     const button = screen.getByRole('button', { name: /join our community/i });

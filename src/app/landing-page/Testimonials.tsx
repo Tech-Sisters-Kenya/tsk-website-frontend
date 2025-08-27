@@ -6,6 +6,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import BrandsSection from './BrandsSection';
 
 const testimonials = [
   {
@@ -77,7 +78,7 @@ export default function TestimonialsCarousel() {
   }, [emblaApi, onInit, onSelect]);
   return (
     <>
-      <div className=" px-4 py-8 bg-tsk-light-2 text-center text-[#45084a] w-screen">
+      <div className="px-4 py-8 bg-tsk-light-2 text-center text-[#45084a] w-screen mb-14">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <h3 className="font-bold text-[32px] md:text-[36] lg:text-[48px]">Testimonials</h3>
@@ -162,6 +163,7 @@ export default function TestimonialsCarousel() {
           />
         </div>
       </div>
+      <BrandsSection />
     </>
   );
 }

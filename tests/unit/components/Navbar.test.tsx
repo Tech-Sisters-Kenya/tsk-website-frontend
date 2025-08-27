@@ -380,7 +380,8 @@ describe('Navbar Component', () => {
       render(<Navbar />);
 
       const navbar = document.querySelector('nav');
-      expect(navbar).toHaveClass('fixed', 'w-[1360px]', 'z-50');
+      expect(navbar).toHaveClass('fixed', 'z-50');
+      expect(navbar).toHaveClass(/w-\[calc\(100%-4rem\)\]/);
     });
 
     test('active nav links have proper styling', () => {
