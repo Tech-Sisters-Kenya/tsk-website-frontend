@@ -18,7 +18,6 @@ export default function BlogPost() {
   const blogIdStr = blogSlug ? String(blogSlug) : '';
   const { data: blogData, isLoading, isError } = useFetchSingleBlog(blogIdStr);
   const blog = blogData?.data;
-  console.log(blog);
 
   //fetch all the blogs
   const { data } = useFetchBlogs();
@@ -53,8 +52,6 @@ export default function BlogPost() {
       year: 'numeric',
     }).format(date);
   };
-
-  console.log('This is the blog', blog.content);
 
   return (
     <section className="w-full h-full">
