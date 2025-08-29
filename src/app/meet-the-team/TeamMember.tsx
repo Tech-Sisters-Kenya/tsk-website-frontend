@@ -4,19 +4,19 @@ import Image from 'next/image';
 
 interface TeamMemberProps {
   id: string;
-  name: string;
+  user: string | null;
   role: string;
-  imageUrl: string;
-  bio?: string;
+  image_url: string;
+  about?: string;
   isFounder?: boolean;
   onClick?: () => void;
   isSelected?: boolean;
 }
 
 const TeamMember = ({
-  name,
+  user,
   role,
-  imageUrl,
+  image_url,
   isFounder = false,
   onClick,
   isSelected = false,
@@ -30,10 +30,17 @@ const TeamMember = ({
         <CardContent className="p-0">
           <div className="flex flex-col h-full">
             <div className="relative w-full h-64 overflow-hidden">
-              <Image src={imageUrl} alt={name} fill className="object-cover rounded-t-2xl" />
+              <Image
+                src={image_url}
+                alt={user ?? 'Team member'}
+                fill
+                className="object-cover rounded-t-2xl"
+              />
             </div>
             <div className="p-4 text-center">
-              <h3 className="text-xl font-body font-medium text-tsk-primary-dark">{name}</h3>
+              <h3 className="text-xl font-body font-medium text-tsk-primary-dark">
+                {user ?? 'Unnamed'}
+              </h3>
               <p className="text-tsk-primary-dark font-body">{role}</p>
             </div>
           </div>
