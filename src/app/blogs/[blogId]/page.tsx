@@ -128,12 +128,12 @@ export default function BlogPost() {
             {/* main blog content */}
             <div
               data-testid="blog-content"
-              className="prose prose-lg font-body max-w-none text-gray-800 lg:mx-20  mb-10"
+              className="prose prose-lg font-body max-w-none text-gray-800 lg:mx-20  mb-10 flex-1"
               dangerouslySetInnerHTML={{ __html: blog.content }}
             />
 
             {/* side panel with author content & recent posts */}
-            <div className="flex flex-col gap-8 md:w-full lg:w-[1/2] ">
+            <div className="flex flex-col gap-8 md:w-full lg:w-1/4">
               {authorLoading ? (
                 <LoadingState />
               ) : (
