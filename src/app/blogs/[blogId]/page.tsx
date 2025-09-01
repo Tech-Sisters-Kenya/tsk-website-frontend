@@ -133,7 +133,7 @@ export default function BlogPost() {
             />
 
             {/* side panel with author content & recent posts */}
-            <div className="flex flex-col gap-8 md:w-full lg:w-[365px]">
+            <div className="flex flex-col gap-8 md:w-full lg:w-[1/2] ">
               {authorLoading ? (
                 <LoadingState />
               ) : (
@@ -173,7 +173,7 @@ export default function BlogPost() {
               )}
 
               {filteredAuthorBlogs.length > 0 && (
-                <div className="bg-tsk-light-2 p-4 rounded-[20px] md:w-full lg:w-[365px] text-tsk-primary-dark font-body py-8">
+                <div className="bg-tsk-light-2 p-4 rounded-[20px] md:w-full lg:w-[365px] text-tsk-primary-dark font-body py-8 ">
                   <h1 className="text-xl font-extrabold text-center">Recent Posts</h1>
                   <p className="text-center text-[15px] font-light">From Author</p>
                   <hr className="h-[0.5px] w-[25%] bg-black border-none my-4 place-self-center" />
