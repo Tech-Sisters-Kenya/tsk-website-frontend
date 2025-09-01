@@ -23,6 +23,7 @@ const TeamMember = ({
 }: TeamMemberProps) => {
   return (
     <div
+      data-testid="team-member"
       className={`transition-all duration-300 ${isFounder ? 'cursor-pointer' : ''}`}
       onClick={isFounder ? onClick : undefined}
     >
@@ -38,10 +39,15 @@ const TeamMember = ({
               />
             </div>
             <div className="p-4 text-center">
-              <h3 className="text-xl font-body font-medium text-tsk-primary-dark">
+              <h3
+                className="text-xl font-body font-medium text-tsk-primary-dark"
+                data-testid="team-member-user"
+              >
                 {user ?? 'Unnamed'}
               </h3>
-              <p className="text-tsk-primary-dark font-body">{role}</p>
+              <p className="text-tsk-primary-dark font-body" data-testid="team-member-role">
+                {role}
+              </p>
             </div>
           </div>
         </CardContent>

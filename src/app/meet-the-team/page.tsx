@@ -72,17 +72,20 @@ const MeetTheTeam = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen flex justify-center items-center" data-testid="loading-state">
         <p className="text-lg">Loading team...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-foreground py-10 sm:py-12 md:py-14 lg:py-16 px-4 sm:px-6 md:px-8 lg:px-10">
+    <div
+      className="min-h-screen bg-foreground py-10 sm:py-12 md:py-14 lg:py-16 px-4 sm:px-6 md:px-8 lg:px-10"
+      data-testid="meet-the-team-page"
+    >
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-16 px-4 mt-16 space-y-6">
+        <div className="text-center mb-16 px-4 mt-16 space-y-6" data-testid="header-section">
           <h1 className="text-4xl md:text-5xl font-bold text-tsk-primary-dark font-heading mb-6">
             Meet The Team
           </h1>
@@ -96,7 +99,7 @@ const MeetTheTeam = () => {
         </div>
 
         {/*Founder/Co-Founder Section */}
-        <div className="mb-8">
+        <div className="mb-8" data-testid="founder-section">
           <h2 className="text-2xl font-medium font-body text-center text-tsk-primary-dark mb-8">
             Founder / Co-Founder
           </h2>
@@ -120,9 +123,14 @@ const MeetTheTeam = () => {
 
         {/* Bio Popup */}
         {selectedFounder && (
-          <div className="my-16 max-w-4xl mx-auto px-4">
+          <div className="my-16 max-w-4xl mx-auto px-4" data-testid="founder-bio-popup">
             <div className="flex justify-end">
-              <Button variant="secondary" onClick={closeBio} className="flex items-center gap-2">
+              <Button
+                variant="secondary"
+                onClick={closeBio}
+                className="flex items-center gap-2"
+                data-testid="close-bio-btn"
+              >
                 <Image
                   src="/close-icon.svg"
                   alt="Close"
@@ -150,7 +158,7 @@ const MeetTheTeam = () => {
         <div className="border-t border-tsk-primary-dark w-full mx-auto my-12"></div>
 
         {/*Team Section */}
-        <div className="mt-12">
+        <div className="mt-12" data-testid="team-section">
           <h2 className="text-2xl font-medium text-center text-tsk-primary-dark font-body mb-8">
             Team
           </h2>
