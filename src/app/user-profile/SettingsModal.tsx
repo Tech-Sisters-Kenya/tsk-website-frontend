@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Phone, Mail, Plus, Trash2 } from 'lucide-react';
+import { X, Plus, Trash2 } from 'lucide-react';
 import Button from '@/components/Button';
 
 interface SettingsModalProps {
@@ -9,54 +9,203 @@ interface SettingsModalProps {
 
 const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState('Profile');
+  // Profile section states
   const [profileData, setProfileData] = useState({
     username: '',
     phoneNumber: '+254 701 230406',
     email: 'jane.mary@gmail.com',
     bio: '',
   });
+  const [isEditingUsername, setIsEditingUsername] = useState(false);
+  const [tempUsername, setTempUsername] = useState(profileData.username);
+  const [isEditingPhoneNumber, setIsEditingPhoneNumber] = useState(false);
+  const [tempPhoneNumber, setTempPhoneNumber] = useState(profileData.phoneNumber);
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
+  const [tempEmail, setTempEmail] = useState(profileData.email);
 
+  // Occupation section states
   const [occupationData, setOccupationData] = useState({
     currentRole: '',
-    company: '',
     yearsExperience: '',
   });
+  const [isEditingCurrentRole, setIsEditingCurrentRole] = useState(false);
+  const [tempCurrentRole, setTempCurrentRole] = useState(occupationData.currentRole);
+  const [isEditingYearsExperience, setIsEditingYearsExperience] = useState(false);
+  const [tempYearsExperience, setTempYearsExperience] = useState(occupationData.yearsExperience);
 
+  // Skills section states
   const [skills, setSkills] = useState(['UI/UX Designer']);
-  const [socials, setSocials] = useState([{ platform: '', url: '' }]);
+  const [isEditingSkills, setIsEditingSkills] = useState(skills.map(() => false));
+  const [tempSkills, setTempSkills] = useState(skills);
 
-  const tabs = ['Profile', 'Occupation', 'Skills', 'Socials', 'Bio'];
+  // Socials section states
+  const [socials, setSocials] = useState([{ platform: '', url: '' }]);
+  const [isEditingSocials, setIsEditingSocials] = useState(
+    socials.map(() => ({ platform: false, url: false }))
+  );
+  const [tempSocials, setTempSocials] = useState(socials);
+
+  // Bio section states
+  const [isEditingBio, setIsEditingBio] = useState(false);
+  const [tempBio, setTempBio] = useState(profileData.bio);
+
+  const tabs = ['Profile', 'Occupation(s)', 'Skills', 'Socials', 'Bio'];
 
   if (!isOpen) return null;
 
+  // Profile section handlers
+  const handleUsernameClick = () => {
+    setIsEditingUsername(true);
+    setTempUsername(profileData.username);
+  };
+
+  const handleUsernameChange = (e) => {
+    setTempUsername(e.target.value);
+  };
+
+  const handlePhoneNumberClick = () => {
+    setIsEditingPhoneNumber(true);
+    setTempPhoneNumber(profileData.phoneNumber);
+  };
+
+  const handlePhoneNumberChange = (e) => {
+    setTempPhoneNumber(e.target.value);
+  };
+
+  const handleEmailClick = () => {
+    setIsEditingEmail(true);
+    setTempEmail(profileData.email);
+  };
+
+  const handleEmailChange = (e) => {
+    setTempEmail(e.target.value);
+  };
+
+  // Occupation section handlers
+  const handleCurrentRoleClick = () => {
+    setIsEditingCurrentRole(true);
+    setTempCurrentRole(occupationData.currentRole);
+  };
+
+  const handleCurrentRoleChange = (e) => {
+    setTempCurrentRole(e.target.value);
+  };
+
+  const handleYearsExperienceClick = () => {
+    setIsEditingYearsExperience(true);
+    setTempYearsExperience(occupationData.yearsExperience);
+  };
+
+  const handleYearsExperienceChange = (e) => {
+    setTempYearsExperience(e.target.value);
+  };
+
+  // Skills section handlers
   const handleAddSkill = () => {
     setSkills([...skills, '']);
+    setTempSkills([...tempSkills, '']);
+    setIsEditingSkills([...isEditingSkills, false]);
+  };
+
+  const handleSkillClick = (index) => {
+    const newIsEditingSkills = [...isEditingSkills];
+    newIsEditingSkills[index] = true;
+    setIsEditingSkills(newIsEditingSkills);
+    const newTempSkills = [...tempSkills];
+    newTempSkills[index] = skills[index];
+    setTempSkills(newTempSkills);
   };
 
   const handleSkillChange = (index, value) => {
-    const newSkills = [...skills];
-    newSkills[index] = value;
-    setSkills(newSkills);
+    const newTempSkills = [...tempSkills];
+    newTempSkills[index] = value;
+    setTempSkills(newTempSkills);
   };
 
   const handleRemoveSkill = (index) => {
-    const newSkills = skills.filter((_, i) => i !== index);
-    setSkills(newSkills);
+    setSkills(skills.filter((_, i) => i !== index));
+    setTempSkills(tempSkills.filter((_, i) => i !== index));
+    setIsEditingSkills(isEditingSkills.filter((_, i) => i !== index));
   };
 
+  // Socials section handlers
   const handleAddSocial = () => {
     setSocials([...socials, { platform: '', url: '' }]);
+    setTempSocials([...tempSocials, { platform: '', url: '' }]);
+    setIsEditingSocials([...isEditingSocials, { platform: false, url: false }]);
+  };
+
+  const handleSocialPlatformClick = (index) => {
+    const newIsEditingSocials = [...isEditingSocials];
+    newIsEditingSocials[index] = { ...newIsEditingSocials[index], platform: true };
+    setIsEditingSocials(newIsEditingSocials);
+    const newTempSocials = [...tempSocials];
+    newTempSocials[index] = { ...newTempSocials[index], platform: socials[index].platform };
+    setTempSocials(newTempSocials);
+  };
+
+  const handleSocialUrlClick = (index) => {
+    const newIsEditingSocials = [...isEditingSocials];
+    newIsEditingSocials[index] = { ...newIsEditingSocials[index], url: true };
+    setIsEditingSocials(newIsEditingSocials);
+    const newTempSocials = [...tempSocials];
+    newTempSocials[index] = { ...newTempSocials[index], url: socials[index].url };
+    setTempSocials(newTempSocials);
   };
 
   const handleSocialChange = (index, field, value) => {
-    const newSocials = [...socials];
-    newSocials[index][field] = value;
-    setSocials(newSocials);
+    const newTempSocials = [...tempSocials];
+    newTempSocials[index] = { ...newTempSocials[index], [field]: value };
+    setTempSocials(newTempSocials);
   };
 
   const handleRemoveSocial = (index) => {
-    const newSocials = socials.filter((_, i) => i !== index);
-    setSocials(newSocials);
+    setSocials(socials.filter((_, i) => i !== index));
+    setTempSocials(tempSocials.filter((_, i) => i !== index));
+    setIsEditingSocials(isEditingSocials.filter((_, i) => i !== index));
+  };
+
+  // Bio section handlers
+  const handleBioClick = () => {
+    setIsEditingBio(true);
+    setTempBio(profileData.bio);
+  };
+
+  const handleBioChange = (e) => {
+    setTempBio(e.target.value);
+  };
+
+  // Save changes for all sections
+  const handleSaveChanges = () => {
+    // Update Profile section
+    setProfileData({
+      ...profileData,
+      username: tempUsername,
+      phoneNumber: tempPhoneNumber,
+      email: tempEmail,
+      bio: tempBio,
+    });
+    setIsEditingUsername(false);
+    setIsEditingPhoneNumber(false);
+    setIsEditingEmail(false);
+    setIsEditingBio(false);
+
+    // Update Occupation section
+    setOccupationData({
+      ...occupationData,
+      currentRole: tempCurrentRole,
+      yearsExperience: tempYearsExperience,
+    });
+    setIsEditingCurrentRole(false);
+    setIsEditingYearsExperience(false);
+
+    // Update Skills section
+    setSkills([...tempSkills]);
+    setIsEditingSkills(isEditingSkills.map(() => false));
+
+    // Update Socials section
+    setSocials([...tempSocials]);
+    setIsEditingSocials(isEditingSocials.map(() => ({ platform: false, url: false })));
   };
 
   const renderTabContent = () => {
@@ -65,44 +214,64 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
         return (
           <div className="space-y-6">
             <div className="gap-4">
-              <div>
-                <label className="block text-sm font-medium text-tsk-primary-dark mb-2">Name</label>
-                <input
-                  type="text"
-                  value={profileData.username}
-                  onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none"
-                  placeholder="User Name"
-                />
+              <div className="flex justify-between gap-4 items-center">
+                <label className="text-sm font-medium text-tsk-primary-dark mb-2">Name</label>
+                {isEditingUsername ? (
+                  <input
+                    type="text"
+                    value={tempUsername}
+                    onChange={handleUsernameChange}
+                    className="w-1/2 px-3 py-2 border border-tsk-primary rounded-md focus:outline-none"
+                    placeholder="User Name"
+                    autoFocus
+                  />
+                ) : (
+                  <p onClick={handleUsernameClick} className="cursor-pointer text-tsk-primary-dark">
+                    {profileData.username || 'Enter your name'}
+                  </p>
+                )}
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-tsk-primary-dark mb-2">
-                Phone Number
-              </label>
-              <div className="flex items-center space-x-2">
-                <Phone className="w-4 h-4 text-tsk-primary-dark" />
+            <div className="w-full flex justify-between gap-4 items-center">
+              <label className="text-sm font-medium text-tsk-primary-dark mb-2">Phone Number</label>
+
+              {isEditingPhoneNumber ? (
                 <input
                   type="text"
-                  value={profileData.phoneNumber}
-                  onChange={(e) => setProfileData({ ...profileData, phoneNumber: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none"
+                  value={tempPhoneNumber}
+                  onChange={handlePhoneNumberChange}
+                  className="w-1/2 px-3 py-2 border border-tsk-primary rounded-md focus:outline-none"
+                  placeholder="Phone Number"
+                  autoFocus
                 />
-              </div>
+              ) : (
+                <p
+                  onClick={handlePhoneNumberClick}
+                  className="cursor-pointer text-tsk-primary-dark"
+                >
+                  {profileData.phoneNumber || 'Phone Number'}
+                </p>
+              )}
             </div>
 
-            <div>
+            <div className="flex justify-between gap-4 items-center">
               <label className="block text-sm font-medium text-tsk-primary-dark mb-2">Email</label>
-              <div className="flex items-center space-x-2">
-                <Mail className="w-4 h-4 text-tsk-primary-dark" />
+
+              {isEditingEmail ? (
                 <input
                   type="email"
-                  value={profileData.email}
-                  onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none"
+                  value={tempEmail}
+                  onChange={handleEmailChange}
+                  className="w-1/2 px-3 py-2 border border-tsk-primary rounded-md focus:outline-none"
+                  placeholder="Email"
+                  autoFocus
                 />
-              </div>
+              ) : (
+                <p onClick={handleEmailClick} className="cursor-pointer text-tsk-primary-dark">
+                  {profileData.email || 'Email'}
+                </p>
+              )}
             </div>
 
             <p className="text-sm font-body font-normal text-tsk-primary-dark">
@@ -111,36 +280,53 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
           </div>
         );
 
-      case 'Occupation':
+      case 'Occupation(s)':
         return (
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-tsk-primary-dark mb-2">Name</label>
-              <input
-                type="text"
-                value={occupationData.currentRole}
-                onChange={(e) =>
-                  setOccupationData({ ...occupationData, currentRole: e.target.value })
-                }
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none"
-                placeholder="Current Role"
-              />
-            </div>
+          <div className="pr-10">
+            <div className="flex justify-between items-center gap-2">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium text-tsk-primary-dark mb-2">Name</label>
+                {isEditingCurrentRole ? (
+                  <input
+                    type="text"
+                    value={tempCurrentRole}
+                    onChange={handleCurrentRoleChange}
+                    className="w-full px-3 py-2 border border-tsk-primary rounded-md focus:outline-none"
+                    placeholder="Current Role"
+                    autoFocus
+                  />
+                ) : (
+                  <p
+                    onClick={handleCurrentRoleClick}
+                    className="cursor-pointer text-tsk-primary-dark"
+                  >
+                    {occupationData.currentRole || 'Current Role'}
+                  </p>
+                )}
+              </div>
 
-            <div>
-              <label className="block text-sm font-medium text-tsk-primary-dark mb-2">
-                Years of Experience
-              </label>
-              <input
-                type="text"
-                value={occupationData.company}
-                onChange={(e) => setOccupationData({ ...occupationData, company: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none"
-                placeholder="Company"
-              />
+              <div className="flex flex-col items-center">
+                <label className="text-sm font-medium text-tsk-primary-dark mb-2">Years</label>
+                {isEditingYearsExperience ? (
+                  <input
+                    type="text"
+                    value={tempYearsExperience}
+                    onChange={handleYearsExperienceChange}
+                    className="w-1/2 px-3 py-2 border border-tsk-primary rounded-md focus:outline-none"
+                    placeholder="YOE"
+                    autoFocus
+                  />
+                ) : (
+                  <p
+                    onClick={handleYearsExperienceClick}
+                    className="cursor-pointer text-tsk-primary-dark"
+                  >
+                    {occupationData.yearsExperience || 'Years of Experience'}
+                  </p>
+                )}
+              </div>
             </div>
-
-            <button className="text-tsk-primary-dark text-sm font-medium flex items-center space-x-1">
+            <button className="text-tsk-primary-dark text-sm font-medium flex items-center space-x-1 mt-2 float-right bg-tsk-light-1 px-2 py-1 rounded-xl">
               <Plus className="w-4 h-4" />
               <span>Add Occupation</span>
             </button>
@@ -150,18 +336,28 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
       case 'Skills':
         return (
           <div className="space-y-6">
-            <div>
+            <div className="">
               <label className="block text-sm font-medium text-tsk-primary-dark mb-2">Skills</label>
               <div className="space-y-3">
                 {skills.map((skill, index) => (
                   <div key={index} className="flex items-center space-x-2">
-                    <input
-                      type="text"
-                      value={skill}
-                      onChange={(e) => handleSkillChange(index, e.target.value)}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      placeholder="Enter skill"
-                    />
+                    {isEditingSkills[index] ? (
+                      <input
+                        type="text"
+                        value={tempSkills[index]}
+                        onChange={(e) => handleSkillChange(index, e.target.value)}
+                        className="flex-1 px-3 py-2 border border-tsk-primary rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        placeholder="Enter skill"
+                        autoFocus
+                      />
+                    ) : (
+                      <p
+                        onClick={() => handleSkillClick(index)}
+                        className="flex-1 cursor-pointer text-tsk-primary-dark"
+                      >
+                        {skill || 'Enter skill'}
+                      </p>
+                    )}
                     {skills.length > 1 && (
                       <button
                         onClick={() => handleRemoveSkill(index)}
@@ -176,14 +372,16 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
 
               <button
                 onClick={handleAddSkill}
-                className="text-tsk-primary-dark text-sm font-medium flex items-center space-x-1 mt-3"
+                className="text-tsk-primary-dark text-sm font-medium flex items-center space-x-1 mt-3 float-right bg-tsk-light-1 px-2 py-1 rounded-xl"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Skill</span>
               </button>
             </div>
 
-            <p className="text-sm text-tsk-primary-dark">You have not set up any skill yet</p>
+            <p className="hidden text-sm text-tsk-primary-dark">
+              You have not set up any skill yet
+            </p>
           </div>
         );
 
@@ -197,21 +395,43 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
               <div className="space-y-3">
                 {socials.map((social, index) => (
                   <div key={index} className="grid grid-cols-2 gap-3">
-                    <input
-                      type="text"
-                      value={social.platform}
-                      onChange={(e) => handleSocialChange(index, 'platform', e.target.value)}
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                      placeholder="Platform (e.g., LinkedIn)"
-                    />
+                    <div>
+                      {isEditingSocials[index]?.platform ? (
+                        <input
+                          type="text"
+                          value={tempSocials[index].platform}
+                          onChange={(e) => handleSocialChange(index, 'platform', e.target.value)}
+                          className="w-full px-3 py-2 border border-tsk-primary rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                          placeholder="Platform (e.g., LinkedIn)"
+                          autoFocus
+                        />
+                      ) : (
+                        <p
+                          onClick={() => handleSocialPlatformClick(index)}
+                          className="cursor-pointer text-tsk-primary-dark"
+                        >
+                          {social.platform || 'Platform (e.g., LinkedIn)'}
+                        </p>
+                      )}
+                    </div>
                     <div className="flex items-center space-x-2">
-                      <input
-                        type="url"
-                        value={social.url}
-                        onChange={(e) => handleSocialChange(index, 'url', e.target.value)}
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
-                        placeholder="https://..."
-                      />
+                      {isEditingSocials[index]?.url ? (
+                        <input
+                          type="url"
+                          value={tempSocials[index].url}
+                          onChange={(e) => handleSocialChange(index, 'url', e.target.value)}
+                          className="flex-1 px-3 py-2 border border-tsk-primary rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                          placeholder="https://..."
+                          autoFocus
+                        />
+                      ) : (
+                        <p
+                          onClick={() => handleSocialUrlClick(index)}
+                          className="flex-1 cursor-pointer text-tsk-primary-dark"
+                        >
+                          {social.url || 'https://...'}
+                        </p>
+                      )}
                       {socials.length > 1 && (
                         <button
                           onClick={() => handleRemoveSocial(index)}
@@ -227,7 +447,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
 
               <button
                 onClick={handleAddSocial}
-                className="text-tsk-primary-dark text-sm font-medium flex items-center space-x-1 mt-3"
+                className="text-tsk-primary-dark text-sm font-medium flex items-center space-x-1 mt-3 float-right bg-tsk-light-1 px-2 py-1 rounded-xl"
               >
                 <Plus className="w-4 h-4 font-semibold" />
                 <span>Add Social</span>
@@ -241,21 +461,20 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-tsk-primary-dark mb-2">Bio</label>
-              <textarea
-                value={profileData.bio}
-                onChange={(e) => setProfileData({ ...profileData, bio: e.target.value })}
-                rows={8}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
-                placeholder="Write your bio here"
-              />
-              <p className="text-xs text-tsk-primary-dark mt-1">
-                Anna is a software engineer passionate about building scalable, user-focused
-                solutions that make technology accessible and impactful. With a strong
-                problem-solving mindset and a forward-thinking approach, she develops clean,
-                efficient applications that are a true reflection of user needs to life. Shes
-                committed to continuous learning and creating inclusive tech spaces where everyone
-                can thrive.
-              </p>
+              {isEditingBio ? (
+                <textarea
+                  value={tempBio}
+                  onChange={handleBioChange}
+                  rows={8}
+                  className="w-full px-3 py-2 border border-tsk-primary rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+                  placeholder="Write your bio here"
+                  autoFocus
+                />
+              ) : (
+                <p onClick={handleBioClick} className="cursor-pointer text-tsk-primary-dark">
+                  {profileData.bio || 'Write your bio here'}
+                </p>
+              )}
             </div>
           </div>
         );
@@ -303,7 +522,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
 
         {/* Footer */}
         <div className="flex justify-center items-center space-x-3 p-6">
-          <Button variant="primary" className="text-foreground">
+          <Button variant="primary" className="text-foreground" onClick={handleSaveChanges}>
             Save Changes
           </Button>
         </div>
@@ -311,4 +530,5 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
     </div>
   );
 };
+
 export default SettingsModal;
