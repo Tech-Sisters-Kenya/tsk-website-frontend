@@ -20,7 +20,7 @@ function Card({ cardDetails }: CardProps) {
         {content.map((item, index) => (
           <li
             key={index}
-            className="list-disc list-inside font-body text-tsk-primary-dark text-xl font-medium leading-[150%]"
+            className="list-disc list-inside font-body text-tsk-primary-dark text-[14px] md:text-xl font-medium leading-[150%]"
           >
             {item.name} - {item.descritpion}
           </li>

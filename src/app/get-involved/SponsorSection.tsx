@@ -54,7 +54,7 @@ function SponsorSection() {
       </p>
 
       <Link
-        href="/get-involved/partner-with-us"
+        href="/get-involved/become-a-sponsor"
         className="self-end justify-self-center md:justify-self-start w-full md:w-fit text-center md:text-left bg-tsk-primary-dark text-white font-heading px-6 py-3 rounded-2xl font-bold text-xl leading-[150%] hover:opacity-90 transition md:col-start-2 md:row-start-3"
       >
         Sponsor Us
