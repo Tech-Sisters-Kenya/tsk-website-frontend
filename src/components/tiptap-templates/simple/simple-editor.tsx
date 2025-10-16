@@ -233,7 +233,7 @@ export function SimpleEditor({ editor }: { editor: Editor | null }) {
   }, [isMobile, mobileView]);
 
   return (
-    <div className="simple-editor-wrapper" ref={editorContainerRef}>
+    <div className="simple-editor-wrapper " ref={editorContainerRef}>
       <EditorContext.Provider value={{ editor }}>
         <Toolbar
           ref={toolbarRef}
