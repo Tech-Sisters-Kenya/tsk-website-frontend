@@ -11,6 +11,7 @@ export const endpoints = {
   getBlogs: `${baseURL}/blogs`,
   createBlog: `${baseURL}/blogs`,
   getSingleBlog: (id: string) => `${baseURL}/blogs/${id}`,
+  getBlogAuthor: (authorId: string) => `${baseURL}/blogs/author/${authorId}`,
   updateBlog: (id: string) => `${baseURL}/blogs/${id}`,
   deleteBlog: (id: string) => `${baseURL}/blogs/${id}`,
   publishBlog: (id: string) => `${baseURL}/blogs/${id}/publish`,
@@ -22,4 +23,5 @@ export const endpoints = {
 export const queryKeys = {
   blogs: ['blogs'],
   singleBlog: ['blog'],
+  blogAuthor: ['blogAuthor'],
 };

@@ -1,11 +1,14 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Square_Peg, Montserrat, League_Spartan } from 'next/font/google';
-import './globals.css';
+import './globals.scss';
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Providers from './providers';
+
+//import Toaster so that it mounts at the root level
+import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -58,6 +61,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </Providers>
+        <Toaster richColors />
       </body>
     </html>
   );
