@@ -23,6 +23,6 @@ export const sendBlogs = (blogData: BlogData) => {
   });
 };
 
-export const fetchCategories = () => {
-  return axiosInstance.get(endpoints.getCategories);
+export const fetchBlogAuthor = (authorId: string) => {
+  return axiosInstance.get(endpoints.getBlogAuthor(authorId));
 };
