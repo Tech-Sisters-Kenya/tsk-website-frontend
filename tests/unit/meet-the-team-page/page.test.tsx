@@ -1,14 +1,23 @@
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import MeetTheTeam from '@/app/meet-the-team/page';
+import TeamMember from '@/app/meet-the-team/TeamMember';
 
 global.fetch = jest.fn();
+
+// Mock Images
+jest.mock('next/image', () => {
+  return function MockedImage(props: React.ComponentProps<'img'>) {
+    return <img {...props} alt={props.alt || 'mocked-image'} />;
+  };
+});
 
 const mockTeamMembers = [
   { id: '2', user: 'Grace', role: 'Developer', image_url: '/.grace.svg' },
   { id: '3', user: 'Imali', role: 'Designer', image_url: '/.imali.svg' },
 ];
-describe('MeetTheTeam Page', () => {
+
+describe('MeetTheTeam Page and TeamMember Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -86,5 +95,49 @@ describe('MeetTheTeam Page', () => {
     // render page but no team members
     expect(screen.getByTestId('team-section')).toBeInTheDocument();
     expect(screen.queryByText('Grace')).not.toBeInTheDocument();
+  });
+
+  describe('TeamMember Component', () => {
+    const defaultProps = {
+      id: '1',
+      user: 'Grace',
+      role: 'Developer',
+      image_url: '/test-image.svg',
+    };
+
+    it('renders team member with name and role', () => {
+      render(<TeamMember {...defaultProps} />);
+
+      expect(screen.getByTestId('team-member-user')).toHaveTextContent('Grace');
+      expect(screen.getByTestId('team-member-role')).toHaveTextContent('Developer');
+      expect(screen.getByRole('img')).toHaveAttribute('src', '/test-image.svg');
+    });
+
+    it('renders "unnamed" when user is null', () => {
+      render(<TeamMember {...defaultProps} user={null} />);
+      expect(screen.getByTestId('team-member-user')).toHaveTextContent('Unnamed');
+    });
+
+    it('renders "unnamed" when user is undefined', () => {
+      render(<TeamMember {...defaultProps} user={undefined as unknown as string | null} />);
+      expect(screen.getByTestId('team-member-user')).toHaveTextContent('Unnamed');
+    });
+
+    it('renders "unnamed" when user is empty string', () => {
+      render(<TeamMember {...defaultProps} user="" />);
+      expect(screen.getByTestId('team-member-user')).toHaveTextContent('Unnamed');
+    });
+
+    it('renders role correctly', () => {
+      render(<TeamMember {...defaultProps} role="Designer" />);
+      expect(screen.getByTestId('team-member-role')).toHaveTextContent('Designer');
+    });
+
+    it('renders image with correct attributes', () => {
+      render(<TeamMember {...defaultProps} />);
+      const image = screen.getByRole('img');
+      expect(image).toHaveAttribute('src', '/test-image.svg');
+      expect(image).toHaveAttribute('alt', 'Grace');
+    });
   });
 });

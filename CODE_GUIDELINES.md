@@ -150,21 +150,43 @@ Before committing, verify the following:
 10. **Testing** — critical functions and components have unit or behavior tests.
 11. **Secrets & ENVs** — no sensitive data committed; `.env` handled correctly.
 12. **Comments** — only meaningful ones kept; no placeholders or LLM traces.
-13. **Git Hygiene** — correct branch naming, descriptive commits, and `.gitignore` verified.
-14. **Code Cleanliness** — code left cleaner than you found it (Boy Scout Rule).
+13. **Debugging Code** — all console.log statements and debugging code removed before commit.
+14. **Git Hygiene** — correct branch naming, descriptive commits, and `.gitignore` verified.
+15. **Code Cleanliness** — code left cleaner than you found it (Boy Scout Rule).
 
 ---
 
 **Final Step Before Push:**
 
+Run these commands in sequence to ensure your code is ready for production:
+
 ```bash
+# 1. Check for code quality issues and fix them
 pnpm lint
+
+# 2. Format your code consistently
 pnpm format
+
+# 3. Verify TypeScript types are correct
 pnpm typecheck
+
+# 4. Run unit tests to ensure functionality works
 pnpm test:unit
+
+# 5. Run end-to-end tests to verify user flows
 pnpm test:e2e
+
+# 6. Build the project to catch any build errors
 pnpm build
 ```
+
+**Important:** All commands must pass successfully before pushing. If any command fails:
+
+- Fix the issues it reports
+- Re-run the failed command until it passes
+- Only then proceed to push your changes
+
+This ensures your code meets quality standards and won't break the build for other developers.
 
 ---
 

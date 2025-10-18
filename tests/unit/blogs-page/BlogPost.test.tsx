@@ -74,6 +74,7 @@ jest.mock('next/link', () => {
 // Mock custom hooks
 jest.mock('@/hooks/blog/fetch-single-blog');
 jest.mock('@/hooks/blog/fetch-blogs');
+jest.mock('@/hooks/blog/fetch-blogAuthor');
 
 // Mock Button component
 jest.mock('@/components/Button', () => {
@@ -466,6 +467,96 @@ describe('BlogPost Component', () => {
 
       render(<BlogPost />);
       expect(mockUseFetchBlogs).toHaveBeenCalled();
+    });
+  });
+
+  describe('Additional BlogPost Tests', () => {
+    const mockBlog = {
+      id: '1',
+      slug: 'test-blog-1',
+      title: 'Test Blog Title',
+      content: '<p>This is the Blog content here</p>',
+      image_url: '/test.jpg',
+      extract: 'Test extract',
+      status: 'published',
+      is_featured: false,
+      author: { id: '10', name: 'Valeria Bosibori', email: 'valeria@techsisters.com' },
+      category: { id: '20', name: 'TSK' },
+      created_at: '2023-01-01',
+      updated_at: '2023-01-01',
+    };
+
+    it('renders loading state when fetching blog', () => {
+      mockUseParams.mockReturnValue({ blogId: 'test-blog-1' });
+      mockUseFetchSingleBlog.mockReturnValue({
+        isLoading: true,
+        data: null,
+        isError: false,
+      });
+      mockUseFetchBlogs.mockReturnValue({ data: { data: [] } });
+
+      render(<BlogPost />);
+      expect(screen.getByText(/Loading blog/i)).toBeInTheDocument();
+    });
+
+    it('renders error state when fetch fails', () => {
+      mockUseParams.mockReturnValue({ blogId: 'test-blog-1' });
+      mockUseFetchSingleBlog.mockReturnValue({
+        isError: true,
+        data: null,
+        isLoading: false,
+      });
+      mockUseFetchBlogs.mockReturnValue({ data: { data: [] } });
+
+      render(<BlogPost />);
+      expect(screen.getByText(/Something went wrong/i)).toBeInTheDocument();
+      expect(screen.getByText(/Failed to load/i)).toBeInTheDocument();
+    });
+
+    it('renders blog content when data is available', () => {
+      mockUseParams.mockReturnValue({ blogId: 'test-blog-1' });
+      mockUseFetchSingleBlog.mockReturnValue({
+        isLoading: false,
+        isError: false,
+        data: { data: mockBlog },
+      });
+      mockUseFetchBlogs.mockReturnValue({ data: { data: [] } });
+
+      render(<BlogPost />);
+      expect(screen.getByText('Test Blog Title')).toBeInTheDocument();
+      expect(screen.getByText(/This is the Blog content here/i)).toBeInTheDocument();
+      expect(screen.getByText('Valeria Bosibori')).toBeInTheDocument();
+    });
+
+    it("renders 'No recent posts available' when author has no blogs", () => {
+      mockUseParams.mockReturnValue({ blogId: 'test-blog-1' });
+      mockUseFetchSingleBlog.mockReturnValue({
+        isLoading: false,
+        isError: false,
+        data: { data: mockBlog },
+      });
+      mockUseFetchBlogs.mockReturnValue({ data: { data: [] } });
+
+      render(<BlogPost />);
+      expect(screen.getByText('No recent posts available.')).toBeInTheDocument();
+    });
+
+    it("renders 'More Blogs' section when additional blogs exist", () => {
+      mockUseParams.mockReturnValue({ blogId: 'test-blog-1' });
+      mockUseFetchSingleBlog.mockReturnValue({
+        isLoading: false,
+        isError: false,
+        data: { data: mockBlog },
+      });
+      mockUseFetchBlogs.mockReturnValue({
+        data: {
+          data: [{ ...mockBlog, id: '2', slug: 'another-blog', title: 'Another Blog' }],
+        },
+      });
+
+      render(<BlogPost />);
+      expect(screen.getByText('More Blogs')).toBeInTheDocument();
+      expect(screen.getByText('Another Blog')).toBeInTheDocument();
     });
   });
 });
