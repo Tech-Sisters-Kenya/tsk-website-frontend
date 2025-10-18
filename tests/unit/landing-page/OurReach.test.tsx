@@ -18,7 +18,8 @@ jest.mock('@/assets/Bug.svg', () => ({
 jest.mock('next/image', () => ({
   __esModule: true,
   default: (props: any) => {
-    return <img {...props} alt={props.alt} />;
+    const { fill: _fill, ...imgProps } = props;
+    return <img {...imgProps} alt={props.alt} />;
   },
 }));
 

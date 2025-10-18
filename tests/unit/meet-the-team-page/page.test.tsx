@@ -7,8 +7,9 @@ global.fetch = jest.fn();
 
 // Mock Images
 jest.mock('next/image', () => {
-  return function MockedImage(props: React.ComponentProps<'img'>) {
-    return <img {...props} alt={props.alt || 'mocked-image'} />;
+  return function MockedImage(props: React.ComponentProps<'img'> & { fill?: boolean }) {
+    const { fill: _fill, ...imgProps } = props;
+    return <img {...imgProps} alt={props.alt || 'mocked-image'} />;
   };
 });
 
@@ -85,6 +86,9 @@ describe('MeetTheTeam Page and TeamMember Component', () => {
     expect(screen.getByText('Imali')).toBeInTheDocument();
   });
   it('handles API failure gracefully', async () => {
+    // Suppress console.error for this test
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
     });
@@ -95,6 +99,9 @@ describe('MeetTheTeam Page and TeamMember Component', () => {
     // render page but no team members
     expect(screen.getByTestId('team-section')).toBeInTheDocument();
     expect(screen.queryByText('Grace')).not.toBeInTheDocument();
+
+    // Restore console.error
+    consoleSpy.mockRestore();
   });
 
   describe('TeamMember Component', () => {

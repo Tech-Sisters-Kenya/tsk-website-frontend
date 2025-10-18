@@ -10,11 +10,12 @@ interface ImageProps {
   alt: string;
   width: number;
   height: number;
+  fill?: boolean;
 }
 
 // Mock Next.js Image component
 jest.mock('next/image', () => {
-  return function MockImage({ src, alt, width, height }: ImageProps) {
+  return function MockImage({ src, alt, width, height, fill: _fill }: ImageProps) {
     return <img src={src} alt={alt} width={width} height={height} data-testid="mock-image" />;
   };
 });

@@ -5,13 +5,14 @@ import { useParams } from 'next/navigation';
 import BlogPost from '@/app/blogs/[blogId]/page';
 import { useFetchSingleBlog } from '@/hooks/blog/fetch-single-blog';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
+import { useFetchBlogAuthor } from '@/hooks/blog/fetch-blogAuthor';
 
 interface Blog {
   id: string;
   slug: string;
   title: string;
   content: string;
-  image_url: string;
+  image_url: string | null;
   extract: string;
   status: string;
   is_featured: boolean;
@@ -41,6 +42,7 @@ interface MockImageProps {
   width?: number;
   height?: number;
   className?: string;
+  fill?: boolean;
 }
 
 interface MockLinkProps {
@@ -56,7 +58,7 @@ interface MockButtonProps {
 }
 
 jest.mock('next/image', () => {
-  return function MockImage({ src, alt, ...props }: MockImageProps) {
+  return function MockImage({ src, alt, fill: _fill, ...props }: MockImageProps) {
     return <img src={src} alt={alt} {...props} />;
   };
 });
@@ -74,7 +76,9 @@ jest.mock('next/link', () => {
 // Mock custom hooks
 jest.mock('@/hooks/blog/fetch-single-blog');
 jest.mock('@/hooks/blog/fetch-blogs');
-jest.mock('@/hooks/blog/fetch-blogAuthor');
+jest.mock('@/hooks/blog/fetch-blogAuthor', () => ({
+  useFetchBlogAuthor: jest.fn(),
+}));
 
 // Mock Button component
 jest.mock('@/components/Button', () => {
@@ -106,6 +110,11 @@ interface FetchBlogsReturn {
   data: BlogsApiResponse | undefined;
 }
 
+interface FetchBlogAuthorReturn {
+  data: unknown;
+  isLoading: boolean;
+}
+
 interface ParamsReturn {
   blogId?: string;
 }
@@ -114,6 +123,9 @@ const mockUseFetchSingleBlog = useFetchSingleBlog as unknown as jest.MockedFunct
   (slug: string) => FetchSingleBlogReturn
 >;
 const mockUseFetchBlogs = useFetchBlogs as unknown as jest.MockedFunction<() => FetchBlogsReturn>;
+const mockUseFetchBlogAuthor = useFetchBlogAuthor as unknown as jest.MockedFunction<
+  (authorId: string, currentBlogId: string) => FetchBlogAuthorReturn
+>;
 const mockUseParams = useParams as jest.MockedFunction<() => ParamsReturn>;
 
 const mockBlogData = {
@@ -207,6 +219,11 @@ const mockMoreBlogsData = [
 describe('BlogPost Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    // Default mock for useFetchBlogAuthor
+    mockUseFetchBlogAuthor.mockReturnValue({
+      data: null,
+      isLoading: false,
+    });
   });
 
   describe('Loading States', () => {
@@ -222,7 +239,7 @@ describe('BlogPost Component', () => {
       });
 
       render(<BlogPost />);
-      expect(screen.getByText('Loading...')).toBeInTheDocument();
+      expect(screen.getByText('Loading blog...')).toBeInTheDocument();
     });
 
     it('renders loading when blog data is loading', () => {
@@ -237,7 +254,7 @@ describe('BlogPost Component', () => {
       });
 
       render(<BlogPost />);
-      expect(screen.getByText('Loading...')).toBeInTheDocument();
+      expect(screen.getByText('Loading blog...')).toBeInTheDocument();
     });
 
     it('renders error message when there is an error', () => {
@@ -252,7 +269,7 @@ describe('BlogPost Component', () => {
       });
 
       render(<BlogPost />);
-      expect(screen.getByText('Something went wrong loading this blog.')).toBeInTheDocument();
+      expect(screen.getByText('Something went wrong')).toBeInTheDocument();
     });
   });
 
@@ -338,9 +355,9 @@ describe('BlogPost Component', () => {
 
     it('renders blog extracts correctly', () => {
       render(<BlogPost />);
-      expect(screen.getByText('Second blog extract')).toBeInTheDocument();
-      expect(screen.getByText('Third blog extract')).toBeInTheDocument();
-      expect(screen.getByText('Fourth blog extract')).toBeInTheDocument();
+      expect(screen.getByText('Second blog extract...')).toBeInTheDocument();
+      expect(screen.getByText('Third blog extract...')).toBeInTheDocument();
+      expect(screen.getByText('Fourth blog extract...')).toBeInTheDocument();
     });
 
     it('renders formatted dates correctly', () => {
@@ -389,7 +406,7 @@ describe('BlogPost Component', () => {
 
   describe('Edge Cases', () => {
     it('handles blog without image_url', () => {
-      const blogWithoutImage = { ...mockBlogData, image_url: '' };
+      const blogWithoutImage = { ...mockBlogData, image_url: null };
       mockUseParams.mockReturnValue({ blogId: 'test-blog-post' });
       mockUseFetchSingleBlog.mockReturnValue({
         data: { data: blogWithoutImage },
@@ -510,7 +527,7 @@ describe('BlogPost Component', () => {
 
       render(<BlogPost />);
       expect(screen.getByText(/Something went wrong/i)).toBeInTheDocument();
-      expect(screen.getByText(/Failed to load/i)).toBeInTheDocument();
+      expect(screen.getByText('Please try again later.')).toBeInTheDocument();
     });
 
     it('renders blog content when data is available', () => {
@@ -528,7 +545,7 @@ describe('BlogPost Component', () => {
       expect(screen.getByText('Valeria Bosibori')).toBeInTheDocument();
     });
 
-    it("renders 'No recent posts available' when author has no blogs", () => {
+    it("does not render 'Recent Posts' section when author has no blogs", () => {
       mockUseParams.mockReturnValue({ blogId: 'test-blog-1' });
       mockUseFetchSingleBlog.mockReturnValue({
         isLoading: false,
@@ -538,7 +555,11 @@ describe('BlogPost Component', () => {
       mockUseFetchBlogs.mockReturnValue({ data: { data: [] } });
 
       render(<BlogPost />);
-      expect(screen.getByText('No recent posts available.')).toBeInTheDocument();
+      expect(screen.getByText('Test Blog Title')).toBeInTheDocument();
+      expect(screen.getByText(/This is the Blog content here/i)).toBeInTheDocument();
+      expect(screen.getByText('Valeria Bosibori')).toBeInTheDocument();
+      // When no author blogs exist, the Recent Posts section should not be rendered
+      expect(screen.queryByText('Recent Posts')).not.toBeInTheDocument();
     });
 
     it("renders 'More Blogs' section when additional blogs exist", () => {
