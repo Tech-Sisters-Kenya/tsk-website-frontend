@@ -158,7 +158,12 @@ Before committing, verify the following:
 **Final Step Before Push:**
 
 ```bash
-pnpm lint && pnpm format && pnpm typecheck && pnpm test && pnpm build
+pnpm lint
+pnpm format
+pnpm typecheck
+pnpm test:unit
+pnpm test:e2e
+pnpm build
 ```
 
 ---
