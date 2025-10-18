@@ -26,3 +26,7 @@ export const sendBlogs = (blogData: BlogData) => {
 export const fetchBlogAuthor = (authorId: string) => {
   return axiosInstance.get(endpoints.getBlogAuthor(authorId));
 };
+
+export const fetchCategories = () => {
+  return axiosInstance.get(endpoints.getCategories);
+};

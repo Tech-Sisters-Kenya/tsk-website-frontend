@@ -17,6 +17,7 @@ export const endpoints = {
   publishBlog: (id: string) => `${baseURL}/blogs/${id}/publish`,
   unpublishBlog: (id: string) => `${baseURL}/blogs/${id}/unpublish`,
   registerTechSister: `${baseURL}/auth/register/tech-sister`,
+  getCategories: `${baseURL}/blogs/categories`,
 };
 
 //these are queryKeys for the query functions
@@ -24,4 +25,5 @@ export const queryKeys = {
   blogs: ['blogs'],
   singleBlog: ['blog'],
   blogAuthor: ['blogAuthor'],
+  categories: ['categories'],
 };
