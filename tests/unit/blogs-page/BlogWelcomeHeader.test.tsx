@@ -250,7 +250,7 @@ describe('BlogWelcomeHeader', () => {
     it('renders the write blog button with correct href', () => {
       render(<BlogWelcomeHeader />);
       const button = screen.getByText('+ Write a Blog');
-      expect(button).toHaveAttribute('href', '/blogs');
+      expect(button).toHaveAttribute('href', '/blogs/new');
     });
 
     it('renders the write blog button with correct styling classes', () => {
@@ -354,7 +354,7 @@ describe('BlogWelcomeHeader', () => {
       render(<BlogWelcomeHeader />);
       const link = screen.getByRole('link', { name: '+ Write a Blog' });
       expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute('href', '/blogs');
+      expect(link).toHaveAttribute('href', '/blogs/new');
     });
   });
 

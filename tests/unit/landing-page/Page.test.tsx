@@ -294,7 +294,7 @@ describe('LandingPage Component', () => {
 
       await waitFor(() => {
         expect(global.fetch).toHaveBeenCalledWith(
-          'https://api.techsisterskenya.org/api/auth/users/current-user',
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/users/current-user`,
           {
             headers: {
               Authorization: 'Bearer test-token',

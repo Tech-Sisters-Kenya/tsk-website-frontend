@@ -44,7 +44,7 @@ const MeetTheTeam = () => {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const res = await fetch('https://api.techsisterskenya.org/api/team-members');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/team-members`);
         if (!res.ok) throw new Error('Failed to fetch team members');
         const data = await res.json();
 

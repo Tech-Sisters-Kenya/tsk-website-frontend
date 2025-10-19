@@ -38,7 +38,7 @@ export default function LoginPage() {
     setLoginError('');
 
     try {
-      const response = await fetch('https://api.techsisterskenya.org/api/auth/login', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ export default function LoginPage() {
             type="button"
             className="flex w-full justify-center items-center bg-foreground py-3 px-4 border-2 border-tsk-primary-dark rounded-xl shadow-sm text-md font-semibold text-tsk-primary-dark hover:bg-gray-50"
             onClick={() =>
-              window.open('https://api.techsisterskenya.org/auth/google/redirect', '_self')
+              window.open(`${process.env.NEXT_PUBLIC_API_AUTH_URL}/google/redirect`, '_self')
             }
           >
             <Image src={GoogleLogo} alt="Google logo" width={20} height={20} className="mr-2" />

@@ -8,6 +8,7 @@ import CallToAction from '@/components/CallToAction';
 type ImageProps = {
   src: string;
   alt: string;
+  fill?: boolean;
   [key: string]: unknown;
 };
 
@@ -18,7 +19,7 @@ type LinkProps = {
 };
 
 jest.mock('next/image', () => {
-  return function MockedImage({ src, alt, ...props }: ImageProps) {
+  return function MockedImage({ src, alt, fill: _fill, ...props }: ImageProps) {
     return <img src={src} alt={alt} {...props} />;
   };
 });

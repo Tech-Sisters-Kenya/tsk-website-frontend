@@ -4,14 +4,17 @@ export async function POST(request: Request) {
   try {
     const { email } = await request.json();
 
-    const response = await fetch('https://api.techsisterskenya.org/api/auth/password/reset-link', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/password/reset-link`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      }
+    );
 
     const data = await response.json();
 

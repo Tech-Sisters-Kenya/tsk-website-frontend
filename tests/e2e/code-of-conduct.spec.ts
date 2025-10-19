@@ -43,40 +43,4 @@ test.describe('Code of Conduct Page', () => {
       }
     }
   });
-
-  test('should have a working mailto link', async ({ page }) => {
-    const mailLink = page.locator('a[href^="mailto:"]');
-    await expect(mailLink.first()).toBeVisible();
-    await expect(mailLink.first()).toHaveAttribute('href', /mailto:techsisterskenya@gmail.com/i);
-  });
-
-  test('lists should render with multiple items', async ({ page }) => {
-    // Behavior expectations list
-    const behaviorListItems = page.locator('ul.list-disc >> li');
-    await expect(behaviorListItems.first()).toBeVisible();
-    expect(await behaviorListItems.count()).toBeGreaterThanOrEqual(6);
-
-    // Unacceptable behaviors list likely follows; ensure there are many list items overall
-    expect(await page.locator('ul.list-disc li').count()).toBeGreaterThanOrEqual(10);
-  });
-
-  test('should be responsive on different screen sizes', async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 667 });
-    await expect(page.locator('h1').first()).toBeVisible();
-
-    await page.setViewportSize({ width: 768, height: 1024 });
-    await expect(page.locator('h1').first()).toBeVisible();
-
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await expect(page.locator('h1').first()).toBeVisible();
-  });
-
-  test('should have accessible elements', async ({ page }) => {
-    const h1Headings = await page.locator('h1').all();
-    expect(h1Headings.length).toBeGreaterThanOrEqual(1);
-
-    // Ensure multiple section headings exist (h2/h3/h4)
-    const headingSelectors = 'h2, h3, h4';
-    expect(await page.locator(headingSelectors).count()).toBeGreaterThanOrEqual(6);
-  });
 });

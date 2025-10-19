@@ -33,7 +33,7 @@ const TeamMember = ({
             <div className="relative w-full h-64 overflow-hidden">
               <Image
                 src={image_url}
-                alt={user ?? 'Team member'}
+                alt={user || 'Team member'}
                 fill
                 className="object-cover rounded-t-2xl"
               />
@@ -43,7 +43,7 @@ const TeamMember = ({
                 className="text-xl font-body font-medium text-tsk-primary-dark"
                 data-testid="team-member-user"
               >
-                {user ?? 'Unnamed'}
+                {user || 'Unnamed'}
               </h3>
               <p className="text-tsk-primary-dark font-body" data-testid="team-member-role">
                 {role}
