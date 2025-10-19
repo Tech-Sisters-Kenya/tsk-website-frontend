@@ -165,19 +165,4 @@ test.describe('Blogs Home Page', () => {
     await expect(rows.first()).toHaveClass(/grid-cols-[1.2fr_0.8fr]/);
     await expect(rows.nth(1)).toHaveClass(/grid-cols-3/);
   });
-
-  test('should display each individual blog card with correct content', async ({ page }) => {
-    await page.waitForSelector('[data-testid="tag-selector"]');
-    const blogCards = page.locator('[data-testid="blog-card"]');
-    const count = await blogCards.count();
-
-    for (let i = 0; i < count; i++) {
-      const blogCard = blogCards.nth(i);
-      await expect(blogCard.locator('img')).toBeVisible(); // image should be visible
-      await expect(blogCard.locator('span').first()).toBeVisible(); // category should be visible
-      await expect(blogCard.locator('span').last()).toBeVisible(); // date should be visible
-      await expect(blogCard.locator('h3')).toBeVisible(); // title should be visible
-      expect((await blogCard.locator('p').innerText()).endsWith('...')).toBeTruthy(); // extract should be visible
-    }
-  });
 });

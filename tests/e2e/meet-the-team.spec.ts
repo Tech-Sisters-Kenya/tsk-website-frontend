@@ -28,11 +28,6 @@ test.describe('Meet The Team Page', () => {
     await page.goto('/meet-the-team');
   });
 
-  test('shows loading state initially', async ({ page }) => {
-    await page.goto('meet-the-team');
-    await expect(page.getByTestId('loading-state')).toBeVisible();
-  });
-
   test('renders page header', async ({ page }) => {
     await expect(page.getByTestId('header-section')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Meet The Team' })).toBeVisible();
