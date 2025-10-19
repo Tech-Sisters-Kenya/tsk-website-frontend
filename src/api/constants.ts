@@ -1,5 +1,8 @@
-// #TODO : move to env file. Bridgit to create an env file
-export const baseURL = 'https://api.techsisterskenya.org/api';
+// API Configuration using environment variables
+export const baseURL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.techsisterskenya.org/api';
+export const authBaseURL =
+  process.env.NEXT_PUBLIC_API_AUTH_URL || 'https://api.techsisterskenya.org/auth';
 
 export const endpoints = {
   /*Note that for endpoints which require the id to be passed in, we cant have the id in the endpoint as is. we need to have a function that takes in the id as a parameter then passes it to the actual url */

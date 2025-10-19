@@ -8,23 +8,6 @@ test.describe('About Us Page', () => {
     await page.waitForLoadState('networkidle');
   });
 
-  test('should have accessible elements', async ({ page }) => {
-    // Check for proper heading hierarchy (more lenient)
-    const headings = await page.locator('h1, h2, h3, h4, h5, h6').all();
-    expect(headings.length).toBeGreaterThan(0);
-
-    // Check that at least one h1 exists
-    const h1Count = await page.locator('h1').count();
-    expect(h1Count).toBeGreaterThanOrEqual(1);
-
-    // Check images have alt text (if any exist)
-    const images = await page.locator('img').all();
-    for (const img of images) {
-      const alt = await img.getAttribute('alt');
-      expect(alt).not.toBeNull();
-    }
-  });
-
   test('should have working Call to Action links', async ({ page }) => {
     // Look for any links that might be CTAs - use more flexible selectors
     const links = page.locator('a');

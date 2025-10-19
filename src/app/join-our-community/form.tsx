@@ -347,7 +347,7 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
         // After successful registration, try to log the user in automatically
         try {
           console.log('Registration successful, attempting to log in...');
-          const loginResponse = await fetch('https://api.techsisterskenya.org/api/auth/login', {
+          const loginResponse = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
