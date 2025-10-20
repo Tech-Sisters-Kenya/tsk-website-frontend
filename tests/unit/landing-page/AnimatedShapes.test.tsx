@@ -6,7 +6,7 @@ import AnimatedShapes from '@/app/landing-page/AnimatedShapes';
 // Mock Next.js Image component
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: ({ src, alt, width, height, className, ...props }: any) => (
+  default: ({ src, alt, width, height, className, fill: _fill, ...props }: any) => (
     <img
       src={src}
       alt={alt}

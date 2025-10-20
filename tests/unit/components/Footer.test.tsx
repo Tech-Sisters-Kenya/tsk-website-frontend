@@ -10,7 +10,8 @@ type ImageProps = {
   alt: string;
   width?: number;
   height?: number;
-  [key: string]: string | number | undefined;
+  fill?: boolean;
+  [key: string]: string | number | boolean | undefined;
 };
 
 type LinkProps = {
@@ -20,7 +21,7 @@ type LinkProps = {
 };
 
 jest.mock('next/image', () => {
-  return function MockedImage({ src, alt, width, height, ...props }: ImageProps) {
+  return function MockedImage({ src, alt, width, height, fill: _fill, ...props }: ImageProps) {
     return <img src={src} alt={alt} width={width} height={height} {...props} />;
   };
 });

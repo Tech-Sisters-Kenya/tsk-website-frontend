@@ -6,8 +6,15 @@ import '@testing-library/jest-dom';
 // Mock Next.js Image component
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: { alt?: string; src: string; width?: number; height?: number }) => {
-    return <img {...props} alt={props.alt || 'brand logo'} />;
+  default: (props: {
+    alt?: string;
+    src: string;
+    width?: number;
+    height?: number;
+    fill?: boolean;
+  }) => {
+    const { fill: _fill, ...imgProps } = props;
+    return <img {...imgProps} alt={props.alt || 'brand logo'} />;
   },
 }));
 

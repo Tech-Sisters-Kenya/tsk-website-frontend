@@ -18,12 +18,14 @@ jest.mock('next/image', () => ({
     width,
     height,
     className,
+    fill: _fill,
   }: {
     src: string;
     alt: string;
     width?: number | string;
     height?: number | string;
     className?: string;
+    fill?: boolean;
   }) => <img src={src} alt={alt} width={width} height={height} className={className} />,
 }));
 

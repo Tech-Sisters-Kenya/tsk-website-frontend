@@ -15,7 +15,10 @@ jest.mock('@/ui/card-stack', () => ({
 }));
 
 jest.mock('next/image', () => {
-  const MockedImage = (props: any) => <img {...props} alt={props.alt || 'mocked image'} />;
+  const MockedImage = (props: any) => {
+    const { fill: _fill, ...imgProps } = props;
+    return <img {...imgProps} alt={props.alt || 'mocked image'} />;
+  };
   MockedImage.displayName = 'MockedImage';
   return MockedImage;
 });

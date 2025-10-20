@@ -12,8 +12,10 @@ function Pagination({ blogs }: { blogs: BlogItem[] }) {
   const itemsPerPage = 10;
   const [itemOffset, setItemOffset] = useState(0);
 
-  const endOffset = itemOffset + itemsPerPage;
-  const currentItems = useMemo(() => blogs.slice(itemOffset, endOffset), [blogs, itemOffset]);
+  const currentItems = useMemo(() => {
+    const endOffset = itemOffset + itemsPerPage;
+    return blogs.slice(itemOffset, endOffset);
+  }, [blogs, itemOffset, itemsPerPage]);
   const pageCount = Math.ceil(blogs.length / itemsPerPage);
 
   const handlePageChange = ({ selected }: { selected: number }) => {

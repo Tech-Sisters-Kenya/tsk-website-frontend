@@ -4,7 +4,7 @@ export async function POST(request: Request) {
   try {
     const { email, current_password, new_password } = await request.json();
 
-    const response = await fetch('https://api.techsisterskenya.org/api/auth/password/reset', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/password/reset`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
