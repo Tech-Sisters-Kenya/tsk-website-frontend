@@ -70,12 +70,12 @@ Tech Sisters Kenya is a community-driven platform empowering women in technology
 
 ### Key Features
 
-- 🎨 **Modern, Responsive Design** - Optimized for all devices
-- ⚡ **Performance Optimized** - Fast loading with Next.js optimizations
-- 🔒 **Type Safety** - Built with TypeScript for better developer experience
-- 🧪 **Comprehensive Testing** - Unit and E2E tests with Jest and Playwright
-- 🚀 **CI/CD Pipeline** - Automated testing and deployment
-- ♿ **Accessibility** - WCAG 2.1 compliant components
+- **Modern, Responsive Design** - Optimized for all devices
+- **Performance Optimized** - Fast loading with Next.js optimizations
+- **Type Safety** - Built with TypeScript for better developer experience
+- **Comprehensive Testing** - Unit and E2E tests with Jest and Playwright
+- **CI/CD Pipeline** - Automated testing and deployment
+- **Accessibility** - WCAG 2.1 compliant components
 
 ### Tech Stack
 
@@ -145,7 +145,6 @@ pnpm lint             # Run ESLint
 pnpm format           # Format code with Prettier
 
 # Testing
-pnpm test             # Run all tests
 pnpm test:unit        # Run unit tests
 pnpm test:e2e         # Run E2E tests
 ```
@@ -173,8 +172,6 @@ Our codebase follows these principles:
 ### Running Tests
 
 ```bash
-# All tests
-pnpm test
 
 # Unit tests
 pnpm test:unit
@@ -227,7 +224,7 @@ We welcome contributions! Here's how to get started:
 3. **Make your changes**
 4. **Commit with descriptive messages**
    ```bash
-   git commit -m 'Add amazing feature'
+   git commit -m 'Feature: Add amazing feature'
    ```
 5. **Push to your fork**
    ```bash
@@ -288,7 +285,7 @@ NEXT_PUBLIC_API_URL=your_api_url
 
 ### Design
 
-🎨 **Figma Design**: [TSK Website UI](https://www.figma.com/design/PCywTXwNGbjDGFh2TAJk0w/TSK-Website-UI?node-id=0-1&p=f&t=nqnfbXnunkdgC6ur-0)
+**Figma Design**: [TSK Website UI](https://www.figma.com/design/PCywTXwNGbjDGFh2TAJk0w/TSK-Website-UI?node-id=0-1&p=f&t=nqnfbXnunkdgC6ur-0)
 
 ### Documentation
 
@@ -300,9 +297,9 @@ NEXT_PUBLIC_API_URL=your_api_url
 
 ### Getting Help
 
-- 💬 **Discussions**: Use GitHub Discussions for questions
-- 🐛 **Issues**: Report bugs using GitHub Issues
-- 📧 **Contact**: Reach out to the Tech Sisters Kenya team
+- **Discussions**: Use GitHub Discussions for questions
+- **Issues**: Report bugs using GitHub Issues
+- **Contact**: Reach out to the Tech Sisters Kenya team
 
 ## License
 

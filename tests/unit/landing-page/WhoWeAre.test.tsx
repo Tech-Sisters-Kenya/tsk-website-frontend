@@ -16,7 +16,8 @@ jest.mock('@/assets/empowerment.svg', () => 'empowerment.svg');
 
 jest.mock('next/image', () => {
   const NextImage = (props: any) => {
-    return <img {...props} alt={props.alt ?? 'mocked image'} />;
+    const { fill: _fill, ...imgProps } = props;
+    return <img {...imgProps} alt={props.alt ?? 'mocked image'} />;
   };
   NextImage.displayName = 'NextImageMock';
   return {

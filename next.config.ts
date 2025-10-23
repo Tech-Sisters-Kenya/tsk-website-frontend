@@ -3,6 +3,10 @@ import type { NextConfig } from 'next';
 
 /** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
+  env: {
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    NEXT_PUBLIC_API_AUTH_URL: process.env.NEXT_PUBLIC_API_AUTH_URL,
+  },
   images: {
     remotePatterns: [
       {
@@ -31,6 +35,9 @@ const nextConfig: NextConfig = {
         pathname: '**',
       },
     ],
+  },
+  sassOptions: {
+    includePaths: ['./src/styles'],
   },
   webpack(config, { isServer }) {
     if (!isServer) {
