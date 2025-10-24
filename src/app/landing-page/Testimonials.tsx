@@ -78,16 +78,17 @@ export default function TestimonialsCarousel() {
   }, [emblaApi, onInit, onSelect]);
   return (
     <>
-      <div className="px-4 py-8 bg-tsk-light-2 text-center text-[#45084a] w-screen mb-14">
+      <div className="relative overflow-hidden z-10 px-6 sm:px-10 md:px-14 lg:px-12 py-8 bg-tsk-light-2 text-center text-[#45084a] w-screen mb-14">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <h3 className="font-bold text-[32px] md:text-[36] lg:text-[48px]">Testimonials</h3>
           <p className="font-medium text-[20px] px-4 pb-3 md:text-[20px] lg:text-[24px] md:px-20 md:mb-10">
-            From gaining skills to finding belonging — here&rsquo;s what our community has to say.
+            From building skills to finding sisterhood — this is what being a Tech Sister feels
+            like.
           </p>
 
           {/* Carousel */}
-          <div className="mx-auto px-4 py-8 w-[90%] md:w-[75%] lg:w-full bg-white rounded-3xl relative">
+          <div className="mx-auto px-4 py-8 w-[90%] md:w-[75%] lg:w-full bg-white rounded-3xl relative z-10">
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
                 {testimonials.map((testimonial, index) => (
@@ -153,14 +154,15 @@ export default function TestimonialsCarousel() {
               <span className="sr-only">Next testimonial</span>
             </Button>
           </div>
-
-          <Image
-            src="/tsk-logo.png"
-            width={64}
-            height={76}
-            alt="Tech sisters logo"
-            className=" mx-auto my-10"
-          />
+          <div className="absolute bottom-0 left-0 w-66 h-66 opacity-20 pointer-events-none hidden lg:block">
+            <Image
+              src="/tsk-logo.png"
+              width={400}
+              height={420}
+              alt="Tech sisters logo"
+              className="object-contain"
+            />
+          </div>
         </div>
       </div>
       <BrandsSection />

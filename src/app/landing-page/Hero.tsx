@@ -26,17 +26,17 @@ export default function Hero() {
             <Link href="/join-our-community" className="w-full sm:w-auto sm:flex sm:flex-col">
               <Button
                 variant="primary"
-                className="text-tsk-light-1 font-extrabold text-base sm:text-lg w-full sm:w-auto px-4 sm:px-6 md:px-8 lg:px-10"
+                className="text-foreground font-extrabold text-lg sm:text-xl w-full sm:w-auto py-5"
               >
-                Join Our Community
+                Become A Tech Sister!
               </Button>
             </Link>
-            <Link href="/get-involved" className="w-full sm:w-auto">
+            <Link href="/get-involved" className="w-full sm:w-auto sm:flex sm:flex-col">
               <Button
                 variant="secondary"
-                className="bg-foreground border border-tsk-primary-dark font-extrabold text-tsk-primary-dark text-base sm:text-lg w-full sm:w-auto px-2 sm:px-4 md:px-6 lg:px-8"
+                className="bg-foreground border border-tsk-primary-dark font-extrabold text-tsk-primary-dark text-lg sm:text-xl w-full sm:w-auto py-5 px-4 sm:px-8 md:px-10 lg:px-12"
               >
-                Partner With Us
+                Get Involved
               </Button>
             </Link>
           </div>

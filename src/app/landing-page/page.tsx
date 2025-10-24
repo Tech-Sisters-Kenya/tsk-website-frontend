@@ -94,11 +94,13 @@ export default function LandingPage() {
       <Hero />
       <WhoWeAre />
       <OurReach
-        title="OUR REACH SO FAR"
+        title="Our Reach So Far"
         subtitle={
           <>
-            A growing community of women building <br />
-            confidence, skills, and careers in tech.
+            From coding to non coding skills , we’re building a <br />
+            diverse network of women learning, growing, and <br />
+            supporting one another to build confidence, skills, <br />
+            and lasting impact.
           </>
         }
         stats={reachStats}
