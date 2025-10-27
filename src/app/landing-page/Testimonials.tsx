@@ -88,13 +88,13 @@ export default function TestimonialsCarousel() {
           </p>
 
           {/* Carousel */}
-          <div className="mx-auto px-4 py-8 w-[90%] md:w-[75%] lg:w-full bg-white rounded-3xl relative z-10">
+          <div className="mx-auto px-4 py-6 w-[70%] md:w-[60%] lg:w-full bg-white rounded-3xl relative z-10">
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
                 {testimonials.map((testimonial, index) => (
                   <div key={index} className="flex-[0_0_100%] min-w-0 px-4">
-                    <div className="px-4 md:px-8 lg:px-14">
-                      <p className="text-[19px] italic md:text-[20px] text-center mb-8 font-">
+                    <div className="px-4 md:px-8 lg:px-10">
+                      <p className="text-[17px] italic md:text-[16px] text-center mb-6 font-body text-tsk-primary-dark">
                         {testimonial.testimonial}
                       </p>
 
@@ -103,11 +103,11 @@ export default function TestimonialsCarousel() {
                           <Image
                             src="/testimonial-avatar.png"
                             alt={testimonial.name}
-                            width={100}
-                            height={100}
+                            width={80}
+                            height={80}
                             className="w-15 h-15 rounded-[20px] flex-shrink-0"
                           />
-                          <p className="text-[18px] font-bold pt-2">{testimonial.name}</p>
+                          <p className="text-[16px] font-bold pt-2">{testimonial.name}</p>
                           <p className="">{testimonial.role}</p>
                         </div>
                       </div>

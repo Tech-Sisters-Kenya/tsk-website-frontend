@@ -112,10 +112,10 @@ export default function WhoWeAre() {
         <h3 className="text-[32px] sm:text-lg md:text-xl text-tsk-primary-dark mb-6 sm:mb-8 px-4 sm:px-6 md:px-8 lg:px-10 py-4 font-body font-bold text-center">
           Our Core Values
         </h3>
-        <div className="flex flex-row justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 mb-14 px-4">
+        <div className="flex flex-row justify-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-14 px-4">
           {coreValues.map((value: { label: string; src: StaticImageData }, index: number) => (
             <div key={index} className="flex flex-col items-center">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 mb-2 sm:mb-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 mb-3 sm:mb-4">
                 <Image
                   src={value.src}
                   alt={value.label}

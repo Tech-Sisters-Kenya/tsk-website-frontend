@@ -18,9 +18,9 @@ export default function Hero() {
             Technology
           </h1>
           <p className="text-base font-bold font-body sm:text-lg max-w-[600px] text-tsk-primary-dark md:text-xl py-2 sm:py-3 leading-relaxed">
-            Tech Sisters Kenya is a non-profit organization empowering women in tech through
-            mentorship, workshops, and networking opportunities to elevate their skills and support
-            their professional growth through community initiatives.
+            Tech Sisters Kenya is a community empowering women in tech through mentorship,
+            workshops, and networking opportunities to elevate their skills and support their
+            professional growth through community initiatives.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
             <Link href="/join-our-community" className="w-full sm:w-auto sm:flex sm:flex-col">
