@@ -5,10 +5,12 @@ test.describe('Landing Page', () => {
     await page.goto('/landing-page', { waitUntil: 'networkidle' });
   });
 
-  test('renders CallToAction section', async ({ page }) => {
-    // Find join our community and partner with us button
-    await expect(page.locator('text=Call to Action'))
-      .toBeVisible()
-      .catch(() => {});
+  test('renders CallToAction section with visible buttons', async ({ page }) => {
+    const callToAction = page.getByTestId('call-to-action');
+    await expect(callToAction).toBeVisible();
+
+    // Verify main call-to-action buttons/texts
+    await expect(page.getByText('Join Our Community')).toBeVisible();
+    await expect(page.getByText('Partner With Us')).toBeVisible();
   });
 });
