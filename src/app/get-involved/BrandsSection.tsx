@@ -2,9 +2,9 @@ import Image from 'next/image';
 import React from 'react';
 
 const brands = [
-  { name: 'Moringa', src: '/get-involved/moringa-icon.svg' },
   { name: 'Google', src: '/get-involved/google-icon.svg' },
-  { name: 'PlugWork', src: '/get-involved/plug-n-work-icon.svg' },
+  { name: 'Moringa', src: '/get-involved/moringa-icon.svg' },
+  { name: 'Solutech', src: '/get-involved/solutech-icon.svg' },
   { name: 'eMobilis', src: '/get-involved/emobilis-icon.svg' },
   { name: 'Payd', src: '/get-involved/payd-icon.svg' },
 ];
