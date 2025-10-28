@@ -8,6 +8,8 @@ import HeroSection from './HeroSection';
 // import CallToAction from '@/components/CallToAction';
 import WhoWeAre from './WhoWeAre';
 import OurStory from './OurStory';
+import Gallery from '../landing-page/Gallery';
+import OurMantra from './OurMantra';
 
 export default function AboutUs() {
   return (
@@ -15,6 +17,8 @@ export default function AboutUs() {
       <HeroSection />
       <WhoWeAre />
       <OurStory />
+      <OurMantra />
+      <Gallery />
       {/* <MissionVision /> */}
       {/* <CoreValues /> */}
       {/* <ValueToTechSisters /> */}
