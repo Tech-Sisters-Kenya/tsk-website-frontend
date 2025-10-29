@@ -5,7 +5,7 @@ import { Card, CardDescription, CardTitle, CardHeader } from '@/components/ui/ca
 
 const OurMantra = () => {
   return (
-    <div className="py-8 mt-10 lg:mt-20 w-screen text-tsk-primary-dark text-center">
+    <div className="py-8 mt-6 lg:mt-12 w-screen text-tsk-primary-dark text-center px-2 relative">
       <p className="font-bold text-3xl md:text-5xl pb-8 pt-4">Our Mantra</p>
       <p className="font-medium text-[16px] md:text-[20px] mb-10">
         We are united by the spirit of being
@@ -13,10 +13,16 @@ const OurMantra = () => {
         Bold, Loud and Unstoppable
       </p>
 
+      <img
+        src="/about-us/bg-logo.png"
+        alt="background logo"
+        className="absolute -z-10 hidden lg:block lg:-bottom-28"
+      />
+
       {/* ✅ Responsive grid layout */}
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8 px-4 md:px-12 lg:px-20">
         {/* Card 1 */}
-        <Card className="bg-tsk-light-2 rounded-2xl">
+        <Card className="bg-tsk-light-2 rounded-2xl ">
           <CardHeader className="pt-8">
             <CardTitle className="font-bold text-2xl md:text-4xl pb-4">BOLD</CardTitle>
             <p className="font-decorative text-4xl">We show up!</p>

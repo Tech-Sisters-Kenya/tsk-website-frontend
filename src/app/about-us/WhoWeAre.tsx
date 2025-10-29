@@ -4,7 +4,7 @@ import React from 'react';
 
 const WhoWeAre = () => {
   return (
-    <div className="flex flex-col gap-10 lg:gap-20 lg:flex-row ">
+    <div className="flex flex-col gap-10 lg:gap-20 lg:flex-row mx-8 ">
       <div className="">
         <img className="rounded-2xl" src="/about-us/who-we-are.jpg" alt="Who We Are" />
       </div>

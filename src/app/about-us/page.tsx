@@ -8,17 +8,17 @@ import HeroSection from './HeroSection';
 // import CallToAction from '@/components/CallToAction';
 import WhoWeAre from './WhoWeAre';
 import OurStory from './OurStory';
-import Gallery from '../landing-page/Gallery';
+import OurGallery from './OurGallery';
 import OurMantra from './OurMantra';
 
 export default function AboutUs() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between mx-8">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <HeroSection />
       <WhoWeAre />
       <OurStory />
       <OurMantra />
-      <Gallery />
+      <OurGallery />
       {/* <MissionVision /> */}
       {/* <CoreValues /> */}
       {/* <ValueToTechSisters /> */}

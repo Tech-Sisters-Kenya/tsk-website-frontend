@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const OurStory = () => {
   return (
-    <div className="bg-tsk-light-2 py-8 mt-10 lg:mt-20 w-screen text-center text-tsk-primary-dark">
+    <div className="bg-tsk-light-2 py-8 px-2 mt-10 lg:mt-20 w-full text-center text-tsk-primary-dark">
       <p className="font-bold text-3xl md:text-5xl pb-8 pt-4">
         Our Story <span className="font-decorative">So Far ...</span>
       </p>

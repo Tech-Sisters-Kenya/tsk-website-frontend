@@ -44,12 +44,12 @@ function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPr
         'data-[state=active]:bg-[#45084a] data-[state=active]:text-white data-[state=active]:shadow-sm',
 
         // Rounded only on the outer edges
-        'first:rounded-l-xl last:rounded-r-xl not-first:rounded-none not-last:rounded-none',
+        'rounded-xl md:first:rounded-l-xl md:last:rounded-r-xl md:not-first:rounded-none md:not-last:rounded-none',
 
         // Vertical divider with fade effect
         // - Full height
         // - Fades out if active (using opacity transition)
-        'after:absolute after:top-0 after:bottom-0 after:right-0 after:w-[1px] after:bg-[#45084a] after:transition-opacity after:duration-300',
+        'md:after:absolute md:after:top-0 md:after:bottom-0 md:after:right-0 md:after:w-[1px] md:after:bg-[#45084a] md:after:transition-opacity after:duration-300',
         // Hide divider when this or the next tab is active
         'data-[state=active]:after:opacity-0 peer-data-[state=active]:after:opacity-0 last:after:hidden',
 
