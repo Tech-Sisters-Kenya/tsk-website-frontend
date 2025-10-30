@@ -63,7 +63,7 @@ const OurGallery = () => {
         <div className="flex justify-center mt-8">
           <Button className="px-4 py-4 font-extrabold text-[20px]">
             <a
-              href="http://www.instagram.com/techsisterskenya"
+              href="https://photos.google.com/share/AF1QipPE1ug0qCjR7CGbQspvzZ2qpG6UZUOIltvz08KHmfx2L4eA9N9C02oW6TxZiF4Tug?pli=1&key=VDNoNnVvNVZTZEFUV0VTYnU5SVloVXVmMzl6QmtR"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -50,8 +50,8 @@ function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPr
         // - Full height
         // - Fades out if active (using opacity transition)
         'md:after:absolute md:after:top-0 md:after:bottom-0 md:after:right-0 md:after:w-[1px] md:after:bg-[#45084a] md:after:transition-opacity after:duration-300',
-        // Hide divider when this or the next tab is active
-        'data-[state=active]:after:opacity-0 peer-data-[state=active]:after:opacity-0 last:after:hidden',
+        // Hide divider when this tab is active OR this tab has an immeadiate next sibling that is active AND remove the divider on the last tab
+        'data-[state=active]:after:opacity-0 [&:has(+[data-state=active])]:after:opacity-0 last:after:hidden',
 
         className
       )}
