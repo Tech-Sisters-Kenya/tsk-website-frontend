@@ -8,18 +8,22 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import Link from 'next/link';
+import Banner from '@/components/Banner';
 
-export default function faq() {
+export default function Faq() {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen pb-8 md:pb-16 lg:pb-20">
-      <h1 className="lg:my-28 mt-12 mb-6 pt-24 md:pt-28 lg:pt-12 lg:mb-6 text-center font-extrabold  text-[22px] md:text-3xl lg:text-5xl">
-        FREQUENTLY ASKED QUESTIONS
+    <div className="flex flex-col justify-center items-center min-h-screen pb-8 md:pb-16 lg:pb-20 text-tsk-primary-dark font-medium">
+      <div className="w-full">
+        <Banner />
+      </div>
+      <h1 className="lg:my-28 mt-10 mb-6 lg:mb-6 text-center font-extrabold  text-[22px] md:text-3xl lg:text-[64px] px-8">
+        Frequently Asked Questions
       </h1>
       <Accordion
         type="single"
         collapsible
         // defaultValue="item-1"
-        className="p-2 md:p-4 w-[95%] md:w-[90%] lg:w-[60%] flex flex-col gap-4 md:gap-6"
+        className="p-2 md:p-4 w-[95%] sm:w-4/5 flex flex-col gap-4 md:gap-6 px-8"
       >
         <AccordionItem value="item-1" className="border border-[#45084a] rounded-2xl p-2">
           <AccordionTrigger className="font-medium text-xl text-tsk-primary-dark">
@@ -53,17 +57,16 @@ export default function faq() {
             3. How do I become a member?
           </AccordionTrigger>
           <AccordionContent>
-            <p>
-              You can register through our Member Registration Form available on the website through
-              the{' '}
+            <p className="font-medium">
+              You can register through our{' '}
               <Link
-                href={'/get-involved'}
-                className="text-tsk-primary-dark font-bold hover:text-tsk-primary "
+                href={'/become-a-tech-sister'}
+                className="text-tsk-primary-dark font-bold hover:text-tsk-primary underline"
               >
-                &apos;Get Involved&apos;
+                Become a Tech Sister;
               </Link>{' '}
-              page. Once submitted, you&apos;ll get access to our Slack community, events, and
-              updates.
+              member sign up form available on the website. Once submitted, you’ll get access to our
+              Slack , WhatsApp Community, events, and updates
             </p>
           </AccordionContent>
         </AccordionItem>
@@ -89,9 +92,9 @@ export default function faq() {
               When filling out the{' '}
               <Link
                 href={'/get-involved'}
-                className="text-tsk-primary-dark font-bold hover:text-tsk-primary "
+                className="text-tsk-primary-dark font-bold hover:text-tsk-primary underline"
               >
-                &apos;Member Registration Form&apos;
+                Member Registration Form
               </Link>{' '}
               , indicate whether you&apos;re interested in being a mentor, mentee, or both.
               We&apos;ll use this information to match and support members during mentorship cycles.
@@ -105,10 +108,8 @@ export default function faq() {
           </AccordionTrigger>
           <AccordionContent>
             <p>
-              No, joining{' '}
-              <span className="text-tsk-primary-dark font-bold">Tech Sisters Kenya</span> is
-              completely free. Our aim is to make tech communities more accessible and inclusive for
-              all women.
+              Not at the moment, joining Tech Sisters Kenya is completely free. Our aim is to make
+              tech communities more accessible and inclusive for all women.
             </p>
           </AccordionContent>
         </AccordionItem>
@@ -132,12 +133,13 @@ export default function faq() {
           <AccordionContent>
             <p>
               You can volunteer as a speaker, mentor, event organizer, or contribute content. Just
-              indicate your interest when registering, or reach out to us via the{' '}
+              indicate your interest when registering, or reach out to us via email with your
+              interest at the {''}
               <Link
-                href={'/get-involved'}
-                className="text-tsk-primary-dark font-bold hover:text-tsk-primary "
+                href="mailto:techsisterskenya@gmail.com"
+                className="text-tsk-primary-dark font-bold hover:text-tsk-primary underline"
               >
-                &apos;Volunteer Interest Form page&apos;
+                techsisterskenya@gmail.com
               </Link>
               .
             </p>
@@ -150,15 +152,15 @@ export default function faq() {
           </AccordionTrigger>
           <AccordionContent>
             <p>
-              Yes! We’re open to partnerships that align with our values. Kindly reach out to us via
-              our{' '}
+              Yes! We&apos;re open to partnerships that align with our values. Kindly reach out to
+              us via our Get Involved Page sections as fit or email us directly at{' '}
               <Link
-                href={'/get-involved'}
-                className="text-tsk-primary-dark font-bold hover:text-tsk-primary "
+                href="mailto:techsisterskenya@gmail.com"
+                className="text-tsk-primary-dark font-bold hover:text-tsk-primary underline"
               >
-                Partnership Form
+                techsisterskenya@gmail.com
               </Link>{' '}
-              or email us directly at techsisterskenya@gmail.com. .
+              .
             </p>
           </AccordionContent>
         </AccordionItem>
@@ -168,73 +170,67 @@ export default function faq() {
             10. Where can I stay updated about events and announcements?
           </AccordionTrigger>
           <AccordionContent>
-            <p>
-              Once you join, you&apos;ll be added to our{' '}
-              <Link
-                href="https://linktr.ee/techsisterskenya"
-                className="text-tsk-primary-dark font-bold hover:text-tsk-primary "
-              >
-                <span className="text-tsk-primary-dark font-bold">Slack community</span>
-              </Link>
-              . Follow our #events channel for events updates. You can also follow us on our socials
-              for public updates. View Our social pages on our{' '}
-              <Link
-                href="https://linktr.ee/techsisterskenya"
-                className="text-tsk-primary-dark font-bold hover:text-tsk-primary "
-              >
-                Linktree.
-              </Link>{' '}
+            <p className="flex flex-col gap-1">
+              <span>
+                Once you join, you&apos;ll be added to our Slack community. Follow our #events
+                channel for events updates.
+              </span>
+              <span>You can also follow us on our socials for public updates.</span>
+              <span className="mt-2">
+                View Our social pages:{' '}
+                <Link href="https://linktr.ee/techsisterskenya" className="underline font-bold">
+                  https://linktr.ee/techsisterskenya
+                </Link>
+              </span>
             </p>
           </AccordionContent>
         </AccordionItem>
 
-        <h1 className="lg:my-12 md:pt-12 pt-10 text-center font-extrabold text-2xl md:text-3xl lg:text-5xl">
-          TECH-RELATED FAQS
-        </h1>
-
         <AccordionItem value="item-11" className="border border-[#45084a] rounded-2xl p-2">
           <AccordionTrigger className="font-medium text-xl text-tsk-primary-dark">
-            1. Will event recordings be shared?
+            11. Will event recordings be shared?
           </AccordionTrigger>
           <AccordionContent>
-            <p>
-              No, we currently do{' '}
-              <span className="text-tsk-primary-dark font-bold">
-                not record most of our sessions
+            <p className="flex flex-col gap-1">
+              <span>
+                No, we currently do not record most of our sessions . We encourage members to attend
+                live and take their own notes.
               </span>
-              . We encourage members to attend live and take their own notes. However, from time to
-              time, we share resources or slides provided by our speakers in the respective Slack
-              channels.
+              <span>
+                However, from time to time, we share resources or slides provided by our speakers in
+                the respective Slack channels.
+              </span>
             </p>
           </AccordionContent>
         </AccordionItem>
 
         <AccordionItem value="item-12" className="border border-[#45084a] rounded-2xl p-2">
           <AccordionTrigger className="font-medium text-xl text-tsk-primary-dark">
-            2. How do I join the Tech Sisters Kenya Slack workspace?
+            12. How do I join the Tech Sisters Kenya Slack workspace?
           </AccordionTrigger>
           <AccordionContent>
-            <p>
-              The link to join our Slack workspace is{' '}
-              <span className="text-tsk-primary-dark font-bold">
-                attached directly on the registration page
-              </span>{' '}
-              - no need to wait for a confirmation message. If you experience any issues accessing
-              it, please reach out via our{' '}
-              <Link
-                href={'/contact'}
-                className="text-tsk-primary-dark font-bold hover:text-tsk-primary "
-              >
-                “Contact Us”
-              </Link>{' '}
-              form or email us. .
+            <p className="flex flex-col gap-1">
+              <span>
+                The link to join our Slack workspace is attached directly on the registration page -
+                no need to wait for a confirmation message.
+              </span>
+              <span>
+                If you experience any issues accessing it, please reach out via our “Contact Us”
+                form or email us. .
+                <Link
+                  href="mailto:techsisterskenya@gmail.com"
+                  className="text-tsk-primary-dark font-bold hover:text-tsk-primary underline"
+                >
+                  techsisterskenya@gmail.com
+                </Link>{' '}
+              </span>
             </p>
           </AccordionContent>
         </AccordionItem>
 
         <AccordionItem value="item-13" className="border border-[#45084a] rounded-2xl p-2">
           <AccordionTrigger className="font-medium text-xl text-tsk-primary-dark">
-            3. I&apos;m new to Slack. How should I engage in the channels?
+            13. I&apos;m new to Slack. How should I engage in the channels?
           </AccordionTrigger>
           <AccordionContent>
             <p>We have a simple Slack etiquette:</p>
@@ -259,7 +255,7 @@ export default function faq() {
 
         <AccordionItem value="item-14" className="border border-[#45084a] rounded-2xl p-2">
           <AccordionTrigger className="font-medium text-xl text-tsk-primary-dark">
-            4. How can I update or edit my member information?
+            14. How can I update or edit my member information?
           </AccordionTrigger>
           <AccordionContent className="">
             <p>
@@ -272,23 +268,29 @@ export default function faq() {
 
         <AccordionItem value="item-15" className="border border-[#45084a] rounded-2xl p-2">
           <AccordionTrigger className="font-medium text-xl text-tsk-primary-dark">
-            5. What should I do if I experience inappropriate behavior or harassment?
+            15. What should I do if I experience inappropriate behavior or harassment?
           </AccordionTrigger>
           <AccordionContent className="">
-            <p>
-              We take community safety seriously. Please report any concerning behavior through our{' '}
-              <span className="text-tsk-primary-dark font-bold">
-                Code of Conduct Reporting Form
-              </span>{' '}
-              or directly to a moderator in the Slack workspace. All reports are handled with
-              confidentiality.
+            <p className="flex flex-col gap-1">
+              <span>
+                We take community safety seriously. Please report any concerning behaviour through
+                our email{' '}
+                <Link href="mailto:techsisterskenya@gmail.com" className="underline font-bold">
+                  techsisterskenya@gmail.com
+                </Link>{' '}
+                or directly to a community manager or your channel lead in the Slack workspace.
+              </span>
+              <span>
+                All reports are handled with confidentiality and proof of case will be required for
+                extended action/support.
+              </span>
             </p>
           </AccordionContent>
         </AccordionItem>
 
         <AccordionItem value="item-16" className="border border-[#45084a] rounded-2xl p-2">
           <AccordionTrigger className="font-medium text-xl text-tsk-primary-dark">
-            6. Do I need to attend all events to stay in the community?
+            16. Do I need to attend all events to stay in the community?
           </AccordionTrigger>
           <AccordionContent>
             <p>
@@ -303,7 +305,7 @@ export default function faq() {
           className="border border-[#45084a] rounded-2xl p-2 mb-4 md:mb-6 lg:mb-8"
         >
           <AccordionTrigger className="font-medium text-xl text-tsk-primary-dark">
-            7. Are there any rules for attending events online or in person?
+            17. Are there any rules for attending events online or in person?
           </AccordionTrigger>
           <AccordionContent>
             {' '}

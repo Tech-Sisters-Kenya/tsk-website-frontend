@@ -11,14 +11,14 @@ test.describe('Privacy Policy Page', () => {
 
     const mainHeading = page.getByRole('heading', { level: 1 }).first();
     await expect(mainHeading).toBeVisible();
-    await expect(mainHeading).toHaveText('PRIVACY POLICY');
+    await expect(mainHeading).toHaveText('Privacy Policy');
   });
 
   test('should display key sections and important content', async ({ page }) => {
     await page.waitForTimeout(500);
 
     const expectedTexts = [
-      'Effective Date:',
+      'Last Updated:',
       'WHO WE ARE',
       'WHAT INFORMATION WE COLLECT',
       'HOW WE USE YOUR INFORMATION',
