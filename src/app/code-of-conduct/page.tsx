@@ -116,7 +116,7 @@ export default function CodeOfConduct() {
           <span className="font-semibold">trust, collaboration, and respect</span>. If actions that
           violate this Code occur, the leadership team may take steps
         </p>
-        <h4 className="font-body font-semibold mt-8 my-2">Handling Violations</h4>
+        <h4 className="font-body text-xl font-bold mt-8 my-2">Handling Violations</h4>
         <p> Depending on the severity and context of the issue, we may respond with:</p>
         <ul className="list-disc pl-8 flex flex-col gap-2 my-2">
           <li>A reminder or clarification of guidelines</li>
