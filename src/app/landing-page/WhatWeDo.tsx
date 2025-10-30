@@ -10,10 +10,11 @@ const WhatWeDo = () => {
   return (
     <div className="w-full md:relative mb-12">
       <div className="bg-white font-body text-center mx-auto pt-8 lg:pb-20 md:max-w-6xl px-3">
-        <p className="font-bold text-[30px] md:text-[48px] text-[#45084a]">WHAT WE DO</p>
-        <p className="font-medium text-[18px] md:text-[20px] text-[#45084a] mb-10">
-          At Tech Sisters, we elevate women in technology. We create safe spaces for learning,
-          growth, and connection — helping women step confidently into tech and thrive.
+        <p className="font-bold text-[30px] md:text-[48px] text-[#45084a]">What We Do</p>
+        <p className="font-medium text-[18px] md:text-[20px] text-[#45084a] mb-12">
+          We create safe spaces for learning, growth, and connection.
+          <br />
+          Helping women step confidently into tech and thrive.
         </p>
 
         {/* Card layout */}

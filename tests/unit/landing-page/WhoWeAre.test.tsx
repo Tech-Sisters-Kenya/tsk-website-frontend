@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import WhoWeAre from '@/app/landing-page/WhoWeAre';
 import '@testing-library/jest-dom';
 
@@ -11,8 +11,10 @@ jest.mock('@/assets/whoweare2.svg', () => 'whoweare2.svg');
 jest.mock('@/assets/tsk-icon-logo.svg', () => 'logo.svg');
 jest.mock('@/assets/inclusivity.svg', () => 'inclusivity.svg');
 jest.mock('@/assets/community.svg', () => 'community.svg');
-jest.mock('@/assets/growth.svg', () => 'growth.svg');
+jest.mock('@/assets/respectintegrity.svg', () => 'respectintegrity.svg');
+jest.mock('@/assets/sisterhoodfirst.svg', () => 'sisterhoodfirst.svg');
 jest.mock('@/assets/empowerment.svg', () => 'empowerment.svg');
+jest.mock('@/assets/well-being.svg', () => 'wellbeing.svg');
 
 jest.mock('next/image', () => {
   const NextImage = (props: any) => {
@@ -30,6 +32,9 @@ describe('WhoWeAre Component', () => {
   beforeEach(() => {
     render(<WhoWeAre />);
   });
+  afterEach(() => {
+    cleanup();
+  });
 
   it('renders the section heading', () => {
     expect(screen.getByRole('heading', { name: /who we are/i })).toBeInTheDocument();
@@ -44,9 +49,18 @@ describe('WhoWeAre Component', () => {
     expect(screen.getByRole('heading', { name: /our vision/i })).toBeInTheDocument();
     expect(screen.getByText(/a kenya where women are empowered to excel/i)).toBeInTheDocument();
   });
-
+  it('renders core values heading', () => {
+    expect(screen.getByText(/our core values/i)).toBeInTheDocument();
+  });
   it('renders core values section with all labels', () => {
-    const coreValueLabels = ['Inclusivity', 'Community', 'Growth', 'Empowerment'];
+    const coreValueLabels = [
+      'Sisterhood First',
+      'Inclusivity',
+      'Community',
+      'Well-being',
+      'Respect & Integrity',
+      'Empowerment',
+    ];
     coreValueLabels.forEach((label) => {
       expect(screen.getByText(label)).toBeInTheDocument();
     });
@@ -56,5 +70,18 @@ describe('WhoWeAre Component', () => {
     expect(screen.getByAltText(/image/i)).toBeInTheDocument();
     expect(screen.getByAltText(/group photo/i)).toBeInTheDocument();
     expect(screen.getByAltText(/logo/i)).toBeInTheDocument();
+  });
+  it('renders all core value icons', () => {
+    const coreValueLabels = [
+      'Sisterhood First',
+      'Inclusivity',
+      'Community',
+      'Respect & Integrity',
+      'Empowerment',
+      'Well-being',
+    ];
+    coreValueLabels.forEach((label) => {
+      expect(screen.getByAltText(label)).toBeInTheDocument();
+    });
   });
 });

@@ -23,7 +23,7 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center py-14 gap-8 lg:gap-12">
         {/*left text section */}
         <div className="flex-1 text-left max-w-lg">
-          <h2 className="text-3xl md:text-4xl font-bold text-tsk-primary-dark font-heading mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-tsk-primary-dark font-heading mb-6">
             {title}
           </h2>
           <p className="text-tsk-primary-dark text-base md:text-lg font-bold font-body mb-10">
@@ -54,7 +54,7 @@ export default function ReachSection({ title, subtitle, stats }: ReachSectionPro
           <Link href="/get-involved" data-testid="reach-cta" className="inline-block">
             <Button
               variant="primary"
-              className="font-heading text-tsk-light-1 font-extrabold text-base sm:text-lg mt-14"
+              className="font-heading text-foreground font-extrabold text-base sm:text-lg mt-14"
             >
               Get Involved
             </Button>

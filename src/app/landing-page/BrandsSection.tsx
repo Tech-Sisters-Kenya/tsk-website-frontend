@@ -3,14 +3,14 @@ import React from 'react';
 import Image from 'next/image';
 import Moringa from '@/assets/moringa.svg';
 import Google from '@/assets/logos_google.svg';
-import PlugWork from '@/assets/image 1.svg';
+import Solutech from '@/assets/solutech.svg';
 import eMobilis from '@/assets/emobilis.svg';
 import payd from '@/assets/payd.svg';
 
 const brands = [
-  { name: 'Moringa', src: Moringa },
   { name: 'Google', src: Google },
-  { name: 'PlugWork', src: PlugWork },
+  { name: 'Moringa', src: Moringa },
+  { name: 'Solutech', src: Solutech },
   { name: 'eMobilis', src: eMobilis },
   { name: 'Payd', src: payd },
 ];
@@ -20,23 +20,25 @@ export default function BrandsSection() {
     <section
       id="brands"
       data-testid="brands-section"
-      className="px-4 sm:px-6 md:px-8 lg:px-10 text-foreground py-10"
+      className="px-6 sm:px-10 md:px-14 lg:px-20 text-foreground py-10"
     >
-      <h4 className="text-lg text-center font-bold font-body text-tsk-primary-dark mb-12">
-        Brands That Believe In Us
-      </h4>
-      <div className="flex flex-row justify-center items-center gap-4 sm:gap-6 md:gap-8 lg:gap-12 flex-wrap">
-        {brands.map((brand, index) => (
-          <div key={index} className="flex-shrink-0">
-            <Image
-              src={brand.src}
-              alt={`${brand.name} Logo`}
-              width={100}
-              height={60}
-              className="h-12 w-auto object-contain"
-            />
-          </div>
-        ))}
+      <div className="max-w-6xl mx-auto">
+        <h4 className="text-[32px] md:text-[40px] lg:text-[48px] text-center font-semibold font-other text-tsk-primary-dark mb-10">
+          Our Growth Partners
+        </h4>
+        <div className="flex flex-row justify-center items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16 flex-wrap">
+          {brands.map((brand, index) => (
+            <div key={index} className="flex-shrink-0">
+              <Image
+                src={brand.src}
+                alt={`${brand.name} Logo`}
+                width={100}
+                height={80}
+                className="h-16 w-auto object-contain"
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
