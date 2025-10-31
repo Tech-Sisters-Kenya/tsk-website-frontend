@@ -10,6 +10,7 @@ import WhoWeAre from './WhoWeAre';
 import OurStory from './OurStory';
 import OurGallery from './OurGallery';
 import OurMantra from './OurMantra';
+import JoinUsOptions from './JoinUsOptions';
 
 export default function AboutUs() {
   return (
@@ -19,6 +20,7 @@ export default function AboutUs() {
       <OurStory />
       <OurMantra />
       <OurGallery />
+      <JoinUsOptions />
       {/* <MissionVision /> */}
       {/* <CoreValues /> */}
       {/* <ValueToTechSisters /> */}
