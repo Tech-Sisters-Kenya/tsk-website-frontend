@@ -23,24 +23,23 @@ function RadioGroup<T extends FieldValues>({
     name,
     control,
     defaultValue: [] as PathValue<T, Path<T>>,
-    rules: { required: 'This field is required' },
   });
 
   return (
     <div>
-      <h4 className="font-body text-tsk-primary-dark font-semibold mb-4">{label}</h4>
+      <h4 className="font-body text-xl text-tsk-primary-dark font-semibold mb-4">{label}</h4>
       <RadioGroupPrimitive.Root
-        value={field.value}
-        onValueChange={field.onChange}
+        value={field.value ?? ''}
+        onValueChange={(value) => field.onChange(value ?? '')}
         className="flex gap-8"
       >
         {options.map((opt) => (
           <label key={opt.value} className="flex items-center gap-2">
             <RadioGroupPrimitive.Item
               value={opt.value}
-              className="w-5 h-5 rounded-full border border-gray-400 
+              className="w-5 h-5 rounded-full border border-gray-400 bg-white 
                          data-[state=checked]:bg-white
-                         flex items-center justify-center"
+                         flex items-center justify-center font-medium"
             >
               <RadioGroupPrimitive.Indicator className="w-2.5 h-2.5 rounded-full bg-tsk-primary-dark" />
             </RadioGroupPrimitive.Item>

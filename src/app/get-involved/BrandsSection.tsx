@@ -12,9 +12,7 @@ const brands = [
 function BrandsSection() {
   return (
     <section className="w-full py-12 px-10 md:px-28">
-      <h1 className="font-body font-bold text-xl text-center">
-        Brands that believe in our vision and goal
-      </h1>
+      <h1 className="font-body font-bold text-2xl sm:text-5xl text-center">Our Growth Partners</h1>
       <div className="flex flex-wrap justify-center items-center gap-12 mt-10">
         {brands.map(({ src, name }, index) => (
           <div key={index}>

@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 import Button from '@/components/Button';
 import SelectField from '../SelectField';
 import Input from '../Input';
@@ -12,26 +11,13 @@ import CheckboxField from '../CheckboxField';
 import { NatureOfPartnershipOptions, TechSistersHeardFromOptions } from '../info';
 import RadioGroup from '../RadioGroup';
 import { endpoints } from '@/api/constants';
-
-interface IFormProps {
-  organisation_name: string;
-  contact_person_name: string;
-  position: string;
-  email: string;
-  phone: string;
-  nature_of_partnership_interest: string[];
-  how_did_you_hear_about_us: string;
-  preferred_timeline: string;
-  pitch_deck: string;
-  // additional_notes: string;
-  preferred_communication_channel: string;
-}
+import { IFormProps } from './IFormProps';
+import Modal from '../Modal';
 
 function Form() {
-  const router = useRouter();
-
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     handleSubmit,
@@ -39,7 +25,21 @@ function Form() {
     register,
     control,
     setError,
-  } = useForm<IFormProps>();
+  } = useForm<IFormProps>({
+    defaultValues: {
+      organisation_name: '',
+      contact_person_name: '',
+      position: '',
+      email: '',
+      phone: '',
+      nature_of_partnership_interest: '',
+      how_did_you_hear_about_us: '',
+      preferred_timeline: '',
+      pitch_deck: '',
+      additional_notes: '',
+      preferred_communication_channel: '',
+    },
+  });
 
   const onSubmit: SubmitHandler<IFormProps> = async (data) => {
     setIsLoading(true);
@@ -52,11 +52,6 @@ function Form() {
         )
       );
 
-      console.log(
-        'Sending registration request with payload:',
-        JSON.stringify(trimmedData, null, 2)
-      );
-
       const response = await fetch(endpoints.registerPartner, {
         method: 'POST',
         headers: {
@@ -65,11 +60,13 @@ function Form() {
         },
         body: JSON.stringify(trimmedData),
       });
+      console.log('Server response:', response);
 
       const result = await response.json();
+      console.log('Server result:', result);
 
       if (!response.ok) {
-        console.error('Server error response:', data);
+        console.error('Server error response:', trimmedData);
 
         if (response.status === 422 && result.errors) {
           // Handle validation errors
@@ -85,8 +82,8 @@ function Form() {
         throw new Error(result.message || `Registration failed. Status: ${response.status}`);
       }
 
-      // Registration successful
-      router.push('/get-involved/partner-with-us/success');
+      // Registration successful, open modal
+      setIsModalOpen(true);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Registration failed. Please try again.';
@@ -98,11 +95,7 @@ function Form() {
   };
 
   return (
-    <div className="mt-12">
-      <p className="font-body text-tsk-primary-dark text-xl font-semibold text-center">
-        To partner with us, please fill out the form below.
-      </p>
-
+    <div className="bg-tsk-light-1 p-8 rounded-3xl">
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         {/* Organisation / Group Name */}
         <Input
@@ -117,7 +110,7 @@ function Form() {
           })}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-8">
           {/* Contact Person */}
           <Input
             id="contact_person_name"
@@ -135,17 +128,16 @@ function Form() {
           <Input
             id="position"
             type="text"
-            label=" Position / Title *"
+            label=" Position / Title"
             placeholder="Enter your position"
             error={errors.position}
             {...register('position', {
-              required: 'Position / Title is required',
               setValueAs: (v) => v.trim(),
             })}
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-8">
           {/* Email */}
           <Input
             id="email"
@@ -167,8 +159,8 @@ function Form() {
           <PhoneNumberInput name="phone" control={control} error={errors.phone} />
         </div>
 
+        {/* Nature of Partnership Interest */}
         <div className="mt-8">
-          {/* Nature of Partnership Interest */}
           <CheckboxField
             label="Nature of Partnership Interest *"
             name="nature_of_partnership_interest"
@@ -179,9 +171,21 @@ function Form() {
         </div>
 
         <div className="mt-8">
+          <SelectField
+            id="how_did_you_hear_about_us"
+            label="In what Ways have you heard about Tech Sisters Kenya (Select all that apply)"
+            placeholder="Select an option"
+            options={TechSistersHeardFromOptions}
+            error={errors.how_did_you_hear_about_us}
+            control={control}
+            name="how_did_you_hear_about_us"
+          />
+        </div>
+
+        <div className="mt-8">
           <TextAreaField
             id="pitch_deck"
-            label="Please describe your idea or intention for this partnership (short paragraph) *"
+            label="Please describe your idea or intention for this partnership (short paragraph) *"
             placeholder="Describe your idea or intention for this partnership"
             {...register('pitch_deck', {
               required: 'Describe your idea or intention for this partnership',
@@ -206,29 +210,6 @@ function Form() {
         </div>
 
         <div className="mt-8">
-          <SelectField
-            id="how_did_you_hear_about_us"
-            label="How Did You Hear About Tech Sisters Kenya?"
-            placeholder="Select an option"
-            options={TechSistersHeardFromOptions}
-            error={errors.how_did_you_hear_about_us}
-            control={control}
-            name="how_did_you_hear_about_us"
-          />
-        </div>
-
-        {/* <div className="mt-8">
-          <Input
-            id="additional_notes"
-            type="text"
-            label="Any additional notes or questions?"
-            placeholder="Enter additional notes"
-            error={errors.additional_notes}
-            {...register('additional_notes', { setValueAs: (v) => v.trim() })}
-          />
-        </div> */}
-
-        <div className="mt-8">
           <RadioGroup
             name="preferred_communication_channel"
             control={control}
@@ -238,6 +219,16 @@ function Form() {
               { label: 'Email', value: 'Email' },
               { label: 'Phone', value: 'Phone' },
             ]}
+          />
+        </div>
+
+        <div className="mt-8">
+          <TextAreaField
+            id="additional_notes"
+            label="Any additional notes or questions?"
+            placeholder="Enter additional notes"
+            error={errors.additional_notes}
+            {...register('additional_notes', { setValueAs: (v) => v.trim() })}
           />
         </div>
 
@@ -255,6 +246,8 @@ function Form() {
         >
           <span className="text-lg">{isLoading ? 'Submitting...' : 'Submit'}</span>
         </Button>
+
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </form>
     </div>
   );

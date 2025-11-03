@@ -8,36 +8,39 @@ import PhoneNumberInput from '../PhoneNumberInput';
 import CheckboxField from '../CheckboxField';
 import { SponsorshipTypeOptions } from '../info';
 import RadioGroup from '../RadioGroup';
-
-interface IFormProps {
-  contact_name: string;
-  organisation_name: string;
-  position_title: string;
-  email: string;
-  phone: string;
-  sponsorship_type: string[];
-  amount?: string;
-  notes: string;
-  preferred_communication_method: string;
-  sponsorship_goals_and_expectations: string;
-  in_kind_support_type?: string;
-}
+import TextAreaField from '../TextAreaField';
+import { IFormProps } from './IFormProps';
+import { endpoints } from '@/api/constants';
+import Modal from '../Modal';
 
 function Form() {
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     handleSubmit,
     control,
-    watch,
     formState: { errors },
     register,
+    setError,
   } = useForm<IFormProps>({
-    shouldUnregister: true, //  removed fields don’t persist
+    defaultValues: {
+      contact_name: '',
+      organisation_name: '',
+      position_title: '',
+      email: '',
+      phone: '',
+      sponsorship_type: [],
+      amount: '',
+      notes: '',
+      preferred_communication_method: '',
+      sponsorship_goals_and_expectations: '',
+      in_kind_support_type: '',
+    },
   });
 
-  const conditionalFields = watch('sponsorship_type') || [];
+  // const conditionalFields = watch('sponsorship_type') || [];
 
   const onSubmit: SubmitHandler<IFormProps> = async (data) => {
     setIsLoading(true);
@@ -50,7 +53,38 @@ function Form() {
         )
       );
 
-      console.log(trimmedData);
+      const response = await fetch(endpoints.registerSponsor, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(trimmedData),
+      });
+      console.log('Server response:', response);
+
+      const result = await response.json();
+      console.log('Server result:', result);
+
+      if (!response.ok) {
+        console.error('Server error response:', trimmedData);
+
+        if (response.status === 422 && result.errors) {
+          // Handle validation errors
+          Object.entries(result.errors).forEach(([field, messages]) => {
+            setError(field as keyof IFormProps, {
+              type: 'manual',
+              message: Array.isArray(messages) ? messages[0] : String(messages),
+            });
+          });
+          return;
+        }
+
+        throw new Error(result.message || `Registration failed. Status: ${response.status}`);
+      }
+
+      // Registration successful, open modal
+      setIsModalOpen(true);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Registration failed. Please try again.';
@@ -62,11 +96,7 @@ function Form() {
   };
 
   return (
-    <div className="mt-12">
-      <p className="font-body text-tsk-primary-dark text-xl font-semibold text-center">
-        To sponsor us, please fill out the form below.
-      </p>
-
+    <div className="bg-tsk-light-1 p-8 rounded-3xl">
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         <div className="mt-8">
           {/* Organisation / Group Name */}
@@ -136,7 +166,7 @@ function Form() {
         <div className="mt-8">
           {/* Sponsorhsip type */}
           <CheckboxField
-            label="Type of sponsorship *"
+            label="What type of sponsorship are you proposing? *"
             name="sponsorship_type"
             control={control}
             options={SponsorshipTypeOptions}
@@ -144,7 +174,7 @@ function Form() {
           />
         </div>
 
-        {conditionalFields.includes('Financial support') && (
+        {/* {conditionalFields.includes('Financial support') && (
           <div className="mt-8">
             <Input
               id="amount"
@@ -158,9 +188,9 @@ function Form() {
               })}
             />
           </div>
-        )}
+        )} */}
 
-        {conditionalFields.includes('In-kind contribution') && (
+        {/* {conditionalFields.includes('In-kind contribution') && (
           <div className="mt-8">
             <Input
               id="in_kind_support_type"
@@ -174,13 +204,13 @@ function Form() {
               })}
             />
           </div>
-        )}
+        )} */}
 
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <Input
             id="sponsorship_goals_and_expectations"
             type="text"
-            label="What are your sponsorship goals or expectations? (brand visibility, community engagement, CSR, etc.) *"
+            label="What are your sponsorship goals or expectations?(brand visibility, community engagement, CSR, etc.) *"
             placeholder="Enter your goals and expectations"
             error={errors.sponsorship_goals_and_expectations}
             {...register('sponsorship_goals_and_expectations', {
@@ -188,20 +218,7 @@ function Form() {
               setValueAs: (v) => v.trim(),
             })}
           />
-        </div>
-
-        <div className="mt-8">
-          <Input
-            id="notes"
-            type="text"
-            label="Any additional notes or links you'd like to share?"
-            placeholder="Enter any additional notes or links"
-            error={errors.notes}
-            {...register('notes', {
-              setValueAs: (v) => v.trim(),
-            })}
-          />
-        </div>
+        </div> */}
 
         <div className="mt-8">
           <RadioGroup
@@ -213,6 +230,18 @@ function Form() {
               { label: 'Email', value: 'Email' },
               { label: 'Phone', value: 'Phone' },
             ]}
+          />
+        </div>
+
+        <div className="mt-8">
+          <TextAreaField
+            id="notes"
+            label="Any additional notes or links you'd like to share?"
+            placeholder="Enter any additional notes or links"
+            error={errors.notes}
+            {...register('notes', {
+              setValueAs: (v) => v.trim(),
+            })}
           />
         </div>
 
@@ -230,6 +259,8 @@ function Form() {
         >
           <span className="text-lg">{isLoading ? 'Submitting...' : 'Submit'}</span>
         </Button>
+
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </form>
     </div>
   );

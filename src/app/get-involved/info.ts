@@ -2,7 +2,7 @@ export const NatureOfPartnershipOptions = [
   'Co - hosting  an event',
   'Running a partner-led initiative',
   'Knowledge/resource collaboration',
-  'Initiative-based support (e.g. sponsor a program)',
+  'Volunteering or mentorship',
   'Other',
 ];
 
@@ -17,6 +17,7 @@ export const TechSistersHeardFromOptions = [
   'Tech Community (e.g. Women Techmakers, Zindua, ALX, She Code Africa)',
   'Featured in Media or Article',
   'Attended a Conference or Meetup',
+  'Other',
 ];
 
 export const SponsorshipTypeOptions = [

@@ -28,24 +28,21 @@ function CheckboxField<T extends FieldValues>({
   });
 
   const toggleOption = (option: string) => {
-    const newValue = field.value.includes(option)
-      ? field.value.filter((item: string) => item !== option)
-      : [...field.value, option];
-
+    const newValue = field.value === option ? '' : option;
     field.onChange(newValue);
   };
 
   return (
     <div>
-      <h4 className="font-body text-tsk-primary-dark font-semibold mb-4">{label}</h4>
-      <div className="flex flex-row flex-wrap gap-8">
+      <h4 className="font-body text-xl text-tsk-primary-dark font-semibold mb-4">{label}</h4>
+      <div className="flex flex-col gap-8">
         {options.map((option, index) => (
           <label
             key={index}
             className="flex items-center gap-3 cursor-pointer select-none text-tsk-primary-dark font-body font-medium"
           >
             <CheckboxPrimitive.Root
-              checked={field.value.includes(option)}
+              checked={field.value === option}
               onCheckedChange={() => toggleOption(option)}
               className="w-5 h-5 flex items-center justify-center rounded-sm border border-tsk-primary-dark bg-tsk-light-2"
             >

@@ -28,12 +28,11 @@ function SelectField<T extends FieldValues>({
     name,
     control,
     defaultValue: '' as PathValue<T, Path<T>>,
-    rules: { required: 'This field is required' },
   });
 
   return (
     <div className="flex flex-col gap-4">
-      <label htmlFor={id} className="font-body text-tsk-primary-dark font-semibold">
+      <label htmlFor={id} className="font-body text-xl text-tsk-primary-dark font-semibold">
         {label}
       </label>
 

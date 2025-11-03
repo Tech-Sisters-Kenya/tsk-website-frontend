@@ -5,7 +5,7 @@ import Link from 'next/link';
 function PartnerSection() {
   return (
     <section className="w-full py-24 px-10 md:px-28 grid grid-cols-1 md:grid-cols-2 md:auto-rows-min gap-16">
-      <h1 className="text-center md:text-left font-heading font-bold md:font-black text-2xl md:text-5xl leading-[150%] text-tsk-primary-dark md:col-start-2 md:row-start-1">
+      <h1 className="text-center md:text-left font-heading font-bold md:font-black text-3xl md:text-5xl leading-[150%] text-tsk-primary-dark md:col-start-2 md:row-start-1">
         Partner With Us!
       </h1>
 
@@ -25,7 +25,7 @@ function PartnerSection() {
       </p>
 
       <Link
-        href="/get-involved/become-a-sponsor"
+        href="/get-involved/partner-with-us"
         className="self-end justify-self-center md:justify-self-start w-full md:w-fit text-center md:text-left bg-tsk-primary-dark text-white font-heading px-6 py-3 rounded-2xl font-bold text-xl leading-[150%] hover:opacity-90 transition md:col-start-2 md:row-start-3"
       >
         Propose a Partnership

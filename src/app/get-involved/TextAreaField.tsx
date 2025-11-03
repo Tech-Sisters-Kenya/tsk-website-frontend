@@ -12,7 +12,7 @@ const TextAreaField = forwardRef<HTMLTextAreaElement, TextAreaFieldProps>(
   ({ label, id, error, placeholder, ...props }, ref) => {
     return (
       <div className="flex flex-col gap-4">
-        <label htmlFor={id} className="font-body text-tsk-primary-dark font-semibold">
+        <label htmlFor={id} className="font-body text-xl text-tsk-primary-dark font-semibold">
           {label}
         </label>
         <textarea

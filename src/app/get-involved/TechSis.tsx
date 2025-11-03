@@ -5,7 +5,7 @@ import Link from 'next/link';
 function TechSis() {
   return (
     <section className="py-20 px-10 md:px-28 grid grid-cols-1 md:grid-cols-2 md:auto-rows-min gap-16">
-      <h1 className="text-center md:text-left font-heading font-bold md:font-black text-2xl md:text-5xl leading-[150%] text-tsk-primary-dark md:col-start-1 md:row-start-1">
+      <h1 className="text-center md:text-left font-heading font-bold md:font-black text-3xl md:text-5xl leading-[150%] text-tsk-primary-dark md:col-start-1 md:row-start-1">
         Become A Tech Sister!
       </h1>
 
@@ -20,8 +20,8 @@ function TechSis() {
       </div>
 
       <p className="text-center md:text-left font-body font-medium text-base md:text-xl leading-[150%] text-tsk-primary-dark mt-8 md:mt-6 md:col-start-1 md:row-start-2">
-        Tech Sisters Kenya is more than a community, it’s a movement of women learning, growing, and
-        showing up for each other.
+        Tech Sisters Kenya is more than a community, it&apos;s a movement of women learning,
+        growing, and showing up for each other.
       </p>
 
       <Link

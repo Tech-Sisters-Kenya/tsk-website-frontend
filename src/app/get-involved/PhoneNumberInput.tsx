@@ -4,6 +4,7 @@ import React from 'react';
 import { Controller, Control, FieldValues, Path } from 'react-hook-form';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import clsx from 'clsx';
+
 import 'react-phone-number-input/style.css';
 import './phoneInput.css';
 
@@ -20,7 +21,7 @@ function PhoneNumberInput<T extends FieldValues>({
 }: PhoneNumberInputProps<T>) {
   return (
     <div className="flex flex-col gap-4 w-full">
-      <label htmlFor={name} className="font-body text-tsk-primary-dark font-semibold">
+      <label htmlFor={name} className="font-body text-xl text-tsk-primary-dark font-semibold">
         Phone Number *
       </label>
 
@@ -41,7 +42,7 @@ function PhoneNumberInput<T extends FieldValues>({
             countryCallingCodeEditable={false} // lock prefix
             className={clsx(
               'w-full flex items-stretch border rounded-xl overflow-hidden',
-              'border placeholder:text-[#45084A]/50 rounded-xl focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary',
+              'border placeholder:text-[#45084A]/50 rounded-xl bg-white focus:outline-none focus:ring-tsk-primary focus:border-tsk-primary',
               error
                 ? 'border-red-300 focus:border-red-300 focus:ring-red-300'
                 : 'border-[#45084A]/50 focus:border-tsk-primary'
