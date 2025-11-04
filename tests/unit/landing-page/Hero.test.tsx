@@ -30,16 +30,26 @@ describe('Hero Component', () => {
 
   it('renders the descriptive paragraph', () => {
     expect(
-      screen.getByText(/Tech Sisters Kenya is a non-profit organization/i)
+      screen.getByText(/Tech Sisters Kenya is a community empowering women in tech/i)
     ).toBeInTheDocument();
   });
 
-  it('renders Join Our Community button', () => {
-    expect(screen.getByRole('button', { name: /join our community/i })).toBeInTheDocument();
+  it('renders Become A Tech Sister button', () => {
+    expect(screen.getByRole('button', { name: /become a tech sister!/i })).toBeInTheDocument();
   });
 
-  it('renders Partner With Us button', () => {
-    expect(screen.getByRole('button', { name: /partner with us/i })).toBeInTheDocument();
+  it('renders Get Involved button', () => {
+    expect(screen.getByRole('button', { name: /get involved/i })).toBeInTheDocument();
+  });
+
+  it('renders correct link for Become A Tech Sister button', () => {
+    const link = screen.getByRole('link', { name: /become a tech sister!/i });
+    expect(link).toHaveAttribute('href', '/join-our-community');
+  });
+
+  it('renders correct link for Get Involved button', () => {
+    const link = screen.getByRole('link', { name: /get involved/i });
+    expect(link).toHaveAttribute('href', '/get-involved');
   });
 
   it('renders the AnimatedShapes component', () => {

@@ -228,13 +228,13 @@ describe('LandingPage Component', () => {
 
     it('passes correct title to OurReach component', () => {
       const ourReachTitle = screen.getByTestId('our-reach-title');
-      expect(ourReachTitle).toHaveTextContent('OUR REACH SO FAR');
+      expect(ourReachTitle).toHaveTextContent('Our Reach So Far');
     });
 
     it('passes correct subtitle to OurReach component', () => {
       const ourReachSubtitle = screen.getByTestId('our-reach-subtitle');
       expect(ourReachSubtitle).toHaveTextContent(
-        'A growing community of women building confidence, skills, and careers in tech.'
+        'From coding to non coding skills , we’re building a diverse network of women learning, growing, and supporting one another to build confidence, skills, and lasting impact.'
       );
     });
 
