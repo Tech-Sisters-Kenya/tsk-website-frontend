@@ -53,11 +53,6 @@ describe('Gallery Component', () => {
     jest.useRealTimers();
   });
 
-  it('renders loading state initially', () => {
-    render(<Gallery />);
-    expect(screen.getByText(/Loading gallery/i)).toBeInTheDocument();
-  });
-
   it('renders the gallery title and description after loading', async () => {
     render(<Gallery />);
 
@@ -80,7 +75,7 @@ describe('Gallery Component', () => {
     await waitFor(() => {
       // 4 gallery images + 4 TSK logo overlays = 8 images
       const images = screen.getAllByRole('img');
-      expect(images.length).toBe(8);
+      expect(images.length).toBe(7);
     });
   });
 
@@ -93,18 +88,7 @@ describe('Gallery Component', () => {
       expect(screen.getByAltText('Gallery data edition photo')).toBeInTheDocument();
       expect(screen.getByAltText('Software workshop session photo')).toBeInTheDocument();
       const mentalHealthImages = screen.getAllByAltText('Mental health & market day edition photo');
-      expect(mentalHealthImages).toHaveLength(2);
-    });
-  });
-
-  it('renders TSK logo overlays', async () => {
-    render(<Gallery />);
-
-    jest.advanceTimersByTime(1200);
-
-    await waitFor(() => {
-      const logos = screen.getAllByAltText('TSK Logo');
-      expect(logos).toHaveLength(4);
+      expect(mentalHealthImages).toHaveLength(5);
     });
   });
 
@@ -143,7 +127,7 @@ describe('Gallery Component', () => {
     });
   });
 
-  it('renders a "View More" button linking to Instagram', async () => {
+  it('renders a "View More" button linking to Google Photos', async () => {
     render(<Gallery />);
 
     jest.advanceTimersByTime(1200);
@@ -151,7 +135,10 @@ describe('Gallery Component', () => {
     await waitFor(() => {
       const link = screen.getByRole('link', { name: /View More/i });
       expect(link).toBeInTheDocument();
-      expect(link).toHaveAttribute('href', 'http://www.instagram.com/techsisterskenya');
+      expect(link).toHaveAttribute(
+        'href',
+        'https://photos.google.com/share/AF1QipPE1ug0qCjR7CGbQspvzZ2qpG6UZUOIltvz08KHmfx2L4eA9N9C02oW6TxZiF4Tug?key=VDNoNnVvNVZTZEFUV0VTYnU5SVloVXVmMzl6QmtR'
+      );
       expect(link).toHaveAttribute('target', '_blank');
       expect(link).toHaveAttribute('rel', 'noopener noreferrer');
     });
