@@ -68,7 +68,7 @@ const ExploreBlogs = () => {
             </div>
           ))}
           <div className="flex justify-center mt-8 md:mt-10  pb-6">
-            <Button className="font-black px-4 py-4 text-[16px] md:text-[17x]">
+            <Button className="font-black text-foreground px-4 py-4 text-[16px] md:text-[17x]">
               <Link href="/blogs">Read More</Link>
             </Button>
           </div>

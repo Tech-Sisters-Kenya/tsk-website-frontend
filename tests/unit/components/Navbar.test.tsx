@@ -108,17 +108,15 @@ describe('Navbar Component', () => {
     test('renders all navigation items', () => {
       render(<Navbar />);
 
-      expect(screen.getByText('Home')).toBeInTheDocument();
       expect(screen.getByText('About')).toBeInTheDocument();
       expect(screen.getByText('Get Involved')).toBeInTheDocument();
       expect(screen.getByText('Blogs')).toBeInTheDocument();
+      expect(screen.getByText('Contact Us')).toBeInTheDocument();
     });
 
-    test('renders login and signup buttons when not authenticated', () => {
+    test('renders become a tech sister button when not authenticated', () => {
       render(<Navbar />);
-
-      expect(screen.getByText('Login')).toBeInTheDocument();
-      expect(screen.getByText('Sign Up')).toBeInTheDocument();
+      expect(screen.getByText('Become A Tech Sister')).toBeInTheDocument();
     });
 
     test('renders logout button when authenticated', () => {
