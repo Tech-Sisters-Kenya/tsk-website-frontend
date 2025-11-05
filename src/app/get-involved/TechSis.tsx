@@ -11,7 +11,7 @@ function TechSis() {
 
       <div className="relative w-full h-[300px] md:h-[450px] lg:h-[350px] rounded-3xl overflow-hidden md:col-start-2 md:row-start-1 md:row-span-3">
         <Image
-          src="/get-involved/techsis-img.png"
+          src="/get-involved/techsis-img.svg"
           alt="Become a Tech Sisters Image"
           fill
           className="object-cover"

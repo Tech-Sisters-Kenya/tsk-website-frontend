@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import MeetTheTeam from '@/app/meet-the-team/page';
-import TeamMember from '@/app/meet-the-team/TeamMember';
+import MeetTheTeam from '@/app/about-us/meet-the-team/page';
+import TeamMember from '@/app/about-us/meet-the-team/TeamMember';
 
 global.fetch = jest.fn();
 

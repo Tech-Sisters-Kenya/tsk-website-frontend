@@ -168,7 +168,7 @@ const Gallery = () => {
         <div className="flex justify-center my-10">
           <Button className="text-foreground font-semibold px-4 py-4">
             <a
-              href="http://www.instagram.com/techsisterskenya"
+              href="https://photos.google.com/share/AF1QipPE1ug0qCjR7CGbQspvzZ2qpG6UZUOIltvz08KHmfx2L4eA9N9C02oW6TxZiF4Tug?key=VDNoNnVvNVZTZEFUV0VTYnU5SVloVXVmMzl6QmtR"
               target="_blank"
               rel="noopener noreferrer"
             >

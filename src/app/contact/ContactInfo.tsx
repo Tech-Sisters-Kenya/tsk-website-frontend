@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import React from 'react';
-import email from '@/../public/email.svg';
-import call from '@/../public/call.svg';
-import instagram from '@/../public/instagram.svg';
-import x from '@/../public/x.svg';
-import linkedin from '@/../public/linkedin.svg';
-import tiktok from '@/../public/tiktok.svg';
+import email from '@/assets/email.svg';
+import call from '@/assets/call.svg';
+import instagram from '@/assets/instagram.svg';
+import x from '@/assets/x.svg';
+import linkedin from '@/assets/linkedin.svg';
+import tiktok from '@/assets/tiktok.svg';
 
 const ContactInfo = () => {
   return (
@@ -39,10 +39,26 @@ const ContactInfo = () => {
       <div className="flex justify-center pl-8 flex-col gap-2 sm:mt-6 mt-4">
         <h1 className="font-body font-semibold text-xl">Connect With Us</h1>
         <div className="flex gap-4">
-          <Image src={instagram} alt="instagram icon" />
-          <Image src={x} alt="x icon" />
-          <Image src={linkedin} alt="linkedin icon" />
-          <Image src={tiktok} alt="tiktok icon" className="" />
+          <a
+            href="https://www.instagram.com/techsisterskenya"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src={instagram} alt="instagram icon" />
+          </a>
+          <a href="https://x.com/TechSistersKE" target="_blank" rel="noopener noreferrer">
+            <Image src={x} alt="x icon" />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/tech-sisters-kenya/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image src={linkedin} alt="linkedin icon" />
+          </a>
+          <a href="https://linktr.ee/techsisterskenya" target="_blank" rel="noopener noreferrer">
+            <Image src={tiktok} alt="tiktok icon" className="" />
+          </a>
         </div>
       </div>
     </div>

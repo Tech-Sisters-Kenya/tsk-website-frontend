@@ -7,7 +7,7 @@ const HeroSection = () => {
   return (
     <section
       role="banner"
-      className="p-5 pb-12 pt-32 mb-10 md:mb-20 md:pl-20 md:pr-10 w-full bg-tsk-light-2 rounded-3xl mt-16 -z-10 "
+      className="p-5 pb-12 pt-48 mb-10 md:mb-20 md:pl-20 md:pr-10 w-[calc(100%-4rem)] bg-tsk-light-2 rounded-3xl mt-36 px-8 -z-10 "
     >
       <div className="w-full mx-auto flex flex-col md:flex-row items-center justify-between ">
         {/* Left column - text content */}

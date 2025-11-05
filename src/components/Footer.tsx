@@ -59,15 +59,15 @@ const Footer = () => {
     { href: '/about-us', label: 'About Us' },
     { href: '/faq', label: 'FAQ' },
     { href: '/code-of-conduct', label: 'Code Of Conduct' },
-    { href: '/terms-and-conditions', label: 'Terms & Condition' },
+    { href: '/terms-and-conditions', label: 'Terms & Conditions' },
     { href: '/privacy-policy', label: 'Privacy Policy' },
   ];
 
   // Get Involved section links with unique ids
   const involvedLinks: FooterLink[] = [
     { href: '/sign-up', label: 'Become A Tech Sister', id: 'tech-sister' },
-    { href: '/partner-with-us', label: 'Partner With Us', id: 'partner' },
-    { href: '/sponsor', label: 'Sponsor Us', id: 'sponsor' },
+    { href: 'get-involved/partner-with-us', label: 'Partner With Us', id: 'partner' },
+    { href: 'get-involved/become-a-sponsor', label: 'Sponsor Us', id: 'sponsor' },
   ];
 
   return (
@@ -106,8 +106,8 @@ const Footer = () => {
           {/* Get Involved Column */}
           <FooterSection title="Get Involved" links={involvedLinks} linkStyles={linkStyles} />
           {/* Contact Info */}
-          <div className="flex flex-col items-center">
-            <h3 className="text-xl font-semibold mb-4 text-tsk-light-1">Contact Info</h3>
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="text-xl font-semibold mb-4 text-tsk-light-1 ">Contact Information</h3>
             <div className="space-y-4">
               <a
                 href="mailto: techsisterskenya@gmail.com"
@@ -128,10 +128,30 @@ const Footer = () => {
           <div className="flex flex-col items-center">
             <h3 className="text-xl font-semibold mb-4 text-tsk-light-1">Connect With Us</h3>
             <div className="flex gap-4">
-              <Image src={instagram} alt="instagram icon" />
-              <Image src={x} alt="x icon" />
-              <Image src={linkedin} alt="linkedin icon" />
-              <Image src={tiktok} alt="tiktok icon" />
+              <a
+                href="https://www.instagram.com/techsisterskenya"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image src={instagram} alt="instagram icon" />
+              </a>
+              <a href="https://x.com/TechSistersKE" target="_blank" rel="noopener noreferrer">
+                <Image src={x} alt="x icon" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/tech-sisters-kenya/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image src={linkedin} alt="linkedin icon" />
+              </a>
+              <a
+                href="https://linktr.ee/techsisterskenya"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image src={tiktok} alt="tiktok icon" />
+              </a>
             </div>
           </div>
         </div>

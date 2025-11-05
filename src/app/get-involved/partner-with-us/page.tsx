@@ -1,12 +1,12 @@
 import React from 'react';
 import Form from './Form';
-import BrandsSection from '../BrandsSection';
+import BrandsSection from '../../landing-page/BrandsSection';
 import TopCard from '../TopCard';
 
 export default function PartnerWithUs() {
   return (
-    <section className="py-24 px-10 lg:px-28">
-      <div className="w-full sm:w-1/2 mx-auto mt-10 ">
+    <section className="py-24 px-10 lg:px-20">
+      <div className="w-full flex justify-center items-center mx-auto mt-10 ">
         <TopCard />
       </div>
 

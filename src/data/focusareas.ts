@@ -2,7 +2,7 @@ export const focusAreas = [
   {
     id: 1,
     title: 'Technical Empowerment',
-    image: '/about-us/technical-empowerment.png',
+    image: '/about-us/technical-empowerment.svg',
     whatItMeans: 'Equipping women with practical, in-demand tech skills through hands-on learning.',
     whatWeDo:
       'Code challenges, hackathons, workshops in software development, data, cybersecurity, and product design.',
@@ -12,7 +12,7 @@ export const focusAreas = [
   {
     id: 2,
     title: 'Professional Development & Mentorship',
-    image: '/about-us/pro-development.png',
+    image: '/about-us/pro-development.svg',
     whatItMeans: 'Guiding women to grow their careers with the right tools and networks.',
     whatWeDo:
       'CV clinics, mentorship circles, job search workshops, scholarships, and career panels.',
@@ -22,7 +22,7 @@ export const focusAreas = [
   {
     id: 3,
     title: 'Visibility & Representation',
-    image: '/about-us/visibility-representation.png',
+    image: '/about-us/visibility-representation.svg',
     whatItMeans: 'Ensuring women are seen, heard, and celebrated in tech spaces.',
     whatWeDo:
       'Speaking at panels, moderating events, spotlighting women on social media, and connecting members with global platforms.',
@@ -31,7 +31,7 @@ export const focusAreas = [
   {
     id: 4,
     title: 'Community Wellness & Inclusion',
-    image: '/about-us/community-wellness.png',
+    image: '/about-us/community-wellness.svg',
     whatItMeans:
       'Supporting the whole person because thriving in tech also means thriving in life.',
     whatWeDo: 'Yoga sessions, mental health workshops, casual hangouts, and market days.',

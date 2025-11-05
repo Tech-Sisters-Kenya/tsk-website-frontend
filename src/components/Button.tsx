@@ -11,7 +11,7 @@ const Button = ({ variant = 'primary', className, ...props }: ButtonProps) => {
   // Define variants using only CSS classes (no conflicting inline styles)
   const variants = {
     primary:
-      'bg-tsk-primary-dark text-tsk-light-1 font-bold border-tsk-primary-dark hover:bg-tsk-light-2 hover:text-tsk-primary-dark hover:border-tsk-primary-dark',
+      'bg-tsk-primary-dark text-white font-bold border-tsk-primary-dark hover:bg-tsk-light-2 hover:text-tsk-primary-dark hover:border-tsk-primary-dark',
     secondary:
       'bg-tsk-light-2 text-tsk-primary-dark font-bold border-tsk-primary-dark hover:bg-tsk-primary-dark hover:text-tsk-light-1',
   };
