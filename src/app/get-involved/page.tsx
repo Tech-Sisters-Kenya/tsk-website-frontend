@@ -1,6 +1,6 @@
 import React from 'react';
 import PartnerSection from './PartnerSection';
-import BrandsSection from './BrandsSection';
+import BrandsSection from '../landing-page/BrandsSection';
 import HeroSection from './HeroSection';
 import TechSis from './TechSis';
 import Support from './Support';

@@ -39,7 +39,7 @@ function CheckboxField<T extends FieldValues>({
         {options.map((option, index) => (
           <label
             key={index}
-            className="flex items-center gap-3 cursor-pointer select-none text-tsk-primary-dark font-body font-medium"
+            className="flex items-center gap-3 cursor-pointer select-none text-tsk-primary-dark font-body font-semibold text-lg"
           >
             <CheckboxPrimitive.Root
               checked={field.value === option}
@@ -47,7 +47,7 @@ function CheckboxField<T extends FieldValues>({
               className="w-5 h-5 flex items-center justify-center rounded-sm border border-tsk-primary-dark bg-tsk-light-2"
             >
               <CheckboxPrimitive.Indicator>
-                <Check size={16} className="text-[#0A891B]" />
+                <Check size={16} className="text-[#45084A]" />
               </CheckboxPrimitive.Indicator>
             </CheckboxPrimitive.Root>
             <span>{option}</span>

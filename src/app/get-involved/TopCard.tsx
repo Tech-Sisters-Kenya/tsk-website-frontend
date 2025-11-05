@@ -3,7 +3,7 @@ import React from 'react';
 
 function TopCard() {
   return (
-    <div className="bg-tsk-primary-dark rounded-lg flex flex-col items-center justify-center gap-4 p-8">
+    <div className="bg-tsk-primary-dark rounded-lg w-[calc(100vw_-_500px)] flex flex-col items-center justify-center gap-4 p-8">
       <Image
         src={'/get-involved/top-card-logo.svg'}
         alt="tech sisters logo"

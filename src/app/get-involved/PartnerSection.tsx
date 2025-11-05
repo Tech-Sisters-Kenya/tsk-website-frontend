@@ -11,7 +11,7 @@ function PartnerSection() {
 
       <div className="relative w-full h-[300px] md:h-[450px] lg:h-[350px] rounded-3xl overflow-hidden md:col-start-1 md:row-start-1 md:row-span-3">
         <Image
-          src="/get-involved/partner-img.png"
+          src="/get-involved/partner-img.svg"
           alt="Partner With Us Image"
           fill
           className="object-cover"

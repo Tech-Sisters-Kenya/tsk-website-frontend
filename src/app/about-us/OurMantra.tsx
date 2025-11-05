@@ -14,9 +14,9 @@ const OurMantra = () => {
       </p>
 
       <img
-        src="/about-us/bg-logo.png"
+        src="/about-us/bg-logo.svg"
         alt="background logo"
-        className="absolute -z-10 hidden lg:block lg:-bottom-28"
+        className="absolute -z-10 hidden lg:block lg:-bottom-16"
       />
 
       {/* ✅ Responsive grid layout */}

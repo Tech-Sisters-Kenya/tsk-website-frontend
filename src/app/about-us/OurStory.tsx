@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardFooter, CardHeader } from '@/components/ui/card';
@@ -38,10 +39,13 @@ const OurStory = () => {
                 </CardDescription>
               </CardHeader>
 
-              {/* TODO - Link tp the about subpages */}
+              {/* TODO - Link to the about subpages */}
               <CardFooter className="">
-                <Button className="w-[50%] md:w-[30%] border border-tsk-primary-dark p-6 text-tsk-primary-dark font-extrabold text-[16px] md:text-[20px] mx-auto cursor-pointer hover:text-white hover:bg-tsk-primary-dark hover:border-tsk-primary-dark">
-                  Read More
+                <Button
+                  asChild
+                  className="w-[50%] md:w-[30%] border border-tsk-primary-dark p-6 text-tsk-primary-dark font-extrabold text-[16px] md:text-[20px] mx-auto cursor-pointer hover:text-white hover:bg-tsk-primary-dark hover:border-tsk-primary-dark"
+                >
+                  <Link href="/about-us/our-story">Read More</Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -57,8 +61,11 @@ const OurStory = () => {
               </CardHeader>
 
               <CardFooter>
-                <Button className="w-[50%] md:w-[30%] border border-tsk-primary-dark p-6 text-tsk-primary-dark font-extrabold text-[16px] md:text-[20px] mx-auto cursor-pointer hover:text-white hover:bg-tsk-primary-dark hover:border-tsk-primary-dark">
-                  Read More
+                <Button
+                  asChild
+                  className="w-[50%] md:w-[30%] border border-tsk-primary-dark p-6 text-tsk-primary-dark font-extrabold text-[16px] md:text-[20px] mx-auto cursor-pointer hover:text-white hover:bg-tsk-primary-dark hover:border-tsk-primary-dark"
+                >
+                  <Link href="/about-us/our-focus-areas">Read More</Link>
                 </Button>
               </CardFooter>
             </Card>
@@ -74,8 +81,11 @@ const OurStory = () => {
               </CardHeader>
 
               <CardFooter>
-                <Button className="w-[50%] md:w-[30%] border border-tsk-primary-dark p-6 text-tsk-primary-dark font-extrabold text-[16px] md:text-[20px] mx-auto cursor-pointer hover:text-white hover:bg-tsk-primary-dark hover:border-tsk-primary-dark">
-                  Read More
+                <Button
+                  asChild
+                  className="w-[50%] md:w-[30%] border border-tsk-primary-dark p-6 text-tsk-primary-dark font-extrabold text-[16px] md:text-[20px] mx-auto cursor-pointer hover:text-white hover:bg-tsk-primary-dark hover:border-tsk-primary-dark"
+                >
+                  <Link href="/about-us/our-impact">Read More</Link>
                 </Button>
               </CardFooter>
             </Card>
