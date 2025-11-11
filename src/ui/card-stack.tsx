@@ -38,7 +38,7 @@ export const CardStack = ({ items }: CardStackProps) => {
   }, [activeIndex, items.length]);
 
   return (
-    <div className="reatove h-64 w-full overflow-hidden">
+    <div className="relative w-full">
       {items.map((item, index) => {
         const isActive = index === activeIndex;
         const isPrevActive = index === prevIndex && isAnimating;
@@ -110,8 +110,8 @@ export const CardStack = ({ items }: CardStackProps) => {
               src={item.image_url}
               alt={item.title}
               width={200}
-              height={300}
-              className="object-cover w-full h-[150px]"
+              height={120}
+              className="object-cover w-full h-[120px]"
             />
 
             <div className="p-6">
