@@ -44,10 +44,10 @@ const navItems = [
     label: 'About',
     children: [
       { href: '/about-us', label: 'About TSK' },
-      { href: '/about-us/meet-the-team', label: 'Our Team' },
+      // { href: '/about-us/meet-the-team', label: 'Our Team' },
       { href: '/about-us/our-story', label: 'Our Story' },
       { href: '/about-us/our-focus-areas', label: 'Focus Areas' },
-      { href: '/about-us/our-impact-so-far', label: 'Impact So far' },
+      { href: '/about-us/our-impact', label: 'Impact So far' },
     ],
   },
   {
