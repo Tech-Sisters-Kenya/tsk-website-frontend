@@ -7,20 +7,24 @@ import Logo from '@/assets/tsk-icon-logo.svg';
 import Image from 'next/image';
 import InclusivityIcon from '@/assets/inclusivity.svg';
 import CommunityIcon from '@/assets/community.svg';
-import GrowthIcon from '@/assets/growth.svg';
+import respectintegrity from '@/assets/respectintegrity.svg';
+import sisterhoodfirst from '@/assets/sisterhoodfirst.svg';
 import EmpowermentIcon from '@/assets/empowerment.svg';
+import wellbeing from '@/assets/well-being.svg';
 import { StaticImageData } from 'next/image';
 
 export default function WhoWeAre() {
   const coreValues = [
+    { label: 'Sisterhood First', src: sisterhoodfirst },
     { label: 'Inclusivity', src: InclusivityIcon },
     { label: 'Community', src: CommunityIcon },
-    { label: 'Growth', src: GrowthIcon },
+    { label: 'Respect & Integrity', src: respectintegrity },
     { label: 'Empowerment', src: EmpowermentIcon },
+    { label: 'Well-being', src: wellbeing },
   ];
   return (
     <section className="w-full mt-12 sm:mt-10 md:mt-20 lg:mt-24 bg-foreground py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-10 lg:gap-12">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-2 sm:gap-4 md:gap-6 lg:gap-8">
         {/*Images section */}
         <div className="relative w-full lg:w-2/5 max-w-4xl flex h-[500px] lg:mx-0 mt-32 mb-4">
           <div className=" z-10 overflow-hidden sm:block">
@@ -55,8 +59,8 @@ export default function WhoWeAre() {
         <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-6 mt-10">
           <div className="ml-16 sm:ml-18 md:ml-20 w-full max-w-7xl mx-auto flex flex-col md:flex-row justify-start">
             <div className="w-full md:max-w-3xl flex flex-col items-center">
-              <h2 className="text-4xl md:text-6xl sm:text-5xl font-semibold text-tsk-primary-dark text-center font-heading pb-20">
-                WHO WE ARE
+              <h2 className="text-4xl md:text-6xl sm:text-5xl font-semibold text-tsk-primary-dark text-center font-other pb-20">
+                Who We Are
               </h2>
 
               <div className="space-y-6 bg-foreground rounded-lg mb-20 max-w-full md:max-w-2xl lg:max-w-3xl mx-auto">
@@ -105,13 +109,13 @@ export default function WhoWeAre() {
 
       {/* Core Values Section */}
       <div className="flex flex-col items-center -mt-5">
-        <h3 className="text-sm sm:text-lg md:text-3xl text-tsk-primary-dark mb-8 px-4 sm:px-6 md:px-8 lg:px-10 py-8 font-body font-semibold text-center">
-          OUR CORE VALUES
+        <h3 className="text-[32px] sm:text-lg md:text-xl text-tsk-primary-dark mb-6 sm:mb-8 px-4 sm:px-6 md:px-8 lg:px-10 py-4 font-body font-bold text-center">
+          Our Core Values
         </h3>
-        <div className="flex flex-row justify-center gap-6 sm:gap-12 md:gap-20 lg:gap-32 mb-14">
+        <div className="flex flex-row justify-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-14 px-4">
           {coreValues.map((value: { label: string; src: StaticImageData }, index: number) => (
             <div key={index} className="flex flex-col items-center">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 mb-4">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 mb-3 sm:mb-4">
                 <Image
                   src={value.src}
                   alt={value.label}
@@ -120,7 +124,7 @@ export default function WhoWeAre() {
                   className="text-tsk-primary-dark w-full h-full object-contain"
                 />
               </div>
-              <p className="text-center font-semibold text-tsk-primary-dark text-xs sm:text-base md:text-2xl font-body">
+              <p className="text-center font-semibold text-tsk-primary-dark text-[10px] sm:text-xs md:text-sm font-body">
                 {value.label}
               </p>
             </div>

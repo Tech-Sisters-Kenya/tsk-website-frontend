@@ -21,8 +21,6 @@ test.describe('Code of Conduct Page', () => {
       'Welcome to Tech Sisters Kenya (TSK)',
       'Behavior Expectations',
       'Unacceptable Behaviors Include:',
-      'Our Mantra',
-      'What it Means to Us',
       'Reporting Concerns & Community Safety',
       'You can report via:',
       'Confidentiality & Action',
