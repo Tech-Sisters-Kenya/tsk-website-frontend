@@ -20,6 +20,8 @@ export const endpoints = {
   publishBlog: (id: string) => `${baseURL}/blogs/${id}/publish`,
   unpublishBlog: (id: string) => `${baseURL}/blogs/${id}/unpublish`,
   registerTechSister: `${baseURL}/auth/register/tech-sister`,
+  registerPartner: `${baseURL}/auth/register/partner`,
+  registerSponsor: `${baseURL}/auth/register/sponsor`,
   getCategories: `${baseURL}/blogs/categories`,
 };
 

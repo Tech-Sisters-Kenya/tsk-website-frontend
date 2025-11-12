@@ -2,19 +2,29 @@
 
 import React from 'react';
 import HeroSection from './HeroSection';
-import MissionVision from './MissionVision';
-import CoreValues from './CoreValues';
-import ValueToTechSisters from './ValueToTechSisters';
-import CallToAction from '@/components/CallToAction';
+// import MissionVision from './MissionVision';
+// import CoreValues from './CoreValues';
+// import ValueToTechSisters from './ValueToTechSisters';
+// import CallToAction from '@/components/CallToAction';
+import WhoWeAre from './WhoWeAre';
+import OurStory from './OurStory';
+import Gallery from '../landing-page/Gallery';
+import OurMantra from './OurMantra';
+import JoinUsOptions from './JoinUsOptions';
 
 export default function AboutUs() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between mx-8">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <HeroSection />
-      <MissionVision />
-      <CoreValues />
-      <ValueToTechSisters />
-      <CallToAction />
+      <WhoWeAre />
+      <OurStory />
+      <OurMantra />
+      <Gallery />
+      <JoinUsOptions />
+      {/* <MissionVision /> */}
+      {/* <CoreValues /> */}
+      {/* <ValueToTechSisters /> */}
+      {/* <CallToAction /> */}
     </main>
   );
 }

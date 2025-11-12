@@ -1,0 +1,38 @@
+/* Make the flag dropdown smaller and aligned */
+.PhoneInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.PhoneInputCountry {
+  display: flex;
+  align-items: center;
+  background-color: #f8ebfc;
+  padding: 1.2rem 0.75rem;
+  border-top-left-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  height: 100%;
+}
+
+.PhoneInputCountrySelect {
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.PhoneInputCountryIcon {
+  width: 25px; /* shrink flag size */
+  height: 20px; /* keep aspect ratio */
+  border-radius: 3px;
+  object-fit: contain;
+}
+
+.PhoneInputInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+}
