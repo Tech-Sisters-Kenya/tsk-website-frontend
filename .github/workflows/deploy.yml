@@ -30,6 +30,13 @@ jobs:
             echo "Removing old build artifacts"
             rm -rf .next node_modules
 
+            echo "📦 Checking for pnpm installation"
+            if ! command -v pnpm &> /dev/null
+            then
+              echo "Installing pnpm..."
+              npm install -g pnpm
+            fi
+
             echo "Installing ALL dependencies (including devDependencies)"
             pnpm install --frozen-lockfile
 
