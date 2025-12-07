@@ -9,6 +9,7 @@ import { useFetchSingleBlog } from '@/hooks/blog/fetch-single-blog';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 import { useFetchBlogAuthor } from '@/hooks/blog/fetch-blogAuthor';
 import DOMPurify from 'dompurify';
+import InitialDialog from '../(login)/InitialDialog';
 
 // ✅ Reusable loading state
 const LoadingState = () => (
@@ -109,6 +110,9 @@ export default function BlogPost() {
     <section className="w-full h-full">
       <div className="flex flex-col justify-center items-center md:px-20 px-10 md:py-32">
         {/* Main Blog Content */}
+        {/* TO BE REMOVED */}
+        <InitialDialog />
+        {/* TO BE REMOVED */}
         <div className="lg:my-24 my-10 flex flex-col gap-4 ">
           <h1 className="md:text-5xl text-3xl font-heading font-extrabold">{blog.title}</h1>
           {/* <p className="text-gray-600 mb-4">{blog.date}</p> */}
@@ -279,6 +283,7 @@ export default function BlogPost() {
               ))}
             </div>
           )}
+
           <Link href="/blogs">
             <Button className="mt-10">View All</Button>
           </Link>
