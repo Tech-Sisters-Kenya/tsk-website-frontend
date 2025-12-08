@@ -1,18 +1,21 @@
+'use client';
+
 import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CircleX } from 'lucide-react';
 
-function DialogTemplate({ title, children }: { title: string; children: React.ReactNode }) {
+type DialogTemplateProps = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  title: string;
+  children: React.ReactNode;
+};
+
+function DialogTemplate({ title, children, open, onOpenChange }: DialogTemplateProps) {
   return (
-    <Dialog.Root>
-      {/* to be removed */}
-      <Dialog.Trigger asChild>
-        <Button className="bg-tsk-primary-dark text-white">Login to your profile</Button>
-      </Dialog.Trigger>
-      {/* to be removed */}
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black/25 fixed -inset-0 z-50 animate-overlayShow" />
         <Dialog.Content className="bg-white rounded-xl shadow-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] max-w-2xl pt-24 px-6 pb-10 z-50 focus:outline-none animate-contentShow">
@@ -25,7 +28,7 @@ function DialogTemplate({ title, children }: { title: string; children: React.Re
           </Dialog.Title>
 
           {/* content */}
-          <Dialog.Description className="flex flex-col items-center">{children}</Dialog.Description>
+          <div className="flex flex-col items-center">{children}</div>
 
           {/* footer */}
           <div className="mt-8 flex flex-col items-center gap-4">
