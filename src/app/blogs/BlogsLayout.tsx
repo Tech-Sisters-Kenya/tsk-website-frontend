@@ -94,7 +94,7 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
   */
 
   return (
-    <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
       {items.map((item) => (
         <BlogCard key={item.id} item={item} />
       ))}
