@@ -8,7 +8,7 @@ export default function BlogsPage() {
       <BlogWelcomeHeader />
       <div className="flex flex-col items-center justify-between mx-8">
         <div className="w-full px-12 text-tsk-primary-dark mt-10">
-          <h3 className="font-body text-xl font-bold mb-5">Categories</h3>
+          <h3 className="font-body text-xl font-bold mb-5">All Blogs</h3>
           <TagSelector />
         </div>
       </div>

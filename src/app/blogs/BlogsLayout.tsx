@@ -1,11 +1,12 @@
 import React from 'react';
 import BlogCard from './BlogCard';
-import clsx from 'clsx';
 
 import { BlogItem } from './interface';
 
 function BlogsLayout({ items }: { items: BlogItem[] }) {
-  const rows = [];
+  /* 
+ Previous implementation of staggered grid layout
+ const rows = [];
   let idx = 0;
 
   while (idx < items.length) {
@@ -90,6 +91,14 @@ function BlogsLayout({ items }: { items: BlogItem[] }) {
     idx += 3;
   }
 
-  return <div className="p-4">{rows}</div>;
+  */
+
+  return (
+    <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+      {items.map((item) => (
+        <BlogCard key={item.id} item={item} />
+      ))}
+    </div>
+  );
 }
 export default BlogsLayout;
