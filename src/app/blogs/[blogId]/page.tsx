@@ -9,6 +9,7 @@ import { useFetchSingleBlog } from '@/hooks/blog/fetch-single-blog';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 import { useFetchBlogAuthor } from '@/hooks/blog/fetch-blogAuthor';
 import DOMPurify from 'dompurify';
+import Comments from './Comments';
 
 // ✅ Reusable loading state
 const LoadingState = () => (
@@ -227,6 +228,9 @@ export default function BlogPost() {
               )}
             </div>
           </div>
+          {/* Bookmark Component */}
+
+          <Comments />
         </div>
 
         {/* More Blogs Section */}
