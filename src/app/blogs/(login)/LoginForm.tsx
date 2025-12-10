@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
@@ -17,12 +17,16 @@ type LoginFormValues = {
   password: string;
 };
 
-function LoginForm() {
+function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
   const router = useRouter();
+  const params = useParams();
+
   const [loginError, setLoginError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { setAuthData } = useAuthStore();
+
+  const blogId = params?.blogId as string | undefined;
 
   const {
     register,
@@ -44,7 +48,7 @@ function LoginForm() {
         },
         body: JSON.stringify({
           email: data.email.trim(),
-          password: data.password,
+          password: data.password.trim(),
         }),
       });
 
@@ -82,8 +86,11 @@ function LoginForm() {
         // Store token in localStorage
         localStorage.setItem('authToken', result.token);
 
+        console.log('Login successful:', result);
+
         // Redirect to dashboard or home page after successful login
-        router.push('/');
+        router.push(`/blogs/${blogId}?userId=${result.user.id}`);
+        onSuccess?.();
       } else {
         throw new Error('Invalid response from server');
       }

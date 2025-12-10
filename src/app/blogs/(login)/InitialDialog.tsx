@@ -39,7 +39,7 @@ function InitialDialog() {
             </Button>
           </>
         )}
-        {step === 'login' && <LoginForm />}
+        {step === 'login' && <LoginForm onSuccess={() => setStep(null)} />}
       </DialogTemplate>
     </>
   );
