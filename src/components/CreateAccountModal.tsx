@@ -3,8 +3,6 @@ import Image from 'next/image';
 import logo from '@/assets/tsk-icon-logo.svg';
 import React, { useState } from 'react';
 import EmailSignupModal from '@/components/EmailSignupModal';
-import { signIn } from 'next-auth/react';
-
 interface SignUpModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -43,7 +41,9 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
 
         {/* Sign in with Google Button */}
         <button
-          onClick={() => signIn('google', { callbackUrl: '/' })}
+          onClick={() => {
+            window.location.href = 'https://api.techsisterskenya.org/api/auth/google/redirect';
+          }}
           className="w-full flex items-center justify-center gap-3 px-3 py-2 border-2 border-tsk-primary-dark rounded-lg mb-4 hover:bg-tsk-light-2 transition"
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
