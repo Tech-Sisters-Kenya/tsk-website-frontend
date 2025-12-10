@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Heart, MoreVertical, Edit2, Trash2, CircleUserIcon } from 'lucide-react';
 import BookmarkLike from './BookmarkLike';
 import Chats from '@/assets/chats.svg';
+import CreateAccountModal from '../../../components/CreateAccountModal';
 import Image from 'next/image';
 
 const API_BASE = 'https://api.techsisterskenya.org/api/blogs';
@@ -34,6 +35,7 @@ interface Comment {
 interface CommentsProps {
   blogId: string;
   currentUserId?: string;
+  onSignupClick: () => void;
 }
 
 // Utility: Transform API response to component format
@@ -136,6 +138,7 @@ const CommentInput: React.FC<{
   maxLength?: number;
   isReply?: boolean;
   isLoading?: boolean;
+  onSignupClick?: () => void;
 }> = ({
   onSubmit,
   onCancel,
@@ -144,6 +147,7 @@ const CommentInput: React.FC<{
   maxLength = 100,
   isReply = false,
   isLoading = false,
+  onSignupClick,
 }) => {
   const [content, setContent] = useState(initialValue);
   const [showAuth, setShowAuth] = useState(false);
@@ -219,7 +223,7 @@ const CommentInput: React.FC<{
               Want to join the conversation?
             </h2>
             <button
-              onClick={() => setShowAuth(false)}
+              onClick={onSignupClick}
               className="w-full bg-tsk-primary-dark text-white py-3 rounded-full font-body font-medium"
             >
               Sign Up
@@ -414,6 +418,7 @@ const Comments: React.FC<CommentsProps> = ({ blogId, currentUserId }) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isPostingComment, setIsPostingComment] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
 
   // Fetch comments on mount
   useEffect(() => {
@@ -627,7 +632,13 @@ const Comments: React.FC<CommentsProps> = ({ blogId, currentUserId }) => {
               height={100}
               className="w-2/5 h-2/5"
             />
-            <button className="absolute inset-0 m-auto bottom-5 bg-tsk-primary-dark text-white lg:px-12 md:px-8 px-4 sm:py-3 py-1 rounded-2xl font-heading md:font-black font-medium flex items-center justify-center w-fit h-fit lg:text-2xl sm:text-lg">
+            <button
+              onClick={() => {
+                setShowAuthModal(false);
+                setShowSignupModal(true);
+              }}
+              className="absolute inset-0 m-auto bottom-5 bg-tsk-primary-dark text-white lg:px-12 md:px-8 px-4 sm:py-3 py-1 rounded-2xl font-heading md:font-black font-medium flex items-center justify-center w-fit h-fit lg:text-2xl sm:text-lg"
+            >
               Sign Up
             </button>
           </div>
@@ -648,7 +659,10 @@ const Comments: React.FC<CommentsProps> = ({ blogId, currentUserId }) => {
               </svg>
             </div>
             <button
-              onClick={() => setShowAuthModal(false)}
+              onClick={() => {
+                setShowAuthModal(false);
+                setShowSignupModal(true);
+              }}
               className="w-full bg-tsk-primary-dark text-white py-3 rounded-full font-body font-medium"
             >
               Good stuff, I want in!
@@ -661,6 +675,9 @@ const Comments: React.FC<CommentsProps> = ({ blogId, currentUserId }) => {
             </button>
           </div>
         </div>
+      )}
+      {showSignupModal && (
+        <CreateAccountModal isOpen={showSignupModal} onClose={() => setShowSignupModal(false)} />
       )}
     </>
   );
