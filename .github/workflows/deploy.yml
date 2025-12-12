@@ -30,11 +30,18 @@ jobs:
             echo "Removing old build artifacts"
             rm -rf .next node_modules
 
+            echo "📦 Checking for pnpm installation"
+            if ! command -v pnpm &> /dev/null
+            then
+              echo "Installing pnpm..."
+              npm install -g pnpm
+            fi
+
             echo "Installing ALL dependencies (including devDependencies)"
-            npm ci
+            pnpm install --frozen-lockfile
 
             echo "Building Next.js app"
-            NODE_ENV=production npm run build
+            NODE_ENV=production pnpm run build
 
             echo "Restarting PM2 process"
             pm2 reload ecosystem.config.js --only tsk-frontend || pm2 start ecosystem.config.js --only tsk-frontend
