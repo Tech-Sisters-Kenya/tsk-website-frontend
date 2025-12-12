@@ -15,23 +15,21 @@ jest.mock('@/assets/tsk-icon-logo.svg', () => '/mock-logo.svg');
 jest.mock('@/assets/user.svg', () => '/mock-user.svg');
 jest.mock('@/assets/useremail.svg', () => '/mock-email.svg');
 
-// eslint-disable-next-line react/display-name
-jest.mock(
-  '@/components/EmailVerificationModal',
-  () =>
-    ({ fullName, email, isOpen, onClose }: any) => {
-      if (!isOpen) return null;
-      return (
-        <div data-testid="email-verification-modal">
-          <span>
-            Verify Email for {fullName} ({email})
-          </span>
-          <button onClick={onClose}>Close Verification</button>
-        </div>
-      );
-    }
-);
-
+jest.mock('@/components/EmailVerificationModal', () => {
+  const MockEmailVerificationModal = ({ fullName, email, isOpen, onClose }: any) => {
+    if (!isOpen) return null;
+    return (
+      <div data-testid="email-verification-modal">
+        <span>
+          Verify Email for {fullName} ({email})
+        </span>
+        <button onClick={onClose}>Close Verification</button>
+      </div>
+    );
+  };
+  MockEmailVerificationModal.displayName = 'MockEmailVerificationModal';
+  return MockEmailVerificationModal;
+});
 describe('EmailSignupModal', () => {
   const mockOnClose = jest.fn();
 
