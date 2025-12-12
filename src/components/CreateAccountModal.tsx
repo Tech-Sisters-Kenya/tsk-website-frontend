@@ -14,10 +14,15 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div
+      data-testid="signup-modal"
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+    >
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 sm:p-10 md:p-14 lg:p-16 relative">
         {/* Close Button */}
         <button
+          aria-label="Close"
+          data-testid="close-button"
           onClick={onClose} // Changed from setIsOpen(false)
           className="absolute top-6 right-6 flex items-center gap-2 text-tsk-primary-dark hover:text-tsk-primary-dark transition"
         >
@@ -30,7 +35,14 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
         {/* Logo */}
         <div className="flex justify-center mb-6 mt-6">
           <div className="w-12 h-12 rounded-full flex items-center justify-center">
-            <Image src={logo} alt="Logo" width={64} height={64} className="object-contain" />
+            <Image
+              src={logo}
+              alt="Logo"
+              width={64}
+              height={64}
+              className="object-contain"
+              data-testid="logo"
+            />
           </div>
         </div>
 
@@ -41,6 +53,7 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
 
         {/* Sign in with Google Button */}
         <button
+          data-testid="google-button"
           onClick={() => {
             window.location.href = 'https://api.techsisterskenya.org/api/auth/google/redirect';
           }}
@@ -71,6 +84,7 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
 
         {/* Sign in with Email Button */}
         <button
+          data-testid="email-button"
           onClick={() => {
             setShowEmailSignup(true);
           }}
@@ -116,7 +130,9 @@ export default function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
           </a>
         </p>
       </div>
-      <EmailSignupModal isOpen={showEmailSignup} onClose={() => setShowEmailSignup(false)} />
+      {showEmailSignup && (
+        <EmailSignupModal isOpen={showEmailSignup} onClose={() => setShowEmailSignup(false)} />
+      )}
     </div>
   );
 }

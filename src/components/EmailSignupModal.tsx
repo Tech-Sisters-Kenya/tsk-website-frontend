@@ -49,7 +49,6 @@ export default function EmailSignupModal({ isOpen, onClose }: EmailSignUpModalPr
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-foreground rounded-2xl shadow-2xl max-w-md w-full relative p-10">
-        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-6 right-6 flex items-center gap-2 text-tsk-primary-dark hover:text-tsk-primary-dark transition"
@@ -59,18 +58,13 @@ export default function EmailSignupModal({ isOpen, onClose }: EmailSignUpModalPr
           </span>
           <span className="font-semibold text-tsk-primary-dark">Close</span>
         </button>
-
-        {/* Logo */}
         <div className="flex justify-center mb-4 mt-6">
           <div className="w-12 h-12 rounded-full flex items-center justify-center">
             <Image src={logo} alt="Logo" width={64} height={64} className="object-contain" />
           </div>
         </div>
-
-        {/* Title */}
         <h2 className="text-2xl font-semibold font-heading text-center mb-2">Sign up with Email</h2>
 
-        {/* User input */}
         <div className="mb-2">
           <label className="block text-sm font-body font-semibold text-tsk-primary-dark">
             Full Name
@@ -118,14 +112,14 @@ export default function EmailSignupModal({ isOpen, onClose }: EmailSignUpModalPr
             />
           </div>
         </div>
-        {/* Create Account Button */}
+
         <Button
           onClick={handleSubmit}
           className="w-full bg-tsk-primary-dark text-foreground font-semibold mb-6"
         >
           Create Account
         </Button>
-        {/* Footer */}
+
         <p className="text-center text-tsk-primary-dark font-body text-sm mb-2">
           Already have an account?{' '}
           <Link href="/login" className="text-tsk-primary-dark underline font-bold">
