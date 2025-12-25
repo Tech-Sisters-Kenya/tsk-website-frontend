@@ -43,11 +43,21 @@ module.exports = {
           '0%, 100%': { transform: 'scale(1, 1)' },
           '50%': { transform: 'scale(1.2, 0.8)' },
         },
+        overlayShow: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+        contentShow: {
+          '0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },
+          '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+        },
       },
       animation: {
         elasticswing: 'elasticswing 6s cubic-bezier(1, -0.65, 0.3, 1.65) infinite',
         zoom: 'zoom 6s cubic-bezier(0.37, 0, 0.63, 1) infinite',
         squashstretch: 'squashstretch 5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite',
+        overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        contentShow: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
     screens: {
