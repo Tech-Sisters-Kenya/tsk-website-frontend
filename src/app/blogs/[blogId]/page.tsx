@@ -2,6 +2,7 @@
 import Button from '@/components/Button';
 import Image from 'next/image';
 import React from 'react';
+import { useState } from 'react';
 // import blogs from '@/data/blog-content';
 import { notFound, useParams } from 'next/navigation';
 import Link from 'next/link';
@@ -9,9 +10,11 @@ import { useFetchSingleBlog } from '@/hooks/blog/fetch-single-blog';
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 import { useFetchBlogAuthor } from '@/hooks/blog/fetch-blogAuthor';
 import DOMPurify from 'dompurify';
+import Comments from './Comments';
+import CreateAccountModal from '@/components/CreateAccountModal';
 import InitialDialog from '../(login)/InitialDialog';
 
-// ✅ Reusable loading state
+//  Reusable loading state
 const LoadingState = () => (
   <div className="flex flex-col items-center justify-center min-h-[300px] text-tsk-primary-dark">
     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-tsk-primary-dark mb-4"></div>
@@ -19,7 +22,7 @@ const LoadingState = () => (
   </div>
 );
 
-// ✅ Reusable error state
+//  Reusable error state
 const ErrorState = ({ message }: { message?: string }) => (
   <div className="flex flex-col items-center justify-center min-h-[300px] text-red-600">
     <Image src="/error-icon.svg" alt="Error" width={50} height={50} />
@@ -51,6 +54,7 @@ interface Blog {
 }
 
 export default function BlogPost() {
+  const [showSignupModal, setShowSignupModal] = useState(false);
   const params = useParams();
   const blogSlug = params.blogId;
 
@@ -231,6 +235,11 @@ export default function BlogPost() {
               )}
             </div>
           </div>
+          {/* Bookmark Component */}
+
+          <Comments blogId={blog.id} onSignupClick={() => setShowSignupModal(true)} />
+
+          <CreateAccountModal isOpen={showSignupModal} onClose={() => setShowSignupModal(false)} />
         </div>
 
         {/* More Blogs Section */}
