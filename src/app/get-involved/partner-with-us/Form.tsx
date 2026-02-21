@@ -216,8 +216,8 @@ function Form() {
             error={errors.preferred_communication_channel}
             label="Preferred communication channel"
             options={[
-              { label: 'Email', value: 'Email' },
-              { label: 'Phone', value: 'Phone' },
+              { label: 'Email', value: 'email' },
+              { label: 'Phone', value: 'phone' },
             ]}
           />
         </div>
