@@ -8,7 +8,7 @@ export const endpoints = {
   /*Note that for endpoints which require the id to be passed in, we cant have the id in the endpoint as is. we need to have a function that takes in the id as a parameter then passes it to the actual url */
   getComment: (id: string) => `${baseURL}/blogs/comments/${id}`,
   updateComment: (id: string) => `${baseURL}/blogs/comments/${id}`,
-  addComment: (id: string) => `${baseURL}/blogs/comments/${id}`,
+  addComment: (blog_id: string) => `${baseURL}/blogs/${blog_id}/comments`,
   deleteComment: (id: string) => `${baseURL}/blogs/comments/${id}`,
   listComments: (blog_id: string) => `${baseURL}/blogs/${blog_id}/comments`,
   getBlogs: `${baseURL}/blogs`,

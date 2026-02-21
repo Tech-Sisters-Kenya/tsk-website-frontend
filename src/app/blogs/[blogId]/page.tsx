@@ -13,6 +13,7 @@ import DOMPurify from 'dompurify';
 import Comments from './Comments';
 import CreateAccountModal from '@/components/CreateAccountModal';
 import InitialDialog from '../(login)/InitialDialog';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 //  Reusable loading state
 const LoadingState = () => (
@@ -54,6 +55,7 @@ interface Blog {
 }
 
 export default function BlogPost() {
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const params = useParams();
   const blogSlug = params.blogId;
@@ -114,9 +116,7 @@ export default function BlogPost() {
     <section className="w-full h-full">
       <div className="flex flex-col justify-center items-center md:px-20 px-10 md:py-32">
         {/* Main Blog Content */}
-        {/* TO BE REMOVED */}
-        <InitialDialog />
-        {/* TO BE REMOVED */}
+        {!isAuthenticated && <InitialDialog />}
         <div className="lg:my-24 my-10 flex flex-col gap-4 ">
           <h1 className="md:text-5xl text-3xl font-heading font-extrabold">{blog.title}</h1>
           {/* <p className="text-gray-600 mb-4">{blog.date}</p> */}

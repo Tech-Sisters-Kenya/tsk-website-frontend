@@ -4,8 +4,10 @@ import BookmarkLike from './BookmarkLike';
 import Chats from '@/assets/chats.svg';
 import CreateAccountModal from '../../../components/CreateAccountModal';
 import Image from 'next/image';
+import { baseURL, endpoints } from '@/api/constants';
+import { useAuthStore } from '@/stores/useAuthStore';
 
-const API_BASE = 'https://api.techsisterskenya.org/api/blogs';
+const API_BASE = `${baseURL}/blogs`;
 
 // Types
 interface ApiComment {
@@ -71,18 +73,41 @@ const transformComment = (apiComment: ApiComment, currentUserId?: string): Comme
 // API Functions
 const api = {
   getComments: async (blogId: string): Promise<Comment[]> => {
-    const res = await fetch(`${API_BASE}/${blogId}/comments`);
+    const storeToken = useAuthStore.getState().token;
+    const lsToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    const token = storeToken || lsToken;
+    const res = await fetch(endpoints.listComments(blogId), {
+      headers: {
+        Accept: 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    });
     if (!res.ok) throw new Error('Failed to fetch comments');
-    const data = await res.json();
-    return data.data.map((c: ApiComment) => transformComment(c));
+    const json = await res.json();
+    const arr = Array.isArray(json?.data)
+      ? json.data
+      : Array.isArray(json?.data?.data)
+        ? json.data.data
+        : Array.isArray(json?.data?.comments)
+          ? json.data.comments
+          : Array.isArray(json?.comments)
+            ? json.comments
+            : [];
+    return arr.map((c: ApiComment) => transformComment(c));
   },
 
   postComment: async (blogId: string, comment: string, parentId?: string): Promise<ApiComment> => {
-    const res = await fetch(`${API_BASE}/comments`, {
+    const storeToken = useAuthStore.getState().token;
+    const lsToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    const token = storeToken || lsToken;
+    const res = await fetch(endpoints.addComment(blogId), {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ blog_id: blogId, comment, parent_id: parentId }),
-      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify({ comment, parent_id: parentId }),
     });
     if (!res.ok) throw new Error('Failed to post comment');
     const data = await res.json();
@@ -90,11 +115,17 @@ const api = {
   },
 
   updateComment: async (commentId: string, comment: string): Promise<ApiComment> => {
-    const res = await fetch(`${API_BASE}/comments/${commentId}`, {
+    const storeToken = useAuthStore.getState().token;
+    const lsToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    const token = storeToken || lsToken;
+    const res = await fetch(endpoints.updateComment(commentId), {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
       body: JSON.stringify({ comment }),
-      credentials: 'include',
     });
     if (!res.ok) throw new Error('Failed to update comment');
     const data = await res.json();
@@ -102,17 +133,29 @@ const api = {
   },
 
   deleteComment: async (commentId: string): Promise<void> => {
-    const res = await fetch(`${API_BASE}/comments/${commentId}`, {
+    const storeToken = useAuthStore.getState().token;
+    const lsToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    const token = storeToken || lsToken;
+    const res = await fetch(endpoints.deleteComment(commentId), {
       method: 'DELETE',
-      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
     });
     if (!res.ok) throw new Error('Failed to delete comment');
   },
 
   likeComment: async (commentId: string): Promise<{ liked: boolean; likes_count: string }> => {
+    const storeToken = useAuthStore.getState().token;
+    const lsToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    const token = storeToken || lsToken;
     const res = await fetch(`${API_BASE}/comments/${commentId}/like`, {
       method: 'POST',
-      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
     });
     if (!res.ok) throw new Error('Failed to like comment');
     const data = await res.json();
@@ -120,9 +163,15 @@ const api = {
   },
 
   unlikeComment: async (commentId: string): Promise<{ liked: boolean; likes_count: string }> => {
+    const storeToken = useAuthStore.getState().token;
+    const lsToken = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    const token = storeToken || lsToken;
     const res = await fetch(`${API_BASE}/comments/${commentId}/like`, {
       method: 'DELETE',
-      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
     });
     if (!res.ok) throw new Error('Failed to unlike comment');
     const data = await res.json();
@@ -160,7 +209,7 @@ const CommentInput: React.FC<{
   };
 
   const handleFocus = () => {
-    const isLoggedIn = false;
+    const isLoggedIn = useAuthStore.getState().isAuthenticated;
     if (!isLoggedIn && !isReply) {
       setShowAuth(true);
     }
@@ -561,7 +610,7 @@ const Comments: React.FC<CommentsProps> = ({ blogId, currentUserId }) => {
   };
 
   const handleLoadMore = () => {
-    const isLoggedIn = false;
+    const isLoggedIn = useAuthStore.getState().isAuthenticated;
     if (!isLoggedIn) {
       setShowAuthModal(true);
     } else {
