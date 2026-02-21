@@ -307,7 +307,7 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
           about: formData.about || null,
           status: 'pending',
           technical_event_preferences: formData.expertiseAreas,
-          areas_of_expertise_to_develop: formData.expertiseAreas
+          areas_of_expertise_interested_in_developing: formData.expertiseAreas
             .split(',')
             .map((s) => s.trim())
             .filter(Boolean),
@@ -335,7 +335,9 @@ const Form: React.FC<FormProps> = ({ setActiveTab }) => {
             const fieldErrors: Record<string, { message: string }> = {};
             Object.entries(data.errors).forEach(([field, messages]) => {
               const message = Array.isArray(messages) ? messages[0] : String(messages);
-              fieldErrors[field] = { message };
+              const mappedField =
+                field === 'areas_of_expertise_interested_in_developing' ? 'expertiseAreas' : field;
+              fieldErrors[mappedField] = { message };
             });
             setErrors(fieldErrors);
             throw new Error('Please correct the errors in the form');
