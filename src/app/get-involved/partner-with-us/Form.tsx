@@ -66,7 +66,7 @@ function Form() {
       console.log('Server result:', result);
 
       if (!response.ok) {
-        console.error('Server error response:', trimmedData);
+        console.error('Server error response:', result);
 
         if (response.status === 422 && result.errors) {
           // Handle validation errors
