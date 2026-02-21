@@ -1,22 +1,27 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { BlogItem } from './interface';
 import Pagination from './Pagination';
 
 import { useFetchBlogs } from '@/hooks/blog/fetch-blogs';
 import { useFetchCategories } from '@/hooks/blog/fetch-categories';
-import { Search as SearchIcon } from 'lucide-react';
+import { Search as SearchIcon, ChevronDown } from 'lucide-react';
 
 function TagSelector() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('Categories');
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { data, isLoading, error } = useFetchBlogs();
   const blogs: BlogItem[] = useMemo(() => data?.data || [], [data]);
 
   const { data: categoriesPayload } = useFetchCategories();
-  const categories: { id: string; name: string }[] = categoriesPayload?.data || [];
+  const categories: { id: string; name: string }[] = useMemo(
+    () => categoriesPayload?.data || [],
+    [categoriesPayload]
+  );
 
   // derive category options from available blogs to avoid extra requests and keep tests stable
   const categoryOptions = useMemo(() => {
@@ -48,6 +53,18 @@ function TagSelector() {
     return result;
   }, [blogs, selectedCategory, searchQuery]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
   if (!blogs.length) return <div>No Blogs Found</div>;
@@ -72,19 +89,51 @@ function TagSelector() {
             data-testid="blog-search"
           />
         </div>
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          aria-label="Filter by category"
-          className="border border-tsk-primary-dark rounded-2xl px-4 py-2 font-body text-tsk-primary-dark bg-white"
-          data-testid="category-select"
-        >
-          {categoryOptions.map((name) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </select>
+        <div ref={dropdownRef} className="relative w-full sm:w-auto">
+          <button
+            type="button"
+            onClick={() => setIsOpen((v) => !v)}
+            aria-haspopup="listbox"
+            aria-expanded={isOpen}
+            data-testid="category-select"
+            className="w-full sm:w-64 py-3 px-3 border rounded-xl flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-[#45084A] focus:border-transparent text-left border-[#45084A]/50"
+          >
+            <span
+              className={selectedCategory === 'Categories' ? 'text-[#45084A]/50' : 'text-[#45084A]'}
+            >
+              {selectedCategory}
+            </span>
+            <ChevronDown
+              className={`w-5 h-5 text-[#45084A] transition-transform ${isOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
+          {isOpen && (
+            <div
+              role="listbox"
+              className="absolute z-10 w-full sm:w-64 mt-1 bg-white border border-[#45084A]/50 rounded-xl shadow-lg"
+            >
+              {categoryOptions.map((name) => (
+                <button
+                  key={name}
+                  type="button"
+                  role="option"
+                  aria-selected={selectedCategory === name}
+                  onClick={() => {
+                    setSelectedCategory(name);
+                    setIsOpen(false);
+                  }}
+                  className={`w-full px-3 py-3 text-left border-b border-[#45084A]/10 last:border-b-0 first:rounded-t-xl last:rounded-b-xl ${
+                    selectedCategory === name
+                      ? 'bg-[#efd5f8] text-tsk-primary'
+                      : 'hover:bg-gray-50 text-[#45084A]'
+                  }`}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <Pagination blogs={filteredBlogs} />
