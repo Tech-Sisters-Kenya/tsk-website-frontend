@@ -22,7 +22,7 @@ export const endpoints = {
   registerTechSister: `${baseURL}/auth/register/tech-sister`,
   registerPartner: `${baseURL}/auth/register/partner`,
   registerSponsor: `${baseURL}/auth/register/sponsor`,
-  getCategories: `${baseURL}/blogs/categories`,
+  getCategories: `${baseURL}/blog-categories`,
 };
 
 //these are queryKeys for the query functions
