@@ -13,6 +13,7 @@ function TagSelector() {
   const [selectedCategory, setSelectedCategory] = useState<string>('Categories');
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [pendingCategory, setPendingCategory] = useState<string>('Categories');
 
   const { data, isLoading, error } = useFetchBlogs();
   const blogs: BlogItem[] = useMemo(() => data?.data || [], [data]);
@@ -92,11 +93,14 @@ function TagSelector() {
         <div ref={dropdownRef} className="relative w-full sm:w-auto">
           <button
             type="button"
-            onClick={() => setIsOpen((v) => !v)}
+            onClick={() => {
+              setPendingCategory(selectedCategory);
+              setIsOpen((v) => !v);
+            }}
             aria-haspopup="listbox"
             aria-expanded={isOpen}
             data-testid="category-select"
-            className="w-full sm:w-64 py-3 px-3 border rounded-xl flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-[#45084A] focus:border-transparent text-left border-[#45084A]/50"
+            className="w-full sm:w-64 py-2 px-4 border border-tsk-primary-dark rounded-2xl flex justify-between items-center focus:outline-none text-left"
           >
             <span
               className={selectedCategory === 'Categories' ? 'text-[#45084A]/50' : 'text-[#45084A]'}
@@ -112,25 +116,47 @@ function TagSelector() {
               role="listbox"
               className="absolute z-10 w-full sm:w-64 mt-1 bg-white border border-[#45084A]/50 rounded-xl shadow-lg"
             >
-              {categoryOptions.map((name) => (
+              <div>
+                {categoryOptions.map((name) => (
+                  <button
+                    key={name}
+                    type="button"
+                    role="option"
+                    aria-selected={pendingCategory === name}
+                    onClick={() => setPendingCategory(name)}
+                    className={`w-full px-3 py-3 text-left border-b border-[#45084A]/10 last:border-b-0 first:rounded-t-xl ${
+                      pendingCategory === name
+                        ? 'bg-[#efd5f8] text-tsk-primary'
+                        : 'hover:bg-gray-50 text-[#45084A]'
+                    }`}
+                  >
+                    {name}
+                  </button>
+                ))}
+              </div>
+              <div className="flex items-center gap-3 p-3 border-t border-[#45084A]/10">
                 <button
-                  key={name}
                   type="button"
-                  role="option"
-                  aria-selected={selectedCategory === name}
+                  className="flex-1 py-2.5 px-3 border border-[#45084A]/50 rounded-xl text-[#45084A] hover:bg-gray-50"
                   onClick={() => {
-                    setSelectedCategory(name);
+                    setPendingCategory('Categories');
+                    setSelectedCategory('Categories');
                     setIsOpen(false);
                   }}
-                  className={`w-full px-3 py-3 text-left border-b border-[#45084A]/10 last:border-b-0 first:rounded-t-xl last:rounded-b-xl ${
-                    selectedCategory === name
-                      ? 'bg-[#efd5f8] text-tsk-primary'
-                      : 'hover:bg-gray-50 text-[#45084A]'
-                  }`}
                 >
-                  {name}
+                  Reset
                 </button>
-              ))}
+                <button
+                  type="button"
+                  className="flex-1 py-2.5 px-3 rounded-xl text-white bg-[#45084A] hover:bg-[#3b073f]"
+                  onClick={() => {
+                    setSelectedCategory(pendingCategory);
+                    setIsOpen(false);
+                  }}
+                >
+                  Apply
+                </button>
+              </div>
             </div>
           )}
         </div>
