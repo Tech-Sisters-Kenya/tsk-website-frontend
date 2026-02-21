@@ -1,5 +1,6 @@
 'use client';
 import Button from '@/components/Button';
+import { endpoints } from '@/api/constants';
 import React, { useState } from 'react';
 import SuccessModal from './SuccessModal';
 
@@ -41,10 +42,11 @@ const ContactForm = () => {
     setError(null);
 
     try {
-      const response = await fetch('https://api.techsisterskenya.org/api/contact', {
+      const response = await fetch(endpoints.contact, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify({
           full_name: formData.fullName,
